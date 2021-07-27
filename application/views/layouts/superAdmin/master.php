@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-	<title>Dashboard Admin</title>
+	<title>Dashboard Super Admin</title>
 
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,10 +21,10 @@
 	<div id="app">
 		<div class="main-wrapper">
 			<!-- Header -->
-			<?php $this->load->view('layouts/admin/header') ?>
+			<?php $this->load->view('layouts/superAdmin/header') ?>
 
 			<!-- Sidebar -->
-			<?php $this->load->view('layouts/admin/sidebar') ?>
+			<?php $this->load->view('layouts/superAdmin/sidebar') ?>
 
 			<!-- Main Content -->
 			<div class="main-content">
@@ -32,7 +32,7 @@
 			</div>
 
 			<!-- Footer -->
-			<?php $this->load->view('layouts/admin/footer') ?>
+			<?php $this->load->view('layouts/superAdmin/footer') ?>
 		</div>
 	</div>
 
