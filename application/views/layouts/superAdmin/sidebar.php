@@ -19,8 +19,8 @@
 				</a>
 			</li>
 			<li class="menu-header">Validasi Data</li>
-			<li>
-				<a class="nav-link" href="#">
+			<li <?= $this->uri->segment(2) == 'validasiOwner' || $this->uri->segment(2) == 'validasiDetail' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('superadmin/validasiOwner') ?>">
 					<i class="fas fa-ban" style="color: #fc544b;"></i> <span>Data Belum Valid</span>
 				</a>
 			</li>

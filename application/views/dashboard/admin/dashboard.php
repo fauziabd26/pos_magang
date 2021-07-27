@@ -84,7 +84,7 @@
 							<table class="table table-striped">
 								<tbody>
 									<tr>
-										<th>Transaksi ID</th>
+										<th>Nomer Transaksi</th>
 										<th>Nama Customer</th>
 										<th>Jenis Transaksi</th>
 										<th>Tanggal</th>
@@ -94,7 +94,7 @@
 										<td><a href="#">INV-87239</a></td>
 										<td class="font-weight-600">Kusnadi</td>
 										<td>
-											<div class="badge badge-warning">Unpaid</div>
+											<div class="badge badge-primary">Produk</div>
 										</td>
 										<td>July 19, 2018</td>
 										<td>
@@ -105,7 +105,7 @@
 										<td><a href="#">INV-48574</a></td>
 										<td class="font-weight-600">Hasan Basri</td>
 										<td>
-											<div class="badge badge-success">Paid</div>
+											<div class="badge badge-success">Jasa</div>
 										</td>
 										<td>July 21, 2018</td>
 										<td>
@@ -116,7 +116,7 @@
 										<td><a href="#">INV-76824</a></td>
 										<td class="font-weight-600">Muhamad Nuruzzaki</td>
 										<td>
-											<div class="badge badge-warning">Unpaid</div>
+											<div class="badge badge-primary">Produk</div>
 										</td>
 										<td>July 22, 2018</td>
 										<td>
@@ -127,7 +127,7 @@
 										<td><a href="#">INV-84990</a></td>
 										<td class="font-weight-600">Agung Ardiansyah</td>
 										<td>
-											<div class="badge badge-warning">Unpaid</div>
+											<div class="badge badge-primary">Produk</div>
 										</td>
 										<td>July 22, 2018</td>
 										<td>
@@ -138,7 +138,7 @@
 										<td><a href="#">INV-87320</a></td>
 										<td class="font-weight-600">Ardian Rahardiansyah</td>
 										<td>
-											<div class="badge badge-success">Paid</div>
+											<div class="badge badge-success">Jasa</div>
 										</td>
 										<td>July 28, 2018</td>
 										<td>
