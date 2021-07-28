@@ -5,13 +5,38 @@ class SuperAdmin extends CI_Controller
 {
 	public function dashboard()
 	{
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/dashboard');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+		
+		// Count Data JSON
+		$totalOwner = 0;
+		foreach ($datas["user"] as $value) {
+			foreach ($value['role'] as $role) {
+				if ($role["id_role"] == 2) {
+					$totalOwner = $totalOwner + 1;
+				}
+			}
+		}
+		
+		$data = array('owners' => $datas["user"]);
+		$data['totalOwner'] = $totalOwner; //Object
+
+		// Count Data JSON 
+		// $data['totalOwner'] = count($datas["user"]);
+
+
+		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/dashboard', $data);
 	}
 
 	// Bagian Owner
 	public function owner()
 	{
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/index');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('owners' => $datas["user"]);
+
+		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/index', $data);
 	}
 
 	public function ownerEdit()
@@ -27,7 +52,12 @@ class SuperAdmin extends CI_Controller
 	// Bagian Validasi
 	public function validasiOwner()
 	{
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/validasi/index');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('owners' => $datas["user"]);
+
+		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/validasi/index', $data);
 	}
 
 	public function validasiDetail()

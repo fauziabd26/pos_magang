@@ -2,8 +2,8 @@
 	<div class="section-header">
 		<h1>Detail Data Owner Belum Valid</h1>
 		<div class="section-header-breadcrumb">
-			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/validasiOwner') ?>">Data Owner Belum Valid</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('superAdmin/dashboard') ?>">Dashboard</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('superAdmin/validasiOwner') ?>">Data Owner Belum Valid</a></div>
 			<div class="breadcrumb-item">Dimas Addriansyah</div>
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 			<div class="card-body">
 				<div class="row mb-4">
 					<div class="col">
-						<a href="<?= base_url('superadmin/validasiOwner') ?>" class="btn btn-primary">
+						<a href="<?= base_url('superAdmin/validasiOwner') ?>" class="btn btn-primary">
 							<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Owner Belum Valid
 						</a>
 					</div>

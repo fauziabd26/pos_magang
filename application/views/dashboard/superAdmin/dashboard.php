@@ -19,7 +19,7 @@
 								<div class="card-stats-item-label">Valid</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count">23 <i class="fas fa-user" style="color: #6777ef;"></i></div>
+								<div class="card-stats-item-count"><?= $totalOwner ?> <i class="fas fa-user" style="color: #6777ef;"></i></div>
 								<div class="card-stats-item-label">Total</div>
 							</div>
 						</div>
@@ -38,75 +38,30 @@
 					<div class="card-body p-0">
 						<div class="table-responsive table-invoice">
 							<table class="table table-striped">
+								<thead>
+									<th>No</th>
+									<th>Nama Owner</th>
+									<th>Nama Toko</th>
+									<th>Email</th>
+									<th>Foto</th>
+									<th>Action</th>
+									</tr>
+								</thead>
 								<tbody>
-									<tr>
-										<th>No</th>
-										<th>Nama Owner</th>
-										<th>Nama Toko</th>
-										<th>Email</th>
-										<th>Foto</th>
-										<th>Action</th>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td class="font-weight-600">Kusnadi</td>
-										<td>Toko Adidaya</td>
-										<td>kusnadi@gmail.com</td>
-										<td>
-											<img src="<?= base_url('assets\ktp\ktp.jpg') ?>" height="150px" width="150px">
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td class="font-weight-600">Hasan Basri</td>
-										<td>Toko Adidaya</td>
-										<td>hasan@gmail.com</td>
-										<td>
-											<img src="<?= base_url('assets\ktp\ktp.jpg') ?>" height="150px" width="150px">
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td class="font-weight-600">Muhamad Nuruzzaki</td>
-										<td>Toko Adidaya</td>
-										<td>muhammad@gmail.com</td>
-										<td>
-											<img src="<?= base_url('assets\ktp\ktp.jpg') ?>" height="150px" width="150px">
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td class="font-weight-600">Agung Ardiansyah</td>
-										<td>Toko Adidaya</td>
-										<td>agung@gmail.com</td>
-										<td>
-											<img src="<?= base_url('assets\ktp\ktp.jpg') ?>" height="150px" width="150px">
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td class="font-weight-600">Ardian Rahardiansyah</td>
-										<td>Toko Adidaya</td>
-										<td>ardian@gmail.com</td>
-										<td>
-											<img src="<?= base_url('assets\ktp\ktp.jpg') ?>" height="150px" width="150px">
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
+									<?php foreach ($owners as $no => $owner) : ?>
+										<tr>
+											<td><?= ++$no ?></td>
+											<td class="font-weight-600"><?= $owner["nama"] ?></td>
+											<td><?= $owner["toko"] ?? "-" ?></td>
+											<td><?= $owner["email"] ?? "-" ?></td>
+											<td>
+												<img src="<?= base_url('assets\ktp\ktp.jpg') ?>" height="150px" width="150px">
+											</td>
+											<td>
+												<a href="#" class="btn btn-primary">Detail</a>
+											</td>
+										</tr>
+									<?php endforeach; ?>
 								</tbody>
 							</table>
 						</div>
