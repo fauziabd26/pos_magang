@@ -30,17 +30,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Dimas Addriansyah</td>
-								<td>dimas@gmail.com</td>
-								<td>Indramayu</td>
-								<td>08976523412</td>
-								<td>
-									<a href="<?= base_url('admin/customerEdit') ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</td>
-							</tr>
+							<?php foreach ($customers as $no => $customer) : ?>
+								<tr>
+									<td><?= ++$no ?></td>
+									<td><?= $customer["nama"] ?></td>
+									<td><?= $customer["email"] ?></td>
+									<td><?= $customer["alamat"] ?></td>
+									<td><?= $customer["no_hp"] ?></td>
+									<td>
+										<a href="<?= base_url('admin/customerEdit') ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>

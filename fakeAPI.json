@@ -65,6 +65,50 @@
       "password": "verliana",
       "no_hp": "089543242123",
       "alamat": "Balongan, Jawa Barat"
+    },
+    {
+      "id_user": 5,
+      "role": [
+        { "id_role": 4, "nama_role": "customer", "deskripsi_role": "customer" }
+      ],
+      "nama": "Customer Satu",
+      "email": "customersatu@gmail.com",
+      "password": "customersatu",
+      "no_hp": "089543242123",
+      "alamat": "Cirebon, Jawa Barat"
+    },
+    {
+      "id_user": 6,
+      "role": [
+        { "id_role": 4, "nama_role": "customer", "deskripsi_role": "customer" }
+      ],
+      "nama": "Customer Dua",
+      "email": "customerdua@gmail.com",
+      "password": "customerdua",
+      "no_hp": "089543242123",
+      "alamat": "Bogor, Jawa Barat"
+    },
+    {
+      "id_user": 7,
+      "role": [
+        { "id_role": 4, "nama_role": "customer", "deskripsi_role": "customer" }
+      ],
+      "nama": "Customer Tiga",
+      "email": "customertiga@gmail.com",
+      "password": "customertiga",
+      "no_hp": "089543242123",
+      "alamat": "Bandung, Jawa Barat"
+    },
+    {
+      "id_user": 8,
+      "role": [
+        { "id_role": 3, "nama_role": "admin", "deskripsi_role": "admin" }
+      ],
+      "nama": "Admin Satu",
+      "email": "adminsatu@gmail.com",
+      "password": "adminsatu",
+      "no_hp": "089543242123",
+      "alamat": "Bandung, Jawa Barat"
     }
   ],
   "toko": [
@@ -85,7 +129,7 @@
       "deskripsi_toko": "Toko Yang Serba Ada",
       "alamat": "Indramayu, Jawa Barat",
       "foto_toko": "dimas.jpg",
-      "status_toko": "Valid"
+      "status_toko": "valid"
     },
     {
       "id_toko": 2,
@@ -104,7 +148,7 @@
       "deskripsi_toko": "Toko Jual Bahan Bangunan",
       "alamat": "Sleman, Yogyakarta",
       "foto_toko": "zulfa.jpg",
-      "status_toko": "Tidak Valid"
+      "status_toko": "tidak valid"
     },
     {
       "id_toko": 3,
@@ -123,7 +167,7 @@
       "deskripsi_toko": "Toko Pancing",
       "alamat": "Bekasi, Jawa Barat",
       "foto_toko": "fauzi.jpg",
-      "status_toko": "Valid"
+      "status_toko": "valid"
     },
     {
       "id_toko": 4,
@@ -142,7 +186,31 @@
       "deskripsi_toko": "Toko Bahan Plastik",
       "alamat": "Balongan, Jawa Barat",
       "foto_toko": "verliana.jpg",
-      "status_toko": "Tidak Valid"
+      "status_toko": "tidak valid"
+    }
+  ],
+  "transaksi": [
+    {
+      "id_transaksi": 1,
+      "user": [
+        {
+          "id_user": 8,
+          "role": [
+            { "id_role": 3, "nama_role": "admin", "deskripsi_role": "admin" }
+          ],
+          "nama": "Admin Satu",
+          "email": "adminsatu@gmail.com",
+          "password": "adminsatu",
+          "no_hp": "089543242123",
+          "alamat": "Bandung, Jawa Barat"
+        }
+      ],
+      "nama_customer": "Dimas",
+      "total_transaksi": 50000,
+      "bayar": 50000,
+      "diskon": null,
+      "status": 1,
+      "tgl_transaksi": "2021-01-02"
     }
   ]
 }

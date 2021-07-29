@@ -11,11 +11,11 @@
 						<div class="card-stats-title">Data Owner</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count">11 <i class="fas fa-ban" style="color: #fc544b;"></i></div>
+								<div class="card-stats-item-count"><?= $totalTidakValid ?> <i class="fas fa-ban" style="color: #fc544b;"></i></div>
 								<div class="card-stats-item-label">Belum Valid</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count">12 <i class="fas fa-check" style="color: #47c363;"></i></div>
+								<div class="card-stats-item-count"><?= $totalValid ?> <i class="fas fa-check" style="color: #47c363;"></i></div>
 								<div class="card-stats-item-label">Valid</div>
 							</div>
 							<div class="card-stats-item">

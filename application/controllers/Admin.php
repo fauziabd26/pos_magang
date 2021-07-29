@@ -5,13 +5,34 @@ class Admin extends CI_Controller
 {
 	public function dashboard()
 	{
-		$this->template->load('layouts/admin/master', 'dashboard/admin/dashboard');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		// Count Data Customer
+		$totalCustomer = 0;
+		foreach ($datas["user"] as $value) {
+			foreach ($value['role'] as $role) {
+				if ($role["id_role"] == 4) {
+					$totalCustomer += 1;
+				}
+			}
+		}
+
+		$data = array('customers' => $datas["user"]);
+		$data['totalCustomer'] = $totalCustomer; //Object
+
+		$this->template->load('layouts/admin/master', 'dashboard/admin/dashboard', $data);
 	}
 
 	// Bagian Customer
 	public function customer()
 	{
-		$this->template->load('layouts/admin/master', 'dashboard/admin/customer/index');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('customers' => $datas["user"]);
+
+		$this->template->load('layouts/admin/master', 'dashboard/admin/customer/index', $data);
 	}
 
 	public function customerTambah()
