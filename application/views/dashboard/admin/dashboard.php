@@ -52,7 +52,7 @@
 								<div class="card-stats-item-label">Member</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count">23</div>
+								<div class="card-stats-item-count"><?= $totalCustomer ?></div>
 								<div class="card-stats-item-label">Total</div>
 							</div>
 						</div>
@@ -65,7 +65,7 @@
 							<h4>Total Customer</h4>
 						</div>
 						<div class="card-body">
-							23
+							<?= $totalCustomer ?>
 						</div>
 					</div>
 				</div>

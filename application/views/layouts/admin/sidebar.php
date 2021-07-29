@@ -12,12 +12,12 @@
 					<i class="fas fa-fire"></i> <span>Dashboard</span>
 				</a>
 			</li>
-			<li class="menu-header">Data</li>
+			<!-- <li class="menu-header">Data</li>
 			<li <?= $this->uri->segment(2) == 'customer' || $this->uri->segment(2) == 'customerTambah' || $this->uri->segment(2) == 'customerEdit' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('admin/customer') ?>">
 					<i class="fas fa-user"></i> <span>Customer</span>
 				</a>
-			</li>
+			</li> -->
 			<li class="menu-header">Transaksi</li>
 			<li <?= $this->uri->segment(2) == 'transaksiProduk' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('admin/transaksiProduk') ?>">
