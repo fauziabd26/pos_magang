@@ -32,7 +32,7 @@
 			</div>
 
 			<!-- Footer -->
-			<?php $this->load->view('layouts/owner/footer') ?>
+			<!-- <?php $this->load->view('layouts/owner/footer') ?> -->
 		</div>
 	</div>
 

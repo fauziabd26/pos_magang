@@ -1,32 +1,25 @@
 {
   "role": [
     {
-      "id_role": 1,
+      "id": 1,
       "nama_role": "superadmin",
       "deskripsi_role": "superadmin"
     },
     {
-      "id_role": 2,
+      "id": 2,
       "nama_role": "owner",
       "deskripsi_role": "owner"
     },
     {
-      "id_role": 3,
+      "id": 3,
       "nama_role": "admin",
       "deskripsi_role": "admin"
-    },
-    {
-      "id_role": 4,
-      "nama_role": "customer",
-      "deskripsi_role": "customer"
     }
   ],
   "user": [
     {
-      "id_user": 1,
-      "role": [
-        { "id_role": 2, "nama_role": "owner", "deskripsi_role": "owner" }
-      ],
+      "id": 1,
+      "roleId": 1,
       "nama": "Dimas Addriansyah Pamungkas",
       "email": "dimas@gmail.com",
       "password": "dimas",
@@ -34,10 +27,17 @@
       "alamat": "Indramayu, Jawa Barat"
     },
     {
-      "id_user": 2,
-      "role": [
-        { "id_role": 2, "nama_role": "owner", "deskripsi_role": "owner" }
-      ],
+      "id": 2,
+      "roleId": 3,
+      "nama": "Admin",
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "no_hp": "089543242123",
+      "alamat": "Balongan, Jawa Barat"
+    },
+    {
+      "id": 3,
+      "roleId": 2,
       "nama": "Zulfa Khoerul",
       "email": "zulfa@gmail.com",
       "password": "zulfa",
@@ -45,10 +45,8 @@
       "alamat": "Sleman, Yogyakarta"
     },
     {
-      "id_user": 3,
-      "role": [
-        { "id_role": 2, "nama_role": "owner", "deskripsi_role": "owner" }
-      ],
+      "id": 4,
+      "roleId": 2,
       "nama": "Fauzi Abdilah",
       "email": "fauzi@gmail.com",
       "password": "fauzi",
@@ -56,87 +54,22 @@
       "alamat": "Bekasi, Jawa Barat"
     },
     {
-      "id_user": 4,
-      "role": [
-        { "id_role": 2, "nama_role": "owner", "deskripsi_role": "owner" }
-      ],
+      "id": 5,
+      "roleId": 2,
       "nama": "Verliana Nur",
       "email": "verliana@gmail.com",
       "password": "verliana",
       "no_hp": "089543242123",
       "alamat": "Balongan, Jawa Barat"
-    },
-    {
-      "id_user": 5,
-      "role": [
-        { "id_role": 4, "nama_role": "customer", "deskripsi_role": "customer" }
-      ],
-      "nama": "Customer Satu",
-      "email": "customersatu@gmail.com",
-      "password": "customersatu",
-      "no_hp": "089543242123",
-      "alamat": "Cirebon, Jawa Barat"
-    },
-    {
-      "id_user": 6,
-      "role": [
-        { "id_role": 4, "nama_role": "customer", "deskripsi_role": "customer" }
-      ],
-      "nama": "Customer Dua",
-      "email": "customerdua@gmail.com",
-      "password": "customerdua",
-      "no_hp": "089543242123",
-      "alamat": "Bogor, Jawa Barat"
-    },
-    {
-      "id_user": 7,
-      "role": [
-        { "id_role": 4, "nama_role": "customer", "deskripsi_role": "customer" }
-      ],
-      "nama": "Customer Tiga",
-      "email": "customertiga@gmail.com",
-      "password": "customertiga",
-      "no_hp": "089543242123",
-      "alamat": "Bandung, Jawa Barat"
-    },
-    {
-      "id_user": 8,
-      "role": [
-        { "id_role": 3, "nama_role": "admin", "deskripsi_role": "admin" }
-      ],
-      "nama": "Admin Satu",
-      "email": "adminsatu@gmail.com",
-      "password": "adminsatu",
-      "no_hp": "089543242123",
-      "alamat": "Bandung, Jawa Barat"
     }
   ],
   "toko": [
     {
-      "id_toko": 1,
+      "id": 1,
       "user": [
         {
-          "id_user": 1,
-          "id_role": 2,
-          "nama": "Dimas Addriansyah Pamungkas",
-          "email": "dimas@gmail.com",
-          "password": "dimas",
-          "no_hp": "089513211223",
-          "alamat": "Indramayu, Jawa Barat"
-        }
-      ],
-      "nama_toko": "Toko Serba Ada",
-      "deskripsi_toko": "Toko Yang Serba Ada",
-      "alamat": "Indramayu, Jawa Barat",
-      "foto_toko": "dimas.jpg",
-      "status_toko": "valid"
-    },
-    {
-      "id_toko": 2,
-      "id_user": [
-        {
-          "id_user": 2,
-          "id_role": 2,
+          "id": 3,
+          "roleId": 2,
           "nama": "Zulfa Khoerul",
           "email": "zulfa@gmail.com",
           "password": "zulfa",
@@ -151,11 +84,11 @@
       "status_toko": "tidak valid"
     },
     {
-      "id_toko": 3,
-      "id_user": [
+      "id": 2,
+      "user": [
         {
-          "id_user": 3,
-          "role": 2,
+          "id": 4,
+          "roleId": 2,
           "nama": "Fauzi Abdilah",
           "email": "fauzi@gmail.com",
           "password": "fauzi",
@@ -167,14 +100,14 @@
       "deskripsi_toko": "Toko Pancing",
       "alamat": "Bekasi, Jawa Barat",
       "foto_toko": "fauzi.jpg",
-      "status_toko": "valid"
+      "status_toko": "tidak valid"
     },
     {
-      "id_toko": 4,
-      "id_user": [
+      "id": 3,
+      "user": [
         {
-          "id_user": 4,
-          "role": 2,
+          "id": 5,
+          "roleId": 2,
           "nama": "Verliana Nur",
           "email": "verliana@gmail.com",
           "password": "verliana",
@@ -191,23 +124,34 @@
   ],
   "transaksi": [
     {
-      "id_transaksi": 1,
-      "user": [
-        {
-          "id_user": 8,
-          "role": [
-            { "id_role": 3, "nama_role": "admin", "deskripsi_role": "admin" }
-          ],
-          "nama": "Admin Satu",
-          "email": "adminsatu@gmail.com",
-          "password": "adminsatu",
-          "no_hp": "089543242123",
-          "alamat": "Bandung, Jawa Barat"
-        }
-      ],
-      "nama_customer": "Dimas",
+      "id": "Transaksi-20210201",
+      "userId": 5,
+      "jenis": "produk",
+      "nama_customer": "Cindy",
       "total_transaksi": 50000,
       "bayar": 50000,
+      "diskon": null,
+      "status": 1,
+      "tgl_transaksi": "2021-01-02"
+    },
+    {
+      "id": "Transaksi-20210202",
+      "userId": 5,
+      "jenis": "jasa",
+      "nama_customer": "Maman",
+      "total_transaksi": 50000,
+      "bayar": 50000,
+      "diskon": null,
+      "status": 1,
+      "tgl_transaksi": "2021-01-02"
+    },
+    {
+      "id": "Transaksi-20210203",
+      "userId": 5,
+      "jenis": "produk",
+      "nama_customer": "Salsabila",
+      "total_transaksi": 55000,
+      "bayar": 60000,
       "diskon": null,
       "status": 1,
       "tgl_transaksi": "2021-01-02"

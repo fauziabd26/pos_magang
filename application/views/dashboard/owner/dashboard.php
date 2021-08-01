@@ -115,7 +115,7 @@
 										<th>Action</th>
 									</tr>
 									<tr>
-										<td><a href="#">INV-87239</a></td>
+										<td><a href="#">Transaksi-87239</a></td>
 										<td class="font-weight-600">Kusnadi</td>
 										<td>
 											<div class="badge badge-primary">Produk</div>
@@ -125,7 +125,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td><a href="#">INV-48574</a></td>
+										<td><a href="#">Transaksi-48574</a></td>
 										<td class="font-weight-600">Hasan Basri</td>
 										<td>
 											<div class="badge badge-success">Jasa</div>
@@ -135,7 +135,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td><a href="#">INV-76824</a></td>
+										<td><a href="#">Transaksi-76824</a></td>
 										<td class="font-weight-600">Muhamad Nuruzzaki</td>
 										<td>
 											<div class="badge badge-primary">Produk</div>
@@ -145,7 +145,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td><a href="#">INV-84990</a></td>
+										<td><a href="#">Transaksi-84990</a></td>
 										<td class="font-weight-600">Agung Ardiansyah</td>
 										<td>
 											<div class="badge badge-primary">Produk</div>
@@ -155,7 +155,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td><a href="#">INV-87320</a></td>
+										<td><a href="#">Transaksi-87320</a></td>
 										<td class="font-weight-600">Ardian Rahardiansyah</td>
 										<td>
 											<div class="badge badge-success">Jasa</div>

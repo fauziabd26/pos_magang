@@ -48,7 +48,6 @@
 				</div>
 				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Submit</button>
-					<button class="btn btn-primary btn-block">Submit</button>
 				</div>
 			</form>
 		</div>

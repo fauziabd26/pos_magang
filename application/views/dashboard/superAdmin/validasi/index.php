@@ -20,7 +20,7 @@
 								<th>Email</th>
 								<th>Alamat</th>
 								<th>No Handphone</th>
-								<th>Validasi</th>
+								<th width="15%">Validasi</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -28,17 +28,25 @@
 							<?php foreach ($owners as $no => $owner) : ?>
 								<tr>
 									<td><?= ++$no ?></td>
-									<td><?= $owner["nama"] ?></td>
-									<td><?= $owner["toko"] ?? "-" ?></td>
-									<td><?= $owner["email"] ?></td>
-									<td><?= $owner["alamat"] ?></td>
-									<td><?= $owner["no_hp"] ?></td>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['nama'] ?></td>
+									<?php endforeach; ?>
+									<td><?= $owner["nama_toko"] ?? "-" ?></td>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['email'] ?></td>
+									<?php endforeach; ?>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['alamat'] ?></td>
+										<?php foreach ($owner["user"] as $user) : ?>
+											<td><?= $user['no_hp'] ?></td>
+										<?php endforeach; ?>
+									<?php endforeach; ?>
 									<td>
 										<a href="#" class="btn btn-success btn-sm"><i class="fas fa-check mr-1"></i> Valid</a><br>
-										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban mr-1"></i> Tidak Valid</a>
+										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban"></i> Belum Valid</a>
 									</td>
 									<td>
-										<a href="<?= base_url('superAdmin/validasiDetail') ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+										<a href="<?= base_url('superAdmin/validasiDetail/' . $owner["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

@@ -24,17 +24,26 @@
 							</tr>
 						</thead>
 						<tbody>
+
 							<?php foreach ($owners as $no => $owner) : ?>
 								<tr>
 									<td><?= ++$no ?></td>
-									<td><?= $owner["nama"] ?></td>
-									<td><?= $owner["toko"] ?? "-" ?></td>
-									<td><?= $owner["email"] ?></td>
-									<td><?= $owner["alamat"] ?></td>
-									<td><?= $owner["no_hp"] ?></td>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['nama'] ?></td>
+									<?php endforeach; ?>
+									<td><?= $owner["nama_toko"] ?? "-" ?></td>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['email'] ?></td>
+									<?php endforeach; ?>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['alamat'] ?></td>
+										<?php foreach ($owner["user"] as $user) : ?>
+											<td><?= $user['no_hp'] ?></td>
+										<?php endforeach; ?>
+									<?php endforeach; ?>
 									<td>
-										<a href="<?= base_url('superAdmin/ownerEdit') ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-										<a href="<?= base_url('superAdmin/ownerDetail') ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+										<a href="<?= base_url('superAdmin/ownerEdit/' . $owner["id"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="<?= base_url('superAdmin/ownerDetail/' . $owner["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>
