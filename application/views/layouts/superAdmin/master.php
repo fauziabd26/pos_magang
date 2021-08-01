@@ -30,7 +30,7 @@
 			</div>
 
 			<!-- Footer -->
-			<?php $this->load->view('layouts/superAdmin/footer') ?>
+			<!-- <?php $this->load->view('layouts/superAdmin/footer') ?> -->
 		</div>
 	</div>
 

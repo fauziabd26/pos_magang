@@ -18,7 +18,7 @@
 					<i class="fas fa-user"></i> <span>Customer</span>
 				</a>
 			</li> -->
-			<li class="menu-header">Transaksi</li>
+			<li class="menu-header">Transaksi POS</li>
 			<li <?= $this->uri->segment(2) == 'transaksiProduk' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('admin/transaksiProduk') ?>">
 					<i class="fas fa-cash-register"></i> <span>Produk</span>
@@ -27,6 +27,12 @@
 			<li <?= $this->uri->segment(2) == 'transaksiJasa' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('admin/transaksiJasa') ?>">
 					<i class="fas fa-cash-register"></i> <span>Jasa</span>
+				</a>
+			</li>
+			<li class="menu-header">Histori</li>
+			<li <?= $this->uri->segment(2) == 'historiTransaksi' || $this->uri->segment(2) == 'historiTransaksiDetail' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('admin/historiTransaksi') ?>">
+					<i class="fas fa-history"></i> <span>Histori Transaksi</span>
 				</a>
 			</li>
 		</ul>

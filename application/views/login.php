@@ -24,7 +24,6 @@
 						<div class="login-brand">
 							<img src="<?= base_url('assets/img/stisla-fill.svg') ?>" alt="logo" width="100" class="shadow-light rounded-circle">
 						</div>
-
 						<div class="card card-primary">
 							<div class="card-header">
 								<h4>Login</h4>
@@ -34,7 +33,7 @@
 								<form action="#" method="POST" class="needs-validation" novalidate="">
 									<div class="form-group">
 										<label for="email">Email</label>
-										<input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+										<input id="email" type="email" class="form-control" name="email" placeholder="example@gmail.com" tabindex="1" required autofocus>
 										<div class="invalid-feedback">
 											Please fill in your email
 										</div>
@@ -49,7 +48,7 @@
 												</a>
 											</div> -->
 										</div>
-										<input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+										<input id="password" type="password" class="form-control" name="password" placeholder="Masukan Password" tabindex="2" required>
 										<div class="invalid-feedback">
 											please fill in your password
 										</div>

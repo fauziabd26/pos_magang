@@ -22,7 +22,7 @@
 						<thead class="thead-dark">
 							<tr>
 								<th>No</th>
-								<th>Nama admin</th>
+								<th>Nama Admin</th>
 								<th>Email</th>
 								<th>Alamat</th>
 								<th>No Handphone</th>
@@ -30,17 +30,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Dimas Addriansyah</td>
-								<td>dimas@gmail.com</td>
-								<td>Indramayu</td>
-								<td>08976523412</td>
-								<td>
-									<a href="<?= base_url('owner/adminEdit') ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</td>
-							</tr>
+							<?php $no = 0 ?>
+							<?php foreach ($admins as $admin) : ?>
+								<tr>
+									<td><?= ++$no ?></td>
+									<td><?= $admin["nama"] ?></td>
+									<td><?= $admin["email"] ?></td>
+									<td><?= $admin["alamat"] ?></td>
+									<td><?= $admin["no_hp"] ?></td>
+									<td>
+										<a href="<?= base_url('owner/adminEdit/' . $admin["id"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>

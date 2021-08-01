@@ -5,7 +5,11 @@ class Owner extends CI_Controller
 {
 	public function dashboard()
 	{
-		$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('transaksis' => $datas["transaksi"]);
+		$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
 	}
 
 	public function profile()
@@ -16,7 +20,16 @@ class Owner extends CI_Controller
 	// Bagian Admin
 	public function admin()
 	{
-		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data['admins'] = array_filter($datas['user'], function ($row) {
+			foreach ($row['role'] as $value) {
+				return $value['id'] == 3;
+			}
+		});
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index', $data);
 	}
 
 	public function adminTambah()
@@ -24,9 +37,25 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
 	}
 
-	public function adminEdit()
+	public function adminEdit($id)
 	{
-		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		foreach ($datas['user'] as $row) {
+			if ($row['id'] == $id) {
+				$value = array(
+					'nama' => $row["nama"],
+					'email' => $row["email"],
+					'alamat' => $row["alamat"],
+					'no_hp' => $row["no_hp"],
+				);
+			}
+		}
+
+		$data['admin'] = $value;
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 	}
 
 	public function adminUbahPassword()
