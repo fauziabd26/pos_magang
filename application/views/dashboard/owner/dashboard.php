@@ -107,63 +107,27 @@
 					<div class="card-body p-0">
 						<div class="table-responsive table-invoice">
 							<table class="table table-striped">
-								<tbody>
+								<thead>
 									<tr>
 										<th>Nomer Transaksi</th>
 										<th>Nama Customer</th>
 										<th>Jenis Transaksi</th>
 										<th>Action</th>
 									</tr>
-									<tr>
-										<td><a href="#">Transaksi-87239</a></td>
-										<td class="font-weight-600">Kusnadi</td>
-										<td>
-											<div class="badge badge-primary">Produk</div>
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#">Transaksi-48574</a></td>
-										<td class="font-weight-600">Hasan Basri</td>
-										<td>
-											<div class="badge badge-success">Jasa</div>
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#">Transaksi-76824</a></td>
-										<td class="font-weight-600">Muhamad Nuruzzaki</td>
-										<td>
-											<div class="badge badge-primary">Produk</div>
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#">Transaksi-84990</a></td>
-										<td class="font-weight-600">Agung Ardiansyah</td>
-										<td>
-											<div class="badge badge-primary">Produk</div>
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
-									<tr>
-										<td><a href="#">Transaksi-87320</a></td>
-										<td class="font-weight-600">Ardian Rahardiansyah</td>
-										<td>
-											<div class="badge badge-success">Jasa</div>
-										</td>
-										<td>
-											<a href="#" class="btn btn-primary">Detail</a>
-										</td>
-									</tr>
+								</thead>
+								<tbody>
+									<?php foreach (array_slice($transaksis, 0, 5) as $no => $transaksi) : ?>
+										<tr>
+											<td><?= $transaksi["id"] ?></td>
+											<td class="font-weight-600"><?= $transaksi["nama_customer"] ?></td>
+											<td>
+												<div class="badge <?= $transaksi['jenis'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis"] ?></div>
+											</td>
+											<td>
+												<a href="#" class="btn btn-primary">Detail</a>
+											</td>
+										</tr>
+									<?php endforeach; ?>
 								</tbody>
 							</table>
 						</div>

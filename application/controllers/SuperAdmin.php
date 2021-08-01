@@ -10,9 +10,11 @@ class SuperAdmin extends CI_Controller
 
 		// Count Data Owner
 		$totalOwner = 0;
-		foreach ($datas["user"] as $value) {
-			if ($value['roleId'] == 2) {
-				$totalOwner += 1;
+		foreach ($datas["user"] as $row) {
+			foreach ($row["role"] as $value) {
+				if ($value['id'] == 2) {
+					$totalOwner += 1;
+				}
 			}
 		}
 
@@ -27,7 +29,9 @@ class SuperAdmin extends CI_Controller
 			}
 		}
 
-		$data = array('owners' => $datas["toko"]);
+		$data['owners'] = array_filter($datas['toko'], function ($value) {
+			return $value['status_toko'] == "tidak valid";
+		});
 		$data['totalOwner'] = $totalOwner; //Object
 		$data['totalValid'] = $totalValid; //Object
 		$data['totalPending'] = $totalPending; //Object
@@ -41,9 +45,10 @@ class SuperAdmin extends CI_Controller
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('owners' => $datas["toko"]);
+		$data['owners'] = array_filter($datas['toko'], function ($value) {
+			return $value['status_toko'] == "valid";
+		});
 
-		// var_dump($datas['toko'][0]['userId'][0]['nama']);
 		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/index', $data);
 	}
 
@@ -111,7 +116,9 @@ class SuperAdmin extends CI_Controller
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('owners' => $datas["toko"]);
+		$data['owners'] = array_filter($datas['toko'], function ($value) {
+			return $value['status_toko'] == "tidak valid";
+		});
 
 		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/validasi/index', $data);
 	}

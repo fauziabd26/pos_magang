@@ -47,7 +47,8 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach (array_slice($owners, 0, 5) as $no => $owner) : ?>
+									<?php $no = 0 ?>
+									<?php foreach (array_slice($owners, 0, 5) as $owner) : ?>
 										<tr>
 											<td><?= ++$no ?></td>
 											<?php foreach ($owner["user"] as $user) : ?>
@@ -64,7 +65,7 @@
 												<td><?= $user['no_hp'] ?></td>
 											<?php endforeach; ?>
 											<td>
-												<a href="<?= base_url('superadmin/validasiDetail/'.$owner["id"]) ?>" class="btn btn-primary">Detail</a>
+												<a href="<?= base_url('superadmin/validasiDetail/' . $owner["id"]) ?>" class="btn btn-primary">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

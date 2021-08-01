@@ -25,7 +25,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($owners as $no => $owner) : ?>
+							<?php $no = 0 ?>
+							<?php foreach ($owners as $owner) : ?>
 								<tr>
 									<td><?= ++$no ?></td>
 									<?php foreach ($owner["user"] as $user) : ?>
