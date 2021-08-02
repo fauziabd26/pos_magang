@@ -1,0 +1,3 @@
+jam 10-12 : melihat referensi tampilan aplikasi, memakai data dummy pada fakeAPI.php untuk ditampilkan pada halaman superadmin
+jam 13-14 : memperbaiki URL pada local server
+jam 14-16 : memperbaiki URL pada web server (hosting)
