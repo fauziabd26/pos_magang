@@ -96,7 +96,7 @@
 				</div>
 			</div>
 
-			<div class="col-6">
+			<div class="col-lg-6 col-12">
 				<div class="card">
 					<div class="card-header">
 						<h4>Transaksi Terbaru</h4>
@@ -135,7 +135,7 @@
 				</div>
 			</div>
 
-			<div class="col-6">
+			<div class="col-lg-6 col-12">
 				<div class="card">
 					<div class="card-header">
 						<h4>Produk Terbaru</h4>
