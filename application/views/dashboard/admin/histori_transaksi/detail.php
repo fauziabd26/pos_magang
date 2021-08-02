@@ -3,7 +3,7 @@
 		<h1>Detail <?= $histori['id'] ?></h1>
 		<div class="section-header-breadcrumb">
 			<div class="breadcrumb-item active"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item active"><a href="<?= base_url('admin/historiTransaksi') ?>">Data Histori Transaksi</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('admin/histori_transaksi') ?>">Data Histori Transaksi</a></div>
 			<div class="breadcrumb-item"><?= $histori['id'] ?></div>
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 			<div class="card-body">
 				<div class="row mb-5">
 					<div class="col">
-						<a href="<?= base_url('admin/historiTransaksi') ?>" class="btn btn-primary">
+						<a href="<?= base_url('admin/histori_transaksi') ?>" class="btn btn-primary">
 							<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Histori
 						</a>
 					</div>

@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a href="<?= base_url('owner/adminUbahPassword') ?>" class="btn btn-outline-primary btn-block">Ubah Password</a>
+					<a href="<?= base_url('owner/admin_ubah_password') ?>" class="btn btn-outline-primary btn-block">Ubah Password</a>
 					<button class="btn btn-primary btn-block">Update</button>
 				</div>
 			</form>

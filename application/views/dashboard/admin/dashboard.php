@@ -31,7 +31,7 @@
 				<div class="card">
 					<div class="card-header justify-content-between">
 							<h4>Transaksi Terbaru</h4>
-							<a href="<?= base_url('admin/historiTransaksi') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
+							<a href="<?= base_url('admin/histori_transaksi') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
 					</div>
 					<div class="card-body p-0">
 						<div class="table-responsive table-invoice">
@@ -55,7 +55,7 @@
 											</td>
 											<td><?= date_indo($transaksi["tgl_transaksi"]) ?></td>
 											<td>
-												<a href="<?= base_url('admin/historiTransaksiDetail/' . $transaksi["id"]) ?>" class="btn btn-primary">Detail</a>
+												<a href="<?= base_url('admin/histori_transaksi_detail/' . $transaksi["id"]) ?>" class="btn btn-primary">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

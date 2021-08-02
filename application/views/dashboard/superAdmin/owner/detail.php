@@ -2,8 +2,8 @@
 	<div class="section-header">
 		<h1>Detail Data Owner <?= $owner["user"]["nama"] ?></h1>
 		<div class="section-header-breadcrumb">
-			<div class="breadcrumb-item active"><a href="<?= base_url('superAdmin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item active"><a href="<?= base_url('superAdmin/owner') ?>">Data Owner</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/owner') ?>">Data Owner</a></div>
 			<div class="breadcrumb-item"><?= $owner["user"]["nama"] ?></div>
 		</div>
 	</div>
@@ -14,7 +14,7 @@
 				<div class="card-body">
 					<div class="row mb-5">
 						<div class="col">
-							<a href="<?= base_url('superAdmin/owner') ?>" class="btn btn-primary">
+							<a href="<?= base_url('superadmin/owner') ?>" class="btn btn-primary">
 								<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Owner
 							</a>
 						</div>
@@ -57,7 +57,7 @@
 							</div>
 							<div class="form-group">
 								<label for='foto_ktp'>Foto KTP</label>
-								<img src="<?= base_url('assets/ktp/ktp.jpg') ?>" class="img-fluid">
+								<img src="<?= base_url('assets/ktp/ktp1.jpg') ?>" class="img-fluid">
 							</div>
 						</div>
 					</div>

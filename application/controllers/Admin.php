@@ -29,29 +29,29 @@ class Admin extends CI_Controller
 
 	// Bagian Transaksi
 	// Bagian Transaksi Produk
-	public function transaksiProduk()
+	public function transaksi_produk()
 	{
 		$this->template->load('layouts/admin/master', 'dashboard/admin/transaksi/produk');
 	}
 
 	// Bagian Transaksi Jasa
-	public function transaksiJasa()
+	public function transaksi_jasa()
 	{
 		$this->template->load('layouts/admin/master', 'dashboard/admin/transaksi/jasa');
 	}
 
 	// Bagian Histori
-	public function historiTransaksi()
+	public function histori_transaksi()
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
 		$data = array('historis' => $datas["transaksi"]);
 
-		$this->template->load('layouts/admin/master', 'dashboard/admin/historiTransaksi/index', $data);
+		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
 	}
 
-	public function historiTransaksiDetail($id)
+	public function histori_transaksi_detail($id)
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
@@ -71,6 +71,6 @@ class Admin extends CI_Controller
 
 		$data['histori'] = $value;
 
-		$this->template->load('layouts/admin/master', 'dashboard/admin/historiTransaksi/detail', $data);
+		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/detail', $data);
 	}
 }

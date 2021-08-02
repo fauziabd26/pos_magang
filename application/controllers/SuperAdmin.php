@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class SuperAdmin extends CI_Controller
+class Superadmin extends CI_Controller
 {
 	public function dashboard()
 	{
@@ -36,7 +36,7 @@ class SuperAdmin extends CI_Controller
 		$data['totalValid'] = $totalValid; //Object
 		$data['totalPending'] = $totalPending; //Object
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/dashboard', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/dashboard', $data);
 	}
 
 	// Bagian Owner
@@ -49,10 +49,10 @@ class SuperAdmin extends CI_Controller
 			return $value['status_toko'] == "valid";
 		});
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/index', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/owner/index', $data);
 	}
 
-	public function ownerEdit($id)
+	public function owner_edit($id)
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
@@ -78,10 +78,10 @@ class SuperAdmin extends CI_Controller
 
 		$data['owner'] = $value;
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/edit', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/owner/edit', $data);
 	}
 
-	public function ownerDetail($id)
+	public function owner_detail($id)
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
@@ -107,11 +107,11 @@ class SuperAdmin extends CI_Controller
 
 		$data['owner'] = $value;
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/detail', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/owner/detail', $data);
 	}
 
 	// Bagian Validasi
-	public function validasiOwner()
+	public function validasi_owner()
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
@@ -120,10 +120,10 @@ class SuperAdmin extends CI_Controller
 			return $value['status_toko'] == "tidak valid";
 		});
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/validasi/index', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/validasi/index', $data);
 	}
 
-	public function validasiDetail($id)
+	public function validasi_detail($id)
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
@@ -149,6 +149,6 @@ class SuperAdmin extends CI_Controller
 
 		$data['owner'] = $value;
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/validasi/detail', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/validasi/detail', $data);
 	}
 }

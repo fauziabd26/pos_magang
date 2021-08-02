@@ -13,7 +13,7 @@
 				</a>
 			</li>
 			<li class="menu-header">Data</li>
-			<li <?= $this->uri->segment(2) == 'admin' || $this->uri->segment(2) == 'adminEdit' || $this->uri->segment(2) == 'adminTambah' || $this->uri->segment(2) == 'adminUbahPassword' ? 'class=active' : '' ?>>
+			<li <?= $this->uri->segment(2) == 'admin' || $this->uri->segment(2) == 'admin_edit' || $this->uri->segment(2) == 'admin_tambah' || $this->uri->segment(2) == 'admin_ubah_password' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/admin') ?>">
 					<i class="fas fa-user"></i> <span>Data Admin</span>
 				</a>

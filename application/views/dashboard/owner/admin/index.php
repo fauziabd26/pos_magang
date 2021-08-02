@@ -12,7 +12,7 @@
 			<div class="card-body">
 				<div class="row mb-3">
 					<div class="col">
-						<a href="<?= base_url('owner/adminTambah') ?>" class="btn btn-primary">
+						<a href="<?= base_url('owner/admin_tambah') ?>" class="btn btn-primary">
 							<i class="fas fa-user-plus mr-2"></i> Tambah Data Admin
 						</a>
 					</div>
@@ -39,7 +39,7 @@
 									<td><?= $admin["alamat"] ?></td>
 									<td><?= $admin["no_hp"] ?></td>
 									<td>
-										<a href="<?= base_url('owner/adminEdit/' . $admin["id"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="<?= base_url('owner/admin_edit/' . $admin["id"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 										<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 									</td>
 								</tr>
