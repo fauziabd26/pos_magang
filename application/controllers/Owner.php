@@ -35,6 +35,10 @@ class Owner extends CI_Controller
 	}
 
 	// Bagian Produk
+	public function produk()
+	{
+		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index');
+	}
 
 	// Bagian Foto Produk
 
