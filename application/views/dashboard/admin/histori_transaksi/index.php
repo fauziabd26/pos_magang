@@ -33,7 +33,7 @@
 									<td><?= date_indo($histori["tgl_transaksi"]) ?></td>
 									<td><?= 'Rp ' . number_format($histori["total_transaksi"]) ?></td>
 									<td>
-										<a href="<?= base_url('admin/historiTransaksiDetail/'.$histori["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+										<a href="<?= base_url('admin/histori_transaksi_detail/'.$histori["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

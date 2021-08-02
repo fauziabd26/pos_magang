@@ -2,7 +2,7 @@
 	<div class="section-header">
 		<h1>Data Owner Belum Valid</h1>
 		<div class="section-header-breadcrumb">
-			<div class="breadcrumb-item active"><a href="<?= base_url('superAdmin/dashboard') ?>">Dashboard</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
 			<div class="breadcrumb-item">Data Owner Belum Valid</div>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban"></i> Belum Valid</a>
 									</td>
 									<td>
-										<a href="<?= base_url('superAdmin/validasiDetail/' . $owner["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+										<a href="<?= base_url('superadmin/validasi_detail/' . $owner["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

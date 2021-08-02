@@ -62,7 +62,7 @@
 									<div class="card-header justify-content-around">
 										<h4>Halaman Sementara</h4>
 									</div>
-									<a href="<?= base_url('/superAdmin/dashboard') ?>" class="btn btn-primary btn-lg btn-block">
+									<a href="<?= base_url('/superadmin/dashboard') ?>" class="btn btn-primary btn-lg btn-block">
 										Dashboard Super Admin
 									</a>
 									<a href="<?= base_url('/owner/dashboard') ?>" class="btn btn-primary btn-lg btn-block">

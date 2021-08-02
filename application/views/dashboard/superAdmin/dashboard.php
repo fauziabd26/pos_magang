@@ -31,7 +31,7 @@
 				<div class="card">
 					<div class="card-header justify-content-between">
 						<h4>Data Owner Belum Valid Terbaru</h4>
-						<a href="<?= base_url('superadmin/validasiOwner') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
+						<a href="<?= base_url('superadmin/validasi_owner') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
 					</div>
 					<div class="card-body p-0">
 						<div class="table-responsive table-invoice">
@@ -65,7 +65,7 @@
 												<td><?= $user['no_hp'] ?></td>
 											<?php endforeach; ?>
 											<td>
-												<a href="<?= base_url('superadmin/validasiDetail/' . $owner["id"]) ?>" class="btn btn-primary">Detail</a>
+												<a href="<?= base_url('superadmin/validasi_detail/' . $owner["id"]) ?>" class="btn btn-primary">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

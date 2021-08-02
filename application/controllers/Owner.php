@@ -32,12 +32,12 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index', $data);
 	}
 
-	public function adminTambah()
+	public function admin_tambah()
 	{
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
 	}
 
-	public function adminEdit($id)
+	public function admin_edit($id)
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
@@ -58,9 +58,9 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 	}
 
-	public function adminUbahPassword()
+	public function admin_ubah_password()
 	{
-		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubahPassword');
+		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password');
 	}
 
 	// Bagian Produk
