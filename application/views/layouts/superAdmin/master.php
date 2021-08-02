@@ -19,10 +19,10 @@
 	<div id="app">
 		<div class="main-wrapper">
 			<!-- Header -->
-			<?php $this->load->view('layouts/superAdmin/header') ?>
+			<?php $this->load->view('layouts/superadmin/header') ?>
 
 			<!-- Sidebar -->
-			<?php $this->load->view('layouts/superAdmin/sidebar') ?>
+			<?php $this->load->view('layouts/superadmin/sidebar') ?>
 
 			<!-- Main Content -->
 			<div class="main-content">
@@ -30,7 +30,7 @@
 			</div>
 
 			<!-- Footer -->
-			<?php $this->load->view('layouts/superAdmin/footer') ?>
+			<!-- <?php $this->load->view('layouts/superadmin/footer') ?> -->
 		</div>
 	</div>
 

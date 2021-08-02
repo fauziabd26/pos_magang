@@ -49,7 +49,7 @@
 							</div>
 							<div class="form-group">
 								<label for='foto_ktp'>Foto KTP</label>
-								<img src="<?= base_url('assets/ktp/ktp.jpg') ?>" class="img-fluid">
+								<img src="<?= base_url('assets/ktp/ktp1.jpg') ?>" class="img-fluid">
 							</div>
 						</div>
 					</div>

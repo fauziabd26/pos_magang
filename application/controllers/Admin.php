@@ -8,54 +8,69 @@ class Admin extends CI_Controller
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
-		// Count Data Customer
-		$totalCustomer = 0;
-		foreach ($datas["user"] as $value) {
-			foreach ($value['role'] as $role) {
-				if ($role["id_role"] == 4) {
-					$totalCustomer += 1;
-				}
+		// Count TransaksiProduk
+		$totalTransaksiProduk = 0;
+		$totalTransaksiJasa = 0;
+
+		foreach ($datas["transaksi"] as $value) {
+			if ($value["jenis"] == "produk") {
+				$totalTransaksiProduk += 1;
+			} elseif ($value["jenis"] == "jasa") {
+				$totalTransaksiJasa += 1;
 			}
 		}
 
-		$data = array('customers' => $datas["user"]);
-		$data['totalCustomer'] = $totalCustomer; //Object
+		$data = array('transaksis' => $datas["transaksi"]);
+		$data['totalTransaksiProduk'] = $totalTransaksiProduk;
+		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/dashboard', $data);
 	}
 
-	// Bagian Customer
-	public function customer()
-	{
-		$getAPI = file_get_contents('fakeAPI.json');
-		$datas = json_decode($getAPI, true);
-
-		$data = array('customers' => $datas["user"]);
-
-		$this->template->load('layouts/admin/master', 'dashboard/admin/customer/index', $data);
-	}
-
-	public function customerTambah()
-	{
-		$this->template->load('layouts/admin/master', 'dashboard/admin/customer/tambah');
-	}
-
-	public function customerEdit()
-	{
-		$this->template->load('layouts/admin/master', 'dashboard/admin/customer/edit');
-	}
-
-
 	// Bagian Transaksi
 	// Bagian Transaksi Produk
-	public function transaksiProduk()
+	public function transaksi_produk()
 	{
 		$this->template->load('layouts/admin/master', 'dashboard/admin/transaksi/produk');
 	}
 
 	// Bagian Transaksi Jasa
-	public function transaksiJasa()
+	public function transaksi_jasa()
 	{
 		$this->template->load('layouts/admin/master', 'dashboard/admin/transaksi/jasa');
+	}
+
+	// Bagian Histori
+	public function histori_transaksi()
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('historis' => $datas["transaksi"]);
+
+		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
+	}
+
+	public function histori_transaksi_detail($id)
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		// $data = array('historis' => $datas["transaksi"]);
+		foreach ($datas['transaksi'] as $row) {
+			if ($row['id'] == $id) {
+				$value = array(
+					'id' => $row['id'],
+					'jenis' => $row['jenis'],
+					'nama_customer' => $row['nama_customer'],
+					'total_transaksi' => $row['total_transaksi'],
+					'tgl_transaksi' => $row['tgl_transaksi'],
+				);
+			}
+		}
+
+		$data['histori'] = $value;
+
+		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/detail', $data);
 	}
 }

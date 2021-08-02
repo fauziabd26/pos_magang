@@ -31,7 +31,7 @@
 			</div>
 
 			<!-- Footer -->
-			<?php $this->load->view('layouts/admin/footer') ?>
+			<!-- <?php $this->load->view('layouts/admin/footer') ?> -->
 		</div>
 	</div>
 

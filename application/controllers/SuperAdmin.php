@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class SuperAdmin extends CI_Controller
+class Superadmin extends CI_Controller
 {
 	public function dashboard()
 	{
@@ -10,9 +10,9 @@ class SuperAdmin extends CI_Controller
 
 		// Count Data Owner
 		$totalOwner = 0;
-		foreach ($datas["user"] as $value) {
-			foreach ($value['role'] as $role) {
-				if ($role["id_role"] == 2) {
+		foreach ($datas["user"] as $row) {
+			foreach ($row["role"] as $value) {
+				if ($value['id'] == 2) {
 					$totalOwner += 1;
 				}
 			}
@@ -20,25 +20,23 @@ class SuperAdmin extends CI_Controller
 
 		// Count Data Owner Valid && Tidak Valid
 		$totalValid = 0;
-		$totalTidakValid = 0;
+		$totalPending = 0;
 		foreach ($datas["toko"] as $value) {
 			if ($value["status_toko"] == "valid") {
 				$totalValid += 1;
 			} else {
-				$totalTidakValid += 1;
+				$totalPending += 1;
 			}
 		}
 
-		$data = array('owners' => $datas["user"]);
+		$data['owners'] = array_filter($datas['toko'], function ($value) {
+			return $value['status_toko'] == "tidak valid";
+		});
 		$data['totalOwner'] = $totalOwner; //Object
 		$data['totalValid'] = $totalValid; //Object
-		$data['totalTidakValid'] = $totalTidakValid; //Object
+		$data['totalPending'] = $totalPending; //Object
 
-		// Count Data JSON 
-		// $data['totalOwner'] = count($datas["user"]);
-
-
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/dashboard', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/dashboard', $data);
 	}
 
 	// Bagian Owner
@@ -47,34 +45,110 @@ class SuperAdmin extends CI_Controller
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('owners' => $datas["user"]);
+		$data['owners'] = array_filter($datas['toko'], function ($value) {
+			return $value['status_toko'] == "valid";
+		});
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/index', $data);
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/owner/index', $data);
 	}
 
-	public function ownerEdit()
-	{
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/edit');
-	}
-
-	public function ownerDetail()
-	{
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/owner/detail');
-	}
-
-	// Bagian Validasi
-	public function validasiOwner()
+	public function owner_edit($id)
 	{
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('owners' => $datas["user"]);
+		// $data = array('historis' => $datas["transaksi"]);
+		foreach ($datas['toko'] as $row) {
+			if ($row['id'] == $id) {
+				$user = array(
+					'nama' => $row["user"][0]["nama"],
+					'email' => $row["user"][0]["email"],
+					'alamat' => $row["user"][0]["alamat"],
+					'no_hp' => $row["user"][0]["no_hp"],
+				);
+				$value = array(
+					'id' => $row['id'],
+					'nama_toko' => $row['nama_toko'],
+					'alamat' => $row['alamat'],
+					'deskripsi_toko' => $row['deskripsi_toko'],
+					'user' => $user
+				);
+			}
+		}
 
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/validasi/index', $data);
+		$data['owner'] = $value;
+
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/owner/edit', $data);
 	}
 
-	public function validasiDetail()
+	public function owner_detail($id)
 	{
-		$this->template->load('layouts/superAdmin/master', 'dashboard/superAdmin/validasi/detail');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		// $data = array('historis' => $datas["transaksi"]);
+		foreach ($datas['toko'] as $row) {
+			if ($row['id'] == $id) {
+				$user = array(
+					'nama' => $row["user"][0]["nama"],
+					'email' => $row["user"][0]["email"],
+					'alamat' => $row["user"][0]["alamat"],
+					'no_hp' => $row["user"][0]["no_hp"],
+				);
+				$value = array(
+					'id' => $row['id'],
+					'nama_toko' => $row['nama_toko'],
+					'alamat' => $row['alamat'],
+					'deskripsi_toko' => $row['deskripsi_toko'],
+					'user' => $user
+				);
+			}
+		}
+
+		$data['owner'] = $value;
+
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/owner/detail', $data);
+	}
+
+	// Bagian Validasi
+	public function validasi_owner()
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data['owners'] = array_filter($datas['toko'], function ($value) {
+			return $value['status_toko'] == "tidak valid";
+		});
+
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/validasi/index', $data);
+	}
+
+	public function validasi_detail($id)
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		// $data = array('historis' => $datas["transaksi"]);
+		foreach ($datas['toko'] as $row) {
+			if ($row['id'] == $id) {
+				$user = array(
+					'nama' => $row["user"][0]["nama"],
+					'email' => $row["user"][0]["email"],
+					'alamat' => $row["user"][0]["alamat"],
+					'no_hp' => $row["user"][0]["no_hp"],
+				);
+				$value = array(
+					'id' => $row['id'],
+					'nama_toko' => $row['nama_toko'],
+					'alamat' => $row['alamat'],
+					'deskripsi_toko' => $row['deskripsi_toko'],
+					'user' => $user
+				);
+			}
+		}
+
+		$data['owner'] = $value;
+
+		$this->template->load('layouts/superadmin/master', 'dashboard/superadmin/validasi/detail', $data);
 	}
 }

@@ -13,7 +13,7 @@
 				</a>
 			</li>
 			<li class="menu-header">Data</li>
-			<li <?= $this->uri->segment(2) == 'admin' || $this->uri->segment(2) == 'adminEdit' || $this->uri->segment(2) == 'adminTambah' || $this->uri->segment(2) == 'adminUbahPassword' ? 'class=active' : '' ?>>
+			<li <?= $this->uri->segment(2) == 'admin' || $this->uri->segment(2) == 'admin_edit' || $this->uri->segment(2) == 'admin_tambah' || $this->uri->segment(2) == 'admin_ubah_password' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/admin') ?>">
 					<i class="fas fa-user"></i> <span>Data Admin</span>
 				</a>
@@ -23,7 +23,7 @@
 					<span>Data Produk</span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a class="nav-link " href="#"><i class="fas fa-cubes"></i>Produk</a></li>
+					<li <?= $this->uri->segment(2) == 'produk' ? 'class=active' : '' ?>><a class="nav-link " href="<?= base_url('owner/produk') ?>""><i class="fas fa-cubes"></i>Produk</a></li>
 					<li><a class="nav-link" href="#"><i class="fas fa-cubes"></i>Jasa</a></li>
 					<li><a class="nav-link" href="#"><i class="fa fa-images"></i>Foto</a></li>
 				</ul>

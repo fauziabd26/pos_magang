@@ -11,7 +11,7 @@
 						<div class="card-stats-title">Data Owner</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTidakValid ?> <i class="fas fa-ban" style="color: #fc544b;"></i></div>
+								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-ban" style="color: #fc544b;"></i></div>
 								<div class="card-stats-item-label">Belum Valid</div>
 							</div>
 							<div class="card-stats-item">
@@ -29,11 +29,9 @@
 
 			<div class="col-12">
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header justify-content-between">
 						<h4>Data Owner Belum Valid Terbaru</h4>
-						<div class="card-header-action">
-							<a href="#" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
-						</div>
+						<a href="<?= base_url('superadmin/validasi_owner') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
 					</div>
 					<div class="card-body p-0">
 						<div class="table-responsive table-invoice">
@@ -43,22 +41,31 @@
 									<th>Nama Owner</th>
 									<th>Nama Toko</th>
 									<th>Email</th>
-									<th>Foto</th>
+									<th>Alamat</th>
+									<th>Nomer Handphone</th>
 									<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($owners as $no => $owner) : ?>
+									<?php $no = 0 ?>
+									<?php foreach (array_slice($owners, 0, 5) as $owner) : ?>
 										<tr>
 											<td><?= ++$no ?></td>
-											<td class="font-weight-600"><?= $owner["nama"] ?></td>
-											<td><?= $owner["toko"] ?? "-" ?></td>
-											<td><?= $owner["email"] ?? "-" ?></td>
+											<?php foreach ($owner["user"] as $user) : ?>
+												<td class="font-weight-600"><?= $user['nama'] ?></td>
+											<?php endforeach; ?>
+											<td><?= $owner["nama_toko"] ?? "-" ?></td>
+											<?php foreach ($owner["user"] as $user) : ?>
+												<td><?= $user['email'] ?></td>
+											<?php endforeach; ?>
+											<?php foreach ($owner["user"] as $user) : ?>
+												<td><?= $user['alamat'] ?></td>
+											<?php endforeach; ?>
+											<?php foreach ($owner["user"] as $user) : ?>
+												<td><?= $user['no_hp'] ?></td>
+											<?php endforeach; ?>
 											<td>
-												<img src="<?= base_url('assets\ktp\ktp.jpg') ?>" height="150px" width="150px">
-											</td>
-											<td>
-												<a href="#" class="btn btn-primary">Detail</a>
+												<a href="<?= base_url('superadmin/validasi_detail/' . $owner["id"]) ?>" class="btn btn-primary">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

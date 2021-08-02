@@ -24,22 +24,19 @@
 						<div class="login-brand">
 							<img src="<?= base_url('assets/img/stisla-fill.svg') ?>" alt="logo" width="100" class="shadow-light rounded-circle">
 						</div>
-
 						<div class="card card-primary">
 							<div class="card-header">
 								<h4>Login</h4>
 							</div>
-
 							<div class="card-body">
 								<form action="#" method="POST" class="needs-validation" novalidate="">
 									<div class="form-group">
 										<label for="email">Email</label>
-										<input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+										<input id="email" type="email" class="form-control" name="email" placeholder="example@gmail.com" tabindex="1" required autofocus>
 										<div class="invalid-feedback">
 											Please fill in your email
 										</div>
 									</div>
-
 									<div class="form-group">
 										<div class="d-block">
 											<label for="password" class="control-label">Password</label>
@@ -49,21 +46,31 @@
 												</a>
 											</div> -->
 										</div>
-										<input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+										<input id="password" type="password" class="form-control" name="password" placeholder="Masukan Password" tabindex="2" required>
 										<div class="invalid-feedback">
 											please fill in your password
 										</div>
 									</div>
-
 									<div class="form-group">
 										<button type="submit" name="loginPost" class="btn btn-primary btn-lg btn-block" tabindex="4">
 											Login
 										</button>
+										<div class="mt-5 text-center">
+											Belum Mempunyai Akun? <a href="<?= base_url('auth/register') ?>">Register</a>
+										</div>
 									</div>
-
-									<div class="mt-5 text-center">
-										Belum Mempunyai Akun? <a href="<?= base_url('auth/register') ?>">Register</a>
+									<div class="card-header justify-content-around">
+										<h4>Halaman Sementara</h4>
 									</div>
+									<a href="<?= base_url('/superadmin/dashboard') ?>" class="btn btn-primary btn-lg btn-block">
+										Dashboard Super Admin
+									</a>
+									<a href="<?= base_url('/owner/dashboard') ?>" class="btn btn-primary btn-lg btn-block">
+										Dashboard Owner
+									</a>
+									<a href="<?= base_url('/admin/dashboard') ?>" class="btn btn-primary btn-lg btn-block">
+										Dashboard Admin
+									</a>
 								</form>
 							</div>
 						</div>
