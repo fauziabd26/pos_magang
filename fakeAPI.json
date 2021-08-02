@@ -1,0 +1,256 @@
+{
+  "role": [
+    {
+      "id": 1,
+      "nama_role": "superadmin",
+      "deskripsi_role": "superadmin"
+    },
+    {
+      "id": 2,
+      "nama_role": "owner",
+      "deskripsi_role": "owner"
+    },
+    {
+      "id": 3,
+      "nama_role": "admin",
+      "deskripsi_role": "admin"
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "role": [
+        {
+          "id": 1,
+          "nama_role": "superadmin",
+          "deskripsi_role": "superadmin"
+        }
+      ],
+      "nama": "Dimas Addriansyah Pamungkas",
+      "email": "dimas@gmail.com",
+      "password": "dimas",
+      "no_hp": "089513211223",
+      "alamat": "Indramayu, Jawa Barat"
+    },
+    {
+      "id": 2,
+      "role": [
+        {
+          "id": 3,
+          "nama_role": "admin",
+          "deskripsi_role": "admin"
+        }
+      ],
+      "nama": "Admin",
+      "email": "admin@gmail.com",
+      "password": "admin",
+      "no_hp": "089543242123",
+      "alamat": "Balongan, Jawa Barat"
+    },
+    {
+      "id": 3,
+      "role": [
+        {
+          "id": 2,
+          "nama_role": "owner",
+          "deskripsi_role": "owner"
+        }
+      ],
+      "nama": "Zulfa Khoerul",
+      "email": "zulfa@gmail.com",
+      "password": "zulfa",
+      "no_hp": "089513211223",
+      "alamat": "Sleman, Yogyakarta"
+    },
+    {
+      "id": 4,
+      "role": [
+        {
+          "id": 2,
+          "nama_role": "owner",
+          "deskripsi_role": "owner"
+        }
+      ],
+      "nama": "Fauzi Abdilah",
+      "email": "fauzi@gmail.com",
+      "password": "fauzi",
+      "no_hp": "089765433221",
+      "alamat": "Bekasi, Jawa Barat"
+    },
+    {
+      "id": 5,
+      "role": [
+        {
+          "id": 2,
+          "nama_role": "owner",
+          "deskripsi_role": "owner"
+        }
+      ],
+      "nama": "Verliana Nur",
+      "email": "verliana@gmail.com",
+      "password": "verliana",
+      "no_hp": "089543242123",
+      "alamat": "Balongan, Jawa Barat"
+    }
+  ],
+  "toko": [
+    {
+      "id": 1,
+      "user": [
+        {
+          "id": 3,
+          "role": [
+            {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          ],
+          "nama": "Zulfa Khoerul",
+          "email": "zulfa@gmail.com",
+          "password": "zulfa",
+          "no_hp": "089513211223",
+          "alamat": "Sleman, Yogyakarta"
+        }
+      ],
+      "nama_toko": "Toko Bangunanku",
+      "deskripsi_toko": "Toko Jual Bahan Bangunan",
+      "alamat": "Sleman, Yogyakarta",
+      "foto_toko": "zulfa.jpg",
+      "status_toko": "tidak valid"
+    },
+    {
+      "id": 2,
+      "user": [
+        {
+          "id": 4,
+          "role": [
+            {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          ],
+          "nama": "Fauzi Abdilah",
+          "email": "fauzi@gmail.com",
+          "password": "fauzi",
+          "no_hp": "089765433221",
+          "alamat": "Bekasi, Jawa Barat"
+        }
+      ],
+      "nama_toko": "Toko Bangun Jagad",
+      "deskripsi_toko": "Toko Pancing",
+      "alamat": "Bekasi, Jawa Barat",
+      "foto_toko": "fauzi.jpg",
+      "status_toko": "tidak valid"
+    },
+    {
+      "id": 3,
+      "user": [
+        {
+          "id": 5,
+          "role": [
+            {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          ],
+          "nama": "Verliana Nur",
+          "email": "verliana@gmail.com",
+          "password": "verliana",
+          "no_hp": "089543242123",
+          "alamat": "Balongan, Jawa Barat"
+        }
+      ],
+      "nama_toko": "Toko Balongan Indah",
+      "deskripsi_toko": "Toko Bahan Plastik",
+      "alamat": "Balongan, Jawa Barat",
+      "foto_toko": "verliana.jpg",
+      "status_toko": "valid"
+    }
+  ],
+  "transaksi": [
+    {
+      "id": "Transaksi-20210201",
+      "user": [
+        {
+          "id": 2,
+          "role": [
+            {
+              "id": 3,
+              "nama_role": "admin",
+              "deskripsi_role": "admin"
+            }
+          ],
+          "nama": "Admin",
+          "email": "admin@gmail.com",
+          "password": "admin",
+          "no_hp": "089543242123",
+          "alamat": "Balongan, Jawa Barat"
+        }
+      ],
+      "jenis": "produk",
+      "nama_customer": "Cindy",
+      "total_transaksi": 50000,
+      "bayar": 50000,
+      "diskon": null,
+      "status": 1,
+      "tgl_transaksi": "2021-01-02"
+    },
+    {
+      "id": "Transaksi-20210202",
+      "user": [
+        {
+          "id": 2,
+          "role": [
+            {
+              "id": 3,
+              "nama_role": "admin",
+              "deskripsi_role": "admin"
+            }
+          ],
+          "nama": "Admin",
+          "email": "admin@gmail.com",
+          "password": "admin",
+          "no_hp": "089543242123",
+          "alamat": "Balongan, Jawa Barat"
+        }
+      ],
+      "jenis": "jasa",
+      "nama_customer": "Maman",
+      "total_transaksi": 50000,
+      "bayar": 50000,
+      "diskon": null,
+      "status": 1,
+      "tgl_transaksi": "2021-01-02"
+    },
+    {
+      "id": "Transaksi-20210203",
+      "user": [
+        {
+          "id": 2,
+          "role": [
+            {
+              "id": 3,
+              "nama_role": "admin",
+              "deskripsi_role": "admin"
+            }
+          ],
+          "nama": "Admin",
+          "email": "admin@gmail.com",
+          "password": "admin",
+          "no_hp": "089543242123",
+          "alamat": "Balongan, Jawa Barat"
+        }
+      ],
+      "jenis": "produk",
+      "nama_customer": "Salsabila",
+      "total_transaksi": 55000,
+      "bayar": 60000,
+      "diskon": null,
+      "status": 1,
+      "tgl_transaksi": "2021-01-02"
+    }
+  ]
+}

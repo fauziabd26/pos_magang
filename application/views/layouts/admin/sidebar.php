@@ -12,21 +12,27 @@
 					<i class="fas fa-fire"></i> <span>Dashboard</span>
 				</a>
 			</li>
-			<li class="menu-header">Data</li>
+			<!-- <li class="menu-header">Data</li>
 			<li <?= $this->uri->segment(2) == 'customer' || $this->uri->segment(2) == 'customerTambah' || $this->uri->segment(2) == 'customerEdit' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('admin/customer') ?>">
 					<i class="fas fa-user"></i> <span>Customer</span>
 				</a>
-			</li>
-			<li class="menu-header">Transaksi</li>
-			<li <?= $this->uri->segment(2) == 'transaksiProduk' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('admin/transaksiProduk') ?>">
+			</li> -->
+			<li class="menu-header">Transaksi POS</li>
+			<li <?= $this->uri->segment(2) == 'transaksi_produk' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('admin/transaksi_produk') ?>">
 					<i class="fas fa-cash-register"></i> <span>Produk</span>
 				</a>
 			</li>
-			<li <?= $this->uri->segment(2) == 'transaksiJasa' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('admin/transaksiJasa') ?>">
+			<li <?= $this->uri->segment(2) == 'transaksi_jasa' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('admin/transaksi_jasa') ?>">
 					<i class="fas fa-cash-register"></i> <span>Jasa</span>
+				</a>
+			</li>
+			<li class="menu-header">Histori</li>
+			<li <?= $this->uri->segment(2) == 'histori_transaksi' || $this->uri->segment(2) == 'histori_transaksi_detail' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('admin/histori_transaksi') ?>">
+					<i class="fas fa-history"></i> <span>Histori Transaksi</span>
 				</a>
 			</li>
 		</ul>

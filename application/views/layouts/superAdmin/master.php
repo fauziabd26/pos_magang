@@ -5,26 +5,24 @@
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 	<title>Dashboard Super Admin</title>
-
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<!-- CSS Libraries -->
-
+	<link rel="stylesheet" href="<?= base_url('assets/dist/datatables-bs4/css/dataTables.bootstrap4.css') ?>">
 	<!-- Template CSS -->
 	<link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/css/components.css') ?>">
-	<link rel="stylesheet" href="<?= base_url('assets/dist/datatables-bs4/css/dataTables.bootstrap4.css') ?>">
 </head>
 
 <body>
 	<div id="app">
 		<div class="main-wrapper">
 			<!-- Header -->
-			<?php $this->load->view('layouts/superAdmin/header') ?>
+			<?php $this->load->view('layouts/superadmin/header') ?>
 
 			<!-- Sidebar -->
-			<?php $this->load->view('layouts/superAdmin/sidebar') ?>
+			<?php $this->load->view('layouts/superadmin/sidebar') ?>
 
 			<!-- Main Content -->
 			<div class="main-content">
@@ -32,7 +30,7 @@
 			</div>
 
 			<!-- Footer -->
-			<?php $this->load->view('layouts/superAdmin/footer') ?>
+			<!-- <?php $this->load->view('layouts/superadmin/footer') ?> -->
 		</div>
 	</div>
 
@@ -45,14 +43,13 @@
 	<script src="<?= base_url('assets/js/stisla.js') ?>"></script>
 
 	<!-- JS Libraies -->
+	<script src="<?= base_url('assets/dist/datatables/jquery.dataTables.js') ?>"></script>
+	<script src="<?= base_url('assets/dist/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
 
 	<!-- Template JS File -->
 	<script src="<?= base_url('assets/js/scripts.js') ?>"></script>
 	<script src="<?= base_url('assets/js/custom.js') ?>"></script>
 
-	<!-- Datatable -->
-	<script src="<?= base_url('assets/dist/datatables/jquery.dataTables.js') ?>"></script>
-	<script src="<?= base_url('assets/dist/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
 	<script>
 		$(function() {
 			$("#example1").DataTable();

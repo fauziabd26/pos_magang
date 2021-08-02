@@ -20,26 +20,37 @@
 								<th>Email</th>
 								<th>Alamat</th>
 								<th>No Handphone</th>
-								<th>Validasi</th>
+								<th width="15%">Validasi</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Dimas Addriansyah</td>
-								<td>Toko Serba Guna</td>
-								<td>dimas@gmail.com</td>
-								<td>Indramayu</td>
-								<td>08976523412</td>
-								<td>
-									<a href="#" class="btn btn-success btn-sm"><i class="fas fa-check mr-1"></i> Valid</a><br>
-									<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban mr-1"></i> Tidak Valid</a>
-								</td>
-								<td>
-									<a href="<?= base_url('superadmin/validasiDetail') ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
-								</td>
-							</tr>
+							<?php $no = 0 ?>
+							<?php foreach ($owners as $owner) : ?>
+								<tr>
+									<td><?= ++$no ?></td>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['nama'] ?></td>
+									<?php endforeach; ?>
+									<td><?= $owner["nama_toko"] ?? "-" ?></td>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['email'] ?></td>
+									<?php endforeach; ?>
+									<?php foreach ($owner["user"] as $user) : ?>
+										<td><?= $user['alamat'] ?></td>
+										<?php foreach ($owner["user"] as $user) : ?>
+											<td><?= $user['no_hp'] ?></td>
+										<?php endforeach; ?>
+									<?php endforeach; ?>
+									<td>
+										<a href="#" class="btn btn-success btn-sm"><i class="fas fa-check mr-1"></i> Valid</a><br>
+										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban"></i> Belum Valid</a>
+									</td>
+									<td>
+										<a href="<?= base_url('superadmin/validasi_detail/' . $owner["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>

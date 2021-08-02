@@ -1,10 +1,10 @@
 <section class="section">
 	<div class="section-header">
-		<h1>Edit Data Owner</h1>
+		<h1>Edit Data Owner <?= $owner["user"]["nama"] ?></h1>
 		<div class="section-header-breadcrumb">
 			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
 			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/owner') ?>">Data Owner</a></div>
-			<div class="breadcrumb-item">Dimas Addriansyah</div>
+			<div class="breadcrumb-item"><?= $owner["user"]["nama"] ?></div>
 		</div>
 	</div>
 
@@ -27,15 +27,15 @@
 							</div>
 							<div class="form-group">
 								<label for='nama'>Nama Toko</label>
-								<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Toko' autofocus>
+								<input type="text" id="nama" class="form-control" name="nama" value="<?= $owner["nama_toko"] ?? "-" ?>">
 							</div>
 							<div class="form-group">
 								<label>Alamat Lengkap Toko</label>
-								<textarea class="form-control" placeholder="Masukan Alamat Toko Lengkap"></textarea>
+								<textarea class="form-control"><?= $owner["alamat"] ?? "-" ?></textarea>
 							</div>
 							<div class="form-group">
 								<label>Deskripsi Toko</label>
-								<textarea class="form-control" placeholder="Masukan Deskripsi Toko"></textarea>
+								<textarea class="form-control"><?= $owner["deskripsi_toko"] ?? "-" ?></textarea>
 							</div>
 						</div>
 						<div class="col-6">
@@ -45,15 +45,15 @@
 							</div>
 							<div class="form-group">
 								<label for="nama">Nama Lengkap</label>
-								<input id="nama" type="text" class="form-control" name="nama" placeholder="Masukan Nama Lengkap">
+								<input id="nama" class="form-control" value="<?= $owner["user"]["nama"] ?? "-" ?>">
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input id="email" type="email" class="form-control" name="email" placeholder="Masukan Email">
+								<input id="email" type="email" class="form-control" value="<?= $owner["user"]["email"] ?? "-" ?>">
 							</div>
 							<div class="form-group">
 								<label for="no_hp">Nomer Handhphone</label>
-								<input id="no_hp" type="number" class="form-control" name="no_hp" placeholder="Masukan Nomer Handphone">
+								<input id="no_hp"class="form-control" value="<?= $owner["user"]["no_hp"] ?? "-" ?>">
 							</div>
 							<div class="form-group">
 								<label for='foto_ktp'>Foto KTP</label>
@@ -63,9 +63,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="card-footer">
-					<button class="btn btn-primary btn-block">Update</button>
 				</div>
 			</form>
 		</div>
