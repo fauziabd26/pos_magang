@@ -19,238 +19,602 @@
   "user": [
     {
       "id": 1,
-      "role": [
-        {
-          "id": 1,
-          "nama_role": "superadmin",
-          "deskripsi_role": "superadmin"
-        }
-      ],
       "nama": "Dimas Addriansyah Pamungkas",
       "email": "dimas@gmail.com",
       "password": "dimas",
       "no_hp": "089513211223",
-      "alamat": "Indramayu, Jawa Barat"
+      "alamat": "Indramayu, Jawa Barat",
+      "role": {
+        "id": 1,
+        "nama_role": "superadmin",
+        "deskripsi_role": "superadmin"
+      }
     },
     {
       "id": 2,
-      "role": [
-        {
-          "id": 3,
-          "nama_role": "admin",
-          "deskripsi_role": "admin"
-        }
-      ],
       "nama": "Admin",
       "email": "admin@gmail.com",
       "password": "admin",
       "no_hp": "089543242123",
-      "alamat": "Balongan, Jawa Barat"
+      "alamat": "Balongan, Jawa Barat",
+      "role": {
+        "id": 3,
+        "nama_role": "admin",
+        "deskripsi_role": "admin"
+      }
     },
     {
       "id": 3,
-      "role": [
-        {
-          "id": 2,
-          "nama_role": "owner",
-          "deskripsi_role": "owner"
-        }
-      ],
       "nama": "Zulfa Khoerul",
       "email": "zulfa@gmail.com",
       "password": "zulfa",
       "no_hp": "089513211223",
-      "alamat": "Sleman, Yogyakarta"
+      "alamat": "Sleman, Yogyakarta",
+      "role": {
+        "id": 2,
+        "nama_role": "owner",
+        "deskripsi_role": "owner"
+      }
     },
     {
       "id": 4,
-      "role": [
-        {
-          "id": 2,
-          "nama_role": "owner",
-          "deskripsi_role": "owner"
-        }
-      ],
       "nama": "Fauzi Abdilah",
       "email": "fauzi@gmail.com",
       "password": "fauzi",
       "no_hp": "089765433221",
-      "alamat": "Bekasi, Jawa Barat"
+      "alamat": "Bekasi, Jawa Barat",
+      "role": {
+        "id": 2,
+        "nama_role": "owner",
+        "deskripsi_role": "owner"
+      }
     },
     {
       "id": 5,
-      "role": [
-        {
-          "id": 2,
-          "nama_role": "owner",
-          "deskripsi_role": "owner"
-        }
-      ],
       "nama": "Verliana Nur",
       "email": "verliana@gmail.com",
       "password": "verliana",
       "no_hp": "089543242123",
-      "alamat": "Balongan, Jawa Barat"
+      "alamat": "Balongan, Jawa Barat",
+      "role": {
+        "id": 2,
+        "nama_role": "owner",
+        "deskripsi_role": "owner"
+      }
     }
   ],
   "toko": [
     {
       "id": 1,
-      "user": [
-        {
-          "id": 3,
-          "role": [
-            {
-              "id": 2,
-              "nama_role": "owner",
-              "deskripsi_role": "owner"
-            }
-          ],
-          "nama": "Zulfa Khoerul",
-          "email": "zulfa@gmail.com",
-          "password": "zulfa",
-          "no_hp": "089513211223",
-          "alamat": "Sleman, Yogyakarta"
-        }
-      ],
       "nama_toko": "Toko Bangunanku",
       "deskripsi_toko": "Toko Jual Bahan Bangunan",
       "alamat": "Sleman, Yogyakarta",
       "foto_toko": "zulfa.jpg",
-      "status_toko": "tidak valid"
+      "status_toko": "tidak valid",
+      "user": {
+        "id": 3,
+        "nama": "Zulfa Khoerul",
+        "email": "zulfa@gmail.com",
+        "password": "zulfa",
+        "no_hp": "089513211223",
+        "alamat": "Sleman, Yogyakarta",
+        "role": {
+          "id": 2,
+          "nama_role": "owner",
+          "deskripsi_role": "owner"
+        }
+      }
     },
     {
       "id": 2,
-      "user": [
-        {
-          "id": 4,
-          "role": [
-            {
-              "id": 2,
-              "nama_role": "owner",
-              "deskripsi_role": "owner"
-            }
-          ],
-          "nama": "Fauzi Abdilah",
-          "email": "fauzi@gmail.com",
-          "password": "fauzi",
-          "no_hp": "089765433221",
-          "alamat": "Bekasi, Jawa Barat"
-        }
-      ],
       "nama_toko": "Toko Bangun Jagad",
       "deskripsi_toko": "Toko Pancing",
       "alamat": "Bekasi, Jawa Barat",
       "foto_toko": "fauzi.jpg",
-      "status_toko": "tidak valid"
+      "status_toko": "tidak valid",
+      "user": {
+        "id": 4,
+        "nama": "Fauzi Abdilah",
+        "email": "fauzi@gmail.com",
+        "password": "fauzi",
+        "no_hp": "089765433221",
+        "alamat": "Bekasi, Jawa Barat",
+        "role": {
+          "id": 2,
+          "nama_role": "owner",
+          "deskripsi_role": "owner"
+        }
+      }
     },
     {
       "id": 3,
-      "user": [
-        {
-          "id": 5,
-          "role": [
-            {
-              "id": 2,
-              "nama_role": "owner",
-              "deskripsi_role": "owner"
-            }
-          ],
-          "nama": "Verliana Nur",
-          "email": "verliana@gmail.com",
-          "password": "verliana",
-          "no_hp": "089543242123",
-          "alamat": "Balongan, Jawa Barat"
-        }
-      ],
       "nama_toko": "Toko Balongan Indah",
       "deskripsi_toko": "Toko Bahan Plastik",
       "alamat": "Balongan, Jawa Barat",
       "foto_toko": "verliana.jpg",
-      "status_toko": "valid"
+      "status_toko": "valid",
+      "user": {
+        "id": 5,
+        "nama": "Verliana Nur",
+        "email": "verliana@gmail.com",
+        "password": "verliana",
+        "no_hp": "089543242123",
+        "alamat": "Balongan, Jawa Barat",
+        "role": {
+          "id": 2,
+          "nama_role": "owner",
+          "deskripsi_role": "owner"
+        }
+      }
+    }
+  ],
+  "produk": [
+    {
+      "id": 1,
+      "nama_produk": "Kemeja Flannel",
+      "jenis": "produk",
+      "toko": {
+        "id": 1,
+        "nama_toko": "Toko Bangunanku",
+        "deskripsi_toko": "Toko Jual Bahan Bangunan",
+        "alamat": "Sleman, Yogyakarta",
+        "foto_toko": "zulfa.jpg",
+        "status_toko": "tidak valid",
+        "user": {
+          "id": 3,
+          "nama": "Zulfa Khoerul",
+          "email": "zulfa@gmail.com",
+          "password": "zulfa",
+          "no_hp": "089513211223",
+          "alamat": "Sleman, Yogyakarta",
+          "role": {
+            "id": 2,
+            "nama_role": "owner",
+            "deskripsi_role": "owner"
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "nama_produk": "Kemeja Basic",
+      "jenis": "produk",
+      "toko": {
+        "id": 1,
+        "nama_toko": "Toko Bangunanku",
+        "deskripsi_toko": "Toko Jual Bahan Bangunan",
+        "alamat": "Sleman, Yogyakarta",
+        "foto_toko": "zulfa.jpg",
+        "status_toko": "tidak valid",
+        "user": {
+          "id": 3,
+          "nama": "Zulfa Khoerul",
+          "email": "zulfa@gmail.com",
+          "password": "zulfa",
+          "no_hp": "089513211223",
+          "alamat": "Sleman, Yogyakarta",
+          "role": {
+            "id": 2,
+            "nama_role": "owner",
+            "deskripsi_role": "owner"
+          }
+        }
+      }
+    }
+  ],
+  "satuan": [
+    {
+      "id": 1,
+      "nama_satuan": "pcs",
+      "produk": [
+        {
+          "id": 1,
+          "nama_produk": "Kemeja Flannel",
+          "jenis": "produk",
+          "toko": {
+            "id": 1,
+            "nama_toko": "Toko Bangunanku",
+            "deskripsi_toko": "Toko Jual Bahan Bangunan",
+            "alamat": "Sleman, Yogyakarta",
+            "foto_toko": "zulfa.jpg",
+            "status_toko": "tidak valid",
+            "user": {
+              "id": 3,
+              "nama": "Zulfa Khoerul",
+              "email": "zulfa@gmail.com",
+              "password": "zulfa",
+              "no_hp": "089513211223",
+              "alamat": "Sleman, Yogyakarta",
+              "role": {
+                "id": 2,
+                "nama_role": "owner",
+                "deskripsi_role": "owner"
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "nama_produk": "Kemeja Basic",
+          "jenis": "produk",
+          "toko": {
+            "id": 1,
+            "nama_toko": "Toko Bangunanku",
+            "deskripsi_toko": "Toko Jual Bahan Bangunan",
+            "alamat": "Sleman, Yogyakarta",
+            "foto_toko": "zulfa.jpg",
+            "status_toko": "tidak valid",
+            "user": {
+              "id": 3,
+              "nama": "Zulfa Khoerul",
+              "email": "zulfa@gmail.com",
+              "password": "zulfa",
+              "no_hp": "089513211223",
+              "alamat": "Sleman, Yogyakarta",
+              "role": {
+                "id": 2,
+                "nama_role": "owner",
+                "deskripsi_role": "owner"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "harga": [
+    {
+      "id": 1,
+      "nama_harga": "satuan",
+      "nominal": 50000,
+      "produk": {
+        "id": 1,
+        "nama_produk": "Kemeja Flannel",
+        "jenis": "produk",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "kategori": [
+    {
+      "id": 1,
+      "nama_kategori": "baju",
+      "toko": {
+        "id": 1,
+        "nama_toko": "Toko Bangunanku",
+        "deskripsi_toko": "Toko Jual Bahan Bangunan",
+        "alamat": "Sleman, Yogyakarta",
+        "foto_toko": "zulfa.jpg",
+        "status_toko": "tidak valid",
+        "user": {
+          "id": 3,
+          "nama": "Zulfa Khoerul",
+          "email": "zulfa@gmail.com",
+          "password": "zulfa",
+          "no_hp": "089513211223",
+          "alamat": "Sleman, Yogyakarta",
+          "role": {
+            "id": 2,
+            "nama_role": "owner",
+            "deskripsi_role": "owner"
+          }
+        }
+      }
+    }
+  ],
+  "produk_kategori": [
+    {
+      "id": 1,
+      "kategori": {
+        "id": 1,
+        "nama_kategori": "baju",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          }
+        }
+      },
+      "produk": {
+        "id": 1,
+        "nama_produk": "Kemeja Flannel",
+        "jenis": "produk",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 1,
+      "kategori": {
+        "id": 1,
+        "nama_kategori": "baju",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          }
+        }
+      },
+      "produk": {
+        "id": 2,
+        "nama_produk": "Kemeja Basic",
+        "jenis": "produk",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "foto_produk": [
+    {
+      "id": 1,
+      "nama_foto_produk": "kemeja_flannel.jpg",
+      "produk": {
+        "id": 1,
+        "nama_produk": "Kemeja Flannel",
+        "jenis": "produk",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 1,
+      "nama_foto_produk": "kemeja_basic.jpg",
+      "produk": {
+        "id": 2,
+        "nama_produk": "Kemeja Basic",
+        "jenis": "produk",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
+            }
+          }
+        }
+      }
     }
   ],
   "transaksi": [
     {
-      "id": "Transaksi-20210201",
-      "user": [
-        {
-          "id": 2,
-          "role": [
-            {
-              "id": 3,
-              "nama_role": "admin",
-              "deskripsi_role": "admin"
-            }
-          ],
-          "nama": "Admin",
-          "email": "admin@gmail.com",
-          "password": "admin",
-          "no_hp": "089543242123",
-          "alamat": "Balongan, Jawa Barat"
-        }
-      ],
+      "id": "Transaksi-20210101001",
       "jenis": "produk",
       "nama_customer": "Cindy",
       "total_transaksi": 50000,
       "bayar": 50000,
-      "diskon": null,
+      "diskon": "null",
       "status": 1,
-      "tgl_transaksi": "2021-01-02"
-    },
+      "tgl_transaksi": "2021-01-02",
+      "user": {
+        "id": 2,
+        "nama": "Admin",
+        "email": "admin@gmail.com",
+        "password": "admin",
+        "no_hp": "089543242123",
+        "alamat": "Balongan, Jawa Barat",
+        "role": {
+          "id": 3,
+          "nama_role": "admin",
+          "deskripsi_role": "admin"
+        }
+      },
+      "toko": {
+        "id": 1,
+        "nama_toko": "Toko Bangunanku",
+        "deskripsi_toko": "Toko Jual Bahan Bangunan",
+        "alamat": "Sleman, Yogyakarta",
+        "foto_toko": "zulfa.jpg",
+        "status_toko": "tidak valid",
+        "user": {
+          "id": 3,
+          "nama": "Zulfa Khoerul",
+          "email": "zulfa@gmail.com",
+          "password": "zulfa",
+          "no_hp": "089513211223",
+          "alamat": "Sleman, Yogyakarta",
+          "role": {
+            "id": 2,
+            "nama_role": "owner",
+            "deskripsi_role": "owner"
+          }
+        }
+      }
+    }
+  ],
+  "detail_transaksi": [
     {
-      "id": "Transaksi-20210202",
-      "user": [
-        {
-          "id": 2,
-          "role": [
-            {
-              "id": 3,
-              "nama_role": "admin",
-              "deskripsi_role": "admin"
+      "id": 1,
+      "qty": 1,
+      "sub_total": 50000,
+      "produk": {
+        "id": 1,
+        "nama_produk": "Kemeja Flannel",
+        "jenis": "produk",
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
             }
-          ],
+          }
+        }
+      },
+      "transaksi": {
+        "id": "Transaksi-20210101001",
+        "jenis": "produk",
+        "nama_customer": "Cindy",
+        "total_transaksi": 50000,
+        "bayar": 50000,
+        "diskon": "null",
+        "status": 1,
+        "tgl_transaksi": "2021-01-02",
+        "user": {
+          "id": 2,
           "nama": "Admin",
           "email": "admin@gmail.com",
           "password": "admin",
           "no_hp": "089543242123",
-          "alamat": "Balongan, Jawa Barat"
-        }
-      ],
-      "jenis": "jasa",
-      "nama_customer": "Maman",
-      "total_transaksi": 50000,
-      "bayar": 50000,
-      "diskon": null,
-      "status": 1,
-      "tgl_transaksi": "2021-01-02"
-    },
-    {
-      "id": "Transaksi-20210203",
-      "user": [
-        {
-          "id": 2,
-          "role": [
-            {
-              "id": 3,
-              "nama_role": "admin",
-              "deskripsi_role": "admin"
+          "alamat": "Balongan, Jawa Barat",
+          "role": {
+            "id": 3,
+            "nama_role": "admin",
+            "deskripsi_role": "admin"
+          }
+        },
+        "toko": {
+          "id": 1,
+          "nama_toko": "Toko Bangunanku",
+          "deskripsi_toko": "Toko Jual Bahan Bangunan",
+          "alamat": "Sleman, Yogyakarta",
+          "foto_toko": "zulfa.jpg",
+          "status_toko": "tidak valid",
+          "user": {
+            "id": 3,
+            "nama": "Zulfa Khoerul",
+            "email": "zulfa@gmail.com",
+            "password": "zulfa",
+            "no_hp": "089513211223",
+            "alamat": "Sleman, Yogyakarta",
+            "role": {
+              "id": 2,
+              "nama_role": "owner",
+              "deskripsi_role": "owner"
             }
-          ],
-          "nama": "Admin",
-          "email": "admin@gmail.com",
-          "password": "admin",
-          "no_hp": "089543242123",
-          "alamat": "Balongan, Jawa Barat"
+          }
         }
-      ],
-      "jenis": "produk",
-      "nama_customer": "Salsabila",
-      "total_transaksi": 55000,
-      "bayar": 60000,
-      "diskon": null,
-      "status": 1,
-      "tgl_transaksi": "2021-01-02"
+      }
     }
   ]
 }
