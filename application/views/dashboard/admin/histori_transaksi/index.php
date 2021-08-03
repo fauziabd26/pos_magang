@@ -23,17 +23,17 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($historis as $no => $histori) : ?>
+							<?php foreach ($transaksis as $no => $transaksi) : ?>
 								<tr>
-									<td><?= $histori["id"] ?></td>
-									<td><?= $histori["nama_customer"] ?></td>
+									<td><?= $transaksi["id_transaksi"] ?></td>
+									<td><?= $transaksi["nama_customer"] ?></td>
 									<td>
-										<div class="badge <?= $histori['jenis'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $histori["jenis"] ?></div>
+										<div class="badge <?= $transaksi['jenis'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis"] ?></div>
 									</td>
-									<td><?= date_indo($histori["tgl_transaksi"]) ?></td>
-									<td><?= 'Rp ' . number_format($histori["total_transaksi"]) ?></td>
+									<td><?= date_indo($transaksi["tgl_transaksi"]) ?></td>
+									<td><?= 'Rp ' . number_format($transaksi["total_transaksi"]) ?></td>
 									<td>
-										<a href="<?= base_url('admin/histori_transaksi_detail/'.$histori["id"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+										<a href="<?= base_url('admin/histori_transaksi_detail/'.$transaksi["id_transaksi"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

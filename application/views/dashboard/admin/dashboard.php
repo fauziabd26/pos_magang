@@ -48,14 +48,14 @@
 								<tbody>
 									<?php foreach (array_slice($transaksis, 0, 5) as $no => $transaksi) : ?>
 										<tr>
-											<td><?= $transaksi["id"] ?></td>
+											<td><?= $transaksi["id_transaksi"] ?></td>
 											<td class="font-weight-600"><?= $transaksi["nama_customer"] ?></td>
 											<td>
 												<div class="badge <?= $transaksi['jenis'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis"] ?></div>
 											</td>
 											<td><?= date_indo($transaksi["tgl_transaksi"]) ?></td>
 											<td>
-												<a href="<?= base_url('admin/histori_transaksi_detail/' . $transaksi["id"]) ?>" class="btn btn-primary">Detail</a>
+												<a href="<?= base_url('admin/histori_transaksi_detail/' . $transaksi["id_transaksi"]) ?>" class="btn btn-primary">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

@@ -46,7 +46,7 @@ class Admin extends CI_Controller
 		$getAPI = file_get_contents('fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('historis' => $datas["transaksi"]);
+		$data = array('transaksis' => $datas["transaksi"]);
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
 	}
@@ -58,9 +58,9 @@ class Admin extends CI_Controller
 
 		// $data = array('historis' => $datas["transaksi"]);
 		foreach ($datas['transaksi'] as $row) {
-			if ($row['id'] == $id) {
+			if ($row['id_transaksi'] == $id) {
 				$value = array(
-					'id' => $row['id'],
+					'id_transaksi' => $row['id_transaksi'],
 					'jenis' => $row['jenis'],
 					'nama_customer' => $row['nama_customer'],
 					'total_transaksi' => $row['total_transaksi'],
@@ -69,7 +69,7 @@ class Admin extends CI_Controller
 			}
 		}
 
-		$data['histori'] = $value;
+		$data['transaksi'] = $value;
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/detail', $data);
 	}

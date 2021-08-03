@@ -51,21 +51,13 @@
 									<?php foreach (array_slice($owners, 0, 5) as $owner) : ?>
 										<tr>
 											<td><?= ++$no ?></td>
-											<?php foreach ($owner["user"] as $user) : ?>
-												<td class="font-weight-600"><?= $user['nama'] ?></td>
-											<?php endforeach; ?>
+											<td class="font-weight-600"><?= $owner['user']['nama'] ?></td>
 											<td><?= $owner["nama_toko"] ?? "-" ?></td>
-											<?php foreach ($owner["user"] as $user) : ?>
-												<td><?= $user['email'] ?></td>
-											<?php endforeach; ?>
-											<?php foreach ($owner["user"] as $user) : ?>
-												<td><?= $user['alamat'] ?></td>
-											<?php endforeach; ?>
-											<?php foreach ($owner["user"] as $user) : ?>
-												<td><?= $user['no_hp'] ?></td>
-											<?php endforeach; ?>
+											<td><?= $owner['user']['email'] ?></td>
+											<td><?= $owner['user']['alamat'] ?></td>
+											<td><?= $owner['user']['no_hp'] ?></td>
 											<td>
-												<a href="<?= base_url('superadmin/validasi_detail/' . $owner["id"]) ?>" class="btn btn-primary">Detail</a>
+												<a href="<?= base_url('superadmin/validasi_detail/' . $owner["id_toko"]) ?>" class="btn btn-primary">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

@@ -11,10 +11,8 @@ class Superadmin extends CI_Controller
 		// Count Data Owner
 		$totalOwner = 0;
 		foreach ($datas["user"] as $row) {
-			foreach ($row["role"] as $value) {
-				if ($value['id'] == 2) {
-					$totalOwner += 1;
-				}
+			if ($row['id_user'] == 2) {
+				$totalOwner += 1;
 			}
 		}
 
@@ -59,15 +57,15 @@ class Superadmin extends CI_Controller
 
 		// $data = array('historis' => $datas["transaksi"]);
 		foreach ($datas['toko'] as $row) {
-			if ($row['id'] == $id) {
+			if ($row['id_toko'] == $id) {
 				$user = array(
-					'nama' => $row["user"][0]["nama"],
-					'email' => $row["user"][0]["email"],
-					'alamat' => $row["user"][0]["alamat"],
-					'no_hp' => $row["user"][0]["no_hp"],
+					'nama' => $row["user"]["nama"],
+					'email' => $row["user"]["email"],
+					'alamat' => $row["user"]["alamat"],
+					'no_hp' => $row["user"]["no_hp"],
 				);
 				$value = array(
-					'id' => $row['id'],
+					'id_toko' => $row['id_toko'],
 					'nama_toko' => $row['nama_toko'],
 					'alamat' => $row['alamat'],
 					'deskripsi_toko' => $row['deskripsi_toko'],
@@ -88,15 +86,15 @@ class Superadmin extends CI_Controller
 
 		// $data = array('historis' => $datas["transaksi"]);
 		foreach ($datas['toko'] as $row) {
-			if ($row['id'] == $id) {
+			if ($row['id_toko'] == $id) {
 				$user = array(
-					'nama' => $row["user"][0]["nama"],
-					'email' => $row["user"][0]["email"],
-					'alamat' => $row["user"][0]["alamat"],
-					'no_hp' => $row["user"][0]["no_hp"],
+					'nama' => $row["user"]["nama"],
+					'email' => $row["user"]["email"],
+					'alamat' => $row["user"]["alamat"],
+					'no_hp' => $row["user"]["no_hp"],
 				);
 				$value = array(
-					'id' => $row['id'],
+					'id_toko' => $row['id_toko'],
 					'nama_toko' => $row['nama_toko'],
 					'alamat' => $row['alamat'],
 					'deskripsi_toko' => $row['deskripsi_toko'],
@@ -130,15 +128,15 @@ class Superadmin extends CI_Controller
 
 		// $data = array('historis' => $datas["transaksi"]);
 		foreach ($datas['toko'] as $row) {
-			if ($row['id'] == $id) {
+			if ($row['id_toko'] == $id) {
 				$user = array(
-					'nama' => $row["user"][0]["nama"],
-					'email' => $row["user"][0]["email"],
-					'alamat' => $row["user"][0]["alamat"],
-					'no_hp' => $row["user"][0]["no_hp"],
+					'nama' => $row["user"]["nama"],
+					'email' => $row["user"]["email"],
+					'alamat' => $row["user"]["alamat"],
+					'no_hp' => $row["user"]["no_hp"],
 				);
 				$value = array(
-					'id' => $row['id'],
+					'id_toko' => $row['id_toko'],
 					'nama_toko' => $row['nama_toko'],
 					'alamat' => $row['alamat'],
 					'deskripsi_toko' => $row['deskripsi_toko'],

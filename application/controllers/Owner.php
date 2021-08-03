@@ -24,9 +24,7 @@ class Owner extends CI_Controller
 		$datas = json_decode($getAPI, true);
 
 		$data['admins'] = array_filter($datas['user'], function ($row) {
-			foreach ($row['role'] as $value) {
-				return $value['id'] == 3;
-			}
+			return $row['id_user'] == 3;
 		});
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index', $data);
@@ -43,8 +41,9 @@ class Owner extends CI_Controller
 		$datas = json_decode($getAPI, true);
 
 		foreach ($datas['user'] as $row) {
-			if ($row['id'] == $id) {
+			if ($row['id_user'] == $id) {
 				$value = array(
+					'id_user' => $row["id_user"],
 					'nama' => $row["nama"],
 					'email' => $row["email"],
 					'alamat' => $row["alamat"],
@@ -58,7 +57,7 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 	}
 
-	public function admin_ubah_password()
+	public function admin_ubah_password($id)
 	{
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password');
 	}

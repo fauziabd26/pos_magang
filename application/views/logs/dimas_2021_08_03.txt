@@ -1,0 +1,4 @@
+jam 10.00-12.00 : melanjutkan membuat data dummy pada fakeAPI.php
+jam 13.00-14.00 : memakai data JSON pada halaman superadmin
+jam 14.00-15.00 : memakai data JSON pada halaman admin
+jam 15.00-16.00 : memakai data JSON pada halaman owner
