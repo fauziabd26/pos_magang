@@ -28,6 +28,7 @@ class Produk extends RestController {
 	function index_post() {
         $data = array(
                     'id_produk'           => $this->post('id_produk'),
+                    'id_toko'             => $this->post('id_toko'),
                     'nama_produk'         => $this->post('nama_produk'),
                     'jenis'               => $this->post('jenis'));
         $insert = $this->db->insert('produk', $data);
@@ -43,6 +44,7 @@ class Produk extends RestController {
         $id_produk = $this->put('id_produk');
         $data      = array(
                     'id_produk'       => $this->put('id_produk'),
+                    'id_toko'         => $this->put('id_toko'),
                     'nama_produk'     => $this->put('nama_produk'),
                     'jenis'           => $this->put('jenis'));
         $this->db->where('id_produk', $id_produk);
@@ -56,9 +58,9 @@ class Produk extends RestController {
 
     //Menghapus salah satu data kontak
 	function index_delete() {
-        $id = $this->delete('id');
-        $this->db->where('id', $id);
-        $delete = $this->db->delete('telepon');
+        $id_produk = $this->delete('id_produk');
+        $this->db->where('id_produk', $id_produk);
+        $delete = $this->db->delete('produk');
         if ($delete) {
             $this->response(array('status' => 'success'), 201);
         } else {
