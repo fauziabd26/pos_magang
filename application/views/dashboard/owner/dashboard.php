@@ -118,7 +118,7 @@
 								<tbody>
 									<?php foreach (array_slice($transaksis, 0, 5) as $no => $transaksi) : ?>
 										<tr>
-											<td><?= $transaksi["id"] ?></td>
+											<td><?= $transaksi["id_transaksi"] ?></td>
 											<td class="font-weight-600"><?= $transaksi["nama_customer"] ?></td>
 											<td>
 												<div class="badge <?= $transaksi['jenis'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis"] ?></div>
