@@ -1,0 +1,28 @@
+{
+  "transaksi": [
+    {
+      "id_transaksi": "Transaksi-20210102001",
+      "jenis": "produk",
+      "nama_customer": "Cindy",
+      "total_transaksi": 50000,
+      "bayar": 50000,
+      "diskon": "null",
+      "status": 1,
+      "tgl_transaksi": "2021-01-02",
+      "id_user": 2,
+      "id_toko": 1
+    },
+    {
+      "id_transaksi": "Transaksi-20210102002",
+      "jenis": "produk",
+      "nama_customer": "Lala",
+      "total_transaksi": 100000,
+      "bayar": 100000,
+      "diskon": "null",
+      "status": 1,
+      "tgl_transaksi": "2021-01-02",
+      "id_user": 2,
+      "id_toko": 1
+    }
+  ]
+}

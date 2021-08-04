@@ -1,0 +1,49 @@
+{
+  "toko": [
+    {
+      "id_toko": 1,
+      "nama_toko": "Toko Bangunanku",
+      "deskripsi_toko": "Toko Jual Bahan Bangunan",
+      "alamat": "Sleman, Yogyakarta",
+      "foto_toko": "zulfa.jpg",
+      "status_toko": "tidak valid",
+      "user": {
+        "nama": "Zulfa Khoerul",
+        "email": "zulfa@gmail.com",
+        "password": "zulfa",
+        "no_hp": "089513211223",
+        "alamat": "Sleman, Yogyakarta"
+      }
+    },
+    {
+      "id_toko": 2,
+      "nama_toko": "Toko Bangun Jagad",
+      "deskripsi_toko": "Toko Pancing",
+      "alamat": "Bekasi, Jawa Barat",
+      "foto_toko": "fauzi.jpg",
+      "status_toko": "tidak valid",
+      "user": {
+        "nama": "Fauzi Abdilah",
+        "email": "fauzi@gmail.com",
+        "password": "fauzi",
+        "no_hp": "089765433221",
+        "alamat": "Bekasi, Jawa Barat"
+      }
+    },
+    {
+      "id_toko": 3,
+      "nama_toko": "Toko Balongan Indah",
+      "deskripsi_toko": "Toko Bahan Plastik",
+      "alamat": "Balongan, Jawa Barat",
+      "foto_toko": "verliana.jpg",
+      "status_toko": "valid",
+      "user": {
+        "nama": "Verliana Nur",
+        "email": "verliana@gmail.com",
+        "password": "verliana",
+        "no_hp": "089543242123",
+        "alamat": "Balongan, Jawa Barat"
+      }
+    }
+  ]
+}

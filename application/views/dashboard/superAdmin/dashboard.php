@@ -19,7 +19,7 @@
 								<div class="card-stats-item-label">Valid</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalOwner ?> <i class="fas fa-user" style="color: #6777ef;"></i></div>
+								<div class="card-stats-item-count"><?= $totalPending + $totalValid ?> <i class="fas fa-user" style="color: #6777ef;"></i></div>
 								<div class="card-stats-item-label">Total</div>
 							</div>
 						</div>
