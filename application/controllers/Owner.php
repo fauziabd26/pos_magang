@@ -5,10 +5,25 @@ class Owner extends CI_Controller
 {
 	public function dashboard()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/transaksi/transaksi.json');
 		$datas = json_decode($getAPI, true);
 
+		// Count TransaksiProduk
+		$totalTransaksiProduk = 0;
+		$totalTransaksiJasa = 0;
+
+		foreach ($datas["transaksi"] as $value) {
+			if ($value["jenis"] == "produk") {
+				$totalTransaksiProduk += 1;
+			} elseif ($value["jenis"] == "jasa") {
+				$totalTransaksiJasa += 1;
+			}
+		}
+
 		$data = array('transaksis' => $datas["transaksi"]);
+		$data['totalTransaksiProduk'] = $totalTransaksiProduk;
+		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
+
 		$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
 	}
 
@@ -20,11 +35,11 @@ class Owner extends CI_Controller
 	// Bagian Admin
 	public function admin()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/user/user.json');
 		$datas = json_decode($getAPI, true);
 
 		$data['admins'] = array_filter($datas['user'], function ($row) {
-			return $row['id_user'] == 3;
+			return $row['id_role'] == 3;
 		});
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index', $data);
@@ -37,7 +52,7 @@ class Owner extends CI_Controller
 
 	public function admin_edit($id)
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/user/user.json');
 		$datas = json_decode($getAPI, true);
 
 		foreach ($datas['user'] as $row) {
