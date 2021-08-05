@@ -1,10 +1,10 @@
 <section class="section">
 	<div class="section-header">
-		<h1>Edit Data Owner <?= $owner["user"]["nama"] ?></h1>
+		<h1>Edit Data Toko <?= $toko["nama_toko"] ?></h1>
 		<div class="section-header-breadcrumb">
 			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/owner') ?>">Data Owner</a></div>
-			<div class="breadcrumb-item"><?= $owner["user"]["nama"] ?></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/toko') ?>">Data Toko</a></div>
+			<div class="breadcrumb-item"><?= $toko["nama_toko"] ?></div>
 		</div>
 	</div>
 
@@ -14,8 +14,8 @@
 				<div class="card-body">
 					<div class="row mb-5">
 						<div class="col">
-							<a href="<?= base_url('superadmin/owner') ?>" class="btn btn-primary">
-								<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Owner
+							<a href="<?= base_url('superadmin/toko') ?>" class="btn btn-primary">
+								<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Toko
 							</a>
 						</div>
 					</div>
@@ -27,42 +27,39 @@
 							</div>
 							<div class="form-group">
 								<label for='nama'>Nama Toko</label>
-								<input type="text" id="nama" class="form-control" name="nama" value="<?= $owner["nama_toko"] ?? "-" ?>">
+								<input type="text" id="nama" class="form-control" name="nama" value="<?= $toko["nama_toko"] ?? "-" ?>">
 							</div>
 							<div class="form-group">
 								<label>Alamat Lengkap Toko</label>
-								<textarea class="form-control"><?= $owner["alamat"] ?? "-" ?></textarea>
+								<textarea class="form-control"><?= $toko["alamat"] ?? "-" ?></textarea>
 							</div>
 							<div class="form-group">
 								<label>Deskripsi Toko</label>
-								<textarea class="form-control"><?= $owner["deskripsi_toko"] ?? "-" ?></textarea>
+								<textarea class="form-control"><?= $toko["deskripsi_toko"] ?? "-" ?></textarea>
 							</div>
 						</div>
 						<div class="col-6">
 							<div class="form-divider">
-								<i class="fas fa-user"></i> Identitas Diri
+								<i class="fas fa-user"></i> Identitas Pemilik
 								<hr>
 							</div>
 							<div class="form-group">
 								<label for="nama">Nama Lengkap</label>
-								<input id="nama" class="form-control" value="<?= $owner["user"]["nama"] ?? "-" ?>">
+								<input id="nama" class="form-control" value="<?= $toko["user"]["nama"] ?? "-" ?>">
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input id="email" type="email" class="form-control" value="<?= $owner["user"]["email"] ?? "-" ?>">
+								<input id="email" type="email" class="form-control" value="<?= $toko["user"]["email"] ?? "-" ?>">
 							</div>
 							<div class="form-group">
 								<label for="no_hp">Nomer Handhphone</label>
-								<input id="no_hp"class="form-control" value="<?= $owner["user"]["no_hp"] ?? "-" ?>">
-							</div>
-							<div class="form-group">
-								<label for='foto_ktp'>Foto KTP</label>
-								<input type="file" class="form-control" name="foto_ktp">
-								<small>*jika ingin mengganti foto KTP</small><br>
-								<small>*ukuran maksimal 2MB</small>
+								<input id="no_hp"class="form-control" value="<?= $toko["user"]["no_hp"] ?? "-" ?>">
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="card-footer">
+					<button type="submit" class="btn btn-primary btn-block">Update</button>
 				</div>
 			</form>
 		</div>

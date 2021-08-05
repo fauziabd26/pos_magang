@@ -1,0 +1,14 @@
+{
+  "status": true,
+  "message": "Berhasil Register",
+  "data": {
+    "nama": "superadmin",
+    "no_hp": "08912214123",
+    "email": "superadmin@gmail.com",
+    "password": "",
+    "password_confirmation": "",
+    "nama_toko": "Clothing Shop",
+    "alamat_toko": "Bekasi, Jawa Barat",
+    "deskripsi_toko": "Menjual Kemeja dan Jaket"
+  }
+}

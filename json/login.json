@@ -1,0 +1,11 @@
+{
+  "status": true,
+  "message": "Berhasil Login",
+  "data": {
+    "id_user": 1,
+    "nama": "superadmin",
+    "email": "superadmin@gmail.com",
+    "password": "",
+    "id_role": 1
+  }
+}

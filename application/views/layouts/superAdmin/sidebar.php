@@ -13,14 +13,14 @@
 				</a>
 			</li>
 			<li class="menu-header">Data</li>
-			<li <?= $this->uri->segment(2) == 'owner' || $this->uri->segment(2) == 'owner_edit' || $this->uri->segment(2) == 'owner_detail' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('superadmin/owner') ?>">
-					<i class="fas fa-user"></i> <span>Data Owner</span>
+			<li <?= $this->uri->segment(2) == 'toko' || $this->uri->segment(2) == 'toko_edit' || $this->uri->segment(2) == 'toko_detail' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('superadmin/toko') ?>">
+					<i class="fas fa-store"></i> <span>Data Toko</span>
 				</a>
 			</li>
 			<li class="menu-header">Validasi Data</li>
-			<li <?= $this->uri->segment(2) == 'validasi_owner' || $this->uri->segment(2) == 'validasi_detail' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('superadmin/validasi_owner') ?>">
+			<li <?= $this->uri->segment(2) == 'validasi_toko' || $this->uri->segment(2) == 'validasi_detail' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('superadmin/validasi_toko') ?>">
 					<i class="fas fa-ban" style="color: #fc544b;"></i> <span>Data Belum Valid</span>
 				</a>
 			</li>

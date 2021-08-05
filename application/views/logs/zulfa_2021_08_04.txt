@@ -1,0 +1,3 @@
+jam 10-12 : mempelajari API di website
+jam 13-14 : mencoba menerapkan API
+jam 14-16 : mencoba memperbaiki API yang error

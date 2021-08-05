@@ -1,5 +1,7 @@
 {
-  "toko": [
+  "status": true,
+  "message": "Data Toko Berhasil Diambil",
+  "data": [
     {
       "id_toko": 1,
       "nama_toko": "Toko Bangunanku",
@@ -10,9 +12,7 @@
       "user": {
         "nama": "Zulfa Khoerul",
         "email": "zulfa@gmail.com",
-        "password": "zulfa",
-        "no_hp": "089513211223",
-        "alamat": "Sleman, Yogyakarta"
+        "no_hp": "089513211223"
       }
     },
     {
@@ -25,9 +25,7 @@
       "user": {
         "nama": "Fauzi Abdilah",
         "email": "fauzi@gmail.com",
-        "password": "fauzi",
-        "no_hp": "089765433221",
-        "alamat": "Bekasi, Jawa Barat"
+        "no_hp": "089765433221"
       }
     },
     {
@@ -40,9 +38,7 @@
       "user": {
         "nama": "Verliana Nur",
         "email": "verliana@gmail.com",
-        "password": "verliana",
-        "no_hp": "089543242123",
-        "alamat": "Balongan, Jawa Barat"
+        "no_hp": "089543242123"
       }
     }
   ]

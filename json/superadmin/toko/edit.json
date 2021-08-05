@@ -1,0 +1,19 @@
+{
+  "status": true,
+  "message": "Data Toko Berhasil Diubah",
+  "toko": {
+    "id_toko": 1,
+    "nama_toko": "Toko Bangunanku",
+    "deskripsi_toko": "Toko Jual Bahan Bangunan",
+    "alamat": "Sleman, Yogyakarta",
+    "foto_toko": "zulfa.jpg",
+    "status_toko": "tidak valid",
+    "user": {
+      "nama": "Zulfa Khoerul",
+      "email": "zulfa@gmail.com",
+      "password": "zulfa",
+      "no_hp": "089513211223",
+      "alamat": "Sleman, Yogyakarta"
+    }
+  }
+}

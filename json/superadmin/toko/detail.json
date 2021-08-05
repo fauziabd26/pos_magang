@@ -1,4 +1,6 @@
 {
+  "status": true,
+  "message": "Data Toko Berhasil Diambil",
   "toko": {
     "id_toko": 1,
     "nama_toko": "Toko Bangunanku",
