@@ -1,1 +1,2 @@
-jam 09.00- 11.00 = membuat tampilan transaksi penjualan
+jam 09.00 - 11.00 = membuat tampilan transaksi penjualan
+jam 13.00 - 16.00 = melanjutkan membuat json bagian superadmin,admin,owner(CRUD Admin)
