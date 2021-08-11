@@ -1,11 +1,13 @@
 {
-  "transaksi": [
+  "status": true,
+  "message": "Data Transaksi Berhasil Diambil",
+  "data": [
     {
       "id_transaksi": "Transaksi-20210102001",
       "jenis": "produk",
       "nama_customer": "Cindy",
-      "total_transaksi": 50000,
-      "bayar": 50000,
+      "total_transaksi": 110000,
+      "bayar": 110000,
       "diskon": "null",
       "status": 1,
       "tgl_transaksi": "2021-01-02",

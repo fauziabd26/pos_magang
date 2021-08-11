@@ -1,4 +1,6 @@
 {
+  "status": true,
+  "message": "Data Toko Berhasil Diubah",
   "toko": {
     "id_toko": 1,
     "nama_toko": "Toko Bangunanku",
@@ -9,9 +11,7 @@
     "user": {
       "nama": "Zulfa Khoerul",
       "email": "zulfa@gmail.com",
-      "password": "zulfa",
-      "no_hp": "089513211223",
-      "alamat": "Sleman, Yogyakarta"
+      "no_hp": "089513211223"
     }
   }
 }

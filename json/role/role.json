@@ -1,5 +1,7 @@
 {
-  "role": [
+  "status": true,
+  "message": "Data Toko Berhasil Diambil",
+  "data": [
     {
       "id_role": 1,
       "nama_role": "superadmin",

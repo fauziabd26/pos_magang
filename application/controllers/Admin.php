@@ -31,7 +31,7 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Produk
 	public function transaksi_produk()
 	{
-		$this->template->load('layouts/admin/master', 'dashboard/admin/transaksi/produk');
+		$this->load->view('dashboard/admin/transaksi/produk');
 	}
 
 	// Bagian Transaksi Jasa

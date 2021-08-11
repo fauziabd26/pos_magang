@@ -1,0 +1,40 @@
+{
+  "status": true,
+  "message": "Data Detail Transaksi Berhasil Diambil",
+  "detail_trans_produk": [
+    {
+      "id_detail_trans_produk": 1,
+      "qty": 1,
+      "sub_total": 50000,
+      "transaksi": {
+        "id_transaksi": "Transaksi-20210102001",
+        "jenis": "produk",
+        "nama_customer": "Cindy",
+        "total_transaksi": 50000,
+        "tgl_transaksi": "2021-01-02"
+      },
+      "produk": {
+        "nama_produk": "Kemeja Flannel",
+        "jenis": "produk",
+        "id_toko": 1
+      }
+    },
+    {
+      "id_detail_trans_produk": 2,
+      "qty": 1,
+      "sub_total": 60000,
+      "transaksi": {
+        "id_transaksi": "Transaksi-20210102001",
+        "jenis": "produk",
+        "nama_customer": "Cindy",
+        "total_transaksi": 60000,
+        "tgl_transaksi": "2021-01-02"
+      },
+      "produk": {
+        "nama_produk": "Jaket Hitam",
+        "jenis": "produk",
+        "id_toko": 1
+      }
+    }
+  ]
+}
