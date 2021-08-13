@@ -9,7 +9,7 @@ class TokoModel extends CI_Model{
         return[
             [
                 'field' => 'nama_toko', //samakan dengan atribut name pada tags input
-                'label' => 'Nama Toko', //label yang akan ditampilkan pada pesan eror
+                'label' => 'Nama Toko', //label yang akan ditampilkan pada pesan error
                 'rules' => 'trim|required' //rules validasi
             ],
             [
@@ -37,17 +37,19 @@ class TokoModel extends CI_Model{
 
     //menampilkan data toko berdasarkan id toko
     public function getById($id_toko){
-        return $this->db->get_where($this->table,["IdToko" => $id_toko])->row();
+        return $this->db->get_where($this->table,["id_toko" => $id_toko])->row();
+        
         //query diatas seperti halnya query pada mysql 
         //select * from mahasiswa where IdMhsw='$id'
     }
 
     //menampilkan semua data toko
     public function getAll(){
-        $this->db->form($this->table);
-        $this->db->order_by("IdToko", "desc");
+        $this->db->from($this->table);
+        $this->db->order_by("id_toko", "desc");
         $query = $this->db->get();
         return $query->result();
+
         //fungsi diatas seperti halnya query 
         //select * from mahasiswa order by IdMhsw desc
     }
@@ -59,7 +61,7 @@ class TokoModel extends CI_Model{
             "alamat"            => $this->input->post('alamat'),
             "deskripsi_toko"    => $this->input->post('deskripsi_toko'),
             "foto_toko"         => $this->input->post('foto_toko'),
-            "status_toko"       => $this->input->post('status_toko'),
+            "status_toko"       => $this->input->post('status_toko')
         );
         return $this->db->insert($this->table, $data);
     }
@@ -71,13 +73,13 @@ class TokoModel extends CI_Model{
             "alamat"            => $this->input->post('alamat'),
             "deskripsi_toko"    => $this->input->post('deskripsi_toko'),
             "foto_toko"         => $this->input->post('foto_toko'),
-            "status_toko"       => $this->input->post('status_toko'),
+            "status_toko"       => $this->input->post('status_toko')
         );
-        return $this->db->update($this->table, $data, array('IdToko' => $this->input->post('IdToko')));
+        return $this->db->update($this->table, $data, array('id_toko' => $this->input->post('id_toko')));
     }
 
     //hapus data toko
     public function delete($id_toko){
-        return $this->db->delete($this->table, array("IdToko" => $id_toko));
+        return $this->db->delete($this->table, array("id_toko" => $id_toko));
     }
 }
