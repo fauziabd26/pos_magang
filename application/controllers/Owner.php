@@ -66,16 +66,58 @@ class Owner extends CI_Controller
 	// Bagian Produk
 	public function produk()
 	{
-		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index');
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('produks' => $datas["produk"]);
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);
+	}
+	// Bagian Jasa
+	public function index_jasa()
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('jasas' => $datas["jasa"]);
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/jasa/index', $data);
 	}
 
 	// Bagian Foto Produk
 
 	//Bagian Harga
+	public function index_harga()
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('hargas' => $datas["harga"]);
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/harga/index', $data);
+	}
 
 	//Bagian Kategori
+	public function index_kategori()
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('kategories' => $datas["kategori"]);
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/kategori/index', $data);
+	}
 
 	//Bagian Satuan
+	public function index_satuan()
+	{
+		$getAPI = file_get_contents('fakeAPI.json');
+		$datas = json_decode($getAPI, true);
+
+		$data = array('satuans' => $datas["satuan"]);
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/index', $data);
+	}
 
 	//Bagian Laporan
 }
