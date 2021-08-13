@@ -1,0 +1,11 @@
+{
+  "status": true,
+  "message": "Data Admin Berhasil Diedit",
+  "data": {
+    "id_user": 1,
+    "nama": "admin edit",
+    "email": "admin@gmail.com",
+    "password": "$2y$10$vc2EXbOAwZ1qnuqy6b99xeSNx.l3PJ7eQyze8FertAZuyI17syFR6",
+    "id_role": 3
+  }
+}

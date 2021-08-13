@@ -1,0 +1,2 @@
+jam 10.00 - 13.00 : mencari referensi tutorial api di youtube dan mempelajarinya
+jam 14.00 - 16.00 : melakukan perbaikan pada api

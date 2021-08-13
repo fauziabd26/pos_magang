@@ -1,0 +1,11 @@
+{
+  "status": true,
+  "message": "Data Admin Berhasil Ditambah",
+  "data": {
+    "id_user": 1,
+    "nama": "Admin Baru",
+    "email": "adminbaru@gmail.com",
+    "password": "$2y$10$vc2EXbOAwZ1qnuqy6b99xeSNx.l3PJ7eQyze8FertAZuyI17syFR6",
+    "id_role": 3
+  }
+}

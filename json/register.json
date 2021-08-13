@@ -1,0 +1,13 @@
+{
+  "status": true,
+  "message": "Berhasil Register",
+  "data": {
+    "nama": "owner baru",
+    "no_hp": "08912214123",
+    "email": "ownerbaru@gmail.com",
+    "password": "$2y$10$I4vccqQLTHSTzwBn6a65Q.57BgujqGuCsZLbjHtseXBNu3nYviTgW",
+    "nama_toko": "Clothing Shop",
+    "alamat_toko": "Bekasi, Jawa Barat",
+    "deskripsi_toko": "Menjual Kemeja dan Jaket"
+  }
+}

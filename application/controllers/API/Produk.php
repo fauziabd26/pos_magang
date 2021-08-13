@@ -1,12 +1,13 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // require APPPATH . '/libraries/RestController.php';
+
 use chriskacerguis\RestServer\RestController;
 
-class Produk extends RestController {
-
+class Produk extends RestController
+{
     private $id_user = 0;
 	
     public function __construct()
@@ -89,4 +90,3 @@ class Produk extends RestController {
         }
     }
 }
-?>

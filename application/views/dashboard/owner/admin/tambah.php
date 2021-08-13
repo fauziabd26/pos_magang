@@ -41,10 +41,6 @@
 						<label for='no_hp'>Nomer Handphone</label>
 						<input type="number" id="no_hp" class="form-control" name="no_hp" placeholder='Masukkan Nomer Handphone'>
 					</div>
-					<div class="form-group mb-0">
-						<label>Alamat Lengkap</label>
-						<textarea class="form-control" placeholder="Masukan Alamat Lengkap"></textarea>
-					</div>
 				</div>
 				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Submit</button>
