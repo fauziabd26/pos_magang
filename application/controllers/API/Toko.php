@@ -1,9 +1,7 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 // require APPPATH . '/libraries/RestController.php';
-
 use chriskacerguis\RestServer\RestController;
 
 class Toko extends RestController{
@@ -75,8 +73,5 @@ class Toko extends RestController{
             $this->response(array('status' => 'fail', 502));
         }
     }
-
 }
-
-?>
 
