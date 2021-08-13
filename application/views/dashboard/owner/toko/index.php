@@ -1,11 +1,12 @@
 <section class="section">
 	<div class="section-header">
-		<h1>Data Produk</h1>
+		<h1>Data Toko</h1>
 		<div class="section-header-breadcrumb">
-			<div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item">Data Produk</div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></div>
+			<div class="breadcrumb-item">Data Toko</div>
 		</div>
 	</div>
+
 
 	<div class="section-body">
 		<div class="card">
@@ -13,7 +14,7 @@
 				<div class="row mb-3">
 					<div class="col">
 						<a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
-							<i class="fas fa-user-plus mr-2"></i> Tambah Data Produk
+							<i class="fas fa-plus mr-2"></i> Tambah Data Toko
 						</a>
 					</div>
 				</div>
@@ -22,17 +23,19 @@
 						<thead class="thead-dark">
 							<tr>
 								<th>No</th>
-								<th>Nama Produk</th>
-								<th>Jenis</th>
-								<th>Aksi</th>
+								<th>Nama Toko</th>
+								<th>Deskripsi Toko</th>
+								<th>Alamat</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($produks as $no => $row) : ?>
+							<?php foreach ($tokos as $no => $toko) : ?>
 								<tr>
 									<td><?= ++$no ?></td>
-									<td><?= $row["nama_produk"] ?></td>
-									<td><?= $row["jenis"] ?></td>
+									<td><?= $toko["nama_toko"] ?></td>
+									<td><?= $toko["deskripsi_toko"] ?></td>
+									<td><?= $toko["alamat_toko"] ?></td>
 									<td>
 										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning">Ubah</a>
 										<a href="#" data-toggle="modal" data-target="#hapus-data" class="btn btn-danger">Hapus</a>
@@ -57,9 +60,9 @@
 				<div class="modal-body">
 					<h4 class="modal-title">Tambah Data</h4>
 					<div class="form-group">
-						<label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
+						<label class="col-lg-5 col-sm-5 control-label">Nama Harga</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama Produk">
+							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama Harga">
 						</div>
 					</div>
 				</div>
@@ -83,9 +86,9 @@
 				<div class="modal-body">
 					<h4 class="modal-title">Edit Data</h4>
 					<div class="form-group">
-						<label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
+						<label class="col-lg-5 col-sm-5 control-label">Nama Harga</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" value="<?= $row["nama_produk"] ?>">
+							<input type="text" class="form-control" name="nama" value="<?= $harga["nama_harga"] ?>">
 						</div>
 					</div>
 				</div>
