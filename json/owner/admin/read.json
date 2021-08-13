@@ -7,6 +7,7 @@
       "nama": "Admin Satu",
       "email": "adminsatu@gmail.com",
       "password": "$2y$10$plRHPlsYHt8ccMTCGtnUaOHKf9XvvrnItx8dR25GPnOyHY1UhKLZS",
+      "no_hp": "081231231123",
       "id_role": 3
     },
     {
@@ -14,6 +15,7 @@
       "nama": "Admin",
       "email": "admindua@gmail.com",
       "password": "$2y$10$nRPtVvBS2WyrUOay41CGieAPURo2vym7H2.iUmM2R4uOxsY7qgpPS",
+      "no_hp": "08123123199",
       "id_role": 3
     }
   ]
