@@ -1,0 +1,10 @@
+{
+  "status": true,
+  "message": "Data Produk Berhasil Diedit",
+  "data": {
+    "id_produk": 1,
+    "nama_produk": "Kemeja Flannel Edit",
+    "jenis": "produk",
+    "id_toko": 1
+  }
+}

@@ -24,7 +24,6 @@
 								<th>No</th>
 								<th>Nama Admin</th>
 								<th>Email</th>
-								<th>Alamat</th>
 								<th>No Handphone</th>
 								<th>Action</th>
 							</tr>
@@ -36,10 +35,9 @@
 									<td><?= ++$no ?></td>
 									<td><?= $admin["nama"] ?></td>
 									<td><?= $admin["email"] ?></td>
-									<td><?= $admin["alamat"] ?></td>
 									<td><?= $admin["no_hp"] ?></td>
 									<td>
-										<a href="<?= base_url('owner/admin_edit/' . $admin["id"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="<?= base_url('owner/admin_edit/' . $admin["id_user"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 										<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 									</td>
 								</tr>

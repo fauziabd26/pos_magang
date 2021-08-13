@@ -1,0 +1,2 @@
+jam 10.00 - 15.00 = memecah data json yang ada di fakeAPI.json
+jam 15.00 - 16.00 = mencoba menerapkan data json yang sudah di pecah kedalam tampilan dashboard admin,owner(bagian admin),superadmin

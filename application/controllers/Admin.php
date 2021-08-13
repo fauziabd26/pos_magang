@@ -5,7 +5,7 @@ class Admin extends CI_Controller
 {
 	public function dashboard()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json//transaksi/transaksi.json');
 		$datas = json_decode($getAPI, true);
 
 		// Count TransaksiProduk
@@ -31,7 +31,7 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Produk
 	public function transaksi_produk()
 	{
-		$this->template->load('layouts/admin/master', 'dashboard/admin/transaksi/produk');
+		$this->load->view('dashboard/admin/transaksi/produk');
 	}
 
 	// Bagian Transaksi Jasa
@@ -43,24 +43,24 @@ class Admin extends CI_Controller
 	// Bagian Histori
 	public function histori_transaksi()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/transaksi/transaksi.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('historis' => $datas["transaksi"]);
+		$data = array('transaksis' => $datas["transaksi"]);
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
 	}
 
 	public function histori_transaksi_detail($id)
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/transaksi/transaksi.json');
 		$datas = json_decode($getAPI, true);
 
 		// $data = array('historis' => $datas["transaksi"]);
 		foreach ($datas['transaksi'] as $row) {
-			if ($row['id'] == $id) {
+			if ($row['id_transaksi'] == $id) {
 				$value = array(
-					'id' => $row['id'],
+					'id_transaksi' => $row['id_transaksi'],
 					'jenis' => $row['jenis'],
 					'nama_customer' => $row['nama_customer'],
 					'total_transaksi' => $row['total_transaksi'],
@@ -69,7 +69,7 @@ class Admin extends CI_Controller
 			}
 		}
 
-		$data['histori'] = $value;
+		$data['transaksi'] = $value;
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/detail', $data);
 	}

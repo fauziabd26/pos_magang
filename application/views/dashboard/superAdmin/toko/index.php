@@ -1,9 +1,9 @@
 <section class="section">
 	<div class="section-header">
-		<h1>Data Toko Belum Valid</h1>
+		<h1>Data Toko</h1>
 		<div class="section-header-breadcrumb">
 			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item">Data Toko Belum Valid</div>
+			<div class="breadcrumb-item">Data Toko</div>
 		</div>
 	</div>
 
@@ -15,12 +15,11 @@
 						<thead class="thead-dark">
 							<tr>
 								<th>No</th>
-								<th>Alamat</th>
 								<th>Nama Toko</th>
+								<th>Alamat</th>
 								<th>Nama Owner</th>
 								<th>Email</th>
 								<th>No Handphone</th>
-								<th width="15%">Validasi</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -35,11 +34,8 @@
 									<td><?= $toko['user']['email'] ?></td>
 									<td><?= $toko['user']['no_hp'] ?></td>
 									<td>
-										<a href="#" class="btn btn-success btn-sm"><i class="fas fa-check mr-1"></i> Valid</a><br>
-										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban"></i> Belum Valid</a>
-									</td>
-									<td>
-										<a href="<?= base_url('superadmin/validasi_detail/' . $toko["id_toko"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+										<a href="<?= base_url('superadmin/toko_edit/' . $toko["id_toko"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="<?= base_url('superadmin/toko_detail/' . $toko["id_toko"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

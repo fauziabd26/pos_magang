@@ -1,0 +1,18 @@
+{
+  "status": true,
+  "message": "Data Produk Berhasil Diambil",
+  "data": [
+    {
+      "id_produk": 1,
+      "nama_produk": "Kemeja Flannel",
+      "jenis": "produk",
+      "id_toko": 1
+    },
+    {
+      "id_produk": 2,
+      "nama_produk": "Kemeja Basic",
+      "jenis": "produk",
+      "id_toko": 1
+    }
+  ]
+}

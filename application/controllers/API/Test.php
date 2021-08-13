@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 //CATATAN:
 //Data yang Wajib Dikirim via Headers
@@ -17,37 +17,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use chriskacerguis\RestServer\RestController;
 
 class Test extends RestController
-{
+	{
 	private $id_user = 0;
-
-	public function __construct()
-	{
+	
+    public function __construct()
+		{
 		parent::__construct();
-
+		
 		$header = getallheaders();
-		$apikey = filter_var($header['x-apikey'], FILTER_CALLBACK, ['options' => function ($hash) {
-			return preg_replace('/[^a-zA-Z0-9$\/.]/', '', $hash);
-		}]);
-
-		if (!empty($apikey)) {
+		$apikey = filter_var($header['x-apikey'], FILTER_CALLBACK, ['options' => function($hash) { return preg_replace('/[^a-zA-Z0-9$\/.]/', '', $hash);}]);
+		
+		if(!empty($apikey))
+			{
 			$this->load->database();
-			$this->id_user = intval($this->db->where(array('apikey' => $apikey, 'status' => '1'))->limit(1)->get('apikeys')->row('id_user'));
-			if ($this->id_user > 0) {
-				$this->apicheck($this->id_user, $header);
-			} else response_json(401, "Invalid Key");
-		} else response_json(401, "API Key Required");
-	}
+			$this->id_user = intval($this->db->where(array('apikey'=>$apikey,'status'=>'1'))->limit(1)->get('apikeys')->row('id_user'));
+			if($this->id_user > 0)
+				{
+				$this->apicheck($this->id_user,$header);
+				}
+				else response_json(401,"Invalid Key");
+			}
+			else response_json(401,"API Key Required"); 		
+		}
 
-	public function index_get($var)
-	{
+	public function index_get($id_user)
+		{
 		//Process GET Method
-		response_json(200, "GET Method Succeed => " . $var);
-	}
-
+		response_json(200,"GET Method Succeed => ".$id_user);
+		}
+		
 	public function index_post()
-	{
+		{
 		//Process POST Method
 		$p = $this->input->post();
-		response_json(200, json_encode($p));
+		response_json(200,json_encode($p));
+		}		
 	}
-}

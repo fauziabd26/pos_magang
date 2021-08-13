@@ -1,0 +1,2 @@
+jam 10.00 - 11.00 = melanjutkan pembuatan halaman produk
+jam 13.00 - 16.00 = melanjutkan membuat data format JSON

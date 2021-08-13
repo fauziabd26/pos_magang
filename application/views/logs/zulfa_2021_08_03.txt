@@ -1,0 +1,2 @@
+jam 10.00-12.00 : mempelajari dan mencoba API yang ada di contoh API e-toko
+jam 13.00-15.00 : mencoba memperbaiki eror pada API yang ada di contoh e-toko

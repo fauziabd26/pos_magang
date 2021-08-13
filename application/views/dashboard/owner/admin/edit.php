@@ -31,13 +31,9 @@
 						<label for='no_hp'>Nomer Handphone</label>
 						<input type="number" id="no_hp" class="form-control" name="no_hp" value="<?= $admin["no_hp"] ?>">
 					</div>
-					<div class="form-group mb-0">
-						<label>Alamat Lengkap</label>
-						<textarea class="form-control"><?= $admin["alamat"] ?></textarea>
-					</div>
 				</div>
 				<div class="card-footer">
-					<a href="<?= base_url('owner/admin_ubah_password') ?>" class="btn btn-outline-primary btn-block">Ubah Password</a>
+					<a href="<?= base_url('owner/admin_ubah_password/'. $admin["id_user"]) ?>" class="btn btn-outline-primary btn-block">Ubah Password</a>
 					<button class="btn btn-primary btn-block">Update</button>
 				</div>
 			</form>
