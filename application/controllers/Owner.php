@@ -76,13 +76,22 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password');
 	}
 
+	// Bagian Toko
+	public function toko()
+	{
+		$this->load->model('TokoModel');
+		$data['tokos'] = $this->TokoModel->getAll();
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
+	}
+
 	// Bagian Produk
 	public function produk()
 	{
-		$getAPI = file_get_contents('json/owner/produk/read.json');
+		$getAPI = file_get_contents('http://api.etoko.xyz/produk');
 		$datas = json_decode($getAPI, true);
-
-		$data = array('produks' => $datas["data"]);
+		
+		$data['produks'] = $datas;
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);
 	}

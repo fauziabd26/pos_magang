@@ -1,0 +1,18 @@
+{
+  "status": true,
+  "message": "Data Toko Berhasil Diambil",
+  "data": [
+    {
+      "id_toko": 1,
+      "nama_toko": "Toko Satu",
+      "deskripsi_toko": "Toko Satu",
+      "alamat_toko": "Indramayu"
+    },
+    {
+      "id_toko": 2,
+      "nama_toko": "Toko Dua",
+      "deskripsi_toko": "Toko Dua",
+      "alamat_toko": "Yogyakarta"
+    }
+  ]
+}
