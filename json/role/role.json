@@ -1,0 +1,21 @@
+{
+  "status": true,
+  "message": "Data Toko Berhasil Diambil",
+  "data": [
+    {
+      "id_role": 1,
+      "nama_role": "superadmin",
+      "deskripsi_role": "superadmin"
+    },
+    {
+      "id_role": 2,
+      "nama_role": "owner",
+      "deskripsi_role": "owner"
+    },
+    {
+      "id_role": 3,
+      "nama_role": "admin",
+      "deskripsi_role": "admin"
+    }
+  ]
+}

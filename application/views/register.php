@@ -62,7 +62,7 @@
 											<input id="password_confirm" type="password" class="form-control" name="password_confirm" placeholder="Masukan Password Confirmation">
 										</div>
 									</div>
-									<div class="form-divider">
+									<!-- <div class="form-divider">
 										<i class="fas fa-store mr-1"></i> Identitas Toko Kamu
 										<hr>
 									</div>
@@ -84,7 +84,7 @@
 											<input type="checkbox" name="agree" class="custom-control-input" id="agree">
 											<label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
 										</div>
-									</div>
+									</div> -->
 									<div class="form-group">
 										<button type="submit" class="btn btn-primary btn-lg btn-block">
 											Register

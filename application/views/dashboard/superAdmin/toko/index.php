@@ -1,9 +1,9 @@
 <section class="section">
 	<div class="section-header">
-		<h1>Data Owner</h1>
+		<h1>Data Toko</h1>
 		<div class="section-header-breadcrumb">
 			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item">Data Owner</div>
+			<div class="breadcrumb-item">Data Toko</div>
 		</div>
 	</div>
 
@@ -15,27 +15,27 @@
 						<thead class="thead-dark">
 							<tr>
 								<th>No</th>
-								<th>Nama Owner</th>
 								<th>Nama Toko</th>
-								<th>Email</th>
 								<th>Alamat</th>
+								<th>Nama Owner</th>
+								<th>Email</th>
 								<th>No Handphone</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php $no = 0 ?>
-							<?php foreach ($owners as $owner) : ?>
+							<?php foreach ($data as $toko) : ?>
 								<tr>
 									<td><?= ++$no ?></td>
-									<td><?= $owner['user']['nama'] ?></td>
-									<td><?= $owner["nama_toko"] ?? "-" ?></td>
-									<td><?= $owner['user']['email'] ?></td>
-									<td><?= $owner['user']['alamat'] ?></td>
-									<td><?= $owner['user']['no_hp'] ?></td>
+									<td><?= $toko["nama_toko"] ?? "-" ?></td>
+									<td><?= $toko['alamat'] ?></td>
+									<td><?= $toko['user']['nama'] ?></td>
+									<td><?= $toko['user']['email'] ?></td>
+									<td><?= $toko['user']['no_hp'] ?></td>
 									<td>
-										<a href="<?= base_url('superadmin/owner_edit/' . $owner["id_toko"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-										<a href="<?= base_url('superadmin/owner_detail/' . $owner["id_toko"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
+										<a href="<?= base_url('superadmin/toko_edit/' . $toko["id_toko"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="<?= base_url('superadmin/toko_detail/' . $toko["id_toko"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>
