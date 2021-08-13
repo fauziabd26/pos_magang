@@ -30,7 +30,7 @@
 						<tbody>
 							<?php foreach ($produks as $no => $row) : ?>
 								<tr>
-									<td><?= $row["id"] ?></td>
+									<td><?= ++$no ?></td>
 									<td><?= $row["nama_produk"] ?></td>
 									<td><?= $row["jenis"] ?></td>
 									<td>
