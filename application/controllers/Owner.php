@@ -5,14 +5,14 @@ class Owner extends CI_Controller
 {
 	public function dashboard()
 	{
-		$getAPI = file_get_contents('json/transaksi/transaksi.json');
+		$getAPI = file_get_contents('json/admin/transaksi/read.json');
 		$datas = json_decode($getAPI, true);
 
 		// Count TransaksiProduk
 		$totalTransaksiProduk = 0;
 		$totalTransaksiJasa = 0;
 
-		foreach ($datas["transaksi"] as $value) {
+		foreach ($datas["data"] as $value) {
 			if ($value["jenis"] == "produk") {
 				$totalTransaksiProduk += 1;
 			} elseif ($value["jenis"] == "jasa") {
@@ -20,7 +20,7 @@ class Owner extends CI_Controller
 			}
 		}
 
-		$data = array('transaksis' => $datas["transaksi"]);
+		$data = array('transaksis' => $datas["data"]);
 		$data['totalTransaksiProduk'] = $totalTransaksiProduk;
 		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
 
@@ -35,10 +35,10 @@ class Owner extends CI_Controller
 	// Bagian Admin
 	public function admin()
 	{
-		$getAPI = file_get_contents('json/user/user.json');
+		$getAPI = file_get_contents('json/owner/admin/read.json');
 		$datas = json_decode($getAPI, true);
 
-		$data['admins'] = array_filter($datas['user'], function ($row) {
+		$data['admins'] = array_filter($datas['data'], function ($row) {
 			return $row['id_role'] == 3;
 		});
 
@@ -52,16 +52,15 @@ class Owner extends CI_Controller
 
 	public function admin_edit($id)
 	{
-		$getAPI = file_get_contents('json/user/user.json');
+		$getAPI = file_get_contents('json/owner/admin/read.json');
 		$datas = json_decode($getAPI, true);
 
-		foreach ($datas['user'] as $row) {
+		foreach ($datas['data'] as $row) {
 			if ($row['id_user'] == $id) {
 				$value = array(
 					'id_user' => $row["id_user"],
 					'nama' => $row["nama"],
 					'email' => $row["email"],
-					'alamat' => $row["alamat"],
 					'no_hp' => $row["no_hp"],
 				);
 			}
