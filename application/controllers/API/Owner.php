@@ -1,28 +1,30 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 // require APPPATH . '/libraries/RestController.php';
 use chriskacerguis\RestServer\RestController;
 
-class Toko extends RestController{
+class Owner extends RestController{
     function __construct($config = 'rest'){
         parent::__construct($config);
         $this->load->database();
     }
 
-    //Menampilkan data toko
+    //Menampilkan data 
     function index_get(){
-        $id_toko = $this->get('id_toko');
-        if($id_toko == ''){
-            $toko =  $this->db->get('toko')->result();
+        $id_user = $this->get('id_user');
+        if($id_user == ''){
+            $owner =  $this->db->get('user')->result();
+            // $this->db->where('id_role', 2);
         }else{
-            $this->db->where('id_toko', $id_toko);
-            $toko = $this->db->get('toko')->result();
+            $this->db->where('id_user', $id_user);
+            $owner = $this->db->get('user')->result();
         }
-        $this->response($toko, 200);
+        $this->response($owner, 200);
     }
 
-    //Menambah data toko baru
+    //Menambah data baru
     function index_post(){
         $data = array(
             'id_toko'        => $this->post('id_toko'),
@@ -73,5 +75,8 @@ class Toko extends RestController{
             $this->response(array('status' => 'fail', 502));
         }
     }
+
 }
+
+?>
 
