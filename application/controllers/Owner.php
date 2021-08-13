@@ -79,10 +79,10 @@ class Owner extends CI_Controller
 	// Bagian Produk
 	public function produk()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/owner/produk/read.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('produks' => $datas["produk"]);
+		$data = array('produks' => $datas["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);
 	}
