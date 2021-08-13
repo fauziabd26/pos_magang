@@ -231,6 +231,39 @@ class RestController extends \CI_Controller
      */
     protected $auth_override;
 
+    protected function apicheck($id,$header)
+		{
+		if(!empty($header['x-apikey']) && strlen($header['x-apikey']) > 59)
+			{
+			$post_data = $this->recursive_implode($this->input->post(),"");
+			$secret_key = sha1($header['x-apikey'].$id);
+
+			$signature = hash_hmac('sha1', $post_data, $secret_key);
+			if(!hash_equals($signature,$header['x-signature'])) die('{ "status": false,"error": "Invalid Signature"'.(ENVIRONMENT != 'production' ? ',"signature": "'.$signature.'"' : '').' }');
+			return true;
+			}
+			else die('{ "status": false,"error": "Invalid Key"}');
+		}
+
+        function recursive_implode(array $array, $glue = ',', $include_keys = false, $trim_all = true)
+        {
+        $glued_string = '';
+        
+        // Recursively iterates array and adds key/value to glued string
+        array_walk_recursive($array, function($value, $key) use ($glue, $include_keys, &$glued_string)
+            {
+            $include_keys and $glued_string .= $key.$glue;
+            $glued_string .= $value.$glue;
+            });
+        
+        // Removes last $glue from string
+        strlen($glue) > 0 and $glued_string = substr($glued_string, 0, -strlen($glue));
+        
+        // Trim ALL whitespace
+        $trim_all and $glued_string = preg_replace("/(\s)/ixsm", '', $glued_string);
+        
+        return (string) $glued_string;
+        }
     /**
      * Extend this function to apply additional checking early on in the process.
      *
