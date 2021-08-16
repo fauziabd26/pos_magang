@@ -1,0 +1,11 @@
+{
+  "status": true,
+  "message": "Data Toko Berhasil Diubah",
+  "data": {
+    "id_toko": 1,
+    "nama_toko": "Toko Bangunanku Edit",
+    "deskripsi_toko": "Toko Jual Bahan Bangunan",
+    "alamat": "Sleman, Yogyakarta",
+    "status_toko": "valid"
+  }
+}

@@ -37,36 +37,29 @@ class TokoModel extends CI_Model
 		];
 	}
 
-	//menampilkan data toko berdasarkan id toko
-	public function getById($id_toko)
+	//Menampilkan Data Toko
+	public function get($id_toko = null)
 	{
-		return $this->db->get_where($this->table, ["IdToko" => $id_toko])->row();
-		//query diatas seperti halnya query pada mysql 
-		//select * from mahasiswa where IdMhsw='$id'
-	}
-
-	//menampilkan semua data toko
-	public function getAll()
-	{
+		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko');
 		$this->db->from('toko');
-        $this->db->order_by("id_toko", "desc");
-        $query = $this->db->get();
-        return $query->result();
-		//fungsi diatas seperti halnya query 
-		//select * from mahasiswa order by IdMhsw desc
+		$this->db->order_by('nama_toko', 'ASC');
+		if ($id_toko != null) {
+			$this->db->where('id_toko', $id_toko);
+			$this->db->select('foto_toko');
+		}
+		return $this->db->get()->result();
 	}
 
-	//menyimpan data toko
-	public function save()
+	//Simpan Data Toko
+	public function save($data)
 	{
-		$data = array(
-			"nama_toko"         => $this->input->post('nama_toko'),
-			"alamat"            => $this->input->post('alamat'),
-			"deskripsi_toko"    => $this->input->post('deskripsi_toko'),
-			"foto_toko"         => $this->input->post('foto_toko'),
-			"status_toko"       => $this->input->post('status_toko'),
-		);
-		return $this->db->insert($this->table, $data);
+		$save = $this->db->insert($this->table, $data);
+
+		if ($save) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	//edit data toko
@@ -80,11 +73,5 @@ class TokoModel extends CI_Model
 			"status_toko"       => $this->input->post('status_toko'),
 		);
 		return $this->db->update($this->table, $data, array('IdToko' => $this->input->post('IdToko')));
-	}
-
-	//hapus data toko
-	public function delete($id_toko)
-	{
-		return $this->db->delete($this->table, array("IdToko" => $id_toko));
 	}
 }

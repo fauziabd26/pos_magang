@@ -2,7 +2,7 @@
 	<div class="section-header">
 		<h1>Data Toko</h1>
 		<div class="section-header-breadcrumb">
-			<div class="breadcrumb-item active"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
 			<div class="breadcrumb-item">Data Toko</div>
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 			<div class="card-body">
 				<div class="row mb-3">
 					<div class="col">
-						<a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
+						<a href="<?= base_url('owner/toko_tambah') ?>" class="btn btn-primary">
 							<i class="fas fa-plus mr-2"></i> Tambah Data Toko
 						</a>
 					</div>
@@ -26,6 +26,7 @@
 								<th>Nama Toko</th>
 								<th>Deskripsi Toko</th>
 								<th>Alamat</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -35,10 +36,19 @@
 									<td><?= ++$no ?></td>
 									<td><?= $toko["nama_toko"] ?></td>
 									<td><?= $toko["deskripsi_toko"] ?></td>
-									<td><?= $toko["alamat_toko"] ?></td>
+									<td><?= $toko["alamat"] ?></td>
 									<td>
-										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning">Ubah</a>
-										<a href="#" data-toggle="modal" data-target="#hapus-data" class="btn btn-danger">Hapus</a>
+										<?php if ($toko["status_toko"] == "valid") { ?>
+											<button class="btn btn-success text-capitalize"><?= $toko["status_toko"] ?></button>
+										<?php } elseif ($toko["status_toko"] == "pending") { ?>
+											<button class="btn btn-info text-capitalize"><?= $toko["status_toko"] ?></button>
+										<?php } else { ?>
+											<button class="btn btn-danger text-capitalize"><?= $toko["status_toko"] ?></button>
+										<?php } ?>
+									</td>
+									<td>
+										<a href="<?= base_url('owner/toko_edit/' . $toko["id_toko"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>

@@ -5,7 +5,7 @@ class Admin extends CI_Controller
 {
 	public function dashboard()
 	{
-		$getAPI = file_get_contents('json//transaksi/transaksi.json');
+		$getAPI = file_get_contents('json/transaksi/transaksi.json');
 		$datas = json_decode($getAPI, true);
 
 		// Count TransaksiProduk
