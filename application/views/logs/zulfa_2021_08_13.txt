@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : mencoba get data berdasarkan id pada tabel toko dan produk
+jam 13.00 - 15.00 : memperbaiki error yang ada pada controller api toko 
