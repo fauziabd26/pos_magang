@@ -1,0 +1,2 @@
+jam 10-11 : mencari materi join tabel pada CI
+jam 11-15 : mencoba menerapkan join 2 tabel pada controller dan model nya
