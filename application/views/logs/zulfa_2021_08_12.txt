@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : membuat api bagian toko dan produk
+jam 13.00 - 15.00 : memperbaiki error yang ada
