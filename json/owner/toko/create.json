@@ -1,0 +1,10 @@
+{
+  "status": true,
+  "message": "Data Toko Berhasil Ditambah",
+  "data": {
+    "nama_toko": "Toko Baru",
+    "deskripsi_toko": "Toko Jual Bahan Makanan",
+    "alamat": "Sleman, Yogyakarta",
+    "status_toko": "tidak valid"
+  }
+}

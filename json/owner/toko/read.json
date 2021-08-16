@@ -4,15 +4,24 @@
   "data": [
     {
       "id_toko": 1,
-      "nama_toko": "Toko Satu",
-      "deskripsi_toko": "Toko Satu",
-      "alamat_toko": "Indramayu"
+      "nama_toko": "Toko Bangunanku",
+      "deskripsi_toko": "Toko Jual Bahan Bangunan",
+      "alamat": "Sleman, Yogyakarta",
+      "status_toko": "tidak valid"
     },
     {
       "id_toko": 2,
-      "nama_toko": "Toko Dua",
-      "deskripsi_toko": "Toko Dua",
-      "alamat_toko": "Yogyakarta"
+      "nama_toko": "Toko Bangun Jagad",
+      "deskripsi_toko": "Toko Pancing",
+      "alamat": "Bekasi, Jawa Barat",
+      "status_toko": "pending"
+    },
+    {
+      "id_toko": 3,
+      "nama_toko": "Toko Balongan Indah",
+      "deskripsi_toko": "Toko Bahan Plastik",
+      "alamat": "Balongan, Jawa Barat",
+      "status_toko": "valid"
     }
   ]
 }
