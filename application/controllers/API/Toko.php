@@ -25,7 +25,7 @@ class Toko extends RestController{
     //Menambah data toko baru
     function index_post(){
         $data = array(
-            'id_toko'        => $this->post('id_toko'),
+            // 'id_toko'        => $this->post('id_toko'),
             'nama_toko'      => $this->post('nama_toko'),
             'alamat'         => $this->post('alamat'),
             'deskripsi_toko' => $this->post('deskripsi_toko'),
