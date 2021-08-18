@@ -261,7 +261,7 @@ class Owner extends CI_Controller
 	//Bagian Harga
 	public function index_harga()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/fakeAPI.json');
 		$datas = json_decode($getAPI, true);
 
 		$data = array('hargas' => $datas["harga"]);
