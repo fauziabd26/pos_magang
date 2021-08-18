@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="https://api.etoko.xyz/toko" method="POST">
+			<form action="<?= base_url('owner/proses_tambah_toko') ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">
@@ -34,6 +34,8 @@
 					<div class="form-group">
 						<label for='foto_toko'>Dokumen Toko</label>
 						<input type="file" id="foto_toko" class="form-control" name="foto_toko">
+						<small>*Format File Menggunakan PDF, IMG, PNG</small><br>
+						<small>*File Maksimal Berukuran 2Mb</small>
 					</div>
 				</div>
 				<div class="card-footer">
