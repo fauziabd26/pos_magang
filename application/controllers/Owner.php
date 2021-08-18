@@ -35,11 +35,11 @@ class Owner extends CI_Controller
 	// Bagian Admin
 	public function admin()
 	{
-		$getAPI = file_get_contents('json/owner/admin/read.json');
+		$getAPI = file_get_contents('https://api.etoko.xyz/admin');
 		$datas = json_decode($getAPI, true);
 
 		$data['admins'] = array_filter($datas['data'], function ($row) {
-			return $row['id_role'] == 3;
+			return $row['role'] == "admin"; //Owner Yang Sedang Login
 		});
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index', $data);
@@ -50,23 +50,55 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
 	}
 
-	public function admin_edit($id)
+	public function proses_tambah_admin()
 	{
-		$getAPI = file_get_contents('json/owner/admin/read.json');
+		$postdata = http_build_query(
+			array(
+				'nama' =>  ucwords($_POST['nama']),
+				'email' =>  $_POST['email'],
+				'password' => $_POST['password'],
+				'no_hp' => $_POST['no_hp'],
+				'photo' => $_POST['photo'],
+				'role' => "admin",
+			)
+		);
+
+		$opts = array(
+			'http' =>
+			array(
+				'method'  => 'POST',
+				'header'  => 'Content-type: application/x-www-form-urlencoded',
+				'content' => $postdata
+			)
+		);
+
+		$context = stream_context_create($opts);
+
+		file_get_contents('https://api.etoko.xyz/admin', false, $context);
+
+		$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+
+		redirect('owner/admin');
+	}
+
+	public function admin_edit($id_user)
+	{
+		$getAPI = file_get_contents('https://api.etoko.xyz/admin');
 		$datas = json_decode($getAPI, true);
 
 		foreach ($datas['data'] as $row) {
-			if ($row['id_user'] == $id) {
+			if ($row['id_user'] == $id_user) {
 				$value = array(
 					'id_user' => $row["id_user"],
 					'nama' => $row["nama"],
 					'email' => $row["email"],
 					'no_hp' => $row["no_hp"],
+					'photo' => $row["photo"],
 				);
 			}
 		}
 
-		$data['admin'] = $value;
+		$data['admins'] = $value;
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 	}
@@ -125,13 +157,13 @@ class Owner extends CI_Controller
 		redirect('owner/toko');
 	}
 
-	public function toko_edit($id)
+	public function toko_edit($id_toko)
 	{
 		$getAPI = file_get_contents('https://api.etoko.xyz/toko');
 		$datas = json_decode($getAPI, true);
 
 		foreach ($datas['data'] as $row) {
-			if ($row['id_toko'] == $id) {
+			if ($row['id_toko'] == $id_toko) {
 				$value = array(
 					'id_toko' => $row["id_toko"],
 					'nama_toko' => $row["nama_toko"],

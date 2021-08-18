@@ -10,9 +10,37 @@
 	<div class="section-body">
 		<div class="card">
 			<div class="card-body">
+				<?php if ($this->session->flashdata('success-create')) { ?>
+					<div class="alert alert-success alert-dismissible show fade">
+						<div class="alert-body">
+							<button class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success-create') ?>
+						</div>
+					</div>
+				<?php } elseif ($this->session->flashdata('success-delete')) { ?>
+					<div class="alert alert-success alert-dismissible show fade">
+						<div class="alert-body">
+							<button class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<i class="fas fa-trash-alt mr-2"></i> <?= $this->session->flashdata('success-delete') ?>
+						</div>
+					</div>
+				<?php } elseif ($this->session->flashdata('success-edit')) { ?>
+					<div class="alert alert-success alert-dismissible show fade">
+						<div class="alert-body">
+							<button class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success-edit') ?>
+						</div>
+					</div>
+				<?php } ?>
 				<div class="row mb-3">
 					<div class="col">
-						<a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
+						<a href="<?= base_url('owner/admin_tambah') ?>" class="btn btn-primary">
 							<i class="fas fa-user-plus mr-2"></i> Tambah Data Admin
 						</a>
 					</div>
@@ -25,20 +53,22 @@
 								<th>Nama Admin</th>
 								<th>Email</th>
 								<th>No Handphone</th>
+								<th>Foto</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no = 0 ?>
-							<?php foreach ($admins as $admin) : ?>
+							<?php $no = 1;
+							foreach ($admins as $admin) : ?>
 								<tr>
-									<td><?= ++$no ?></td>
+									<td><?= $no++ ?></td>
 									<td><?= $admin["nama"] ?></td>
 									<td><?= $admin["email"] ?></td>
 									<td><?= $admin["no_hp"] ?></td>
+									<td><?= $admin["foto"] ?></td>
 									<td>
 										<a href="<?= base_url('owner/admin_edit/' . $admin["id_user"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-										<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+										<a href="<?= base_url('owner/admin_hapus/' . $admin["id_user"]) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>
