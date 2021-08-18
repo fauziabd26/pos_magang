@@ -1,1 +1,1 @@
-jam 09.00-16.00 : membuat crud toko
+jam 09.00-16.00 : membuat crud tabel foto produk
