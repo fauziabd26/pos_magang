@@ -4,53 +4,53 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // require APPPATH . '/libraries/RestController.php';
 use chriskacerguis\RestServer\RestController;
 
-class Toko extends RestController
+class Admin extends RestController
 {
 	function __construct($config = 'rest')
 	{
 		parent::__construct($config);
 		$this->load->database();
-		$this->load->model('TokoModel');
+		$this->load->model('AdminModel');
 	}
 
-	//Menampilkan data toko
-	function index_get($id_toko = null)
+	//Menampilkan data 
+	function index_get($id_user = null)
 	{
-		if (!empty($id_toko)) {
-			$toko = $this->TokoModel->get($id_toko);
+		if (!empty($id_user)) {
+			$admin = $this->AdminModel->get($id_user);
 		} else {
-			$toko =  $this->TokoModel->get();
+			$admin =  $this->AdminModel->get();
 		}
 
 		$this->response(array(
 			'status' => true,
 			'message' => 'Data Toko Berhasil Diambil',
-			'data' => $toko
+			'data' => $admin
 		), 200);
 	}
 
-	//Menambah data toko baru
+	//Menambah data  baru
 	function index_post()
 	{
 		$data = array(
-			'nama_toko'      => $this->post('nama_toko'),
-			'alamat'         => $this->post('alamat'),
-			'deskripsi_toko' => $this->post('deskripsi_toko'),
-			'foto_toko'      => $this->post('foto_toko'),
-			'status_toko'    => "pending",
-			'id_user'        => $this->post('id_user')
+			'nama'          => $this->post('nama'),
+			'email'         => $this->post('email'),
+			'password'      => $this->post('password'),
+			'no_hp'         => $this->post('no_hp'),
+			'photo'         => $this->post('photo'),
+			'role'          => "admin"
 		);
 
-		if ($this->TokoModel->save($data)) {
+		if ($this->AdminModel->save($data)) {
 			$this->response(array(
 				'status' => true,
-				'message' => 'Data Toko Berhasil Ditambah',
+				'message' => 'Data Admin Berhasil Ditambah',
 				'data' => $data
 			), 200);
 		} else {
 			$this->response(array(
 				'status' => false,
-				'message' => 'Gagal Menambahkan Data Toko'
+				'message' => 'Gagal Menambahkan Data Admin'
 			), 502);
 		}
 	}
@@ -64,8 +64,8 @@ class Toko extends RestController
 			'alamat'            => $this->put('alamat'),
 			'deskripsi_toko'    => $this->put('deskripsi_toko'),
 			'foto_toko'         => $this->put('foto_toko'),
-			'status_toko'       => $this->put('status_toko'),
-			'id_user'           => $this->put('id_user')
+			'photo'       => $this->put('status_toko'),
+			'role'           => "$this->put('id_user')"
 		);
 
 		$this->db->where('id_toko', $id_toko);

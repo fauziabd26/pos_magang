@@ -14,6 +14,49 @@
 	<!-- Template CSS -->
 	<link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/css/components.css') ?>">
+	<style>
+		table.scroll {
+			width: 100%;
+			/* Optional */
+			/* border-collapse: collapse; */
+			/* border-spacing: 0; */
+			/* border: 2px solid black; */
+		}
+
+		table.scroll tbody,
+		table.scroll thead {
+			display: block;
+		}
+
+		thead tr th {
+			height: 30px;
+			line-height: 30px;
+			/*text-align: left;*/
+		}
+
+		table.scroll tbody {
+			height: 100px;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+
+		tbody {
+			/* border-top: 2px solid black; */
+			height: 140px !important;
+		}
+
+		tbody td,
+		thead th {
+			width: 20%;
+			/* Optional */
+			/* border-right: 1px solid black; */
+		}
+
+		tbody td:last-child,
+		thead th:last-child {
+			border-right: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -175,16 +218,16 @@
 								</div>
 								<div class="col-lg-5 col-12">
 									<!-- <div style="height: 200px; "> -->
-									<table class="table" style="display: block;">
-										<thead style="display: block;">
-											<tr style="width: 100%; table-layout: fixed;display: inline-table;">
+									<table class="table scroll">
+										<thead>
+											<tr>
 												<th>Item</th>
 												<th>Qty</th>
 												<th>Harga</th>
 												<th>Sub Total</th>
 											</tr>
 										</thead>
-										<tbody style=" width: 100%; table-layout: fixed; height:140px; overflow-y:scroll;display: inline-table;">
+										<tbody>
 											<tr>
 												<td>Kemaja Flannel</td>
 												<td>1</td>
@@ -292,6 +335,24 @@
 				"autoWidth": false,
 			});
 		});
+
+		// Change the selector if needed
+		var $table = $('table.scroll'),
+			$bodyCells = $table.find('tbody tr:first').children(),
+			colWidth;
+
+		// Adjust the width of thead cells when window resizes
+		$(window).resize(function() {
+			// Get the tbody columns width array
+			colWidth = $bodyCells.map(function() {
+				return $(this).width();
+			}).get();
+
+			// Set the width of thead columns
+			$table.find('thead tr').children().each(function(i, v) {
+				$(v).width(colWidth[i]);
+			});
+		}).resize(); // Trigger resize handler
 	</script>
 </body>
 

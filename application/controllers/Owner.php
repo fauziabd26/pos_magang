@@ -82,14 +82,47 @@ class Owner extends CI_Controller
 		$getAPI = file_get_contents('https://api.etoko.xyz/toko');
 		$datas = json_decode($getAPI, true);
 
+		// $data['tokos'] = array_filter($datas['data'], function ($row) {
+		// 	return $row['id_user'] == 1; //Owner Yang Sedang Login
+		// });
+
 		$data['tokos'] = $datas['data'];
-		
+
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
 	}
 
 	public function toko_tambah()
 	{
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/tambah');
+	}
+
+	public function proses_tambah_toko()
+	{
+		$postdata = http_build_query(
+			array(
+				'nama_toko' =>  ucwords($_POST['nama_toko']),
+				'alamat' =>  ucfirst($_POST['alamat']),
+				'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
+				'foto_toko' => $_POST['foto_toko']
+			)
+		);
+
+		$opts = array(
+			'http' =>
+			array(
+				'method'  => 'POST',
+				'header'  => 'Content-type: application/x-www-form-urlencoded',
+				'content' => $postdata
+			)
+		);
+
+		$context = stream_context_create($opts);
+
+		file_get_contents('https://api.etoko.xyz/toko', false, $context);
+
+		$this->session->set_flashdata('success-create', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Disimpan !");
+
+		redirect('owner/toko');
 	}
 
 	public function toko_edit($id)
@@ -114,12 +147,68 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
 	}
 
+	public function proses_edit_toko($id_toko)
+	{
+		$postdata = http_build_query(
+			array(
+				'id_toko' =>  $id_toko,
+				'nama_toko' =>  ucwords($_POST['nama_toko']),
+				'alamat' =>  ucfirst($_POST['alamat']),
+				'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
+				'foto_toko' => $_POST['foto_toko']
+			)
+		);
+
+		$opts = array(
+			'http' =>
+			array(
+				'method'  => 'PUT',
+				'header'  => 'Content-type: application/x-www-form-urlencoded',
+				'content' => $postdata
+			)
+		);
+
+		$context = stream_context_create($opts);
+
+		file_get_contents('https://api.etoko.xyz/toko', false, $context);
+
+		$this->session->set_flashdata('success-edit', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Diedit !");
+
+		redirect('owner/toko');
+	}
+
+	public function toko_hapus($id_toko)
+	{
+		$postdata = http_build_query(
+			array(
+				'id_toko' =>  $id_toko,
+			)
+		);
+
+		$opts = array(
+			'http' =>
+			array(
+				'method'  => 'DELETE',
+				'header'  => 'Content-type: application/x-www-form-urlencoded',
+				'content' => $postdata
+			)
+		);
+
+		$context = stream_context_create($opts);
+
+		file_get_contents('https://api.etoko.xyz/toko', false, $context);
+
+		$this->session->set_flashdata('success-delete', "Data Toko Terhapus !");
+
+		redirect('owner/toko');
+	}
+
 	// Bagian Produk
 	public function produk()
 	{
 		$getAPI = file_get_contents('http://api.etoko.xyz/produk');
 		$datas = json_decode($getAPI, true);
-		
+
 		$data['produks'] = $datas;
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);

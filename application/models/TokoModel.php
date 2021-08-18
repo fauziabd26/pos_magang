@@ -40,12 +40,12 @@ class TokoModel extends CI_Model
 	//Menampilkan Data Toko
 	public function get($id_toko = null)
 	{
-		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko');
+		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, id_user');
 		$this->db->from('toko');
 		$this->db->order_by('nama_toko', 'ASC');
 		if ($id_toko != null) {
 			$this->db->where('id_toko', $id_toko);
-			$this->db->select('foto_toko');
+			$this->db->select('foto_toko, id_user');
 		}
 		return $this->db->get()->result();
 	}
@@ -72,6 +72,6 @@ class TokoModel extends CI_Model
 			"foto_toko"         => $this->input->post('foto_toko'),
 			"status_toko"       => $this->input->post('status_toko'),
 		);
-		return $this->db->update($this->table, $data, array('IdToko' => $this->input->post('IdToko')));
+		return $this->db->update($this->table, $data, array('id_toko' => $this->input->post('id_toko')));
 	}
 }
