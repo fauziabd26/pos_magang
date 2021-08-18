@@ -76,13 +76,51 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password');
 	}
 
+	// Bagian Toko
+	public function toko()
+	{
+		$getAPI = file_get_contents('https://api.etoko.xyz/toko');
+		$datas = json_decode($getAPI, true);
+
+		$data['tokos'] = $datas['data'];
+		
+		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
+	}
+
+	public function toko_tambah()
+	{
+		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/tambah');
+	}
+
+	public function toko_edit($id)
+	{
+		$getAPI = file_get_contents('https://api.etoko.xyz/toko');
+		$datas = json_decode($getAPI, true);
+
+		foreach ($datas['data'] as $row) {
+			if ($row['id_toko'] == $id) {
+				$value = array(
+					'id_toko' => $row["id_toko"],
+					'nama_toko' => $row["nama_toko"],
+					'deskripsi_toko' => $row["deskripsi_toko"],
+					'alamat' => $row["alamat"],
+					'status_toko' => $row["status_toko"],
+				);
+			}
+		}
+
+		$data['toko'] = $value;
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
+	}
+
 	// Bagian Produk
 	public function produk()
 	{
-		$getAPI = file_get_contents('json/owner/produk/read.json');
+		$getAPI = file_get_contents('http://api.etoko.xyz/produk');
 		$datas = json_decode($getAPI, true);
-
-		$data = array('produks' => $datas["data"]);
+		
+		$data['produks'] = $datas;
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);
 	}

@@ -13,18 +13,23 @@ inde<div class="main-sidebar">
 				</a>
 			</li>
 			<li class="menu-header">Data</li>
+			<li <?= $this->uri->segment(2) == 'toko' || $this->uri->segment(2) == 'toko_edit' || $this->uri->segment(2) == 'toko_tambah' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/toko') ?>">
+					<i class="fas fa-store"></i> <span>Data Toko</span>
+				</a>
+			</li>
 			<li <?= $this->uri->segment(2) == 'admin' || $this->uri->segment(2) == 'admin_edit' || $this->uri->segment(2) == 'admin_tambah' || $this->uri->segment(2) == 'admin_ubah_password' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/admin') ?>">
 					<i class="fas fa-user"></i> <span>Data Admin</span>
 				</a>
 			</li>
-			<li class="nav-item dropdown">
+			<li class="nav-item dropdown <?= $this->uri->segment(2) == 'produk' || $this->uri->segment(2) == 'index_jasa' ? 'active' : '' ?>">
 				<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i>
 					<span>Data Produk</span>
 				</a>
 				<ul class="dropdown-menu">
 					<li <?= $this->uri->segment(2) == 'produk' ? 'class=active' : '' ?>><a class="nav-link" href="<?= base_url('owner/produk') ?>"><i class=" fas fa-cash-register"></i>Barang</a></li>
-					<li <?= $this->uri->segment(2) == 'jasa' ? 'class=active' : '' ?>><a class="nav-link" href="<?= base_url('owner/index_jasa') ?>"><i class="fas fa-cubes"></i>Jasa</a></li>
+					<li <?= $this->uri->segment(2) == 'index_jasa' ? 'class=active' : '' ?>><a class="nav-link" href="<?= base_url('owner/index_jasa') ?>"><i class="fas fa-cubes"></i>Jasa</a></li>
 					<li><a class="nav-link" href="#"><i class="fa fa-images"></i>Foto</a></li>
 				</ul>
 			</li>
