@@ -103,7 +103,63 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 	}
 
-	public function admin_ubah_password($id)
+	public function proses_edit_admin($id_user)
+	{
+		$postdata = http_build_query(
+			array(
+				'id_user' =>  $id_user,
+				'nama' => $_POST["nama"],
+				'email' => $_POST["email"],
+				'no_hp' => $_POST["no_hp"],
+				'photo' => $_POST["photo"],
+			)
+		);
+
+		$opts = array(
+			'http' =>
+			array(
+				'method'  => 'PUT',
+				'header'  => 'Content-type: application/x-www-form-urlencoded',
+				'content' => $postdata
+			)
+		);
+
+		$context = stream_context_create($opts);
+
+		file_get_contents('https://api.etoko.xyz/admin', false, $context);
+
+		$this->session->set_flashdata('success-edit', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
+
+		redirect('owner/admin');
+	}
+
+	public function admin_hapus($id_user)
+	{
+		$postdata = http_build_query(
+			array(
+				'id_user' =>  $id_user,
+			)
+		);
+
+		$opts = array(
+			'http' =>
+			array(
+				'method'  => 'DELETE',
+				'header'  => 'Content-type: application/x-www-form-urlencoded',
+				'content' => $postdata
+			)
+		);
+
+		$context = stream_context_create($opts);
+
+		file_get_contents('https://api.etoko.xyz/admin', false, $context);
+
+		$this->session->set_flashdata('success-delete', "Data Admin Terhapus !");
+
+		redirect('owner/admin');
+	}
+
+	public function admin_ubah_password($id_user)
 	{
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password');
 	}
@@ -209,31 +265,31 @@ class Owner extends CI_Controller
 		redirect('owner/toko');
 	}
 
-	public function toko_hapus($id_toko)
-	{
-		$postdata = http_build_query(
-			array(
-				'id_toko' =>  $id_toko,
-			)
-		);
+	// public function toko_hapus($id_toko)
+	// {
+	// 	$postdata = http_build_query(
+	// 		array(
+	// 			'id_toko' =>  $id_toko,
+	// 		)
+	// 	);
 
-		$opts = array(
-			'http' =>
-			array(
-				'method'  => 'DELETE',
-				'header'  => 'Content-type: application/x-www-form-urlencoded',
-				'content' => $postdata
-			)
-		);
+	// 	$opts = array(
+	// 		'http' =>
+	// 		array(
+	// 			'method'  => 'DELETE',
+	// 			'header'  => 'Content-type: application/x-www-form-urlencoded',
+	// 			'content' => $postdata
+	// 		)
+	// 	);
 
-		$context = stream_context_create($opts);
+	// 	$context = stream_context_create($opts);
 
-		file_get_contents('https://api.etoko.xyz/toko', false, $context);
+	// 	file_get_contents('https://api.etoko.xyz/toko', false, $context);
 
-		$this->session->set_flashdata('success-delete', "Data Toko Terhapus !");
+	// 	$this->session->set_flashdata('success-delete', "Data Toko Terhapus !");
 
-		redirect('owner/toko');
-	}
+	// 	redirect('owner/toko');
+	// }
 
 	// Bagian Produk
 	public function produk()
