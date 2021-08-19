@@ -1,0 +1,2 @@
+jam 09.00 - 11.00 = mencoba proses tambah dan mengirmkan request post ke api menggunakan file_get_content
+jam 13.00 - 16.00 = mencoba menampilkan data toko per id dari api menggunakan file_get_content
