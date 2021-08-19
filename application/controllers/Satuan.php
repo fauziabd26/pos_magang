@@ -1,62 +1,61 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Toko extends CI_Controller{
+class Satuan extends CI_Controller{
     public function __construct(){
         parent::__construct();
-        $this->load->model("TokoModel"); //load model toko
+        $this->load->model("SatuanModel"); //load model satuan
     }
 
-    //method pertama yang akan di eksekusi
+    //method pertama yang akan dieksekusi
     public function index(){
-        $this->load->models {'TokoModel'};
-        $data["title"]      = "List Data Toko"; 
-        $data["data_toko"]  = $this->TokoModel->getAll(); //ambil fungsi getAll untuk menampilkan semua data toko
+        $this->load->models {'SatuanModel'};
+        $data["title"]          = "List Data Satuan";
+        $data["data_satuan"]    = $this->SatuanModel->getAll(); //ambil fungsi getAll untuk menampilkan semua data satuan
     }
 
     public function add(){
-        $Toko       = $this->TokoModel; //objek model
-        $validation = $this->form_validation; //objek form validasi
-        $validation->set_rules($Toko->rules()); //menerapkan rules validasi pada toko model
-       
-        //kondisi jika semua kolom telah divalidasi, maka akan menjalankan method save pada toko model
+        $Satuan     = $this->SatuanModel;
+        $validation = $this->form_validation;
+        $validation->set_rules($Satuan->rules());
+
         if($validation->run()){
-            $Toko->save();
+            $Satuan->save();
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Data Toko berhasil disimpan. 
+            Data Satuan berhasil disimpan. 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
 
-            redirect("toko");
+            redirect("satuan");
         }
 
-        $data["title"] = "Tambah Data Toko";
+        $data["title"] = "Tambah Data Satuan";
         $this->load->view('templates/header', $data);
         $this->load->view('templates/menu');
         $this->load->view('templates/add',$data);
         $this->load->view('templates/footer');
     }
 
-    public function edit($id_toko = null){
-        if(!isset($id_toko)) redirect('toko');
-        $Toko       = $this->TokoModel;
+    public function edit($id_satuan = null){
+        if(!isset($id_satuan)) redirect('satuan');
+        $Satuan     = $this->SatuanModel;
         $validation = $this->form_validation;
-        $validation->set_rules($Toko->rules());
-        
+        $validation->set_rules($Satuan->rules());
+
         if($validation->run()){
-            $Toko->update();
+            $Satuan->update();
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Toko berhasil disimpan.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
 
-          redirect("toko");
-        }
+              redirect("satuan");
+            }
 
-        $data["title"] = "Edit Data Toko";
-        $data["data_toko"] = $Toko->getById($id_toko);
+        $data["title"] = "Edit Data Satuan";
+        $data["data_satuan"] = $Satuan->getById($id_satuan);
         if (!$data["data_toko"]) show_404();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/menu');
@@ -65,15 +64,15 @@ class Toko extends CI_Controller{
     }
 
     public function delete(){
-        $id = $this->input->get('id_toko');
-        if (!isset($id_toko)) show_404();
-        $this->TokoModel->delete($id_toko);
+        $id = $this->input->get('id_satuan');
+        if (!isset($id_satuan)) show_404();
+        $this->SatuanModel->delete($id_satuan);
         $msg['success'] = true;
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         Data toko berhasil dihapus.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
-        </button></div>');
+        </button></div>');  
         $this->output->set_output(json_encode($msg));
     }
 }
