@@ -4,62 +4,91 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use chriskacerguis\RestServer\RestController;
 
 class Kategori extends RestController{
-    public function __construct($config = 'rest'){
-        parent::__construct($config);
-        $this->load->database();        
-    }
+    function __construct($config = 'rest')
+	{
+		parent::__construct($config);
+		$this->load->database();
+		$this->load->model('KategoriModel');
+	}
 
-    //Menampilkan data kategori
-    function index_get(){
-        $id_kategori = $this->get('id_kategori');
-        if($id_kategori == ''){
-            $kategori =  $this->db->get('kategori')->result();
-        }else{
-            $this->db->where('id_kategori', $id_kategori);
-            $kategori = $this->db->get('kategori')->result();
-        }
-        $this->response($kategori, 200);
-    }
+	//Menampilkan data
+	function index_get($id_kategori = null)
+	{
+		if (!empty($id_kategori)) {
+			$kategori = $this->KategoriModel->get($id_kategori);
+		} else {
+			$kategori =  $this->KategoriModel->get();
+		}
 
-    //Menambah data kategori baru
-    function index_post(){
-        $data = array(
-            'id_kategori'        => $this->post('id_kategori'),
-            'nama_kategori'      => $this->post('nama_kategori'),
-            'id_toko'            => $this->post('id_toko'));
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Kategori Berhasil Diambil',
+			'data' => $kategori
+		), 200);
+	}
 
-        $insert = $this->db->insert('kategori', $data);
-        if($insert){
-            $this->response($data, 200);
-        }else{
-            $this->response(array('status' => 'fail', 502));
-        }
-    }
+	//Menambah data toko baru
+	function index_post()
+	{
+		$data = array(
+			'nama_kategori'      => $this->post('nama_kategori'),
+			'id_toko'         => $this->post('id_toko')
+		);
 
-    //Memperbarui data kategori yang telah ada
-    function index_put(){
-        $id_kategori    = $this->put('id_kategori');
-        $data   = array(
-            'id_kategori'        => $this->put('id_kategori'),
-            'nama_kategori'      => $this->put('nama_kategori'),
-            'id_toko'            => $this->put('id_toko'));                    
-        $this->db->where('id_kategori', $id_kategori);
-        $update = $this->db->update('kategori', $data);
-        if ($update) {
-            $this->response($data, 200);
-        } else {
-            $this->response(array('status' => 'fail', 502));
-        }
-    }
+		if ($this->KategoriModel->save($data)) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Kategori Berhasil Ditambah',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Menambahkan Data Kategori'
+			), 502);
+		}
+	}
 
-	function index_delete() {
-        $id_kategori = $this->delete('id_kategori');
-        $this->db->where('id_kategori', $id_kategori);
-        $delete = $this->db->delete('kategori');
-        if ($delete) {
-            $this->response(array('status' => 'success'), 201);
-        } else {
-            $this->response(array('status' => 'fail', 502));
-        }
-    }
+	//Memperbarui data toko yang telah ada
+	function index_put()
+	{
+		$id_kategori    = $this->put('id_kategori');
+		$data       = array(
+			'nama_kategori'         => $this->put('nama_kategori'),
+			'id_toko'            => $this->put('id_toko')
+		);
+
+		$this->db->where('id_kategori', $id_kategori);
+		$update = $this->db->update('kategori', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Kategori Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Kategori'
+			), 502);
+		}
+	}
+
+	//Menghapus salah satu data toko
+	function index_delete()
+	{
+		$id_kategori = $this->delete('id_kategori');
+		$this->db->where('id_kategori', $id_kategori);
+		if ($this->db->delete('kategori')) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Kategori Berhasil Dihapus',
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Menghapus Data Kategori'
+			), 502);
+		}
+	}
 }

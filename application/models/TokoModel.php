@@ -37,7 +37,7 @@ class TokoModel extends CI_Model
 		];
 	}
 
-	//Menampilkan Data Toko
+	//Menampilkan Data 
 	public function get($id_toko = null)
 	{
 		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, id_user');
@@ -50,7 +50,7 @@ class TokoModel extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	//Simpan Data Toko
+	//Simpan Data 
 	public function save($data)
 	{
 		$save = $this->db->insert($this->table, $data);
@@ -62,7 +62,7 @@ class TokoModel extends CI_Model
 		}
 	}
 
-	//edit data toko
+	//edit data 
 	public function update()
 	{
 		$data = array(
