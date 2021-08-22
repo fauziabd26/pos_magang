@@ -37,7 +37,7 @@ class AdminModel extends CI_Model
 		];
 	}
 
-	//Menampilkan Data Toko
+	//Menampilkan Data Admin
 	public function get($id_user = null)
 	{
 		$this->db->select('id_user, nama, email, no_hp, photo, role');
@@ -49,7 +49,7 @@ class AdminModel extends CI_Model
 		return $this->db->get()->result();
 	}
 
-	//Simpan Data Toko
+	//Simpan Data Admin
 	public function save($data)
 	{
 		$save = $this->db->insert($this->table, $data);
@@ -61,7 +61,7 @@ class AdminModel extends CI_Model
 		}
 	}
 
-	//edit data toko
+	//edit data Admin
 	public function update()
 	{
 		$data = array(
@@ -69,7 +69,7 @@ class AdminModel extends CI_Model
 			"email"        => $this->input->post('email'),
 			"no_hp"        => $this->input->post('no_hp'),
 			"photo"        => $this->input->post('photo'),
-			"status_toko"  => $this->input->post('status_toko'),
+			"status_Admin"  => $this->input->post('status_Admin'),
 		);
 		return $this->db->update($this->table, $data, array('id_user' => $this->input->post('id_user')));
 	}
