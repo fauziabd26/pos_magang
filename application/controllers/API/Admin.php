@@ -24,7 +24,7 @@ class Admin extends RestController
 
 		$this->response(array(
 			'status' => true,
-			'message' => 'Data Toko Berhasil Diambil',
+			'message' => 'Data Admin Berhasil Diambil',
 			'data' => $admin
 		), 200);
 	}
@@ -55,49 +55,47 @@ class Admin extends RestController
 		}
 	}
 
-	//Memperbarui data toko yang telah ada
+	//Memperbarui data Admin yang telah ada
 	function index_put()
 	{
-		$id_toko    = $this->put('id_toko');
+		$id_user    = $this->put('id_user');
 		$data       = array(
-			'nama_toko'         => $this->put('nama_toko'),
-			'alamat'            => $this->put('alamat'),
-			'deskripsi_toko'    => $this->put('deskripsi_toko'),
-			'foto_toko'         => $this->put('foto_toko'),
-			'photo'       => $this->put('status_toko'),
-			'role'           => "$this->put('id_user')"
+			'nama'          => $this->put('nama'),
+			'email'         => $this->put('email'),
+			'no_hp'         => $this->put('no_hp'),
+			'role'          => "admin"
 		);
 
-		$this->db->where('id_toko', $id_toko);
-		$update = $this->db->update('toko', $data);
+		$this->db->where('id_user', $id_user);
+		$update = $this->db->update('user', $data);
 		if ($update) {
 			$this->response(array(
 				'status' => true,
-				'message' => 'Data Toko Berhasil Diedit',
+				'message' => 'Data Admin Berhasil Diedit',
 				'data' => $data
 			), 200);
 		} else {
 			$this->response(array(
 				'status' => false,
-				'message' => 'Gagal Mengedit Data Toko'
+				'message' => 'Gagal Mengedit Data Admin'
 			), 502);
 		}
 	}
 
-	//Menghapus salah satu data toko
+	//Menghapus salah satu data admin
 	function index_delete()
 	{
-		$id_toko = $this->delete('id_toko');
-		$this->db->where('id_toko', $id_toko);
-		if ($this->db->delete('toko')) {
+		$id_user = $this->delete('id_user');
+		$this->db->where('id_user', $id_user);
+		if ($this->db->delete('user')) {
 			$this->response(array(
 				'status' => true,
-				'message' => 'Data Toko Berhasil Dihapus',
+				'message' => 'Data Admin Berhasil Dihapus',
 			), 200);
 		} else {
 			$this->response(array(
 				'status' => false,
-				'message' => 'Gagal Menghapus Data Toko'
+				'message' => 'Gagal Menghapus Data Admin'
 			), 502);
 		}
 	}

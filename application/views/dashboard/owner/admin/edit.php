@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="#" method="POST">
+			<form action="<?= base_url('owner/proses_edit_admin/'. $admin['id_user']) ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">
