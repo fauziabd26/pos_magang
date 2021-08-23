@@ -30,7 +30,7 @@
 						<tbody>
 							<?php foreach ($satuans as $no => $satuan) : ?>
 								<tr>
-									<td><?= $satuan["id"] ?></td>
+									<td><?= $satuan["id_satuan"] ?></td>
 									<td><?= $satuan["nama_satuan"] ?></td>
 									<td>
 										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning">Ubah</a>
@@ -58,7 +58,7 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Satuan</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama Satuan">
+							<input type="text" class="form-control" name="nama_satuan" placeholder="Tuliskan Nama Satuan">
 						</div>
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Satuan</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" value="<?= $satuan["nama_satuan"] ?>">
+							<input type="text" class="form-control" name="nama_satuan" value="<?= $satuan["nama_satuan"] ?>">
 						</div>
 					</div>
 				</div>

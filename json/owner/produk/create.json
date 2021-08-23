@@ -1,9 +1,9 @@
 {
-  "status": true,
-  "message": "Data Produk Berhasil Ditambah",
-  "data": {
-    "nama_produk": "Kemeja Flannel",
-    "jenis": "produk",
-    "id_toko": 1
-  }
+    "status": true,
+    "message": "Data Produk Berhasil Ditambah",
+    "data": {
+        "nama_produk": "Kemeja Flannel",
+        "jenis": "barang",
+        "id_toko": 1
+    }
 }

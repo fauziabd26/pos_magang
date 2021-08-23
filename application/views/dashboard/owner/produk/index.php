@@ -59,7 +59,13 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama Produk">
+							<input type="text" class="form-control" name="nama_produk" placeholder="Tuliskan Nama Produk">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 col-sm-5 control-label">Jenis Produk</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" name="jenis" placeholder="Tuliskan Jenis Produk (Barang/Jasa)">
 						</div>
 					</div>
 				</div>
@@ -85,7 +91,13 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" value="<?= $row["nama_produk"] ?>">
+							<input type="text" class="form-control" name="nama_produk" value="<?= $row["nama_produk"] ?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 col-sm-5 control-label">Jenis</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" name="jenis" value="<?= $row["jenis"] ?>">
 						</div>
 					</div>
 				</div>

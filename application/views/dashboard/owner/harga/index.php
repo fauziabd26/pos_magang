@@ -31,7 +31,7 @@
 						<tbody>
 							<?php foreach ($hargas as $no => $harga) : ?>
 								<tr>
-									<td><?= $harga["id"] ?></td>
+									<td><?php echo ++$no;?></td>
 									<td><?= $harga["nama_harga"] ?></td>
 									<td><?= $harga["nominal"] ?></td>
 									<td>
@@ -63,6 +63,12 @@
 							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama Harga">
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-lg-5 col-sm-5 control-label">Nominal</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" name="nominal" placeholder="Nominal">
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
@@ -86,7 +92,14 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Harga</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" value="<?= $harga["nama_harga"] ?>">
+							<input type="hidden" id="id_harga" name="id">
+							<input type="text" class="form-control" id="nama_harga" name="nama_harga" value="<?= $harga["nama_harga"] ?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 col-sm-5 control-label">Nominal</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" id="nominal" name="nominal" value="<?= $harga["nominal"] ?>">
 						</div>
 					</div>
 				</div>
@@ -122,3 +135,17 @@
 	</div>
 </div>
 <!-- END Modal Hapus -->
+<script>
+     $(document).ready(function() {
+         // Untuk sunting
+         $('#edit-data').on('show.bs.modal', function (event) {
+             var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+             var modal          = $(this)
+
+             // Isi nilai pada field
+             modal.find('#id_harga').attr("value",div.data('id_harga'));
+             modal.find('#nama_harga').attr("value",div.data('nama_harga'));
+             modal.find('#nominal').html(div.data('nominal'));
+         });
+     });
+ </script>

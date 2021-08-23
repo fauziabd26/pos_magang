@@ -24,7 +24,7 @@ class Admin extends RestController
 
 		$this->response(array(
 			'status' => true,
-			'message' => 'Data Toko Berhasil Diambil',
+			'message' => 'Data Admin Berhasil Diambil',
 			'data' => $admin
 		), 200);
 	}
@@ -55,16 +55,15 @@ class Admin extends RestController
 		}
 	}
 
-	//Memperbarui data yang telah ada
+	//Memperbarui data Admin yang telah ada
 	function index_put()
 	{
 		$id_user    = $this->put('id_user');
 		$data       = array(
-			'nama'         => $this->put('nama'),
-			'email'        => $this->put('email'),
-			// 'password'     => $this->put('password'),
-			'photo'        => $this->put('photo'),
-			'role'         => $this->put('role')
+			'nama'          => $this->put('nama'),
+			'email'         => $this->put('email'),
+			'no_hp'         => $this->put('no_hp'),
+			'role'          => "admin"
 		);
 
 		$this->db->where('id_user', $id_user);
@@ -83,7 +82,7 @@ class Admin extends RestController
 		}
 	}
 
-	//Menghapus salah satu data 
+	//Menghapus salah satu data admin
 	function index_delete()
 	{
 		$id_user = $this->delete('id_user');

@@ -1,0 +1,9 @@
+{
+    "status": true,
+    "message": "Data Produk Berhasil Ditambah",
+    "data": {
+        "nama_produk": "Jasa Cuci Laundry",
+        "jenis": "jasa",
+        "id_toko": 1
+    }
+}
