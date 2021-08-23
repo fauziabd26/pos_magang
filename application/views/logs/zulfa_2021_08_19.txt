@@ -1,0 +1,3 @@
+jam 09.00 - 10.00 : membuat crud api kategori
+jam 10.00 - 12.00 : memanggil produk berdasarkan jenis (barang / jasa)
+jam 13.00 - 15.00 : memperbaiki error api login user

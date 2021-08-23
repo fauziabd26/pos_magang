@@ -3,6 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Owner extends CI_Controller
 {
+	var $api ="";
+	function __construct() {
+        parent::__construct();
+        $this->api="http://api.etoko.xyz/";
+    }
 	public function dashboard()
 	{
 		$getAPI = file_get_contents('json/admin/transaksi/read.json');
@@ -79,13 +84,13 @@ class Owner extends CI_Controller
 	// Bagian Toko
 	public function toko()
 	{
-		$getAPI = file_get_contents('https://api.etoko.xyz/toko');
-		$datas = json_decode($getAPI, true);
+		// $getAPI = file_get_contents('https://api.etoko.xyz/toko');
+		// $datas = json_decode($getAPI, true);
 
 		// $data['tokos'] = array_filter($datas['data'], function ($row) {
 		// 	return $row['id_user'] == 1; //Owner Yang Sedang Login
 		// });
-
+		$datas = json_decode($this->curl->simple_get($this->api.'/toko'), true);
 		$data['tokos'] = $datas['data'];
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
