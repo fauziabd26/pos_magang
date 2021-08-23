@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="#" method="POST">
+			<form action="<?= base_url('owner/proses_edit_toko/'. $toko['id_toko']) ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">
@@ -20,25 +20,30 @@
 						</div>
 						<div class="col text-right">
 							<?php if ($toko["status_toko"] == "valid") { ?>
-								<button class="btn btn-success text-capitalize"><?= $toko["status_toko"] ?> <i class="fas fa-check ml-2"></i></button>
+								<button class="btn btn-success text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-check ml-2"></i></button>
 							<?php } elseif ($toko["status_toko"] == "pending") { ?>
-								<button class="btn btn-info text-capitalize"><?= $toko["status_toko"] ?> <i class="fas fa-hourglass ml-2"></i></button>
+								<button class="btn btn-warning text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-hourglass ml-2"></i></button>
 							<?php } else { ?>
-								<button class="btn btn-danger text-capitalize"><?= $toko["status_toko"] ?> <i class="fas fa-ban ml-2"></i></button>
+								<button class="btn btn-danger text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-ban ml-2"></i></button>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for='nama'>Nama Toko</label>
-						<input type="text" id="nama" class="form-control" name="nama" value="<?= $toko["nama_toko"] ?>" autofocus>
+						<label for='nama_toko'>Nama Toko</label>
+						<input type="text" id="nama_toko" class="form-control" name="nama_toko" value="<?= $toko["nama_toko"] ?>" autofocus>
 					</div>
 					<div class="form-group">
-						<label for='deskripsi'>Deskripsi Toko</label>
-						<textarea name="deskripsi" id="deskripsi" class="form-control"><?= $toko["deskripsi_toko"] ?></textarea>
+						<label for='deskripsi_toko'>Deskripsi Toko</label>
+						<textarea name="deskripsi_toko" id="deskripsi_toko" class="form-control"><?= $toko["deskripsi_toko"] ?></textarea>
 					</div>
 					<div class="form-group">
 						<label for='alamat'>Alamat Toko</label>
 						<textarea name="alamat" id="alamat" class="form-control"><?= $toko["alamat"] ?></textarea>
+					</div>
+					<div class="form-group">
+						<label for='foto_toko'>Dokumen Toko <small>*Jika Ingin Mengganti Foto</small></label>
+						<input type="file" id="foto_toko" class="form-control" name="foto_toko">
+						<small>*File Maksimal Berukuran 2Mb</small>
 					</div>
 				</div>
 				<div class="card-footer">

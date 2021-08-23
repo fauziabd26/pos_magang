@@ -37,7 +37,7 @@ class Toko extends RestController
 			'alamat'         => $this->post('alamat'),
 			'deskripsi_toko' => $this->post('deskripsi_toko'),
 			'foto_toko'      => $this->post('foto_toko'),
-			'status_toko'    => "Pending",
+			'status_toko'    => "pending",
 			'id_user'        => $this->post('id_user')
 		);
 
@@ -64,7 +64,7 @@ class Toko extends RestController
 			'alamat'            => $this->put('alamat'),
 			'deskripsi_toko'    => $this->put('deskripsi_toko'),
 			'foto_toko'         => $this->put('foto_toko'),
-			'status_toko'       => $this->put('status_toko'),
+			'status_toko'       => "pending",
 			'id_user'           => $this->put('id_user')
 		);
 

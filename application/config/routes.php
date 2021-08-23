@@ -52,3 +52,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth/login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+//Bagian Owner
+$route['owner/dashboard'] = 'owner/dashboard';
+
+$route['owner/toko'] = 'owner/toko';
+$route['owner/toko/tambah'] = 'owner/toko_tambah';
+$route['owner/toko/proses_tambah'] = 'owner/proses_tambah_toko';
+$route['owner/toko/edit/(:num)'] = 'owner/toko_edit/$1';
+$route['owner/toko/proses_edit/(:num)'] = 'owner/proses_edit_toko/$1';
+$route['owner/toko/hapus/(:num)'] = 'owner/toko_hapus/$1';
+
+$route['owner/admin'] = 'owner/admin';
+$route['owner/admin/tambah'] = 'owner/admin_tambah';
+$route['owner/admin/proses_tambah'] = 'owner/proses_tambah_admin';
+$route['owner/admin/edit/(:num)'] = 'owner/admin_edit/$1';
+$route['owner/admin/proses_edit/(:num)'] = 'owner/proses_edit_admin/$1';
+// $route['owner/admin/hapus/(:num)'] = 'owner/admin_hapus/$1';
+
+

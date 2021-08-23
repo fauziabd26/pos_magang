@@ -45,15 +45,15 @@ class Owner extends RestController{
 
     //Memperbarui data toko yang telah ada
 	function index_put() {
-        $id_toko    = $this->put('id_toko');
-        $data       = array(
-                    'id_toko'           => $this->put('id_toko'),
-                    'nama_toko'         => $this->put('nama_toko'),
-                    'alamat'            => $this->put('alamat'),
-                    'deskripsi_toko'    => $this->put('deskripsi_toko'),
-                    'foto_toko'         => $this->put('foto_toko'),
-                    'status_toko'       => $this->put('status_toko'),
-                    'id_user'           => $this->put('id_user'));
+        $id_toko = $this->put('id_toko');
+        $data = array(
+            'id_toko'           => $this->put('id_toko'),
+            'nama_toko'         => $this->put('nama_toko'),
+            'alamat'            => $this->put('alamat'),
+            'deskripsi_toko'    => $this->put('deskripsi_toko'),
+            'foto_toko'         => $this->put('foto_toko'),
+            'status_toko'       => $this->put('status_toko'),
+            'id_user'           => $this->put('id_user'));
                     
         $this->db->where('id_toko', $id_toko);
         $update = $this->db->update('toko', $data);
@@ -75,8 +75,5 @@ class Owner extends RestController{
             $this->response(array('status' => 'fail', 502));
         }
     }
-
 }
-
-?>
 
