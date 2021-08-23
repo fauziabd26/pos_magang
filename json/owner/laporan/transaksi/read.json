@@ -1,0 +1,15 @@
+{
+    "status": true,
+    "message": "Data Toko Berhasil Diambil",
+    "data": [{
+        "id_transaksi": "Transaksi-20210101001",
+        "jenis_transaksi": "produk",
+        "nama_cust": "Cindy",
+        "total_transaksi": 50000,
+        "bayar": 50000,
+        "diskon": "null",
+        "status": 1,
+        "tggl_transaksi": "2021-01-02",
+        "id_toko": 1
+    }]
+}

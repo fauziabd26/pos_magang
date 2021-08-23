@@ -1,0 +1,2 @@
+jam 09.00 - 11.00 : mempelajari error pada login user
+jam 13.00 - 15.00 : memperbaiki login yang error dan membuat api CRUD histori transaksi

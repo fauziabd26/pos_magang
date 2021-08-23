@@ -30,7 +30,7 @@
 						<tbody>
 							<?php foreach ($kategories as $no => $kategori) : ?>
 								<tr>
-									<td><?= $kategori["id"] ?></td>
+									<td><?php echo ++$no;?></td>
 									<td><?= $kategori["nama_kategori"] ?></td>
 									<td>
 										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning">Ubah</a>
@@ -58,7 +58,7 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Kategori</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama kategori">
+							<input type="text" class="form-control" name="nama_kategori" placeholder="Tuliskan Nama kategori">
 						</div>
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Kategori</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" value="<?= $kategori["nama_kategori"] ?>">
+							<input type="text" class="form-control" id="nama_kategori" name="nama" value="<?= $kategori["nama_kategori"] ?>">
 						</div>
 					</div>
 				</div>

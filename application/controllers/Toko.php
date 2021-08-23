@@ -9,6 +9,7 @@ class Toko extends CI_Controller{
 
     //method pertama yang akan di eksekusi
     public function index(){
+        $this->load->models {'TokoModel'};
         $data["title"]      = "List Data Toko"; 
         $data["data_toko"]  = $this->TokoModel->getAll(); //ambil fungsi getAll untuk menampilkan semua data toko
     }
@@ -22,7 +23,7 @@ class Toko extends CI_Controller{
         if($validation->run()){
             $Toko->save();
             $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Data Mahasiswa berhasil disimpan. 
+            Data Toko berhasil disimpan. 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
@@ -49,7 +50,7 @@ class Toko extends CI_Controller{
             Data Toko berhasil disimpan.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-          </button></div>');
+            </button></div>');
 
           redirect("toko");
         }

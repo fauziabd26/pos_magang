@@ -41,3 +41,4 @@ class AuthModel extends CI_Model
         $this->db->query($sql);
     }
 }
+

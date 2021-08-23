@@ -101,8 +101,5 @@ class Owner extends RestController{
 			), 502);
 		}
 	}
-
 }
-
-?>
 

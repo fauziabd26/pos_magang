@@ -1,0 +1,10 @@
+{
+    "status": true,
+    "message": "Data Produk Berhasil Diambil",
+    "data": [{
+        "id_harga": 1,
+        "nama_harga": "satuan",
+        "nominal": "5000",
+        "id_produk": 1
+    }]
+}
