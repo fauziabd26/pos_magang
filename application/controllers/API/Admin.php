@@ -35,7 +35,7 @@ class Admin extends RestController
 		$data = array(
 			'nama'          => $this->post('nama'),
 			'email'         => $this->post('email'),
-			'password'      => $this->post('password'),
+			'password'      => password_hash($this->post('password'), PASSWORD_BCRYPT),
 			'no_hp'         => $this->post('no_hp'),
 			'photo'         => $this->post('photo'),
 			'role'          => "admin"

@@ -22,36 +22,46 @@ class ProdukModel extends CI_Model
         ];
     }
 
-    //menampilkan data mahasiswa berdasarkan id mahasiswa
-    public function getById($id_produk)
-    {
-        return $this->db->get_where($this->table, ["IdProduk" => $id_produk])->row();
-        //query diatas seperti halnya query pada mysql 
-        //select * from mahasiswa where IdMhsw='$id'
-    }
+    //Menampilkan Data 
+	public function get_barang($id_produk = null)
+	{
+		$this->db->select('id_produk, nama_produk, jenis, id_toko, foto_produk');
+		$this->db->from('produk');
+        $this->db->where('jenis =','barang');
+		// $this->db->order_by('nama_produk', 'ASC');
+		if ($id_produk != null) {
+			$this->db->where('id_produk', $id_produk);
+			$this->db->select('foto_produk, id_toko');
+		}
+		return $this->db->get()->result();
+	}
 
-    //menampilkan semua data mahasiswa
-    public function getAll()
-    {
-        $this->db->from($this->table);
-        $this->db->order_by("IdProduk", "desc");
-        $query = $this->db->get();
-        return $query->result();
-        //fungsi diatas seperti halnya query 
-        //select * from mahasiswa order by IdMhsw desc
-    }
+    public function get_jasa($id_produk = null)
+	{
+		$this->db->select('id_produk, nama_produk, jenis, id_toko, foto_produk');
+		$this->db->from('produk');
+        $this->db->where('jenis =','jasa');
+		// $this->db->order_by('nama_produk', 'ASC');
+		if ($id_produk != null) {
+			$this->db->where('id_produk', $id_produk);
+			$this->db->select('foto_produk, id_toko');
+		}
+		return $this->db->get()->result();
+	}
 
-    //menyimpan data mahasiswa
-    public function save()
-    {
-        $data = array(
-            "nama_produk"   => $this->input->post('nama_produk'),
-            "jenis"         => $this->input->post('jenis')
-        );
-        return $this->db->insert($this->table, $data);
-    }
+	//Simpan Data 
+	public function save($data)
+	{
+		$save = $this->db->insert($this->table, $data);
 
-    //edit data mahasiswa
+		if ($save) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+    //edit data 
     public function update()
     {
         $data = array(
@@ -61,7 +71,7 @@ class ProdukModel extends CI_Model
         return $this->db->update($this->table, $data, array('IdProduk' => $this->input->post('IdProduk')));
     }
 
-    //hapus data mahasiswa
+    //hapus data 
     public function delete($id_produk)
     {
         return $this->db->delete($this->table, array("IdProduk" => $id_produk));
