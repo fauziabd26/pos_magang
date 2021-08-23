@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="#" method="POST">
+			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">
@@ -40,6 +40,12 @@
 					<div class="form-group">
 						<label for='no_hp'>Nomer Handphone</label>
 						<input type="number" id="no_hp" class="form-control" name="no_hp" placeholder='Masukkan Nomer Handphone'>
+					</div>
+					<div class="form-group">
+						<label for='photo'>Foto Admin</label>
+						<input type="file" id="photo" class="form-control" name="photo">
+						<small>*Format File Menggunakan IMG, PNG</small><br>
+						<small>*File Maksimal Berukuran 2Mb</small>
 					</div>
 				</div>
 				<div class="card-footer">

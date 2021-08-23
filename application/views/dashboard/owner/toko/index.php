@@ -19,15 +19,6 @@
 							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success-create') ?>
 						</div>
 					</div>
-				<?php } elseif ($this->session->flashdata('success-delete')) { ?>
-					<div class="alert alert-success alert-dismissible show fade">
-						<div class="alert-body">
-							<button class="close" data-dismiss="alert">
-								<span>×</span>
-							</button>
-							<i class="fas fa-trash-alt mr-2"></i> <?= $this->session->flashdata('success-delete') ?>
-						</div>
-					</div>
 				<?php } elseif ($this->session->flashdata('success-edit')) { ?>
 					<div class="alert alert-success alert-dismissible show fade">
 						<div class="alert-body">
@@ -73,10 +64,11 @@
 										<?php } else { ?>
 											<span class="badge badge-danger text-capitalize"><?= $toko["status_toko"] ?></span>
 										<?php } ?>
+
 									</td>
 									<td>
 										<a href="<?= base_url('owner/toko_edit/' . $toko["id_toko"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-										<a href="<?= base_url('owner/toko_hapus/' . $toko["id_toko"]) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+										<!-- <a href="<?= base_url('owner/toko_hapus/' . $toko["id_toko"]) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a> -->
 									</td>
 								</tr>
 							<?php endforeach; ?>

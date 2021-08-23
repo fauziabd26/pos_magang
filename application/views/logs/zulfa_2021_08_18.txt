@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : membuat controller API login user
+jam 13.00 - 16.00 : mencoba menjalankan login user dan memperbaiki error pada login
