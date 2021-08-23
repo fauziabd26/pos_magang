@@ -1,0 +1,3 @@
+jam 09.00 - 12.00 : membuat crud transaksi
+jam 13.00 - 14.00 : membuat api transaksi berdasarkan jenis transaksi
+jam 14.00 - 15.00 : membuat controller ubah foto pada produk
