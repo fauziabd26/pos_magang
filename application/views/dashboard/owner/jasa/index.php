@@ -28,6 +28,17 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php foreach ($jasas as $no => $row) : ?>
+								<tr>
+									<td><?= $row["id_produk"] ?></td>
+									<td><?= $row["nama_produk"] ?></td>
+									<td><?= $row["jenis"] ?></td>
+									<td>
+										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning">Ubah</a>
+										<a href="#" data-toggle="modal" data-target="#hapus-data" class="btn btn-danger">Hapus</a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
 
 						</tbody>
 					</table>
@@ -47,9 +58,9 @@
 				<div class="modal-body">
 					<h4 class="modal-title">Tambah Data</h4>
 					<div class="form-group">
-						<label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
+						<label class="col-lg-5 col-sm-5 control-label">Nama Jasa</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama Produk">
+							<input type="text" class="form-control" name="nama" placeholder="Tuliskan Nama jasa">
 						</div>
 					</div>
 				</div>
@@ -75,7 +86,7 @@
 					<div class="form-group">
 						<label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name="nama" value="<?= $row["nama_produk"] ?>">
+							<input type="text" class="form-control" name="nama_produk" value="<?= $row["nama_produk"] ?>">
 						</div>
 					</div>
 				</div>

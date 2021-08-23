@@ -1,0 +1,8 @@
+{
+    "status": true,
+    "message": "Data Produk Berhasil Diambil",
+    "data": [{
+        "nama_kategori": "Baju",
+        "id_toko": 1
+    }]
+}

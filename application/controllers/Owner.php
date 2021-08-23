@@ -83,7 +83,7 @@ class Owner extends CI_Controller
 		$datas = json_decode($getAPI, true);
 
 		$data['tokos'] = $datas['data'];
-		
+
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
 	}
 
@@ -119,7 +119,7 @@ class Owner extends CI_Controller
 	{
 		$getAPI = file_get_contents('http://api.etoko.xyz/produk');
 		$datas = json_decode($getAPI, true);
-		
+
 		$data['produks'] = $datas;
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);
@@ -127,10 +127,10 @@ class Owner extends CI_Controller
 	// Bagian Jasa
 	public function index_jasa()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/owner/jasa/read.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('jasas' => $datas["jasa"]);
+		$data = array('jasas' => $datas["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/jasa/index', $data);
 	}
@@ -140,10 +140,10 @@ class Owner extends CI_Controller
 	//Bagian Harga
 	public function index_harga()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/owner/harga/read.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('hargas' => $datas["harga"]);
+		$data = array('hargas' => $datas["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/harga/index', $data);
 	}
@@ -151,10 +151,10 @@ class Owner extends CI_Controller
 	//Bagian Kategori
 	public function index_kategori()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/owner/kategori/read.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('kategories' => $datas["kategori"]);
+		$data = array('kategories' => $datas["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/kategori/index', $data);
 	}
@@ -162,13 +162,31 @@ class Owner extends CI_Controller
 	//Bagian Satuan
 	public function index_satuan()
 	{
-		$getAPI = file_get_contents('fakeAPI.json');
+		$getAPI = file_get_contents('json/owner/satuan/read.json');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('satuans' => $datas["satuan"]);
+		$data['satuans'] = $datas['data'];
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/index', $data);
 	}
 
-	//Bagian Laporan
+	//Bagian Laporan Transaksi
+	public function index_laporan_trans()
+	{
+		$getAPI = file_get_contents('json/owner/laporan/transaksi/read.json');
+		$datas = json_decode($getAPI, true);
+
+		$data['transaksis'] = $datas['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
+	}
+
+	//Bagian Laporan Customer
+	public function index_laporan_cust()
+	{
+		$getAPI = file_get_contents('json/owner/laporan/customer/read.json');
+		$datas = json_decode($getAPI, true);
+
+		$data['customers'] = $datas['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);
+	}
 }
