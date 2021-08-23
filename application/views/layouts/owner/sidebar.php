@@ -49,8 +49,8 @@ inde<div class="main-sidebar">
 				</a>
 			</li>
 			<li class="menu-header">Laporan</li>
-			<li>
-				<a class="nav-link" href="#">
+			<li <?= $this->uri->segment(2) == 'laporan_trans' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/index_laporan_trans') ?>">
 					<i class="fas fa-clipboard"></i> <span>Laporan Transaksi</span>
 				</a>
 			</li>
@@ -59,8 +59,8 @@ inde<div class="main-sidebar">
 					<i class="fas fa-clipboard"></i> <span>Laporan Katalog Produk</span>
 				</a>
 			</li>
-			<li>
-				<a class="nav-link" href="#">
+			<li <?= $this->uri->segment(2) == 'laporan_cust' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/index_laporan_cust') ?>">
 					<i class="fas fa-clipboard"></i> <span>Laporan Customer</span>
 				</a>
 			</li>
