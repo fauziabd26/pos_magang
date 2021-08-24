@@ -3,6 +3,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
+	protected $api = 'https://api.etoko.xyz/';
+
 	public function login()
 	{
 		$this->load->view('login');
@@ -19,30 +21,18 @@ class Auth extends CI_Controller
 
 	public function proses_register()
 	{
-		$postdata = http_build_query(
-			array(
-				'nama' =>  ucwords($_POST['nama']),
-				'email' =>  $_POST['email'],
-				'password' => $_POST['password'],
-				'no_hp' => $_POST['no_hp']
-			)
+		$data = array(
+			'nama' =>  ucwords($_POST['nama']),
+			'email' =>  $_POST['email'],
+			'password' => $_POST['password'],
+			'no_hp' => $_POST['no_hp'],
 		);
-
-		$opts = array(
-			'http' =>
-			array(
-				'method'  => 'POST',
-				'header'  => 'Content-type: application/x-www-form-urlencoded',
-				'content' => $postdata
-			)
-		);
-
-		$context = stream_context_create($opts);
-
-		file_get_contents('https://api.etoko.xyz/register', false, $context);
-
-		$this->session->set_flashdata('success-create', "Data <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
-
+		$insert = $this->curl->simple_post($this->api . 'auth/register', $data, array(CURLOPT_BUFFERSIZE => 10));
+		if ($insert) {
+			$this->session->set_flashdata('success', "Silahkan Login Dengan Akun Yang Anda Daftarkan");
+		} else {
+			$this->session->set_flashdata('info', 'data gagal disimpan.');
+		}
 		redirect('auth/login');
 	}
 }

@@ -20,11 +20,21 @@
 		<section class="section">
 			<div class="container mt-5">
 				<div class="row">
-					<div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+					<div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
 						<div class="login-brand">
 							<img src="<?= base_url('assets/img/stisla-fill.svg') ?>" alt="logo" width="100" class="shadow-light rounded-circle">
 						</div>
 						<div class="card card-primary">
+							<?php if ($this->session->flashdata('success')) { ?>
+								<div class="alert alert-success alert-dismissible show fade mt-2">
+									<div class="alert-body">
+										<button class="close" data-dismiss="alert">
+											<span>×</span>
+										</button>
+										<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success') ?>
+									</div>
+								</div>
+							<?php } ?>
 							<div class="card-header">
 								<h4>Login</h4>
 							</div>

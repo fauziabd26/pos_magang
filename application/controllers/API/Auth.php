@@ -11,15 +11,32 @@ class Auth extends RestController
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('AuthModel');
-		$this->load->library('form_validation');
 	}
 
 	public function login_post()
 	{
-		$post = array(
-			'email'     => $this->input->post('email'),
-			'password'  => $this->input->post('password')
-		);
+		$email     = $this->input->post('email');
+		$password  = $this->input->post('password');
+		// $where = array(
+		//     'email' => $email,
+		//     'password' => password_hash($password, PASSWORD_BCRYPT)
+		// );
+
+		$result = $this->AuthModel->getUser($email, $password);
+		if ($result == true) {
+			foreach ($result as $row) {
+				$sess_data = array(
+					'email'      => $row->email,
+					'nama'       => $row->nama,
+					'role'       => $row->role
+				);
+			}
+			$this->response(array(
+				'status'  => true,
+				'message' => 'login success',
+				'data'    => $sess_data
+			), 200);
+		}
 	}
 
 	public function register_post()
@@ -29,6 +46,7 @@ class Auth extends RestController
 			'no_hp'         => $this->post('no_hp'),
 			'email' 		=> $this->post('email'),
 			'password'      => password_hash($this->post('password'), PASSWORD_BCRYPT),
+			'role'      	=> "owner",
 		);
 
 		if ($this->AuthModel->save($data)) {
