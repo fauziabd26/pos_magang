@@ -282,6 +282,15 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
 	}
 
+	public function index_laporan_katalog()
+	{
+		$getAPI = file_get_contents('json/owner/laporan/katalog_produk/read.json');
+		$datas = json_decode($getAPI, true);
+
+		$data['katalog_produk'] = $datas['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/katalog_produk/index', $data);
+	}
+
 	//Bagian Laporan Customer
 	public function index_laporan_cust()
 	{
