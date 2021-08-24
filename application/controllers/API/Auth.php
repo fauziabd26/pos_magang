@@ -67,6 +67,6 @@ class Auth extends RestController
 	{
 		// hancurkan semua sesi
 		$this->session->sess_destroy();
-		redirect(site_url('login'));
+		// redirect(site_url('login'));
 	}
 }
