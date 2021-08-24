@@ -11,12 +11,16 @@
 						<div class="card-stats-title">Data Toko</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-ban" style="color: #fc544b;"></i></div>
-								<div class="card-stats-item-label">Belum Valid</div>
+								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-hourglass" style="color: blue;"></i></div>
+								<div class="card-stats-item-label">Pending</div>
 							</div>
 							<div class="card-stats-item">
 								<div class="card-stats-item-count"><?= $totalValid ?> <i class="fas fa-check" style="color: #47c363;"></i></div>
 								<div class="card-stats-item-label">Valid</div>
+							</div>
+							<div class="card-stats-item">
+								<div class="card-stats-item-count"><?= $totalTidakValid ?> <i class="fas fa-ban" style="color: #fc544b;"></i></div>
+								<div class="card-stats-item-label">Tidak Valid</div>
 							</div>
 							<div class="card-stats-item">
 								<div class="card-stats-item-count"><?= $totalPending + $totalValid ?> <i class="fas fa-store" style="color: #6777ef;"></i></div>
@@ -39,23 +43,21 @@
 								<thead>
 									<th>No</th>
 									<th>Nama Toko</th>
-									<th>Alamat</th>
 									<th>Nama Owner</th>
-									<th>Email</th>
-									<th>Nomer Handphone</th>
+									<th>Alamat</th>
+									<th>Deskripsi Toko</th>
 									<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php $no = 0 ?>
-									<?php foreach (array_slice($data, 0, 5) as $toko) : ?>
+									<?php $no = 1;
+									foreach (array_slice($data, 0, 5) as $toko) : ?>
 										<tr>
-											<td><?= ++$no ?></td>
+											<td><?= $no++ ?></td>
 											<td><?= $toko["nama_toko"] ?? "-" ?></td>
+											<td class="font-weight-600"><?= $toko['user']['nama'] ?? "-" ?></td>
 											<td><?= $toko['alamat'] ?></td>
-											<td class="font-weight-600"><?= $toko['user']['nama'] ?></td>
-											<td><?= $toko['user']['email'] ?></td>
-											<td><?= $toko['user']['no_hp'] ?></td>
+											<td><?= $toko['deskripsi_toko'] ?></td>
 											<td>
 												<a href="<?= base_url('superadmin/validasi_detail/' . $toko["id_toko"]) ?>" class="btn btn-primary">Detail</a>
 											</td>
