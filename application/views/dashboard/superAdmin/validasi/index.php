@@ -15,25 +15,23 @@
 						<thead class="thead-dark">
 							<tr>
 								<th>No</th>
-								<th>Alamat</th>
 								<th>Nama Toko</th>
 								<th>Nama Owner</th>
-								<th>Email</th>
-								<th>No Handphone</th>
+								<th>Alamat</th>
+								<th>Deskripsi Toko</th>
 								<th width="15%">Validasi</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no = 0 ?>
-							<?php foreach ($data as $toko) : ?>
+							<?php $no = 1;
+							foreach ($data as $toko) : ?>
 								<tr>
-									<td><?= ++$no ?></td>
+									<td><?= $no++ ?></td>
 									<td><?= $toko["nama_toko"] ?? "-" ?></td>
+									<td><?= $toko['user']['nama'] ?? "-" ?></td>
 									<td><?= $toko['alamat'] ?></td>
-									<td><?= $toko['user']['nama'] ?></td>
-									<td><?= $toko['user']['email'] ?></td>
-									<td><?= $toko['user']['no_hp'] ?></td>
+									<td><?= $toko['deskripsi_toko'] ?></td>
 									<td>
 										<a href="#" class="btn btn-success btn-sm"><i class="fas fa-check mr-1"></i> Valid</a><br>
 										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban"></i> Belum Valid</a>

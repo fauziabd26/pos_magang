@@ -54,10 +54,10 @@
 							<label for="no_hp">Nomer Handhphone</label>
 							<input id="no_hp" class="form-control" value="<?= $toko["user"]["no_hp"] ?? "-" ?>" disabled>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label for='foto_ktp'>Foto KTP</label>
 							<img src="<?= base_url('assets/ktp/ktp1.jpg') ?>" class="img-fluid">
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
