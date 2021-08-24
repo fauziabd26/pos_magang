@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : mencari referensi controller dan api login 
+jam 13.00 - 15.00 : menerapkan contoh controller login yang ada pada referensi

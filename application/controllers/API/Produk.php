@@ -51,8 +51,7 @@ class Produk extends RestController
 		$data = array(
 			'nama_produk'      => $this->post('nama_produk'),
 			'jenis'            => $this->post('jenis'),
-			'id_toko' 		   => $this->post('id_toko'),
-			'foto_produk'      => $this->post('foto_produk')
+			'id_toko' 		   => $this->post('id_toko')
 		);
 
 		if ($this->ProdukModel->save($data)) {
@@ -76,8 +75,7 @@ class Produk extends RestController
 		$data       = array(
 			'nama_produk'         => $this->put('nama_produk'),
 			'jenis'            	  => $this->put('jenis'),
-			'id_toko'             => $this->put('id_toko'),
-			'foto_produk'         => $this->put('foto_produk')
+			'id_toko'             => $this->put('id_toko')
 		);
 
 		$this->db->where('id_produk', $id_produk);
