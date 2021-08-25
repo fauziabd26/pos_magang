@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="<?= base_url('owner/proses_edit_admin/'. $admin['id_user']) ?>" method="POST">
+			<form action="<?= base_url('owner/proses_edit_admin/' . $admin['id_user']) ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a href="<?= base_url('owner/admin_ubah_password/'. $admin["id_user"]) ?>" class="btn btn-outline-primary btn-block">Ubah Password</a>
+					<a href="<?= base_url('owner/admin_ubah_password/' . $admin["id_user"]) ?>" class="btn btn-outline-primary btn-block">Ubah Password</a>
 					<button class="btn btn-primary btn-block">Update</button>
 				</div>
 			</form>

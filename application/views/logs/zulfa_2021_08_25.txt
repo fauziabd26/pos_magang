@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : memperbaiki validasi login user
+jam 13.00 - 15.00 : memperbaiki validasi crud produk barang dan jasa
