@@ -12,6 +12,29 @@ class Auth extends CI_Controller
 
 	public function proses_login()
 	{
+		$data = array(
+			'email' =>  $_POST['email'],
+			'password' =>  $_POST['password'],
+		);
+		$cek = $this->curl->simple_post($this->api . 'auth/login', $data, array(CURLOPT_BUFFERSIZE => 10));
+		$datas = json_decode($cek, true);
+		$data = array(
+			'id_user' 	=> $datas['data']['id_user'],
+			'nama' 		=> $datas['data']['nama'],
+			'email' 	=> $datas['data']['email'],
+			'role' 		=> $datas['data']['role'],
+		);
+		$this->session->set_userdata($data);
+		if ($datas['data']['role'] == "superadmin") {
+			redirect('superadmin/dashboard');
+		} elseif ($datas['data']['role'] == "owner") {
+			redirect('owner/dashboard');
+		} elseif ($datas['data']['role'] == "admin") {
+			redirect('admin/dashboard');
+		} else {
+			$this->session->set_flashdata('error', "Email atau Password Yang Anda Masukan Salah !");
+			redirect('auth/login');
+		}
 	}
 
 	public function register()
