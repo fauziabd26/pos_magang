@@ -38,15 +38,32 @@ class TokoModel extends CI_Model
 	}
 
 	//Menampilkan Data 
-	public function get($id_toko = null)
-	{
+	// public function get($id_toko = null)
+	// {
+	// 	$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, id_user');
+	// 	$this->db->from('toko');
+	// 	$this->db->order_by('nama_toko', 'ASC');
+	// 	if ($id_toko != null) {
+	// 		$this->db->where('id_toko', $id_toko);
+	// 		$this->db->select('foto_toko, id_user');
+	// 	}
+	// 	return $this->db->get()->result();
+	// }
+
+	//validasi status toko
+	public function get_valid($id_toko = null){
 		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, id_user');
 		$this->db->from('toko');
-		$this->db->order_by('nama_toko', 'ASC');
-		if ($id_toko != null) {
-			$this->db->where('id_toko', $id_toko);
-			$this->db->select('foto_toko, id_user');
-		}
+		$this->db->where('status_toko =', 'valid');
+
+		return $this->db->get()->result();
+	}
+
+	public function get_tidak_valid($id_toko = null){
+		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, id_user');
+		$this->db->from('toko');
+		$this->db->where('status_toko =', 'tidak_valid');
+
 		return $this->db->get()->result();
 	}
 
