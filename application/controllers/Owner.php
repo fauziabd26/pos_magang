@@ -238,6 +238,17 @@ class Owner extends CI_Controller
 	}
 
 	// Bagian Foto Produk
+	public function index_foto_produk()
+	{
+  		// arahkan ke url atau lokasi gambar berada
+		$img = file_get_contents('https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-22.png'); 
+  
+		// ubah file ke base64
+		$data = base64_encode($img);
+  
+		// $data ini masukan ke json
+		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index', $data);
+	}
 
 	//Bagian Harga
 	public function index_harga()
@@ -253,12 +264,66 @@ class Owner extends CI_Controller
 	//Bagian Kategori
 	public function index_kategori()
 	{
-		$getAPI = file_get_contents('json/owner/kategori/read.json');
+		$getAPI = file_get_contents('http://api.etoko.xyz/kategori');
 		$datas = json_decode($getAPI, true);
 
 		$data = array('kategories' => $datas["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/kategori/index', $data);
+	}
+
+	public function proses_tambah_kategori()
+	{
+		$data = array(
+			'nama_kategori' =>  ucwords($_POST['nama_kategori'])
+		);
+		$insert = $this->curl->simple_post($this->api . 'kategori', $data, array(CURLOPT_BUFFERSIZE => 10));
+		if ($insert) {
+			$this->session->set_flashdata('success-create', "Data Kategori <b>" . $_POST['nama_kategori'] . "</b> Berhasil Disimpan !");
+		} else {
+			$this->session->set_flashdata('info', 'data gagal disimpan.');
+		}
+		redirect('owner/index_kategori');
+	}
+
+	public function kategori_edit($id_toko)
+	{
+		$getAPI = $this->curl->simple_get($this->api . 'toko');
+		$datas = json_decode($getAPI, true);
+
+		foreach ($datas['data'] as $row) {
+			if ($row['id_toko'] == $id_toko) {
+				$value = array(
+					'id_toko' => $row["id_toko"],
+					'nama_toko' => $row["nama_toko"],
+					'deskripsi_toko' => $row["deskripsi_toko"],
+					'alamat' => $row["alamat"],
+					'status_toko' => $row["status_toko"],
+				);
+			}
+		}
+		$data['toko'] = $value;
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
+	}
+
+	public function proses_edit_kategori($id_toko)
+	{
+		$data = array(
+			'id_toko' =>  $id_toko,
+			'nama_toko' =>  ucwords($_POST['nama_toko']),
+			'alamat' =>  ucfirst($_POST['alamat']),
+			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
+			'foto_toko' => $_POST['foto_toko']
+		);
+		$update = $this->curl->simple_put($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		if ($update) {
+			$this->session->set_flashdata('success-edit', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Diedit !");
+		} else {
+			$this->session->set_flashdata('info', 'Data Gagal diubah');
+		}
+		redirect('owner/toko');
 	}
 
 	//Bagian Satuan
