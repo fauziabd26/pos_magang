@@ -52,7 +52,7 @@
 			<div class="modal-header">
 				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 			</div>
-			<form class="form-horizontal" action="<?php echo base_url('admin/tambah') ?>" method="post" enctype="multipart/form-data" role="form">
+			<form class="form-horizontal" action="<?php echo base_url('owner/proses_tambah_kategori') ?>" method="post" enctype="multipart/form-data" role="form">
 				<div class="modal-body">
 					<h4 class="modal-title">Tambah Data</h4>
 					<div class="form-group">
