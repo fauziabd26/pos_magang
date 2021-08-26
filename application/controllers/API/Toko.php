@@ -14,19 +14,49 @@ class Toko extends RestController
 	}
 
 	//Menampilkan data toko
-	function index_get($id_toko = null)
-	{
-		if (!empty($id_toko)) {
-			$toko = $this->TokoModel->get($id_toko);
-		} else {
-			$toko =  $this->TokoModel->get();
+	// function index_get($id_toko = null)
+	// {
+	// 	if (!empty($id_toko)) {
+	// 		$toko = $this->TokoModel->get($id_toko);
+	// 	} else {
+	// 		$toko =  $this->TokoModel->get();
+	// 	}
+
+	// 	$this->response(array(
+	// 		'status' => true,
+	// 		'message' => 'Data Toko Berhasil Diambil',
+	// 		'data' => $toko
+	// 	), 200);
+	// }
+
+	//validasi status toko
+	public function valid_get($id_toko = null){
+		if(!empty($id_toko)){
+			$toko = $this->TokoModel->get_valid($id_toko);
+		} else{
+			$toko = $this->TokoModel->get_valid();
 		}
 
 		$this->response(array(
-			'status' => true,
-			'message' => 'Data Toko Berhasil Diambil',
-			'data' => $toko
+			'status'	=> true,
+			'message'	=> 'Toko Valid',
+			'data'		=> $toko
 		), 200);
+	}
+
+	public function tidak_valid_get($id_toko = null){
+		if(!empty($id_toko)){
+			$toko = $this->TokoModel->get_tidak_valid($id_toko);
+		} else{
+			$toko = $this->TokoModel->get_tidak_valid();
+		}
+
+		$this->response(array(
+			'status'	=> true,
+			'message'	=> 'Toko Tidak Valid',
+			'data'		=> $toko
+		), 200);
+
 	}
 
 	//Menambah data toko baru
