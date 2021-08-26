@@ -11,15 +11,15 @@
 						<div class="card-stats-title">Data Produk</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiProduk ?></div>
-								<div class="card-stats-item-label">Produk</div>
+								<div class="card-stats-item-count"><?= $totalTransaksiBarang ?></div>
+								<div class="card-stats-item-label">Barang</div>
 							</div>
 							<div class="card-stats-item">
 								<div class="card-stats-item-count"><?= $totalTransaksiJasa ?></div>
 								<div class="card-stats-item-label">Jasa</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiProduk + $totalTransaksiJasa ?></div>
+								<div class="card-stats-item-count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
 								<div class="card-stats-item-label">Total</div>
 							</div>
 						</div>
@@ -34,7 +34,7 @@
 									<h4>Total Produk</h4>
 								</div>
 								<div class="card-body">
-									<div class="count"><?= $totalTransaksiProduk + $totalTransaksiJasa ?></div>
+									<div class="count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
 								</div>
 							</div>
 						</a>
@@ -119,9 +119,9 @@
 									<?php foreach (array_slice($transaksis, 0, 5) as $no => $transaksi) : ?>
 										<tr>
 											<td><?= $transaksi["id_transaksi"] ?></td>
-											<td class="font-weight-600"><?= $transaksi["nama_customer"] ?></td>
+											<td class="font-weight-600"><?= $transaksi["nama_cust"] ?></td>
 											<td>
-												<div class="badge <?= $transaksi['jenis'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis"] ?></div>
+												<div class="badge <?= $transaksi['jenis_transaksi'] == 'barang' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis_transaksi"] ?></div>
 											</td>
 											<td>
 												<a href="#" class="btn btn-primary">Detail</a>

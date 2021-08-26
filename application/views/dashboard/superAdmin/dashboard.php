@@ -11,7 +11,7 @@
 						<div class="card-stats-title">Data Toko</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-hourglass" style="color: blue;"></i></div>
+								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-hourglass" style="color: #ffc107;"></i></div>
 								<div class="card-stats-item-label">Pending</div>
 							</div>
 							<div class="card-stats-item">
@@ -34,7 +34,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header justify-content-between">
-						<h4>Data Toko Belum Valid Terbaru</h4>
+						<h4>Data Toko Pending Terbaru</h4>
 						<a href="<?= base_url('superadmin/validasi_toko') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
 					</div>
 					<div class="card-body p-0">

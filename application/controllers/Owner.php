@@ -5,25 +5,34 @@ class Owner extends CI_Controller
 {
 	protected $api = 'https://api.etoko.xyz/';
 
+	function __construct()
+	{
+		parent::__construct();
+		//validasi jika user belum login
+		check_not_login();
+		check_owner();
+	}
+
 	public function dashboard()
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
 		$datas = json_decode($getAPI, true);
 
-		// Count TransaksiProduk
-		$totalTransaksiProduk = 0;
+		// Count Data Transaksi
+		$totalTransaksiBarang = 0;
 		$totalTransaksiJasa = 0;
 
+		// var_dump($datas);
 		foreach ($datas["data"] as $value) {
-			if ($value["jenis"] == "produk") {
-				$totalTransaksiProduk += 1;
-			} elseif ($value["jenis"] == "jasa") {
+			if ($value["jenis_transaksi"] == "barang") {
+				$totalTransaksiBarang += 1;
+			} elseif ($value["jenis_transaksi"] == "jasa") {
 				$totalTransaksiJasa += 1;
 			}
 		}
 
 		$data = array('transaksis' => $datas["data"]);
-		$data['totalTransaksiProduk'] = $totalTransaksiProduk;
+		$data['totalTransaksiBarang'] = $totalTransaksiBarang;
 		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
