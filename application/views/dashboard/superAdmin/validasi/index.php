@@ -1,9 +1,9 @@
 <section class="section">
 	<div class="section-header">
-		<h1>Data Toko Belum Valid</h1>
+		<h1>Data Toko Pending</h1>
 		<div class="section-header-breadcrumb">
 			<div class="breadcrumb-item active"><a href="<?= base_url('superadmin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item">Data Toko Belum Valid</div>
+			<div class="breadcrumb-item">Data Toko Pending</div>
 		</div>
 	</div>
 
@@ -34,7 +34,7 @@
 									<td><?= $toko['deskripsi_toko'] ?></td>
 									<td>
 										<a href="#" class="btn btn-success btn-sm"><i class="fas fa-check mr-1"></i> Valid</a><br>
-										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban"></i> Belum Valid</a>
+										<a href="#" class="btn btn-danger btn-sm mt-2"><i class="fas fa-ban"></i> Tidak Valid</a>
 									</td>
 									<td>
 										<a href="<?= base_url('superadmin/validasi_detail/' . $toko["id_toko"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>

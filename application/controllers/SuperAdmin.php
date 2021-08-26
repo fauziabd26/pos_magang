@@ -5,6 +5,14 @@ class Superadmin extends CI_Controller
 {
 	protected $api = 'https://api.etoko.xyz/';
 
+	function __construct()
+	{
+		parent::__construct();
+		 //validasi jika user belum login
+		check_not_login();
+		check_superadmin();
+	}
+	
 	public function dashboard()
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'toko');

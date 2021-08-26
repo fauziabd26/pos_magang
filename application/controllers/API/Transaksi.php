@@ -13,7 +13,30 @@ class Transaksi extends RestController
 		$this->load->model('TransaksiModel');
 	}
 
-	//Menampilkan data
+	//Menampilkan data Transaksi
+	function index_get($id_transaksi = null)
+	{
+		if (!empty($id_transaksi)) {
+			$transaksi = $this->TransaksiModel->get($id_transaksi);
+		} else {
+			$transaksi =  $this->TransaksiModel->get();
+		}
+
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data Transaksi Barang
 	function barang_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
@@ -22,14 +45,22 @@ class Transaksi extends RestController
 			$transaksi =  $this->TransaksiModel->get_barang();
 		}
 
-		$this->response(array(
-			'status' => true,
-			'message' => 'Data Transaksi Berhasil Diambil',
-			'data' => $transaksi
-		), 200);
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
 	}
 
-    function jasa_get($id_transaksi = null)
+	//Menampilkan data Transaksi Jasa
+	function jasa_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
 			$transaksi = $this->TransaksiModel->get_jasa($id_transaksi);
@@ -37,11 +68,18 @@ class Transaksi extends RestController
 			$transaksi =  $this->TransaksiModel->get_jasa();
 		}
 
-		$this->response(array(
-			'status' => true,
-			'message' => 'Data Transaksi Berhasil Diambil',
-			'data' => $transaksi
-		), 200);
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
 	}
 
 	//Menambah data baru barang
@@ -73,7 +111,7 @@ class Transaksi extends RestController
 		}
 	}
 
-    function jasa_post()
+	function jasa_post()
 	{
 		$data = array(
 			'nama_cust'         => $this->post('nama_cust'),

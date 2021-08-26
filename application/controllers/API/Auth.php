@@ -64,10 +64,19 @@ class Auth extends RestController
 		}
 	}
 
-	public function logout()
+	public function logout_get()
 	{
 		// hancurkan semua sesi
-		$this->session->sess_destroy();
-		// redirect(site_url('login'));
+		if ($this->session->sess_destroy()) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Berhasil Logout',
+			), 200);
+		}else{
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Logout',
+			), 404);
+		}
 	}
 }

@@ -3,6 +3,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+	protected $api = 'https://api.etoko.xyz/';
+
+	function __construct()
+	{
+		parent::__construct();
+		 //validasi jika user belum login
+		check_not_login();
+		check_admin();
+
+	}
+
 	public function dashboard()
 	{
 		$getAPI = file_get_contents('json/transaksi/transaksi.json');
