@@ -34,12 +34,21 @@
 										<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success') ?>
 									</div>
 								</div>
+							<?php } elseif ($this->session->flashdata('error')) { ?>
+								<div class="alert alert-danger alert-dismissible show fade mt-2">
+									<div class="alert-body">
+										<button class="close" data-dismiss="alert">
+											<span>×</span>
+										</button>
+										<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+									</div>
+								</div>
 							<?php } ?>
 							<div class="card-header">
 								<h4>Login</h4>
 							</div>
 							<div class="card-body">
-								<form action="#" method="POST" class="needs-validation" novalidate="">
+								<form action="<?= base_url('auth/proses_login') ?>" method="POST" class="needs-validation" novalidate="">
 									<div class="form-group">
 										<label for="email">Email</label>
 										<input id="email" type="email" class="form-control" name="email" placeholder="example@gmail.com" tabindex="1" required autofocus>
@@ -69,7 +78,7 @@
 											Belum Mempunyai Akun? <a href="<?= base_url('auth/register') ?>">Register</a>
 										</div>
 									</div>
-									<div class="card-header justify-content-around">
+									<!-- <div class="card-header justify-content-around">
 										<h4>Halaman Sementara</h4>
 									</div>
 									<a href="<?= base_url('/superadmin/dashboard') ?>" class="btn btn-primary btn-lg btn-block">
@@ -80,7 +89,7 @@
 									</a>
 									<a href="<?= base_url('/admin/dashboard') ?>" class="btn btn-primary btn-lg btn-block">
 										Dashboard Admin
-									</a>
+									</a> -->
 								</form>
 							</div>
 						</div>

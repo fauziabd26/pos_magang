@@ -26,6 +26,7 @@ class Auth extends RestController
 		if ($result == true) {
 			foreach ($result as $row) {
 				$sess_data = array(
+					'id_user'    => $row->id_user,
 					'email'      => $row->email,
 					'nama'       => $row->nama,
 					'role'       => $row->role
