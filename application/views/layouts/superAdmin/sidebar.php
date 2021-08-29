@@ -21,7 +21,7 @@
 			<li class="menu-header">Validasi Data</li>
 			<li <?= $this->uri->segment(2) == 'validasi_toko' || $this->uri->segment(2) == 'validasi_detail' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('superadmin/validasi_toko') ?>">
-					<i class="fas fa-ban" style="color: #fc544b;"></i> <span>Data Pending</span>
+					<i class="fas fa-ban" style="color: #ffc107;"></i> <span>Data Pending</span>
 				</a>
 			</li>
 		</ul>

@@ -50,19 +50,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php $no = 1;
-									foreach (array_slice($data, 0, 5) as $toko) : ?>
+									<?php if ($data) { ?>
+										<?php $no = 1;
+										foreach (array_slice($data, 0, 5) as $toko) : ?>
+											<tr>
+												<td><?= $no++ ?></td>
+												<td><?= $toko["nama_toko"] ?? "-" ?></td>
+												<td class="font-weight-600"><?= $toko['user']['nama'] ?? "-" ?></td>
+												<td><?= $toko['alamat'] ?></td>
+												<td><?= $toko['deskripsi_toko'] ?></td>
+												<td>
+													<a href="<?= base_url('superadmin/validasi_detail/' . $toko["id_toko"]) ?>" class="btn btn-primary">Detail</a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php } else { ?>
 										<tr>
-											<td><?= $no++ ?></td>
-											<td><?= $toko["nama_toko"] ?? "-" ?></td>
-											<td class="font-weight-600"><?= $toko['user']['nama'] ?? "-" ?></td>
-											<td><?= $toko['alamat'] ?></td>
-											<td><?= $toko['deskripsi_toko'] ?></td>
-											<td>
-												<a href="<?= base_url('superadmin/validasi_detail/' . $toko["id_toko"]) ?>" class="btn btn-primary">Detail</a>
-											</td>
+											<td class="font-weight-600 text-center" colspan="6">Tidak ada data terbaru</td>
 										</tr>
-									<?php endforeach; ?>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>
