@@ -175,31 +175,30 @@ class Owner extends CI_Controller
 
 	public function toko_edit($id_toko)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'toko');
+		$getAPI = $this->curl->simple_get($this->api . 'toko/' . $id_toko);
 		$datas = json_decode($getAPI, true);
 
-		foreach ($datas['data'] as $row) {
-			if ($row['id_toko'] == $id_toko) {
-				if ($row['id_user'] == $this->session->userdata('id_user')) {
-					$value = array(
-						'id_toko' => $row["id_toko"],
-						'nama_toko' => $row["nama_toko"],
-						'deskripsi_toko' => $row["deskripsi_toko"],
-						'alamat' => $row["alamat"],
-						'status_toko' => $row["status_toko"],
-					);
-				} else {
-					echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
-		window.location.href = '" . base_url('owner/toko') . "'; </script>";
-				}
-			}
-		}
-
-		$data['toko'] = $value;
-		if (empty($data['toko'])) {
+		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Toko!'); 
 			window.location.href = '" . base_url('owner/toko') . "'; </script>";
 		} else {
+			foreach ($datas['data'] as $row) {
+				if ($row['id_toko'] == $id_toko) {
+					if ($row['id_user'] == $this->session->userdata('id_user')) {
+						$value = array(
+							'id_toko' => $row["id_toko"],
+							'nama_toko' => $row["nama_toko"],
+							'deskripsi_toko' => $row["deskripsi_toko"],
+							'alamat' => $row["alamat"],
+							'status_toko' => $row["status_toko"],
+						);
+					} else {
+						echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
+						window.location.href = '" . base_url('owner/toko') . "'; </script>";
+					}
+				}
+			}
+			$data['toko'] = $value;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
 		}
 	}
@@ -211,7 +210,8 @@ class Owner extends CI_Controller
 			'nama_toko' =>  ucwords($_POST['nama_toko']),
 			'alamat' =>  ucfirst($_POST['alamat']),
 			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
-			'foto_toko' => $_POST['foto_toko']
+			'foto_toko' => $_POST['foto_toko'],
+			'id_user' => $this->session->userdata('id_user')
 		);
 		$update = $this->curl->simple_put($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 

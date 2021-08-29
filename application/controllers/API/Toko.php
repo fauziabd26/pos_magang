@@ -125,7 +125,6 @@ class Toko extends RestController
 			'alamat'            => $this->put('alamat'),
 			'deskripsi_toko'    => $this->put('deskripsi_toko'),
 			'foto_toko'         => $this->put('foto_toko'),
-			'status_toko'       => "pending",
 			'id_user'           => $this->put('id_user')
 		);
 

@@ -40,11 +40,11 @@ class TokoModel extends CI_Model
 	//Menampilkan Data 
 	public function get($id_toko = null)
 	{
-		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, nama AS "nama_owner"');
+		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, toko.id_user');
 		$this->db->from('toko')->join('user', 'user.id_user=toko.id_user');
 		if ($id_toko != null) {
 			$this->db->where('id_toko', $id_toko);
-			$this->db->select('foto_toko, email, no_hp');
+			$this->db->select('foto_toko, ,nama AS "nama_owner", email, no_hp');
 		}
 		return $this->db->get()->result();
 	}

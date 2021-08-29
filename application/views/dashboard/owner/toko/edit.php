@@ -20,11 +20,11 @@
 						</div>
 						<div class="col text-right">
 							<?php if ($toko["status_toko"] == "valid") { ?>
-								<button class="btn btn-success text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-check ml-2"></i></button>
+								<span class="btn btn-success text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-check ml-2"></i></span>
 							<?php } elseif ($toko["status_toko"] == "pending") { ?>
-								<button class="btn btn-warning text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-hourglass ml-2"></i></button>
+								<span class="btn btn-warning text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-hourglass ml-2"></i></span>
 							<?php } else { ?>
-								<button class="btn btn-danger text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-ban ml-2"></i></button>
+								<span class="btn btn-danger text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-ban ml-2"></i></span>
 							<?php } ?>
 						</div>
 					</div>
