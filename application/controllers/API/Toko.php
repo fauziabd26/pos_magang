@@ -14,50 +14,81 @@ class Toko extends RestController
 	}
 
 	//Menampilkan data toko
-	// function index_get($id_toko = null)
-	// {
-	// 	if (!empty($id_toko)) {
-	// 		$toko = $this->TokoModel->get($id_toko);
-	// 	} else {
-	// 		$toko =  $this->TokoModel->get();
-	// 	}
+	function index_get($id_toko = null)
+	{
+		if (!empty($id_toko)) {
+			$toko = $this->TokoModel->get($id_toko);
+		} else {
+			$toko =  $this->TokoModel->get();
+		}
 
-	// 	$this->response(array(
-	// 		'status' => true,
-	// 		'message' => 'Data Toko Berhasil Diambil',
-	// 		'data' => $toko
-	// 	), 200);
-	// }
+		if ($toko) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Toko Berhasil Diambil',
+				'data' => $toko
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Toko Tidak Ada',
+			), 404);
+		}
+	}
 
 	//validasi status toko
-	public function valid_get($id_toko = null){
-		if(!empty($id_toko)){
-			$toko = $this->TokoModel->get_valid($id_toko);
-		} else{
-			$toko = $this->TokoModel->get_valid();
+	public function valid_put($id_toko)
+	{
+		if (!empty($id_toko)) {
+			$toko = $this->TokoModel->get($id_toko);
 		}
 
-		$this->response(array(
-			'status'	=> true,
-			'message'	=> 'Toko Valid',
-			'data'		=> $toko
-		), 200);
+		$status = array(
+			'status_toko' => 'valid'
+		);
+
+		if ($toko) {
+			$this->db->where('id_toko', $id_toko);
+			$this->db->update('toko', $status);
+			$this->response(array(
+				'status' => true,
+				'message' => 'Status Toko Berhasil Diedit',
+				'data' => $status
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Toko Tidak Ada',
+			), 404);
+		}
 	}
 
-	public function tidak_valid_get($id_toko = null){
-		if(!empty($id_toko)){
-			$toko = $this->TokoModel->get_tidak_valid($id_toko);
-		} else{
-			$toko = $this->TokoModel->get_tidak_valid();
+	public function tidak_valid_put($id_toko)
+	{
+		if (!empty($id_toko)) {
+			$toko = $this->TokoModel->get($id_toko);
 		}
 
-		$this->response(array(
-			'status'	=> true,
-			'message'	=> 'Toko Tidak Valid',
-			'data'		=> $toko
-		), 200);
+		$status = array(
+			'status_toko' => 'tidak valid'
+		);
 
+		if ($toko) {
+			$this->db->where('id_toko', $id_toko);
+			$this->db->update('toko', $status);
+			$this->response(array(
+				'status' => true,
+				'message' => 'Status Toko Berhasil Diedit',
+				'data' => $status
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Toko Tidak Ada',
+			), 404);
+		}
 	}
+
 
 	//Menambah data toko baru
 	function index_post()

@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="<?= base_url('owner/proses_edit_toko/'. $toko['id_toko']) ?>" method="POST">
+			<form action="<?= base_url('owner/proses_edit_toko/' . $toko['id_toko']) ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">

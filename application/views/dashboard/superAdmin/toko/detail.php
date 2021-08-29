@@ -45,15 +45,15 @@
 							</div>
 							<div class="form-group">
 								<label for="nama">Nama Lengkap</label>
-								<input id="nama" class="form-control" value="<?= $toko["user"]["nama"] ?? "-" ?>" disabled>
+								<input id="nama" class="form-control" value="<?= $toko["nama_owner"] ?? "-" ?>" disabled>
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input id="email" type="email" class="form-control" value="<?= $toko["user"]["email"] ?? "-" ?>" disabled>
+								<input id="email" type="email" class="form-control" value="<?= $toko["email"] ?? "-" ?>" disabled>
 							</div>
 							<div class="form-group">
 								<label for="no_hp">Nomer Handhphone</label>
-								<input id="no_hp" class="form-control" value="<?= $toko["user"]["no_hp"] ?? "-" ?>" disabled>
+								<input id="no_hp" class="form-control" value="<?= $toko["no_hp"] ?? "-" ?>" disabled>
 							</div>
 							<div class="form-group">
 								<label for='foto_ktp'>Foto KTP</label>

@@ -143,7 +143,9 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'toko');
 		$datas = json_decode($getAPI, true);
 
-		$data['tokos'] = $datas['data'];
+		$data['tokos'] = array_filter($datas['data'], function ($value) {
+			return $value['id_user'] == $this->session->userdata('id_user');
+		});
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
 	}
@@ -159,7 +161,8 @@ class Owner extends CI_Controller
 			'nama_toko' =>  ucwords($_POST['nama_toko']),
 			'alamat' =>  ucfirst($_POST['alamat']),
 			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
-			'foto_toko' => $_POST['foto_toko']
+			'foto_toko' => $_POST['foto_toko'],
+			'id_user' => $this->session->userdata('id_user')
 		);
 		$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {
@@ -177,18 +180,28 @@ class Owner extends CI_Controller
 
 		foreach ($datas['data'] as $row) {
 			if ($row['id_toko'] == $id_toko) {
-				$value = array(
-					'id_toko' => $row["id_toko"],
-					'nama_toko' => $row["nama_toko"],
-					'deskripsi_toko' => $row["deskripsi_toko"],
-					'alamat' => $row["alamat"],
-					'status_toko' => $row["status_toko"],
-				);
+				if ($row['id_user'] == $this->session->userdata('id_user')) {
+					$value = array(
+						'id_toko' => $row["id_toko"],
+						'nama_toko' => $row["nama_toko"],
+						'deskripsi_toko' => $row["deskripsi_toko"],
+						'alamat' => $row["alamat"],
+						'status_toko' => $row["status_toko"],
+					);
+				} else {
+					echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
+		window.location.href = '" . base_url('owner/toko') . "'; </script>";
+				}
 			}
 		}
-		$data['toko'] = $value;
 
-		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
+		$data['toko'] = $value;
+		if (empty($data['toko'])) {
+			echo "<script> alert('Tidak Ada Data Toko!'); 
+			window.location.href = '" . base_url('owner/toko') . "'; </script>";
+		} else {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
+		}
 	}
 
 	public function proses_edit_toko($id_toko)
@@ -249,12 +262,12 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function index_foto_produk()
 	{
-  		// arahkan ke url atau lokasi gambar berada
-		$img = file_get_contents('https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-22.png'); 
-  
+		// arahkan ke url atau lokasi gambar berada
+		$img = file_get_contents('https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-22.png');
+
 		// ubah file ke base64
 		$data = base64_encode($img);
-  
+
 		// $data ini masukan ke json
 		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index', $data);
 	}
