@@ -262,12 +262,12 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function index_foto_produk()
 	{
-		// arahkan ke url atau lokasi gambar berada
-		$img = file_get_contents('https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-22.png');
-
+  	// arahkan ke url atau lokasi gambar berada
+		$img = file_get_contents('https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-22.png'); 
+  
 		// ubah file ke base64
 		$data = base64_encode($img);
-
+  
 		// $data ini masukan ke json
 		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index', $data);
 	}
