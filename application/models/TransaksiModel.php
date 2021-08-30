@@ -37,7 +37,19 @@ class TransaksiModel extends CI_Model
 		];
 	}
 
-	//Menampilkan Data 
+	//Menampilkan Data Transaksi
+	public function get($id_transaksi = null)
+	{
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
+		$this->db->from('transaksi');
+		if ($id_transaksi != null) {
+			$this->db->where('id_transaksi', $id_transaksi);
+			$this->db->select('id_user');
+		}
+		return $this->db->get()->result();
+	}
+
+	//Menampilkan Data Transaksi Barang
 	public function get_barang($id_transaksi = null)
 	{
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
@@ -51,6 +63,7 @@ class TransaksiModel extends CI_Model
 		return $this->db->get()->result();
 	}
 
+	//Menampilkan Data Transaksi Jasa
     public function get_jasa($id_transaksi = null)
 	{
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');

@@ -1,10 +1,10 @@
-inde<div class="main-sidebar">
+<div class="main-sidebar">
 	<aside id="sidebar-wrapper">
 		<div class="sidebar-brand">
 			<a href="index.html">Owner</a>
 		</div>
 		<div class="sidebar-brand sidebar-brand-sm">
-			<a href="index.html">Own</a>
+			<a href="index.html">Owner</a>
 		</div>
 		<ul class="sidebar-menu">
 			<li <?= $this->uri->segment(2) == 'dashboard' ? 'class=active' : '' ?>>
@@ -30,7 +30,7 @@ inde<div class="main-sidebar">
 				<ul class="dropdown-menu">
 					<li <?= $this->uri->segment(2) == 'produk' ? 'class=active' : '' ?>><a class="nav-link" href="<?= base_url('owner/produk') ?>"><i class=" fas fa-cash-register"></i>Barang</a></li>
 					<li <?= $this->uri->segment(2) == 'index_jasa' ? 'class=active' : '' ?>><a class="nav-link" href="<?= base_url('owner/index_jasa') ?>"><i class="fas fa-cubes"></i>Jasa</a></li>
-					<li><a class="nav-link" href="#"><i class="fa fa-images"></i>Foto</a></li>
+					<li <?= $this->uri->segment(2) == 'index_jasa' ? 'class=active' : '' ?>><a class="nav-link" href="<?= base_url('owner/index_foto_produk') ?>"><i class="fa fa-images"></i>Foto</a></li>
 				</ul>
 			</li>
 			<li <?= $this->uri->segment(2) == 'harga' ? 'class=active' : '' ?>>
@@ -54,8 +54,8 @@ inde<div class="main-sidebar">
 					<i class="fas fa-clipboard"></i> <span>Laporan Transaksi</span>
 				</a>
 			</li>
-			<li>
-				<a class="nav-link" href="#">
+			<li <?= $this->uri->segment(2) == 'laporan_katalog' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/index_laporan_katalog') ?>">
 					<i class="fas fa-clipboard"></i> <span>Laporan Katalog Produk</span>
 				</a>
 			</li>

@@ -32,10 +32,10 @@
 							</div>
 							<div class="card-body">
 								<div class="form-divider">
-									<i class="fas fa-user mr-1"></i> Identitas Kamu
+									<i class="fas fa-user mr-1"></i> Lengkapi Identitas Kamu
 									<hr>
 								</div>
-								<form method="POST">
+								<form action="<?= base_url('auth/proses_register') ?>" method="POST">
 									<div class="form-group">
 										<label for="nama">Nama Lengkap</label>
 										<input id="nama" type="text" class="form-control" name="nama" placeholder="Masukan Nama Lengkap" autofocus>

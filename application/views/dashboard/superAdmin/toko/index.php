@@ -16,25 +16,31 @@
 							<tr>
 								<th>No</th>
 								<th>Nama Toko</th>
-								<th>Alamat</th>
 								<th>Nama Owner</th>
-								<th>Email</th>
-								<th>No Handphone</th>
+								<th>Alamat</th>
+								<th>Deskripsi Toko</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php $no = 0 ?>
-							<?php foreach ($data as $toko) : ?>
+							<?php $no = 1;
+							foreach ($data as $toko) : ?>
 								<tr>
-									<td><?= ++$no ?></td>
+									<td><?= $no++ ?></td>
 									<td><?= $toko["nama_toko"] ?? "-" ?></td>
+									<td><?= $toko['nama_owner'] ?? "-" ?></td>
 									<td><?= $toko['alamat'] ?></td>
-									<td><?= $toko['user']['nama'] ?></td>
-									<td><?= $toko['user']['email'] ?></td>
-									<td><?= $toko['user']['no_hp'] ?></td>
+									<td><?= $toko['deskripsi_toko'] ?></td>
 									<td>
-										<a href="<?= base_url('superadmin/toko_edit/' . $toko["id_toko"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+										<?php if ($toko["status_toko"] == "valid") { ?>
+											<span class="badge badge-success text-capitalize"><?= $toko["status_toko"] ?></span>
+										<?php } else { ?>
+											<span class="badge badge-danger text-capitalize"><?= $toko["status_toko"] ?></span>
+										<?php } ?>
+									</td>
+									<td>
+										<!-- <a href="<?= base_url('superadmin/toko_edit/' . $toko["id_toko"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a> -->
 										<a href="<?= base_url('superadmin/toko_detail/' . $toko["id_toko"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 									</td>
 								</tr>
