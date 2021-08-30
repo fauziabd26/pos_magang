@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : mencari referensi dan mencoba perhitungan untuk transaksi produk
+jam 13.00 - 15.00 : memperbaiki error pada transaksi produk
