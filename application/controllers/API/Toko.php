@@ -29,6 +29,7 @@ class Toko extends RestController
 		), 200);
 	}
 
+	
 	//Menambah data toko baru
 	function index_post()
 	{
