@@ -7,6 +7,7 @@ class Auth extends CI_Controller
 
 	public function login()
 	{
+		check_login();
 		$this->load->view('login');
 	}
 
@@ -24,12 +25,14 @@ class Auth extends CI_Controller
 			'email' 	=> $datas['data']['email'],
 			'role' 		=> $datas['data']['role'],
 		);
-		$this->session->set_userdata($data);
 		if ($datas['data']['role'] == "superadmin") {
+			$this->session->set_userdata($data);
 			redirect('superadmin/dashboard');
 		} elseif ($datas['data']['role'] == "owner") {
+			$this->session->set_userdata($data);
 			redirect('owner/dashboard');
 		} elseif ($datas['data']['role'] == "admin") {
+			$this->session->set_userdata($data);
 			redirect('admin/dashboard');
 		} else {
 			$this->session->set_flashdata('error', "Email atau Password Yang Anda Masukan Salah !");
@@ -54,8 +57,15 @@ class Auth extends CI_Controller
 		if ($insert) {
 			$this->session->set_flashdata('success', "Silahkan Login Dengan Akun Yang Anda Daftarkan");
 		} else {
-			$this->session->set_flashdata('info', 'data gagal disimpan.');
+			$this->session->set_flashdata('error', 'data gagal disimpan.');
 		}
+		redirect('auth/login');
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		$this->session->set_flashdata('success', "Berhasil Logout");
 		redirect('auth/login');
 	}
 }

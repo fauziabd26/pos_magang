@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : memperbaiki error pada transaksi produk
+jam 13.00 - 15.00 : memperbaiki error pada detail transaksi produk

@@ -40,7 +40,7 @@
 										<button class="close" data-dismiss="alert">
 											<span>×</span>
 										</button>
-										<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+										<i class="fas fa-times mr-2"></i> <?= $this->session->flashdata('error') ?>
 									</div>
 								</div>
 							<?php } ?>

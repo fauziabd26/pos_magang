@@ -30,8 +30,8 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header justify-content-between">
-							<h4>Transaksi Terbaru</h4>
-							<a href="<?= base_url('admin/histori_transaksi') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
+						<h4>Transaksi Terbaru</h4>
+						<a href="<?= base_url('admin/histori_transaksi') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
 					</div>
 					<div class="card-body p-0">
 						<div class="table-responsive table-invoice">
