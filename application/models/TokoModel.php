@@ -44,7 +44,7 @@ class TokoModel extends CI_Model
 		$this->db->from('toko')->join('user', 'user.id_user=toko.id_user');
 		if ($id_toko != null) {
 			$this->db->where('id_toko', $id_toko);
-			$this->db->select('foto_toko, ,nama AS "nama_owner", email, no_hp');
+			$this->db->select('foto_toko, nama AS nama_owner, email, no_hp');
 		}
 		return $this->db->get()->result();
 	}
