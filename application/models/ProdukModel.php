@@ -23,28 +23,40 @@ class ProdukModel extends CI_Model
     }
 
     //Menampilkan Data 
+    public function get_index($id_produk = null)
+	{
+		$this->db->select('id_produk, nama_produk, jenis, id_toko');
+		$this->db->from('produk');
+		// $this->db->order_by('nama_produk', 'ASC');
+		if ($id_produk != null) {
+			$this->db->where('id_produk', $id_produk);
+			$this->db->select('fid_toko');
+		}
+		return $this->db->get()->result();
+	}
+
 	public function get_barang($id_produk = null)
 	{
-		$this->db->select('id_produk, nama_produk, jenis, id_toko, foto_produk');
+		$this->db->select('id_produk, nama_produk, jenis, id_toko');
 		$this->db->from('produk');
         $this->db->where('jenis =','barang');
 		// $this->db->order_by('nama_produk', 'ASC');
 		if ($id_produk != null) {
 			$this->db->where('id_produk', $id_produk);
-			$this->db->select('foto_produk, id_toko');
+			$this->db->select('id_toko');
 		}
 		return $this->db->get()->result();
 	}
 
     public function get_jasa($id_produk = null)
 	{
-		$this->db->select('id_produk, nama_produk, jenis, id_toko, foto_produk');
+		$this->db->select('id_produk, nama_produk, jenis, id_toko');
 		$this->db->from('produk');
         $this->db->where('jenis =','jasa');
 		// $this->db->order_by('nama_produk', 'ASC');
 		if ($id_produk != null) {
 			$this->db->where('id_produk', $id_produk);
-			$this->db->select('foto_produk, id_toko');
+			$this->db->select('id_toko');
 		}
 		return $this->db->get()->result();
 	}

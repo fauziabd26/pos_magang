@@ -56,7 +56,7 @@
 											<tr>
 												<td><?= $no++ ?></td>
 												<td><?= $toko["nama_toko"] ?? "-" ?></td>
-												<td class="font-weight-600"><?= $toko['user']['nama'] ?? "-" ?></td>
+												<td class="font-weight-600"><?= $toko['nama_owner'] ?? "-" ?></td>
 												<td><?= $toko['alamat'] ?></td>
 												<td><?= $toko['deskripsi_toko'] ?></td>
 												<td>
