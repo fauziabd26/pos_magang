@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : Memperbaiki controller api produk dengan relasi nya
+jam 13.00 - 15.00 : Memperbaiki error pada controller transaksi
