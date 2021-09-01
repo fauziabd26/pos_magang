@@ -17,9 +17,9 @@ class Toko extends RestController
 	function index_get($id_toko = null)
 	{
 		if (!empty($id_toko)) {
-			$toko = $this->TokoModel->get($id_toko);
+			$toko = $this->TokoModel->get($id_toko)->row();
 		} else {
-			$toko =  $this->TokoModel->get();
+			$toko =  $this->TokoModel->get()->result();
 		}
 
 		if ($toko) {
@@ -40,7 +40,7 @@ class Toko extends RestController
 	public function valid_put($id_toko)
 	{
 		if (!empty($id_toko)) {
-			$toko = $this->TokoModel->get($id_toko);
+			$toko = $this->TokoModel->get($id_toko)->row();
 		}
 
 		$status = array(
@@ -66,7 +66,7 @@ class Toko extends RestController
 	public function tidak_valid_put($id_toko)
 	{
 		if (!empty($id_toko)) {
-			$toko = $this->TokoModel->get($id_toko);
+			$toko = $this->TokoModel->get($id_toko)->row();
 		}
 
 		$status = array(
@@ -88,7 +88,6 @@ class Toko extends RestController
 			), 404);
 		}
 	}
-
 
 	//Menambah data toko baru
 	function index_post()
