@@ -182,20 +182,18 @@ class Owner extends CI_Controller
 			echo "<script> alert('Tidak Ada Data Toko!'); 
 			window.location.href = '" . base_url('owner/toko') . "'; </script>";
 		} else {
-			foreach ($datas['data'] as $row) {
-				if ($row['id_toko'] == $id_toko) {
-					if ($row['id_user'] == $this->session->userdata('id_user')) {
-						$value = array(
-							'id_toko' => $row["id_toko"],
-							'nama_toko' => $row["nama_toko"],
-							'deskripsi_toko' => $row["deskripsi_toko"],
-							'alamat' => $row["alamat"],
-							'status_toko' => $row["status_toko"],
-						);
-					} else {
-						echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
+			if ($datas['data']['id_toko'] == $id_toko) {
+				if ($datas['data']['id_user'] == $this->session->userdata('id_user')) {
+					$value = array(
+						'id_toko' => $datas['data']["id_toko"],
+						'nama_toko' => $datas['data']["nama_toko"],
+						'deskripsi_toko' => $datas['data']["deskripsi_toko"],
+						'alamat' => $datas['data']["alamat"],
+						'status_toko' => $datas['data']["status_toko"],
+					);
+				} else {
+					echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
 						window.location.href = '" . base_url('owner/toko') . "'; </script>";
-					}
 				}
 			}
 			$data['toko'] = $value;
@@ -262,12 +260,12 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function index_foto_produk()
 	{
-  	// arahkan ke url atau lokasi gambar berada
-		$img = file_get_contents('https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-22.png'); 
-  
+		// arahkan ke url atau lokasi gambar berada
+		$img = file_get_contents('https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-22.png');
+
 		// ubah file ke base64
 		$data = base64_encode($img);
-  
+
 		// $data ini masukan ke json
 		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index', $data);
 	}

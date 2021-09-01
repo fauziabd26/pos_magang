@@ -46,7 +46,7 @@ class TokoModel extends CI_Model
 			$this->db->where('id_toko', $id_toko);
 			$this->db->select('foto_toko, nama AS nama_owner, email, no_hp');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 

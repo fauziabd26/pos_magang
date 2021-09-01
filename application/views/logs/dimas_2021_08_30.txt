@@ -1,0 +1,1 @@
+jam 09.00 - 16.00 =  Menampilkan data toko berdasarkan owner yang sedang login
