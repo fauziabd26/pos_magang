@@ -43,16 +43,34 @@ class Admin extends CI_Controller
 	}
 
 	// Bagian Transaksi
-	// Bagian Transaksi Produk
-	public function transaksi_produk()
+	// Bagian Transaksi Barang
+	public function transaksi_barang()
 	{
-		$this->load->view('dashboard/admin/transaksi/produk');
+		$getAPIBarang = $this->curl->simple_get($this->api . 'produk/barang');
+		$datasBarang = json_decode($getAPIBarang, true);
+
+		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
+		$datasKategori = json_decode($getAPIKategori, true);
+
+		$data['produks'] = $datasBarang['data'];
+		$data['kategories'] = $datasKategori['data'];
+
+		$this->load->view('dashboard/admin/transaksi/barang', $data);
 	}
 
 	// Bagian Transaksi Jasa
 	public function transaksi_jasa()
 	{
-		$this->template->load('layouts/admin/master', 'dashboard/admin/transaksi/jasa');
+		$getAPIJasa = $this->curl->simple_get($this->api . 'produk/jasa');
+		$datasJasa = json_decode($getAPIJasa, true);
+
+		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
+		$datasKategori = json_decode($getAPIKategori, true);
+
+		$data['produks'] = $datasJasa['data'];
+		$data['kategories'] = $datasKategori['data'];
+
+		$this->load->view('dashboard/admin/transaksi/jasa', $data);
 	}
 
 	// Bagian Histori

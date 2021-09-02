@@ -239,10 +239,10 @@ class Owner extends CI_Controller
 	// Bagian Produk
 	public function produk()
 	{
-		$getAPI = file_get_contents('http://api.etoko.xyz/produk');
+		$getAPI = $this->curl->simple_get($this->api . 'produk/barang');
 		$datas = json_decode($getAPI, true);
 
-		$data['produks'] = $datas;
+		$data['produks'] = $datas['data'];
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);
 	}
@@ -284,10 +284,16 @@ class Owner extends CI_Controller
 	//Bagian Kategori
 	public function index_kategori()
 	{
-		$getAPI = file_get_contents('http://api.etoko.xyz/kategori');
-		$datas = json_decode($getAPI, true);
+		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
+		$datasKategori = json_decode($getAPIKategori, true);
 
-		$data = array('kategories' => $datas["data"]);
+		$getAPIToko = $this->curl->simple_get($this->api . 'toko');
+		$datasToko = json_decode($getAPIToko, true);
+
+		$data['kategories'] =$datasKategori["data"];
+		$data['tokos'] = $datasToko["data"];
+
+		// var_dump($datasToko["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/kategori/index', $data);
 	}
@@ -295,8 +301,10 @@ class Owner extends CI_Controller
 	public function proses_tambah_kategori()
 	{
 		$data = array(
-			'nama_kategori' =>  ucwords($_POST['nama_kategori'])
+			'nama_kategori' =>  ucwords($_POST['nama_kategori']),
+			'id_toko' =>  $_POST['id_toko'],
 		);
+		var_dump($data);
 		$insert = $this->curl->simple_post($this->api . 'kategori', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {
 			$this->session->set_flashdata('success-create', "Data Kategori <b>" . $_POST['nama_kategori'] . "</b> Berhasil Disimpan !");

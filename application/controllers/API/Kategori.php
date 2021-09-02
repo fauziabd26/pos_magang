@@ -55,7 +55,7 @@ class Kategori extends RestController{
 		$id_kategori    = $this->put('id_kategori');
 		$data       = array(
 			'nama_kategori'         => $this->put('nama_kategori'),
-			'id_toko'            => $this->put('id_toko')
+			'id_toko'           => $this->put('id_toko')
 		);
 
 		$this->db->where('id_kategori', $id_kategori);
