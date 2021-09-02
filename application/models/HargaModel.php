@@ -20,7 +20,8 @@ class HargaModel extends CI_Model{
     }
 
     //Menampilkan Data Harga
-    public function get($id_harga = null){
+    public function get($id_harga = null)
+    {
         $this->db->select('id_harga, nama_harga, nominal, id_produk');
         $this->db->from('harga');
         $this->db->order_by('nama_harga', 'nominal', 'ASC');
@@ -28,7 +29,7 @@ class HargaModel extends CI_Model{
             $this->db->where('id_harga', $id_harga);
             $this->db->select('id_produk');
         }
-        return $this->db->get()->result();
+        return $this->db->get();
     }
 
     //Simpan data Harga

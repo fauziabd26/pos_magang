@@ -81,9 +81,9 @@ class Owner extends CI_Controller
 		if ($this->form_validation->run() === false)
         {
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
-		}else{
-			$insert = $this->curl->simple_post($this->api . 'admin', $data, array (CURLOPT_BUFFERSIZE => 10));
+		} else{
 			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+
 			redirect('owner/admin');
 		}
 

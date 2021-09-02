@@ -16,7 +16,8 @@ class FotoProdukModel extends CI_Model{
     }
 
     //Menampilkan Data Foto produk
-    public function get($id_foto_produk = null){
+    public function get($id_foto_produk = null)
+    {
         $this->db->select('id_foto_produk, nama_foto_produk, id_produk');
         $this->db->from('foto_produk');
         $this->db->order_by('nama_foto_produk', 'ASC');
@@ -24,7 +25,7 @@ class FotoProdukModel extends CI_Model{
             $this->db->where('id_foto_produk', $id_foto_produk);
             $this->db->select('id_produk');
         }
-        return $this->db->get()->result();
+        return $this->db->get();
     }
 
     //Simpan data Foto produk

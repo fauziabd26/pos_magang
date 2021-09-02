@@ -70,7 +70,7 @@ class Harga extends RestController{
         } else {
             $this->response(array(
                 'status'    => false,
-                'message'   => 'Gagal Mengedit Dat Harga'
+                'message'   => 'Gagal Mengedit Data Harga'
             ), 502);
         }
     }
@@ -80,7 +80,7 @@ class Harga extends RestController{
         $id_harga = $this->delete('id_harga');
         $this->db->where('id_harga', $id_harga);
 
-        if ($this->$this->db->delete('harga')) {
+        if ($this->db->delete('harga')) {
             $this->response(array(
                 'status'    => true,
                 'message'   => 'Data Harga Berhasil Dihapus'

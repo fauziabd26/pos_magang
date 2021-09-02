@@ -8,15 +8,16 @@ class FotoProduk extends RestController{
     function __construct($config = 'rest'){
         parent::__construct($config);
         $this->load->database();
+        $this->load->model('FotoProdukModel');
     }
 
     //Menampilkan data foto produk
     function index_get($id_foto_produk = null){
 
         if(!empty($id_foto_produk)){
-            $foto_produk = $this->FotoProdukModel->get_index($id_foto_produk);
+            $foto_produk = $this->FotoProdukModel->get($id_foto_produk);
         }else{
-            $foto_produk = $this->FotoProdukModel->get_index();
+            $foto_produk = $this->FotoProdukModel->get();
         }
         $this->response(array(
             'status'    => true,
@@ -32,28 +33,44 @@ class FotoProduk extends RestController{
             'nama_foto_produk'  => $this->post('nama_foto_produk'),
             'id_produk'         => $this->post('id_produk'));
 
-        $insert = $this->db->insert('foto_produk', $data);
+        $insert = $this->FotoProdukModel->save('foto_produk', $data);
         if($insert){
-            $this->response($data, 200);
+            $this->response(array(
+                'status'    => true,
+                'message'   => 'Data Foto Produk Berhasil Diambil',
+                'data'      => $data
+            ), 200);
         }else{
-            $this->response(array('status' => 'fail', 502));
+            $this->response(array(
+                'status'    => false,
+                'message'   => 'Gagal Menambah Data Foto Produk'
+            ), 502);
         }
     }
 
     //Memperbarui data foto produk yang telah ada
 	function index_put() {
         $id_foto_produk  = $this->put('id_foto_produk');
-        $data       = array(
+        $data  = array(
             'id_foto_produk'    => $this->post('id_foto_produk'),
             'nama_foto_produk'  => $this->post('nama_foto_produk'),
-            'id_produk'         => $this->post('id_produk'));
+            'id_produk'         => $this->post('id_produk')
+        );
                     
         $this->db->where('id_foto_produk', $id_foto_produk);
         $update = $this->db->update('foto_produk', $data);
+        
         if ($update) {
-            $this->response($data, 200);
+            $this->response(array(
+                'status'    => true,
+                'message'   => 'Data Harga Berhasil Diedit',
+                'data'      => $data
+            ), 200);
         } else {
-            $this->response(array('status' => 'fail', 502));
+            $this->response(array(
+                'status'    => false,
+                'message'   => 'Gagal Mengedit Data Foto Produk'
+            ), 502);
         }
     }
 
@@ -61,11 +78,17 @@ class FotoProduk extends RestController{
 	function index_delete() {
         $id_foto_produk = $this->delete('id_foto_produk');
         $this->db->where('id_foto_produk', $id_foto_produk);
-        $delete = $this->db->delete('toko');
-        if ($delete) {
-            $this->response(array('status' => 'success'), 201);
+
+        if ($this->db->delete('foto_produk')) {
+            $this->response(array(
+                'status'    => true,
+                'message'   => 'Data Foto Produk Berhasil Dihapus'
+            ), 201);
         } else {
-            $this->response(array('status' => 'fail', 502));
+            $this->response(array(
+                'status'    => false,
+                'message'   => 'Gagal Menghapus Data Foto Produk'
+            ), 502);
         }
     }
 }
