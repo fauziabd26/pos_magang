@@ -1,0 +1,23 @@
+{
+    "status": true,
+    "message": "Data Toko Berhasil Diambil",
+    "data": [{
+            "id_katalog_produk": "Katalog-20201314",
+            "nama_produk": "Gula Pasir",
+            "nama_kategori": "Sembako",
+            "nama_foto_produk": "gula.jpg",
+            "nama_satuan": "1kg",
+            "nama_harga": "20000",
+            "id_toko": "1"
+        },
+        {
+            "id_katalog_produk": "Katalog-20201315",
+            "nama_produk": "Gula Merah",
+            "nama_kategori": "Sembako",
+            "nama_foto_produk": "merah.jpg",
+            "nama_satuan": "2kg",
+            "nama_harga": "30000",
+            "id_toko": "1"
+        }
+    ]
+}
