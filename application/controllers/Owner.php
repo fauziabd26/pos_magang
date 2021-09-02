@@ -8,6 +8,8 @@ class Owner extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->library('form_validation');
+
 		//validasi jika user belum login
 		check_not_login();
 		check_owner();
@@ -46,6 +48,7 @@ class Owner extends CI_Controller
 	// Bagian Admin
 	public function admin()
 	{
+
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
 
@@ -61,20 +64,27 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_admin()
 	{
+		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
+		$this->form_validation->set_rules('photo', 'Foto', 'required');
+
 		$data = array(
-			'nama' =>  ucwords($_POST['nama']),
-			'email' =>  $_POST['email'],
-			'password' => $_POST['password'],
-			'no_hp' => $_POST['no_hp'],
-			'photo' => $_POST['photo'],
+			'nama' 		=> ucwords($_POST['nama']),
+			'email' 	=> $_POST['email'],
+			'password' 	=> $_POST['password'],
+			'no_hp' 	=> $_POST['no_hp'],
+			'photo' 	=> $_POST['photo'],
 		);
-		$insert = $this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
-		if ($insert) {
-			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+
+		if ($this->form_validation->run() === false) {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
 		} else {
-			$this->session->set_flashdata('info', 'data gagal disimpan.');
+			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+			redirect('owner/admin');
 		}
-		redirect('owner/admin');
 	}
 
 	public function admin_edit($id_user)
@@ -290,7 +300,7 @@ class Owner extends CI_Controller
 		$getAPIToko = $this->curl->simple_get($this->api . 'toko');
 		$datasToko = json_decode($getAPIToko, true);
 
-		$data['kategories'] =$datasKategori["data"];
+		$data['kategories'] = $datasKategori["data"];
 		$data['tokos'] = $datasToko["data"];
 
 		// var_dump($datasToko["data"]);
