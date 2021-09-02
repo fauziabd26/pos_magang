@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-	<title>Transaksi</title>
+	<title>Transaksi Penjualan Barang</title>
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -59,37 +59,24 @@
 	</style>
 </head>
 
-<body>
+<body class="bg-primary">
 	<div id="app">
 		<div class="main-wrapper">
-			<div class="navbar-bg"></div>
-			<nav class="navbar navbar-expand-lg main-navbar">
-				<!-- <div class="mr-auto">
-					<ul class="navbar-nav">
-						<li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-					</ul>
-				</div> -->
-				<ul class="navbar-nav navbar-right ml-auto">
-					<li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-							<img alt="image" src="<?= base_url('assets/img/avatar/avatar-1.png') ?>" class="rounded-circle mr-1">
-							<div class="d-sm-none d-lg-inline-block">Admin</div>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right">
-							<div class="dropdown-title">Menu List</div>
-							<a href="features-profile.html" class="dropdown-item has-icon">
-								<i class="far fa-user"></i> Profile
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="<?= base_url('auth/logout') ?>" class="dropdown-item has-icon text-danger">
-								<i class="fas fa-sign-out-alt"></i> Logout
-							</a>
-						</div>
-					</li>
+			<div class="row justify-content-between mt-3 mr-4">
+				<ul class="ml-1">
+					<a class="btn bg-white text-primary btn-lg">
+						Transaksi Penjualan Barang
+					</a>
 				</ul>
-			</nav>
+				<ul class="mr-1">
+					<a href="<?= base_url('admin/dashboard') ?>" class="btn bg-white text-primary btn-lg">
+						Kembali Ke Halaman Dashboard <i class="fas fa-arrow-right pl-2"></i>
+					</a>
+				</ul>
+			</div>
 
 			<!-- Main Content -->
-			<div class="main-content" style="padding-left: 30px">
+			<div class="main-content" style="padding-left: 30px ;padding-top: 0px !important">
 				<div class="section-body">
 					<div class="card">
 						<div class="card-body">
@@ -98,121 +85,33 @@
 									<input type="search" class="form-control mt-3 mb-3" placeholder="Cari produk berdasarkan nama">
 									<div class="row mb-5">
 										<div class="col">
-											<button class="btn btn-primary mr-2">Kemeja</button>
-											<button class="btn btn-primary mr-2">Celana</button>
-											<button class="btn btn-primary mr-2">Jas</button>
-											<button class="btn btn-primary mr-2">Jaket</button>
-											<button class="btn btn-primary mr-2">Hoodie</button>
-											<button class="btn btn-primary mr-2">Jeans</button>
-											<button class="btn btn-primary mr-2">Chino</button>
+											<?php foreach ($kategories as $kategori) : ?>
+												<button class="btn btn-primary text-capitalize mr-2"><?= $kategori['nama_kategori'] ?></button>
+											<?php endforeach; ?>
 										</div>
 									</div>
 									<div style="height: 300px; overflow-x: hidden; overflow-y: scroll;">
 										<div class="row">
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Flannel</small></p>
+										<?php if (!empty($produks)) { ?>
+												<?php foreach ($produks as $produk) : ?>
+													<div class="col-md-6 col-lg-3 col-12">
+														<a href="#" style="text-decoration: none;" class="card card-primary">
+															<div class="card-body">
+																<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
+																<span class="text-capitalize font-weight-bold"><?= $produk['nama_produk'] ?></span><br>
+																<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
+																<small><?= $produk['harga'] ?? "Rp -" ?></small>
+															</div>
+														</a>
+													</div>
+												<?php endforeach; ?>
+											<?php } else { ?>
+												<div class="col">
+													<div class="card">
+														<p class="text-center">Tidak Ada Produk Dengan Jenis Jasa</p>
 													</div>
 												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Basic</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Jas Hitam</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Hoodie Premium</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Celana Bahan</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Celana Jeans</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kaos Bola</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Muslim</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Muslim</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Muslim</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Muslim</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Muslim</small></p>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6 col-lg-3 col-12">
-												<div class="card card-primary">
-													<div class="card-body">
-														<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid">
-														<p class="mt-1"><small>Kemeja Muslim</small></p>
-													</div>
-												</div>
-											</div>
+											<?php } ?>
 										</div>
 									</div>
 								</div>
@@ -264,9 +163,9 @@
 									<div class="row mx-1 mt-5">
 										<div class="col-6">
 											<div class="form-group row">
-												<label class="col-8 col-form-label">Jml Item :</label>
-												<div class="col-4">
-													<input class="form-control text-right" value="3">
+												<label class="col-5 col-form-label">Nama Customer :</label>
+												<div class="col-7">
+													<input class="form-control bg-white text-right">
 												</div>
 											</div>
 										</div>
@@ -279,11 +178,21 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-12 mx-1">
-										<div class="form-group row">
-											<label class="col col-form-label">Diskon :</label>
-											<div class="col">
-												<input class="form-control text-right">
+									<div class="row mx-1">
+										<div class="col-6">
+											<div class="form-group row">
+												<label class="col-8 col-form-label">Jml Item :</label>
+												<div class="col-4">
+													<input class="form-control bg-white text-right" value="3" disabled>
+												</div>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="form-group row">
+												<label class="col-4 col-form-label">Diskon :</label>
+												<div class="col-8">
+													<input class="form-control text-right">
+												</div>
 											</div>
 										</div>
 									</div>

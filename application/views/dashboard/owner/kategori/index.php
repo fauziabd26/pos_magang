@@ -30,7 +30,7 @@
 						<tbody>
 							<?php foreach ($kategories as $no => $kategori) : ?>
 								<tr>
-									<td><?php echo ++$no;?></td>
+									<td><?php echo ++$no; ?></td>
 									<td><?= $kategori["nama_kategori"] ?></td>
 									<td>
 										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning">Ubah</a>
@@ -59,6 +59,16 @@
 						<label class="col-lg-5 col-sm-5 control-label">Nama Kategori</label>
 						<div class="col-lg-10">
 							<input type="text" class="form-control" name="nama_kategori" placeholder="Tuliskan Nama kategori">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 col-sm-5 control-label">Pilih Toko</label>
+						<div class="col-lg-10">
+							<select name="id_toko" class="form-control">
+								<?php foreach ($tokos as $toko) : ?>
+									<option value="<?= $toko['id_toko'] ?>"><?= $toko['nama_toko'] ?></option>
+								<?php endforeach; ?>
+							</select>
 						</div>
 					</div>
 				</div>
