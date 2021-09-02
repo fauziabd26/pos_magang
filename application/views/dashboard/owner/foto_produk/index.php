@@ -149,7 +149,6 @@ $(document).ready(function() {
         var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
         var modal = $(this)
 
-
         // Isi nilai pada field
         modal.find('#id_harga').attr("value", div.data('id_harga'));
         modal.find('#nama_harga').attr("value", div.data('nama_harga'));

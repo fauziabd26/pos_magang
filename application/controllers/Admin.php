@@ -3,26 +3,41 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+	protected $api = 'https://api.etoko.xyz/';
+
+	function __construct()
+	{
+		parent::__construct();
+		//validasi jika user belum login
+		check_not_login();
+		check_admin();
+	}
+
 	public function dashboard()
 	{
-		$getAPI = file_get_contents('json/transaksi/transaksi.json');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
 		$datas = json_decode($getAPI, true);
 
+		// var_dump($datas['data']);
 		// Count TransaksiProduk
 		$totalTransaksiProduk = 0;
 		$totalTransaksiJasa = 0;
 
-		foreach ($datas["transaksi"] as $value) {
-			if ($value["jenis"] == "produk") {
-				$totalTransaksiProduk += 1;
-			} elseif ($value["jenis"] == "jasa") {
-				$totalTransaksiJasa += 1;
+		foreach ($datas["data"] as $value) {
+			if ($value['id_user'] == $this->session->userdata('id_user')) {
+				if ($value["jenis_transaksi"] == "barang") {
+					$totalTransaksiProduk += 1;
+				} elseif ($value["jenis_transaksi"] == "jasa") {
+					$totalTransaksiJasa += 1;
+				}
 			}
 		}
 
-		$data = array('transaksis' => $datas["transaksi"]);
 		$data['totalTransaksiProduk'] = $totalTransaksiProduk;
 		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
+		$data['transaksis'] = array_filter($datas['data'], function ($value) {
+			return $value['id_user'] == $this->session->userdata('id_user');
+		});
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/dashboard', $data);
 	}
@@ -43,10 +58,12 @@ class Admin extends CI_Controller
 	// Bagian Histori
 	public function histori_transaksi()
 	{
-		$getAPI = file_get_contents('json/transaksi/transaksi.json');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('transaksis' => $datas["transaksi"]);
+		$data['transaksis'] = array_filter($datas['data'], function ($value) {
+			return $value['id_user'] == $this->session->userdata('id_user');
+		});
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
 	}

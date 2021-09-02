@@ -32,11 +32,12 @@
                             <tr>
                                 <td><?= ++$no ?></td>
                                 <td><?= $row["nama_produk"] ?></td>
-                                <td><?= $row["jenis"] ?></td <td>
-                                <a href="#" data-toggle="modal" data-target="#edit-data"
-                                    class="btn btn-warning">Ubah</a>
-                                <a href="#" data-toggle="modal" data-target="#hapus-data"
-                                    class="btn btn-danger">Hapus</a>
+                                <td><?= $row["jenis"] ?></td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#edit-data"
+                                        class="btn btn-warning sm"><i class="fas fa-edit">Ubah</i></a>
+                                    <a href="#" data-toggle="modal" data-target="#hapus-data"
+                                        class="btn btn-danger sm"><i class="fas fa-trash">Hapus</i></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

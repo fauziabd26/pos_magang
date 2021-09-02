@@ -40,15 +40,15 @@ class TokoModel extends CI_Model
 	//Menampilkan Data 
 	public function get($id_toko = null)
 	{
-		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, id_user');
-		$this->db->from('toko');
-		$this->db->order_by('nama_toko', 'ASC');
+		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, toko.id_user, user.nama AS nama_owner');
+		$this->db->from('toko')->join('user', 'user.id_user=toko.id_user');
 		if ($id_toko != null) {
 			$this->db->where('id_toko', $id_toko);
-			$this->db->select('foto_toko, id_user');
+			$this->db->select('foto_toko, nama AS nama_owner, email, no_hp');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
+
 
 	//Simpan Data 
 	public function save($data)
@@ -63,15 +63,14 @@ class TokoModel extends CI_Model
 	}
 
 	//edit data 
-	public function update()
+	public function update($table, $data)
 	{
-		$data = array(
-			"nama_toko"         => $this->input->post('nama_toko'),
-			"alamat"            => $this->input->post('alamat'),
-			"deskripsi_toko"    => $this->input->post('deskripsi_toko'),
-			"foto_toko"         => $this->input->post('foto_toko'),
-			"status_toko"       => $this->input->post('status_toko'),
-		);
-		return $this->db->update($this->table, $data, array('id_toko' => $this->input->post('id_toko')));
+		$update = $this->db->update($table, $data);
+
+		if ($update) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

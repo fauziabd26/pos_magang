@@ -11,7 +11,7 @@
 						<div class="card-stats-title">Data Toko</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-hourglass" style="color: blue;"></i></div>
+								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-hourglass" style="color: #ffc107;"></i></div>
 								<div class="card-stats-item-label">Pending</div>
 							</div>
 							<div class="card-stats-item">
@@ -34,7 +34,7 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header justify-content-between">
-						<h4>Data Toko Belum Valid Terbaru</h4>
+						<h4>Data Toko Pending Terbaru</h4>
 						<a href="<?= base_url('superadmin/validasi_toko') ?>" class="btn btn-primary">Lihat Semua <i class="fas fa-chevron-right pl-2"></i></a>
 					</div>
 					<div class="card-body p-0">
@@ -50,19 +50,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php $no = 1;
-									foreach (array_slice($data, 0, 5) as $toko) : ?>
+									<?php if ($data) { ?>
+										<?php $no = 1;
+										foreach (array_slice($data, 0, 5) as $toko) : ?>
+											<tr>
+												<td><?= $no++ ?></td>
+												<td><?= $toko["nama_toko"] ?? "-" ?></td>
+												<td class="font-weight-600"><?= $toko['nama_owner'] ?? "-" ?></td>
+												<td><?= $toko['alamat'] ?></td>
+												<td><?= $toko['deskripsi_toko'] ?></td>
+												<td>
+													<a href="<?= base_url('superadmin/validasi_detail/' . $toko["id_toko"]) ?>" class="btn btn-primary">Detail</a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php } else { ?>
 										<tr>
-											<td><?= $no++ ?></td>
-											<td><?= $toko["nama_toko"] ?? "-" ?></td>
-											<td class="font-weight-600"><?= $toko['user']['nama'] ?? "-" ?></td>
-											<td><?= $toko['alamat'] ?></td>
-											<td><?= $toko['deskripsi_toko'] ?></td>
-											<td>
-												<a href="<?= base_url('superadmin/validasi_detail/' . $toko["id_toko"]) ?>" class="btn btn-primary">Detail</a>
-											</td>
+											<td class="font-weight-600 text-center" colspan="6">Tidak ada data terbaru</td>
 										</tr>
-									<?php endforeach; ?>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>

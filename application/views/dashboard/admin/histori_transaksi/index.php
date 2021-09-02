@@ -26,11 +26,11 @@
 							<?php foreach ($transaksis as $no => $transaksi) : ?>
 								<tr>
 									<td><?= $transaksi["id_transaksi"] ?></td>
-									<td><?= $transaksi["nama_customer"] ?></td>
+									<td><?= $transaksi["nama_cust"] ?></td>
 									<td>
-										<div class="badge <?= $transaksi['jenis'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis"] ?></div>
+										<div class="badge <?= $transaksi['jenis_transaksi'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis_transaksi"] ?></div>
 									</td>
-									<td><?= date_indo($transaksi["tgl_transaksi"]) ?></td>
+									<td><?= format_indo($transaksi["tggl_transaksi"]) ?></td>
 									<td><?= 'Rp ' . number_format($transaksi["total_transaksi"]) ?></td>
 									<td>
 										<a href="<?= base_url('admin/histori_transaksi_detail/'.$transaksi["id_transaksi"]) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>

@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="#" method="POST">
+			<form action="<?= base_url('superadmin/proses_edit_toko') ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-5">
 						<div class="col">
@@ -20,7 +20,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-6">
+						<div class="col">
 							<div class="form-divider">
 								<i class="fas fa-store"></i> Identitas Toko
 								<hr>
@@ -36,24 +36,6 @@
 							<div class="form-group">
 								<label>Deskripsi Toko</label>
 								<textarea class="form-control"><?= $toko["deskripsi_toko"] ?? "-" ?></textarea>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="form-divider">
-								<i class="fas fa-user"></i> Identitas Pemilik
-								<hr>
-							</div>
-							<div class="form-group">
-								<label for="nama">Nama Lengkap</label>
-								<input id="nama" class="form-control" value="<?= $toko["user"]["nama"] ?? "-" ?>">
-							</div>
-							<div class="form-group">
-								<label for="email">Email</label>
-								<input id="email" type="email" class="form-control" value="<?= $toko["user"]["email"] ?? "-" ?>">
-							</div>
-							<div class="form-group">
-								<label for="no_hp">Nomer Handhphone</label>
-								<input id="no_hp"class="form-control" value="<?= $toko["user"]["no_hp"] ?? "-" ?>">
 							</div>
 						</div>
 					</div>

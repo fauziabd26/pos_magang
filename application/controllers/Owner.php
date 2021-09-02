@@ -5,25 +5,34 @@ class Owner extends CI_Controller
 {
 	protected $api = 'https://api.etoko.xyz/';
 
+	function __construct()
+	{
+		parent::__construct();
+		//validasi jika user belum login
+		check_not_login();
+		check_owner();
+	}
+
 	public function dashboard()
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
 		$datas = json_decode($getAPI, true);
 
-		// Count TransaksiProduk
-		$totalTransaksiProduk = 0;
+		// Count Data Transaksi
+		$totalTransaksiBarang = 0;
 		$totalTransaksiJasa = 0;
 
+		// var_dump($datas);
 		foreach ($datas["data"] as $value) {
-			if ($value["jenis"] == "produk") {
-				$totalTransaksiProduk += 1;
-			} elseif ($value["jenis"] == "jasa") {
+			if ($value["jenis_transaksi"] == "barang") {
+				$totalTransaksiBarang += 1;
+			} elseif ($value["jenis_transaksi"] == "jasa") {
 				$totalTransaksiJasa += 1;
 			}
 		}
 
 		$data = array('transaksis' => $datas["data"]);
-		$data['totalTransaksiProduk'] = $totalTransaksiProduk;
+		$data['totalTransaksiBarang'] = $totalTransaksiBarang;
 		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
@@ -134,7 +143,9 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'toko');
 		$datas = json_decode($getAPI, true);
 
-		$data['tokos'] = $datas['data'];
+		$data['tokos'] = array_filter($datas['data'], function ($value) {
+			return $value['id_user'] == $this->session->userdata('id_user');
+		});
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
 	}
@@ -150,7 +161,8 @@ class Owner extends CI_Controller
 			'nama_toko' =>  ucwords($_POST['nama_toko']),
 			'alamat' =>  ucfirst($_POST['alamat']),
 			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
-			'foto_toko' => $_POST['foto_toko']
+			'foto_toko' => $_POST['foto_toko'],
+			'id_user' => $this->session->userdata('id_user')
 		);
 		$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {
@@ -163,23 +175,30 @@ class Owner extends CI_Controller
 
 	public function toko_edit($id_toko)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'toko');
+		$getAPI = $this->curl->simple_get($this->api . 'toko/' . $id_toko);
 		$datas = json_decode($getAPI, true);
 
-		foreach ($datas['data'] as $row) {
-			if ($row['id_toko'] == $id_toko) {
-				$value = array(
-					'id_toko' => $row["id_toko"],
-					'nama_toko' => $row["nama_toko"],
-					'deskripsi_toko' => $row["deskripsi_toko"],
-					'alamat' => $row["alamat"],
-					'status_toko' => $row["status_toko"],
-				);
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Toko!'); 
+			window.location.href = '" . base_url('owner/toko') . "'; </script>";
+		} else {
+			if ($datas['data']['id_toko'] == $id_toko) {
+				if ($datas['data']['id_user'] == $this->session->userdata('id_user')) {
+					$value = array(
+						'id_toko' => $datas['data']["id_toko"],
+						'nama_toko' => $datas['data']["nama_toko"],
+						'deskripsi_toko' => $datas['data']["deskripsi_toko"],
+						'alamat' => $datas['data']["alamat"],
+						'status_toko' => $datas['data']["status_toko"],
+					);
+				} else {
+					echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
+						window.location.href = '" . base_url('owner/toko') . "'; </script>";
+				}
 			}
+			$data['toko'] = $value;
+			$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
 		}
-		$data['toko'] = $value;
-
-		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
 	}
 
 	public function proses_edit_toko($id_toko)
@@ -189,7 +208,8 @@ class Owner extends CI_Controller
 			'nama_toko' =>  ucwords($_POST['nama_toko']),
 			'alamat' =>  ucfirst($_POST['alamat']),
 			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
-			'foto_toko' => $_POST['foto_toko']
+			'foto_toko' => $_POST['foto_toko'],
+			'id_user' => $this->session->userdata('id_user')
 		);
 		$update = $this->curl->simple_put($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 
@@ -219,10 +239,10 @@ class Owner extends CI_Controller
 	// Bagian Produk
 	public function produk()
 	{
-		$getAPI = file_get_contents('http://api.etoko.xyz/produk/barang');
+		$getAPI = $this->curl->simple_get($this->api . 'produk/barang');
 		$datas = json_decode($getAPI, true);
 
-		$data['produks'] = $datas;
+		$data['produks'] = $datas['data'];
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/index', $data);
 	}
@@ -332,7 +352,8 @@ class Owner extends CI_Controller
 	public function proses_tambah_kategori()
 	{
 		$data = array(
-			'nama_kategori' =>  ucwords($_POST['nama_kategori'])
+			'nama_kategori' =>  ucwords($_POST['nama_kategori']),
+			'id_toko' =>  $this->session->userdata('id_toko'),
 		);
 		$insert = $this->curl->simple_post($this->api . 'kategori', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {

@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class TransaksiModel extends CI_Model
 {
-	private $table = 'transaksi';
+	private $table = 'detail_trans_produk';
 
 	//validasi form, method ini akan mengembalikan data berupa rules validasi form
 	public function rules()
@@ -37,41 +37,28 @@ class TransaksiModel extends CI_Model
 		];
 	}
 
-	//Menampilkan Data Transaksi
-	public function get($id_transaksi = null)
+	//Menampilkan Data 
+	public function get_barang($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
-		$this->db->from('transaksi');
-		if ($id_transaksi != null) {
-			$this->db->where('id_transaksi', $id_transaksi);
+		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
+		$this->db->from('detail_trans_produk');
+        // $this->db->where('jenis_transaksi =','barang');
+		// $this->db->order_by('nama_cust', 'ASC');
+		if ($id_detail_trans_produk != null) {
+			$this->db->where('id_transaksi', $id_detail_trans_produk);
 			$this->db->select('id_user');
 		}
 		return $this->db->get()->result();
 	}
 
-	//Menampilkan Data Transaksi Barang
-	public function get_barang($id_transaksi = null)
+    public function get_jasa($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
-		$this->db->from('transaksi');
-        $this->db->where('jenis_transaksi =','barang');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
+		$this->db->from('detail_transaksi');
+        // $this->db->where('jenis_transaksi =','jasa');
 		// $this->db->order_by('nama_cust', 'ASC');
-		if ($id_transaksi != null) {
-			$this->db->where('id_transaksi', $id_transaksi);
-			$this->db->select('id_user');
-		}
-		return $this->db->get()->result();
-	}
-
-	//Menampilkan Data Transaksi Jasa
-    public function get_jasa($id_transaksi = null)
-	{
-		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
-		$this->db->from('transaksi');
-        $this->db->where('jenis_transaksi =','jasa');
-		// $this->db->order_by('nama_cust', 'ASC');
-		if ($id_transaksi != null) {
-			$this->db->where('id_transaksi', $id_transaksi);
+		if ($id_detail_trans_produk != null) {
+			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
 			$this->db->select('id_user');
 		}
 		return $this->db->get()->result();
