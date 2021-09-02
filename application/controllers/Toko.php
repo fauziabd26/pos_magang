@@ -9,7 +9,7 @@ class Toko extends CI_Controller{
 
     //method pertama yang akan di eksekusi
     public function index(){
-        $this->load->models {'TokoModel'};
+        $this->load->models{"TokoModel"};
         $data["title"]      = "List Data Toko"; 
         $data["data_toko"]  = $this->TokoModel->getAll(); //ambil fungsi getAll untuk menampilkan semua data toko
     }
@@ -67,7 +67,7 @@ class Toko extends CI_Controller{
     public function delete(){
         $id = $this->input->get('id_toko');
         if (!isset($id_toko)) show_404();
-        $this->TokoModel->delete($id_toko);
+        $this->TokoModel->delete('$id_toko');
         $msg['success'] = true;
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         Data toko berhasil dihapus.

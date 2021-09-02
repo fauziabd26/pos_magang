@@ -21,9 +21,9 @@ class Kategori extends RestController{
 		}
 
 		$this->response(array(
-			'status' => true,
-			'message' => 'Data Kategori Berhasil Diambil',
-			'data' => $kategori
+			'status' 	=> true,
+			'message' 	=> 'Data Kategori Berhasil Diambil',
+			'data' 		=> $kategori
 		), 200);
 	}
 
@@ -31,7 +31,7 @@ class Kategori extends RestController{
 	function index_post()
 	{
 		$data = array(
-			'nama_kategori'      => $this->post('nama_kategori'),
+			'nama_kategori'   => $this->post('nama_kategori'),
 			'id_toko'         => $this->post('id_toko')
 		);
 
@@ -53,8 +53,8 @@ class Kategori extends RestController{
 	function index_put()
 	{
 		$id_kategori    = $this->put('id_kategori');
-		$data       = array(
-			'nama_kategori'         => $this->put('nama_kategori'),
+		$data = array(
+			'nama_kategori'      => $this->put('nama_kategori'),
 			'id_toko'            => $this->put('id_toko')
 		);
 
@@ -79,6 +79,7 @@ class Kategori extends RestController{
 	{
 		$id_kategori = $this->delete('id_kategori');
 		$this->db->where('id_kategori', $id_kategori);
+		
 		if ($this->db->delete('kategori')) {
 			$this->response(array(
 				'status' => true,

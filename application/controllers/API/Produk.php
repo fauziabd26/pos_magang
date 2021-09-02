@@ -15,8 +15,8 @@ class Produk extends RestController
 	}
 
 	//Menampilkan data
-	function index_get($id_produk = null)
-	{
+	function index_get($id_produk = null){
+		
 		if (!empty($id_produk)) {
 			$produk = $this->ProdukModel->get_index($id_produk);
 		} else {
