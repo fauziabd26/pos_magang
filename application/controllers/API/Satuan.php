@@ -6,20 +6,25 @@ use chriskacerguis\RestServer\RestController;
 
 class Satuan extends RestController{
     function __construct($config = 'rest'){
+
         parent::__construct($config);
         $this->load->database();
+        $this->load->model('SatuanModel');
     }
 
     //Menampilkan data satuan
-    function index_get(){
-        $id_satuan = $this->get('id_satuan');
-        if($id_satuan == ''){
-            $satuan =  $this->db->get('satuan')->result();
+    function index_get($id_satuan = null){
+        
+        if(!empty($id_satuan)){
+            $satuan = $this->SatuanModel->get($id_satuan);
         }else{
-            $this->db->where('id_satuan', $id_satuan);
-            $satuan = $this->db->get('satuan')->result();
+            $satuan = $this->SatuanModel->get();
         }
-        $this->response($satuan, 200);
+        $this->response(array(
+            'status'    => true,
+            'message'   => 'Data Satuan Berhasil Diambil',
+            'data'      => $satuan
+        ), 200);
     }
 
     //Menambah data satuan baru
@@ -27,13 +32,20 @@ class Satuan extends RestController{
         $data = array(
             'id_satuan'        => $this->post('id_satuan'),
             'nama_satuan'      => $this->post('nama_satuan'),
-            'id_produk'        => $this->post('id_produk'));
+            'id_produk'        => $this->post('id_produk')
+        );
 
-        $insert = $this->db->insert('satuan', $data);
-        if($insert){
-            $this->response($data, 200);
+        if($this->SatuanModel->save($data)){
+            $this->response(array(
+                'status'    => true,
+                'message'   => 'Data Satuan Berhasil Diambil',
+                'data'      => '$data'
+            ), 200);
         }else{
-            $this->response(array('status' => 'fail', 502));
+            $this->response(array(
+                'status'    => false,
+                'message'   => 'Gagal Menambahkan Data Satuan'
+            ), 502);
         }
     }
 
@@ -41,28 +53,42 @@ class Satuan extends RestController{
 	function index_put() {
         $id_satuan  = $this->put('id_satuan');
         $data       = array(
-            'id_satuan'        => $this->post('id_satuan'),
-            'nama_satuan'      => $this->post('nama_satuan'),
-            'id_produk'        => $this->post('id_produk'));
+            'id_satuan'        => $this->put('id_satuan'),
+            'nama_satuan'      => $this->put('nama_satuan'),
+            'id_produk'        => $this->put('id_produk')
+        );
                     
         $this->db->where('id_satuan', $id_satuan);
         $update = $this->db->update('satuan', $data);
         if ($update) {
-            $this->response($data, 200);
+            $this->response(array(
+                'status'    => true,
+                'message'   => 'Data Satuan Berhasil Diambil',
+                'data'      => $data
+            ), 200);
         } else {
-            $this->response(array('status' => 'fail', 502));
+            $this->response(array(
+                'status'    => false,
+                'message'   => 'Gagal Mengedit Data Satuan'
+            ), 502);
         }
     }
 
     //Menghapus salah satu data toko
-	function index_delete() {
+	function index_delete(){
         $id_satuan = $this->delete('id_satuan');
         $this->db->where('id_satuan', $id_satuan);
-        $delete = $this->db->delete('toko');
-        if ($delete) {
-            $this->response(array('status' => 'success'), 201);
+
+        if ($this->db->delete('satuan')) {
+            $this->response(array(
+                'status'    => true,
+                'message'   => 'Data Satuan Berhasil Dihapus'
+            ), 200);
         } else {
-            $this->response(array('status' => 'fail', 502));
+            $this->response(array(
+                'status'    => false,
+                'message'   => 'Gagal Menghapus Data Satuan'
+            ), 502);
         }
     }
 }
