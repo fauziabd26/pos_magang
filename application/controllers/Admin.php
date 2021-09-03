@@ -46,14 +46,12 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Barang
 	public function transaksi_barang()
 	{
-		$getAPIBarang = $this->curl->simple_get($this->api . 'produk/barang');
-		$datasBarang = json_decode($getAPIBarang, true);
+		$getAPI = $this->curl->simple_get($this->api . 'harga');
+		$datas = json_decode($getAPI, true);
 
-		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
-		$datasKategori = json_decode($getAPIKategori, true);
-
-		$data['produks'] = $datasBarang['data'];
-		$data['kategories'] = $datasKategori['data'];
+		$data['produks'] = array_filter($datas['data'], function ($value) {
+			return $value['jenis'] == 'barang';
+		});
 
 		$this->load->view('dashboard/admin/transaksi/barang', $data);
 	}
@@ -61,14 +59,12 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Jasa
 	public function transaksi_jasa()
 	{
-		$getAPIJasa = $this->curl->simple_get($this->api . 'produk/jasa');
-		$datasJasa = json_decode($getAPIJasa, true);
+		$getAPI = $this->curl->simple_get($this->api . 'harga');
+		$datas = json_decode($getAPI, true);
 
-		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
-		$datasKategori = json_decode($getAPIKategori, true);
-
-		$data['produks'] = $datasJasa['data'];
-		$data['kategories'] = $datasKategori['data'];
+		$data['produks'] = array_filter($datas['data'], function ($value) {
+			return $value['jenis'] == 'jasa';
+		});
 
 		$this->load->view('dashboard/admin/transaksi/jasa', $data);
 	}

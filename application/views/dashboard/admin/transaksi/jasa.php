@@ -82,15 +82,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-lg-7 col-12">
-									<input type="search" class="form-control mt-3 mb-3" placeholder="Cari produk berdasarkan nama">
-									<div class="row mb-5">
-										<div class="col">
-											<?php foreach ($kategories as $kategori) : ?>
-												<button class="btn btn-primary text-capitalize mr-2"><?= $kategori['nama_kategori'] ?></button>
-											<?php endforeach; ?>
-										</div>
-									</div>
-									<div style="height: 300px; overflow-x: hidden; overflow-y: scroll;">
+									<div style="height: 470px; overflow-x: hidden; overflow-y: scroll;">
 										<div class="row">
 											<?php if (!empty($produks)) { ?>
 												<?php foreach ($produks as $produk) : ?>
@@ -100,7 +92,7 @@
 																<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
 																<span class="text-capitalize font-weight-bold"><?= $produk['nama_produk'] ?></span><br>
 																<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
-																<small><?= $produk['harga'] ?? "Rp -" ?></small>
+																<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?></small>
 															</div>
 														</a>
 													</div>

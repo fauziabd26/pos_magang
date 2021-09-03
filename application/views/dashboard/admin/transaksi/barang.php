@@ -82,33 +82,35 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-lg-7 col-12">
-									<input type="search" class="form-control mt-3 mb-3" placeholder="Cari produk berdasarkan nama">
+									<!-- <input type="search" class="form-control mt-3 mb-3" placeholder="Cari produk berdasarkan nama">
 									<div class="row mb-5">
 										<div class="col">
 											<?php foreach ($kategories as $kategori) : ?>
 												<button class="btn btn-primary text-capitalize mr-2"><?= $kategori['nama_kategori'] ?></button>
 											<?php endforeach; ?>
 										</div>
-									</div>
-									<div style="height: 300px; overflow-x: hidden; overflow-y: scroll;">
+									</div> -->
+									<div style="height: 470px; overflow-x: hidden; overflow-y: scroll;">
 										<div class="row">
-										<?php if (!empty($produks)) { ?>
+											<?php if (!empty($produks)) { ?>
 												<?php foreach ($produks as $produk) : ?>
 													<div class="col-md-6 col-lg-3 col-12">
-														<a href="#" style="text-decoration: none;" class="card card-primary">
-															<div class="card-body">
-																<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
-																<span class="text-capitalize font-weight-bold"><?= $produk['nama_produk'] ?></span><br>
-																<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
-																<small><?= $produk['harga'] ?? "Rp -" ?></small>
-															</div>
-														</a>
+														<form action="<?= base_url('admin/tambah_transaksi/' . $produk['id_harga']) ?>" method="POST">
+															<button style="text-decoration: none;" class="card card-primary">
+																<div class="card-body">
+																	<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
+																	<span class="text-capitalize font-weight-bold"><?= $produk['nama_produk'] ?></span><br>
+																	<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
+																	<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?></small>
+																</div>
+															</button>
+														</form>
 													</div>
 												<?php endforeach; ?>
 											<?php } else { ?>
 												<div class="col">
 													<div class="card">
-														<p class="text-center">Tidak Ada Produk Dengan Jenis Jasa</p>
+														<p class="text-center">Tidak Ada Produk Dengan Jenis Barang</p>
 													</div>
 												</div>
 											<?php } ?>
@@ -127,36 +129,21 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>Kemaja Flannel</td>
-												<td>1</td>
-												<td>Rp 50.000</td>
-												<td>Rp 50.000</td>
-											</tr>
-											<tr>
-												<td>Kemaja Basic</td>
-												<td>2</td>
-												<td>Rp 50.000</td>
-												<td>Rp 100.000</td>
-											</tr>
-											<tr>
-												<td>Kemaja Basic</td>
-												<td>2</td>
-												<td>Rp 50.000</td>
-												<td>Rp 100.000</td>
-											</tr>
-											<tr>
-												<td>Kemaja Basic</td>
-												<td>2</td>
-												<td>Rp 50.000</td>
-												<td>Rp 100.000</td>
-											</tr>
-											<tr>
-												<td>Kemaja Basic</td>
-												<td>2</td>
-												<td>Rp 50.000</td>
-												<td>Rp 100.000</td>
-											</tr>
+											<?php if (!empty($transaksi)) { ?>
+												<?php
+												foreach ($transaksi_details as $row) : ?>
+													<tr>
+														<td><?= $row['nama_produk'] ?? "-" ?></td>
+														<td><?= $row['qty'] ?? "-" ?></td>
+														<td><?= $row['harga_produk'] ?? "-" ?></td>
+														<td><?= $row['subtotal'] ?? "-" ?></td>
+													</tr>
+												<?php endforeach; ?>
+											<?php } else { ?>
+												<tr>
+													<td colspan="4" class="text-center">Tidak Ada Barang Yang Dimasukan</td>
+												</tr>
+											<?php } ?>
 										</tbody>
 									</table>
 									<!-- </div> -->
@@ -165,7 +152,7 @@
 											<div class="form-group row">
 												<label class="col-5 col-form-label">Nama Customer :</label>
 												<div class="col-7">
-													<input class="form-control bg-white text-right">
+													<input class="form-control bg-white text-right" value="<?= set_value('nama') ?>">
 												</div>
 											</div>
 										</div>
@@ -173,7 +160,7 @@
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Total :</label>
 												<div class="col-8">
-													<input class="form-control text-right bg-white" value="Rp 500.000" disabled>
+													<input class="form-control text-right bg-white" value="<?= $transaksi_details['subtotal'] ?? "-" ?>" disabled>
 												</div>
 											</div>
 										</div>
@@ -183,6 +170,7 @@
 											<div class="form-group row">
 												<label class="col-8 col-form-label">Jml Item :</label>
 												<div class="col-4">
+													<!-- SUM QTY -->
 													<input class="form-control bg-white text-right" value="3" disabled>
 												</div>
 											</div>
@@ -200,7 +188,8 @@
 										<div class="form-group row">
 											<label class="col col-form-label">Jumlah Yang Harus Dibayar :</label>
 											<div class="col">
-												<input class="form-control text-right bg-white" value="Rp 500.000" disabled>
+												<!-- total di tabel transaksi -->
+												<input class="form-control text-right bg-white" value="<?= $transaksi['total'] ?? '-' ?>" disabled>
 											</div>
 										</div>
 									</div>
