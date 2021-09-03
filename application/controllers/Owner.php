@@ -249,7 +249,7 @@ class Owner extends CI_Controller
 	// Bagian Jasa
 	public function index_jasa()
 	{
-		$getAPI = file_get_contents('http://api.etoko.xyz/produk/jasa');
+		$getAPI = $this->curl->simple_get($this->api . 'api');
 		$datas = json_decode($getAPI, true);
 
 		$data = array('jasas' => $datas["data"]);
@@ -330,14 +330,97 @@ class Owner extends CI_Controller
 	//Bagian Harga
 	public function index_harga()
 	{
-		$getAPI = file_get_contents('json/owner/harga/read.json');
+		$getAPI = $this->curl->simple_get($this->api . 'harga');
 		$datas = json_decode($getAPI, true);
 
 		$data = array('hargas' => $datas["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/harga/index', $data);
 	}
+	public function harga_tambah()
+	{
+		$getAPI = $this->curl->simple_get($this->api . 'produk/barang');
+		$datas = json_decode($getAPI, true);
 
+		$data = array('produks' => $datas["data"]);
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/harga/tambah', $data);
+	}
+
+	public function proses_tambah_harga()
+	{
+		$data = array(
+			'nama_harga' =>  ucwords($_POST['nama_harga']),
+			'nominal' =>  ucfirst($_POST['nominal']),
+			'id_produk' => ucfirst($_POST['id_produk'])
+		);
+		$insert = $this->curl->simple_post($this->api . 'Harga', $data, array(CURLOPT_BUFFERSIZE => 10));
+		if ($insert) {
+			$this->session->set_flashdata('success-create', "Data Toko <b>" . $_POST['nama_harga'] . "</b> Berhasil Disimpan !");
+		} else {
+			$this->session->set_flashdata('info', 'data gagal disimpan.');
+		}
+		redirect('owner/index_harga');
+	}
+
+	public function harga_edit($id_harga)
+	{
+
+		$getAPI 		= $this->curl->simple_get($this->api . 'harga/' . $id_harga);
+		$getAPIProduk 	= $this->curl->simple_get($this->api . 'produk/barang');
+		$datas 			= json_decode($getAPI, true);
+		$datasProduk = json_decode($getAPIProduk, true);
+
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Harga!'); 
+			window.location.href = '" . base_url('owner/index_harga') . "'; </script>";
+		} else {
+			if ($datas['data']['id_harga'] == $id_harga) {
+				$value = array(
+					'id_harga' 		=> $datas['data']["id_harga"],
+					'nama_harga' 	=> $datas['data']["nama_harga"],
+					'nominal' 		=> $datas['data']["nominal"],
+					'id_produk' 	=> $datas['data']["id_produk"],
+				);
+			}
+		}
+		$data['harga'] = $value;
+		$data['produks'] = $datasProduk['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/harga/edit', $data);
+	}
+
+	public function proses_edit_harga($id_harga)
+	{
+		$data = array(
+			'id_harga' =>  $id_harga,
+			'nama_harga' =>  ucwords($_POST['nama_harga']),
+			'nominal' => $_POST['nominal'],
+			'id_produk' => $_POST['id_produk']
+		);
+		$update = $this->curl->simple_put($this->api . 'harga', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		if ($update) {
+			$this->session->set_flashdata('success-edit', "Data Harga <b>" . $_POST['nama_harga'] . "</b> Berhasil Diedit !");
+		} else {
+			$this->session->set_flashdata('info', 'Data Gagal diubah');
+		}
+		redirect('owner/index_harga');
+	}
+
+	public function harga_hapus($id_harga)
+	{
+		if (empty($id_harga)) {
+			redirect('owner/index_harga');
+		} else {
+			$delete = $this->curl->simple_delete($this->api . 'harga', array('id_harga' => $id_harga), array(CURLOPT_BUFFERSIZE => 10));
+			if ($delete) {
+				$this->session->set_flashdata('success-delete', "Data Harga Terhapus !");
+			} else {
+				$this->session->set_flashdata('info', 'Data Gagal dihapus');
+			}
+			redirect('owner/index_harga');
+		}
+	}
 	//Bagian Kategori
 	public function index_kategori()
 	{
@@ -407,14 +490,103 @@ class Owner extends CI_Controller
 	//Bagian Satuan
 	public function index_satuan()
 	{
-		$getAPI = file_get_contents('json/owner/satuan/read.json');
+		$getAPI = $this->curl->simple_get($this->api . 'satuan');
 		$datas = json_decode($getAPI, true);
 
 		$data['satuans'] = $datas['data'];
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/index', $data);
 	}
+	public function satuan_tambah()
+	{
+		$getAPI = $this->curl->simple_get($this->api . 'produk/barang');
+		$getAPIToko = $this->curl->simple_get($this->api . 'toko');
+		$datas = json_decode($getAPI, true);
+		$datasToko = json_decode($getAPIToko, true);
 
+		$data = array('produks' => $datas["data"]);
+		$data['tokos'] = $datasToko['data'];
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/tambah', $data);
+	}
+
+	public function proses_tambah_satuan()
+	{
+		$data = array(
+			'nama_satuan' =>  ucwords($_POST['nama_satuan']),
+			'id_toko' =>  ucfirst($_POST['id_toko']),
+			'id_produk' => ucfirst($_POST['id_produk'])
+		);
+		$insert = $this->curl->simple_post($this->api . 'satuan', $data, array(CURLOPT_BUFFERSIZE => 10));
+		if ($insert) {
+			$this->session->set_flashdata('success-create', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Disimpan !");
+		} else {
+			$this->session->set_flashdata('info', 'data gagal disimpan.');
+		}
+		redirect('owner/index_satuan');
+	}
+
+	public function satuan_edit($id_satuan)
+	{
+
+		$getAPI 		= $this->curl->simple_get($this->api . 'satuan/' . $id_satuan);
+		$getAPIProduk 	= $this->curl->simple_get($this->api . 'produk/barang');
+		$getAPIToko 	= $this->curl->simple_get($this->api . 'toko');
+		$datas 			= json_decode($getAPI, true);
+		$datasProduk 	= json_decode($getAPIProduk, true);
+		$datasToko 		= json_decode($getAPIToko, true);
+
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Satuan!'); 
+			window.location.href = '" . base_url('owner/index_satuan') . "'; </script>";
+		} else {
+			if ($datas['data']['id_satuan'] == $id_satuan) {
+				$value = array(
+					'id_satuan' 	=> $datas['data']["id_satuan"],
+					'nama_satuan' 	=> $datas['data']["nama_satuan"],
+					'id_toko' 		=> $datas['data']["id_toko"],
+					'id_produk' 	=> $datas['data']["id_produk"],
+				);
+			}
+		}
+		$data['satuan'] = $value;
+		$data['produks'] = $datasProduk['data'];
+		$data['tokos'] = $datasToko['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/edit', $data);
+	}
+
+	public function proses_edit_satuan($id_satuan)
+	{
+		$data = array(
+			'id_satuan' =>  $id_satuan,
+			'nama_satuan' =>  ucwords($_POST['nama_satuan']),
+			'id_toko' => $_POST['id_toko'],
+			'id_produk' => $_POST['id_produk']
+		);
+		$update = $this->curl->simple_put($this->api . 'satuan', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		if ($update) {
+			$this->session->set_flashdata('success-edit', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Diedit !");
+		} else {
+			$this->session->set_flashdata('info', 'Data Gagal diubah');
+		}
+		redirect('owner/index_satuan');
+	}
+
+	public function satuan_hapus($id_satuan)
+	{
+		if (empty($id_satuan)) {
+			redirect('owner/index_satuan');
+		} else {
+			$delete = $this->curl->simple_delete($this->api . 'satuan', array('id_satuan' => $id_satuan), array(CURLOPT_BUFFERSIZE => 10));
+			if ($delete) {
+				$this->session->set_flashdata('success-delete', "Data Satuan Terhapus !");
+			} else {
+				$this->session->set_flashdata('info', 'Data Gagal dihapus');
+			}
+			redirect('owner/index_satuan');
+		}
+	}
 	//Bagian Laporan Transaksi
 	public function index_laporan_trans()
 	{
