@@ -17,9 +17,9 @@ class Transaksi extends RestController
 	function index_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get($id_transaksi);
+			$transaksi = $this->TransaksiModel->get($id_transaksi)->row();
 		} else {
-			$transaksi =  $this->TransaksiModel->get();
+			$transaksi =  $this->TransaksiModel->get()->result();
 		}
 
 		if ($transaksi) {
@@ -40,9 +40,9 @@ class Transaksi extends RestController
 	function barang_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get_barang($id_transaksi);
+			$transaksi = $this->TransaksiModel->get_barang($id_transaksi)->row();
 		} else {
-			$transaksi =  $this->TransaksiModel->get_barang();
+			$transaksi =  $this->TransaksiModel->get_barang()->result();
 		}
 
 		if ($transaksi) {
@@ -63,9 +63,9 @@ class Transaksi extends RestController
 	function jasa_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get_jasa($id_transaksi);
+			$transaksi = $this->TransaksiModel->get_jasa($id_transaksi)->row();
 		} else {
-			$transaksi =  $this->TransaksiModel->get_jasa();
+			$transaksi =  $this->TransaksiModel->get_jasa()->result();
 		}
 
 		if ($transaksi) {
