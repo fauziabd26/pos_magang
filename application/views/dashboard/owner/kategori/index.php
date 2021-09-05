@@ -8,71 +8,77 @@
     </div>
 
 
-    <div class="section-body">
-        <div class="card">
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col">
-                        <a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
-                            <i class="fas fa-plus mr-2"></i> Tambah Data Kategori
-                        </a>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama kategori</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($kategories as $no => $kategori) : ?>
-                            <tr>
-                                <td><?php echo ++$no;?></td>
-                                <td><?= $kategori["nama_kategori"] ?></td>
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#edit-data"
-                                        class="btn btn-warning">Ubah</a>
-                                    <a href="#" data-toggle="modal" data-target="#hapus-data"
-                                        class="btn btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="section-body">
+		<div class="card">
+			<div class="card-body">
+				<div class="row mb-3">
+					<div class="col">
+						<a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
+							<i class="fas fa-plus mr-2"></i> Tambah Data Kategori
+						</a>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table id="example1" class="table table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th>No</th>
+								<th>Nama kategori</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($kategories as $no => $kategori) : ?>
+								<tr>
+									<td><?php echo ++$no; ?></td>
+									<td><?= $kategori["nama_kategori"] ?></td>
+									<td>
+										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning">Ubah</a>
+										<a href="#" data-toggle="modal" data-target="#hapus-data" class="btn btn-danger">Hapus</a>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Modal Tambah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="tambah-data" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            </div>
-            <form class="form-horizontal" action="<?php echo base_url('owner/proses_tambah_kategori') ?>" method="post"
-                enctype="multipart/form-data" role="form">
-                <div class="modal-body">
-                    <h4 class="modal-title">Tambah Data</h4>
-                    <div class="form-group">
-                        <label class="col-lg-5 col-sm-5 control-label">Nama Kategori</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="nama_kategori"
-                                placeholder="Tuliskan Nama kategori">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-                </div>
-            </form>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+			</div>
+			<form class="form-horizontal" action="<?php echo base_url('owner/proses_tambah_kategori') ?>" method="post" enctype="multipart/form-data" role="form">
+				<div class="modal-body">
+					<h4 class="modal-title">Tambah Data</h4>
+					<div class="form-group">
+						<label class="col-lg-5 col-sm-5 control-label">Nama Kategori</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" name="nama_kategori" placeholder="Tuliskan Nama kategori">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 col-sm-5 control-label">Pilih Toko</label>
+						<div class="col-lg-10">
+							<select name="id_toko" class="form-control">
+								<?php foreach ($tokos as $toko) : ?>
+									<option value="<?= $toko['id_toko'] ?>"><?= $toko['nama_toko'] ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 <!-- END Modal Tambah -->
 <!-- Modal Edit -->

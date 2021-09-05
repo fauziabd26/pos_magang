@@ -11,15 +11,18 @@ class FotoProduk extends RestController{
     }
 
     //Menampilkan data foto produk
-    function index_get(){
-        $id_foto_produk = $this->get('id_foto_produk');
-        if($id_foto_produk == ''){
-            $foto_produk =  $this->db->get('foto_produk')->result();
+    function index_get($id_foto_produk = null){
+
+        if(!empty($id_foto_produk)){
+            $foto_produk = $this->FotoProdukModel->get_index($id_foto_produk);
         }else{
-            $this->db->where('id_foto_produk', $id_foto_produk);
-            $foto_produk = $this->db->get('foto_produk')->result();
+            $foto_produk = $this->FotoProdukModel->get_index();
         }
-        $this->response($foto_produk, 200);
+        $this->response(array(
+            'status'    => true,
+            'message'   => 'Data Foto Produk Berhasil Diambil',
+            'data'      => $id_foto_produk
+        ), 200);
     }
 
     //Menambah data foto produk baru

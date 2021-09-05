@@ -11,6 +11,7 @@ class Admin extends RestController
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('AdminModel');
+		$this->load->library('form_validation');
 	}
 
 	//Menampilkan data 
@@ -32,6 +33,12 @@ class Admin extends RestController
 	//Menambah data  baru
 	function index_post()
 	{
+		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
+		$this->form_validation->set_rules('photo', 'Foto', 'required');
+
 		$data = array(
 			'nama'          => $this->post('nama'),
 			'email'         => $this->post('email'),
@@ -41,7 +48,8 @@ class Admin extends RestController
 			'role'          => "admin"
 		);
 
-		if ($this->AdminModel->save($data)) {
+		if ($this->form_validation->run() === TRUE) {
+			$this->AdminModel->save($data);
 			$this->response(array(
 				'status' => true,
 				'message' => 'Data Admin Berhasil Ditambah',
