@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // require APPPATH . '/libraries/RestController.php';
 use chriskacerguis\RestServer\RestController;
 
-class DetailTransaksi extends RestController
+class Transaksi extends RestController
 {
 	function __construct($config = 'rest')
 	{
@@ -13,21 +13,13 @@ class DetailTransaksi extends RestController
 		$this->load->model('DetailTransaksiModel');
 	}
 
-	function lastId_get(){
-	    $this->response($this->DetailTransaksiModel->lastId(),200);
-	}
-
-	function cekTransaksi_get(){
-	    $this->response($this->DetailTransaksiModel->cekTransaksi(),200);
-	}
-	
 	//Menampilkan data
 	function barang_get($id_detail_trans_produk = null)
 	{
 		if (!empty($id_detail_trans_produk)) {
-			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk)->row();
+			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk);
 		} else {
-			$detail_transaksi =  $this->DetailTransaksiModel->get_barang()->result();
+			$detail_transaksi =  $this->DetailTransaksiModel->get_barang();
 		}
 
 		$this->response(array(
@@ -73,51 +65,6 @@ class DetailTransaksi extends RestController
 			$this->response(array(
 				'status' => false,
 				'message' => 'Gagal Menambahkan Data Transaksi'
-			), 502);
-		}
-	}
-
-	function tambah_transaksi_post()
-	{
-		$dataTransaksi = array(
-			'id_user'   		=> $this->post('id_user'),
-			'jenis_transaksi'	=> 'barang',
-			'total_transaksi'   => $this->post('total_transaksi'),
-			'status'			=> $this->post('status'),
-			'tggl_transaksi'	=> $this->post('tggl_transaksi'),
-		);
-		if ($this->DetailTransaksiModel->saveTransaksi($dataTransaksi)) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Transaksi Berhasil Ditambah',
-				'data' => $dataTransaksi
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menambahkan Data  Transaksi'
-			), 502);
-		}
-	}
-
-	function tambah_detail_transaksi_post()
-	{
-		$dataDetailTransaksi = array(
-			'id_transaksi'		=> $this->post('id_transaksi'),
-			'id_harga'			=> $this->post('id_harga'),
-			'qty'   			=> $this->post('qty'),
-			'sub_total'   		=> $this->post('sub_total'),
-		);
-		if ($this->DetailTransaksiModel->save($dataDetailTransaksi)) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Detail Transaksi Berhasil Ditambah',
-				'data' => $dataDetailTransaksi
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menambahkan Data  Detail Transaksi'
 			), 502);
 		}
 	}

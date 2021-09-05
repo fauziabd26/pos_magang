@@ -95,7 +95,7 @@
 											<?php if (!empty($produks)) { ?>
 												<?php foreach ($produks as $produk) : ?>
 													<div class="col-md-6 col-lg-3 col-12">
-														<form action="<?= base_url('admin/tambah_transaksi/' . $produk['id_harga']) ?>" method="POST">
+														<form action="<?= base_url('admin/proses_tambah_transaksi_barang/' . $produk['id_harga']) ?>" method="POST">
 															<button style="text-decoration: none;" class="card card-primary">
 																<div class="card-body">
 																	<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
