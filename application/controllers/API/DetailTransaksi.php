@@ -100,6 +100,29 @@ class DetailTransaksi extends RestController
 		}
 	}
 
+	function tambah_transaksi_jasa_post()
+	{
+		$dataTransaksi = array(
+			'id_user'   		=> $this->post('id_user'),
+			'jenis_transaksi'	=> 'jasa',
+			'total_transaksi'   => $this->post('total_transaksi'),
+			'status'			=> $this->post('status'),
+			'tggl_transaksi'	=> $this->post('tggl_transaksi'),
+		);
+		if ($this->DetailTransaksiModel->saveTransaksi($dataTransaksi)) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Ditambah',
+				'data' => $dataTransaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Menambahkan Data  Transaksi'
+			), 502);
+		}
+	}
+
 	function tambah_detail_transaksi_post()
 	{
 		$dataDetailTransaksi = array(

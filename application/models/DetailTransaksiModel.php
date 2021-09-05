@@ -27,8 +27,7 @@ class DetailTransaksiModel extends CI_Model
 	{
 		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
 		$this->db->from('detail_transaksi');
-		// $this->db->where('jenis_transaksi =','jasa');
-		// $this->db->order_by('nama_cust', 'ASC');
+		$this->db->where('jenis_transaksi =','jasa');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
 			$this->db->select('id_user');
