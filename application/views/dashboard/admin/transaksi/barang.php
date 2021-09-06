@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-	<title>Transaksi Penjualan Jasa</title>
+	<title>Transaksi Penjualan Barang</title>
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -65,7 +65,7 @@
 			<div class="row justify-content-between mt-3 mr-4">
 				<ul class="ml-1">
 					<a class="btn bg-white text-primary btn-lg">
-						Transaksi Penjualan Jasa
+						Transaksi Penjualan Barang
 					</a>
 				</ul>
 				<ul class="mr-1">
@@ -95,7 +95,7 @@
 											<?php if (!empty($produks)) { ?>
 												<?php foreach ($produks as $produk) : ?>
 													<div class="col-md-6 col-lg-3 col-12">
-														<form action="<?= base_url('admin/proses_tambah_transaksi_jasa/' . $produk['id_harga']) ?>" method="POST">
+														<form action="<?= base_url('admin/proses_tambah_transaksi_barang/' . $produk['id_harga']) ?>" method="POST">
 															<button style="text-decoration: none;" class="card card-primary">
 																<div class="card-body">
 																	<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
@@ -110,7 +110,7 @@
 											<?php } else { ?>
 												<div class="col">
 													<div class="card">
-														<p class="text-center">Tidak Ada Produk Dengan Jenis Jasa</p>
+														<p class="text-center">Tidak Ada Produk Dengan Jenis Barang</p>
 													</div>
 												</div>
 											<?php } ?>

@@ -16,7 +16,8 @@ class SatuanModel extends CI_Model{
     }
 
     //Menampilkan Data Satuan
-    public function get($id_satuan = null){
+    public function get($id_satuan = null)
+    {
         $this->db->select('id_satuan, nama_satuan, id_produk');
         $this->db->from('satuan');
         $this->db->order_by('nama_satuan','ASC');
@@ -24,7 +25,7 @@ class SatuanModel extends CI_Model{
             $this->db->where('id_satuan', $id_satuan);
             $this->db->select('id_produk');
         }
-        return $this->db->get()->result();
+        return $this->db->get();
     }
 
     //Simpan data satuan
@@ -48,6 +49,6 @@ class SatuanModel extends CI_Model{
     //hapus data mahasiswa
     public function delete($id_satuan)
     {
-        return $this->db->delete($this->table, array("id_satuan" => $id_harga));
+        return $this->db->delete($this->table, array("id_satuan" => $id_satuan));
     }
 }

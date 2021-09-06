@@ -4,31 +4,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // require APPPATH . '/libraries/RestController.php';
 use chriskacerguis\RestServer\RestController;
 
-class DetailTransaksi extends RestController
+class Transaksi extends RestController
 {
 	function __construct($config = 'rest')
 	{
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('DetailTransaksiModel');
-		$this->load->model('HargaModel');
 	}
 
-	function lastId_get(){
-	    $this->response($this->DetailTransaksiModel->lastId(),200);
-	}
-
-	function cekTransaksi_get(){
-	    $this->response($this->DetailTransaksiModel->cekTransaksi(),200);
-	}
-	
 	//Menampilkan data
-	function index_get($id_detail_trans_produk = null)
+	function barang_get($id_detail_trans_produk = null)
 	{
 		if (!empty($id_detail_trans_produk)) {
-			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk)->row();
+			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk);
 		} else {
-			$detail_transaksi =  $this->DetailTransaksiModel->get_barang()->result();
+			$detail_transaksi =  $this->DetailTransaksiModel->get_barang();
 		}
 
 		$this->response(array(
@@ -56,17 +47,15 @@ class DetailTransaksi extends RestController
 	//Menambah data baru barang
 	function index_post()
 	{
-		$data['sub_total'] = $this->DetailTransaksiModel->hitungSubTotal();
-		// $sub_total = $this->ProdukModel->
 		$data = array(
 			'sub_total'         => $this->post('sub_total'),
 			'qty'               => $this->post('qty'),
 			'id_user'           => $this->post('id_user'),
-			'id_harga'         => $this->post('id_harga'),
+			'id_produk'         => $this->post('id_produk'),
 			'id_transaksi'      => $this->post('id_transaksi'),
 		);
 
-		if ($this->DetailTransaksiModel->save($data)) {
+		if ($this->TransaksiModel->save($data)) {
 			$this->response(array(
 				'status' => true,
 				'message' => 'Data Transaksi Berhasil Ditambah',
@@ -76,74 +65,6 @@ class DetailTransaksi extends RestController
 			$this->response(array(
 				'status' => false,
 				'message' => 'Gagal Menambahkan Data Transaksi'
-			), 502);
-		}
-	}
-
-	function tambah_transaksi_post()
-	{
-		$dataTransaksi = array(
-			'id_user'   		=> $this->post('id_user'),
-			'jenis_transaksi'	=> 'barang',
-			'total_transaksi'   => $this->post('total_transaksi'),
-			'status'			=> $this->post('status'),
-			'tggl_transaksi'	=> $this->post('tggl_transaksi'),
-		);
-		if ($this->DetailTransaksiModel->saveTransaksi($dataTransaksi)) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Transaksi Berhasil Ditambah',
-				'data' => $dataTransaksi
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menambahkan Data  Transaksi'
-			), 502);
-		}
-	}
-
-	function tambah_transaksi_jasa_post()
-	{
-		$dataTransaksi = array(
-			'id_user'   		=> $this->post('id_user'),
-			'jenis_transaksi'	=> 'jasa',
-			'total_transaksi'   => $this->post('total_transaksi'),
-			'status'			=> $this->post('status'),
-			'tggl_transaksi'	=> $this->post('tggl_transaksi'),
-		);
-		if ($this->DetailTransaksiModel->saveTransaksi($dataTransaksi)) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Transaksi Berhasil Ditambah',
-				'data' => $dataTransaksi
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menambahkan Data  Transaksi'
-			), 502);
-		}
-	}
-
-	function tambah_detail_transaksi_post()
-	{
-		$dataDetailTransaksi = array(
-			'id_transaksi'		=> $this->post('id_transaksi'),
-			'id_harga'			=> $this->post('id_harga'),
-			'qty'   			=> $this->post('qty'),
-			'sub_total'   		=> $this->post('sub_total'),
-		);
-		if ($this->DetailTransaksiModel->save($dataDetailTransaksi)) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Detail Transaksi Berhasil Ditambah',
-				'data' => $dataDetailTransaksi
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menambahkan Data  Detail Transaksi'
 			), 502);
 		}
 	}
