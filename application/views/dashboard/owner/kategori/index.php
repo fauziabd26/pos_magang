@@ -1,11 +1,11 @@
 <section class="section">
-	<div class="section-header">
-		<h1>Kategori</h1>
-		<div class="section-header-breadcrumb">
-			<div class="breadcrumb-item active"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item">Kategori</div>
-		</div>
-	</div>
+    <div class="section-header">
+        <h1>Kategori</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></div>
+            <div class="breadcrumb-item">Kategori</div>
+        </div>
+    </div>
 	<div class="section-body">
 		<div class="card">
 			<div class="card-body">
@@ -100,28 +100,30 @@
 <!-- END Modal Tambah -->
 <!-- Modal Edit -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-			</div>
-			<form class="form-horizontal" action="<?php echo base_url('admin/tambah') ?>" method="post" enctype="multipart/form-data" role="form">
-				<div class="modal-body">
-					<h4 class="modal-title">Edit Data</h4>
-					<div class="form-group">
-						<label class="col-lg-5 col-sm-5 control-label">Nama Kategori</label>
-						<div class="col-lg-10">
-							<input type="text" class="form-control" id="nama_kategori" name="nama" value="<?= $kategori["nama_kategori"] ?>">
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
-					<button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-				</div>
-			</form>
-		</div>
-	</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+            <form class="form-horizontal" action="<?php echo base_url('admin/tambah') ?>" method="post"
+                enctype="multipart/form-data" role="form">
+                <div class="modal-body">
+                    <h4 class="modal-title">Edit Data</h4>
+                    <div class="form-group">
+                        <label class="col-lg-5 col-sm-5 control-label">Nama Kategori</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="nama_kategori" name="nama"
+                                value="<?= $kategori["nama_kategori"] ?>">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- END Modal edit -->
 <!-- Modal Hapus -->
