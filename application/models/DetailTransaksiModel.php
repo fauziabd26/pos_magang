@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class TransaksiModel extends CI_Model
+class DetailTransaksiModel extends CI_Model
 {
 	private $table = 'detail_trans_produk';
 
@@ -38,9 +38,9 @@ class TransaksiModel extends CI_Model
 	}
 
 	//Menampilkan Data 
-	public function get_barang($id_detail_trans_produk = null)
+	public function get_index($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_harga, id_transaksi');
 		$this->db->from('detail_trans_produk');
         // $this->db->where('jenis_transaksi =','barang');
 		// $this->db->order_by('nama_cust', 'ASC');
@@ -51,18 +51,20 @@ class TransaksiModel extends CI_Model
 		return $this->db->get()->result();
 	}
 
-    public function get_jasa($id_detail_trans_produk = null)
-	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
-		$this->db->from('detail_transaksi');
-        // $this->db->where('jenis_transaksi =','jasa');
-		// $this->db->order_by('nama_cust', 'ASC');
-		if ($id_detail_trans_produk != null) {
-			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
-			$this->db->select('id_user');
-		}
-		return $this->db->get()->result();
-	}
+	// public function hitungSubTotal()
+	// {
+	// 	$this->db->HargaModel->id_harga('harga');
+	// 	$this->db->select_sum('qty');
+	// 	$query = $this->db->get('DetailTransaksi');
+	// 	if($query->num_rows()>0)
+	// 	{
+	// 		return $query->row()->qty;
+	// 	}
+	// 	else
+	// 	{
+	// 		return 0;
+	// 	}
+	// }
 
 	//Simpan Data 
 	public function save($data)

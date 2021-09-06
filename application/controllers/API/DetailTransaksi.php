@@ -4,37 +4,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // require APPPATH . '/libraries/RestController.php';
 use chriskacerguis\RestServer\RestController;
 
-class Transaksi extends RestController
+class DetailTransaksi extends RestController
 {
 	function __construct($config = 'rest')
 	{
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('DetailTransaksiModel');
+		$this->load->model('HargaModel');
 	}
 
 	//Menampilkan data
-	function barang_get($id_detail_trans_produk = null)
+	function index_get($id_detail_trans_produk = null)
 	{
 		if (!empty($id_detail_trans_produk)) {
-			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk);
+			$detail_transaksi = $this->DetailTransaksiModel->get_index($id_detail_trans_produk);
 		} else {
-			$detail_transaksi =  $this->DetailTransaksiModel->get_barang();
-		}
-
-		$this->response(array(
-			'status' => true,
-			'message' => 'Data Detail Transaksi Berhasil Diambil',
-			'data' => $detail_transaksi
-		), 200);
-	}
-
-    function jasa_get($id_detail_trans_produk = null)
-	{
-		if (!empty($id_detail_trans_produk)) {
-			$detail_transaksi = $this->DetailTransaksiModel->get_jasa($id_detail_trans_produk);
-		} else {
-			$detail_transaksi =  $this->DetailTransaksiModel->get_jasa();
+			$detail_transaksi =  $this->DetailTransaksiModel->get_index();
 		}
 
 		$this->response(array(
@@ -47,15 +33,17 @@ class Transaksi extends RestController
 	//Menambah data baru barang
 	function index_post()
 	{
+		$data['sub_total'] = $this->DetailTransaksiModel->hitungSubTotal();
+		// $sub_total = $this->ProdukModel->
 		$data = array(
 			'sub_total'         => $this->post('sub_total'),
 			'qty'               => $this->post('qty'),
 			'id_user'           => $this->post('id_user'),
-			'id_produk'         => $this->post('id_produk'),
+			'id_harga'         => $this->post('id_harga'),
 			'id_transaksi'      => $this->post('id_transaksi'),
 		);
 
-		if ($this->TransaksiModel->save($data)) {
+		if ($this->DetailTransaksiModel->save($data)) {
 			$this->response(array(
 				'status' => true,
 				'message' => 'Data Transaksi Berhasil Ditambah',
