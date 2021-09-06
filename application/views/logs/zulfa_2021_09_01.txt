@@ -1,0 +1,2 @@
+Jam 09-12 : memperbaiki error apikey dan signature
+Jam 13-16 : mencari referensi apikey

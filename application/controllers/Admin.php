@@ -46,31 +46,133 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Barang
 	public function transaksi_barang()
 	{
-		$getAPIBarang = $this->curl->simple_get($this->api . 'produk/barang');
-		$datasBarang = json_decode($getAPIBarang, true);
+		$getAPI = $this->curl->simple_get($this->api . 'harga');
+		$datas = json_decode($getAPI, true);
 
-		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
-		$datasKategori = json_decode($getAPIKategori, true);
-
-		$data['produks'] = $datasBarang['data'];
-		$data['kategories'] = $datasKategori['data'];
+		$data['produks'] = array_filter($datas['data'], function ($value) {
+			return $value['jenis'] == 'barang';
+		});
 
 		$this->load->view('dashboard/admin/transaksi/barang', $data);
+	}
+
+	public function proses_tambah_transaksi_barang($id_harga)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		$now = date('Y-m-d H:i:s');
+
+		$getAPI = $this->curl->simple_get($this->api . 'harga/' . $id_harga);
+		$datas = json_decode($getAPI, true);
+
+		if ($datas['data']['id_harga'] == $id_harga) {
+			$value = array(
+				'id_produk' => $datas['data']["id_produk"],
+				'nama_produk' => $datas['data']["nama_produk"],
+				'nominal' => $datas['data']["nominal"],
+			);
+		}
+
+		// $getAPITransaksi = $this->curl->simple_get($this->api . 'transaksi/barang');
+		// $datasTransaksi = json_decode($getAPITransaksi, true);
+		// foreach ($datasTransaksi["data"] as $value) {
+		// 	$value= array(
+		// 		'id_user' 	=> $this->session->userdata('id_user'),
+		// 		'status' 	=> 0,
+		// 	);
+		// }
+
+		// foreach ($datasTransaksi['data'] as $row) {
+		// 	if ($row['id_user'] == $this->session->userdata('id_user') && $row['status'] == 0) {
+		// 		echo 't';
+		// 	}
+		// }
+
+		$dataTransaksi = array(
+			'id_user'			=> $this->session->userdata('id_user'),
+			'total_transaksi'   => 0,
+			'status'   			=> 0,
+			'tggl_transaksi'	=> $now,
+		);
+		$this->curl->simple_post($this->api . 'DetailTransaksi/tambah_transaksi', $dataTransaksi, array(CURLOPT_BUFFERSIZE => 10));
+
+		$id_transaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
+		$data = json_decode($id_transaksi, true);
+
+		$dataDetailTransaksi = array(
+			'id_transaksi'		=> $data['id_transaksi'],
+			'id_harga'			=> $id_harga,
+			'qty'   			=> 1,
+			'sub_total'   		=> $value['nominal'] * 1,
+		);
+
+		$this->curl->simple_post($this->api . 'DetailTransaksi/tambah_detail_transaksi', $dataDetailTransaksi, array(CURLOPT_BUFFERSIZE => 10));
+		redirect('admin/transaksi_barang');
 	}
 
 	// Bagian Transaksi Jasa
 	public function transaksi_jasa()
 	{
-		$getAPIJasa = $this->curl->simple_get($this->api . 'produk/jasa');
-		$datasJasa = json_decode($getAPIJasa, true);
+		$getAPI = $this->curl->simple_get($this->api . 'harga');
+		$datas = json_decode($getAPI, true);
 
-		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
-		$datasKategori = json_decode($getAPIKategori, true);
-
-		$data['produks'] = $datasJasa['data'];
-		$data['kategories'] = $datasKategori['data'];
+		$data['produks'] = array_filter($datas['data'], function ($value) {
+			return $value['jenis'] == 'jasa';
+		});
 
 		$this->load->view('dashboard/admin/transaksi/jasa', $data);
+	}
+
+	public function tambah_transaksi_jasa($id_harga)
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		$now = date('Y-m-d H:i:s');
+
+		$getAPI = $this->curl->simple_get($this->api . 'harga/' . $id_harga);
+		$datas = json_decode($getAPI, true);
+
+		if ($datas['data']['id_harga'] == $id_harga) {
+			$value = array(
+				'id_produk' => $datas['data']["id_produk"],
+				'nama_produk' => $datas['data']["nama_produk"],
+				'nominal' => $datas['data']["nominal"],
+			);
+		}
+
+		// $getAPITransaksi = $this->curl->simple_get($this->api . 'transaksi/barang');
+		// $datasTransaksi = json_decode($getAPITransaksi, true);
+		// foreach ($datasTransaksi["data"] as $value) {
+		// 	$value= array(
+		// 		'id_user' 	=> $this->session->userdata('id_user'),
+		// 		'status' 	=> 0,
+		// 	);
+		// }
+
+		// foreach ($datasTransaksi['data'] as $row) {
+		// 	if ($row['id_user'] == $this->session->userdata('id_user') && $row['status'] == 0) {
+		// 		echo 't';
+		// 	}
+		// }
+
+		$dataTransaksi = array(
+			'id_user'			=> $this->session->userdata('id_user'),
+			'total_transaksi'   => 0,
+			'status'   			=> 0,
+			'tggl_transaksi'	=> $now,
+		);
+		$this->curl->simple_post($this->api . 'DetailTransaksi/tambah_transaksi_jasa', $dataTransaksi, array(CURLOPT_BUFFERSIZE => 10));
+
+		$id_transaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
+		$data = json_decode($id_transaksi, true);
+
+		$dataDetailTransaksi = array(
+			'id_transaksi'		=> $data['id_transaksi'],
+			'id_harga'			=> $id_harga,
+			'qty'   			=> 1,
+			'sub_total'   		=> $value['nominal'] * 1,
+		);
+
+		$this->curl->simple_post($this->api . 'DetailTransaksi/tambah_detail_transaksi', $dataDetailTransaksi, array(CURLOPT_BUFFERSIZE => 10));
+		redirect('admin/transaksi_jasa');
 	}
 
 	// Bagian Histori

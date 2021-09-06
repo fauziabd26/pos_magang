@@ -89,24 +89,25 @@ class Owner extends CI_Controller
 
 	public function admin_edit($id_user)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'admin');
+		$getAPI = $this->curl->simple_get($this->api . 'admin/' . $id_user);
 		$datas = json_decode($getAPI, true);
 
-		foreach ($datas['data'] as $row) {
-			if ($row['id_user'] == $id_user) {
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Toko!'); 
+			window.location.href = '" . base_url('owner/admin') . "'; </script>";
+		} else {
+			if ($datas['data']['id_user'] == $id_user) {
 				$value = array(
-					'id_user' => $row["id_user"],
-					'nama' => $row["nama"],
-					'email' => $row["email"],
-					'no_hp' => $row["no_hp"],
-					'photo' => $row["photo"],
+					'id_user' => $datas['data']["id_user"],
+					'nama' => $datas['data']["nama"],
+					'email' => $datas['data']["email"],
+					'no_hp' => $datas['data']["no_hp"],
+					'photo' => $datas['data']["photo"],
 				);
 			}
+			$data['admin'] = $value;
+			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 		}
-
-		$data['admin'] = $value;
-
-		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 	}
 
 	public function proses_edit_admin($id_user)
@@ -434,34 +435,136 @@ class Owner extends CI_Controller
 	//Bagian Kategori
 	public function index_kategori()
 	{
-		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
-		$datasKategori = json_decode($getAPIKategori, true);
+		// $getAPIKategori = $this->curl->simple_get($this->api . 'kategori');
+		// $datasKategori = json_decode($getAPIKategori, true);
 
-		$getAPIToko = $this->curl->simple_get($this->api . 'toko');
-		$datasToko = json_decode($getAPIToko, true);
+		// $getAPIToko = $this->curl->simple_get($this->api . 'toko');
+		// $datasToko = json_decode($getAPIToko, true);
 
-		$data['kategories'] = $datasKategori["data"];
-		$data['tokos'] = $datasToko["data"];
+		// $data['kategories'] = $datasKategori["data"];
+		// $data['tokos'] = $datasToko["data"];
 
-		// var_dump($datasToko["data"]);
 
-		$this->template->load('layouts/owner/master', 'dashboard/owner/kategori/index', $data);
+		// $this->template->load('layouts/owner/master', 'dashboard/owner/kategori/index', $data);
+
+		$curlKategori = curl_init();
+		$curlToko = curl_init();
+
+		curl_setopt_array($curlKategori, array(
+			CURLOPT_URL => "https://api.etoko.xyz/kategori",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_HTTPHEADER => array(
+				'x-apikey : $2y$10$kvfxRLwEQOuysqEyzYmcwuVmv/dzqtp4IbSg0QRHkIiSXy65BKsC2',
+				'x-signature : 8c220754d1b7f3dad83f4184da4c58a7e1df9a00'
+			),
+		));
+
+		curl_setopt_array($curlToko, array(
+			CURLOPT_URL => "https://api.etoko.xyz/toko",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_HTTPHEADER => array(
+				'x-apikey : $2y$10$kvfxRLwEQOuysqEyzYmcwuVmv/dzqtp4IbSg0QRHkIiSXy65BKsC2',
+				'x-signature : 8c220754d1b7f3dad83f4184da4c58a7e1df9a00'
+			),
+		));
+
+		$responseKategori = curl_exec($curlKategori);
+		$responseToko = curl_exec($curlToko);
+		$errKategori = curl_error($curlKategori);
+		$errToko = curl_error($curlToko);
+
+		curl_close($curlKategori);
+		curl_close($curlToko);
+
+		if ($errKategori || $errToko) {
+			echo "cURL Error #:" . $errKategori;
+		} else {
+			// echo $response;
+			$datasKategori = json_decode($responseKategori, true);
+			$datasToko = json_decode($responseToko, true);
+
+			$data['kategories'] = $datasKategori["data"];
+			$data['tokos'] = $datasToko["data"];
+
+			$this->template->load('layouts/owner/master', 'dashboard/owner/kategori/index', $data);
+		}
 	}
 
 	public function proses_tambah_kategori()
 	{
-		$data = array(
-			'nama_kategori' =>  ucwords($_POST['nama_kategori']),
-			'id_toko' =>  $_POST['id_toko'],
-		);
-		var_dump($data);
-		$insert = $this->curl->simple_post($this->api . 'kategori', $data, array(CURLOPT_BUFFERSIZE => 10));
-		if ($insert) {
-			$this->session->set_flashdata('success-create', "Data Kategori <b>" . $_POST['nama_kategori'] . "</b> Berhasil Disimpan !");
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => "https://api.etoko.xyz/kategori",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_HTTPHEADER => array(
+				'x-apikey : $2y$10$kvfxRLwEQOuysqEyzYmcwuVmv/dzqtp4IbSg0QRHkIiSXy65BKsC2',
+				'x-signature : 8c220754d1b7f3dad83f4184da4c58a7e1df9a00'
+			),
+			CURLOPT_POSTFIELDS =>  array(
+				'nama_kategori' =>  ucwords($_POST['nama_kategori']),
+				'id_toko' =>  $_POST['id_toko'],
+			),
+		));
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+
+		curl_close($curl);
+
+		if ($err) {
+			echo "cURL Error #:" . $err;
 		} else {
-			$this->session->set_flashdata('info', 'data gagal disimpan.');
+			echo $response;
 		}
-		redirect('owner/index_kategori');
+	}
+
+	public function proses_hapus_kategori($id_kategori)
+	{
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => "https://api.etoko.xyz/kategori" . $id_kategori,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'DELETE',
+			CURLOPT_HTTPHEADER => array(
+				'x-apikey : $2y$10$kvfxRLwEQOuysqEyzYmcwuVmv/dzqtp4IbSg0QRHkIiSXy65BKsC2',
+				'x-signature : 8c220754d1b7f3dad83f4184da4c58a7e1df9a00'
+			),
+			CURLOPT_POSTFIELDS =>  array(
+				'id_kategori' =>  $id_kategori,
+			),
+		));
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+
+		curl_close($curl);
+		if ($response) {
+			$this->session->set_flashdata('success', "Data Kategori Terhapus !");
+			redirect('owner/index_kategori');
+		} else {
+			echo "cURL Error #:" . $err;
+		}
 	}
 
 	public function kategori_edit($id_toko)

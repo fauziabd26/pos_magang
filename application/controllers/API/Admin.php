@@ -15,19 +15,26 @@ class Admin extends RestController
 	}
 
 	//Menampilkan data 
-	function index_get($id_user = null)
+	function index_get($id_admin = null)
 	{
-		if (!empty($id_user)) {
-			$admin = $this->AdminModel->get($id_user);
+		if (!empty($id_admin)) {
+			$data = $this->AdminModel->get($id_admin)->row();
 		} else {
-			$admin =  $this->AdminModel->get();
+			$data =  $this->AdminModel->get()->result();
 		}
 
-		$this->response(array(
-			'status' => true,
-			'message' => 'Data Admin Berhasil Diambil',
-			'data' => $admin
-		), 200);
+		if ($data) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Admin Berhasil Diambil',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Admin Tidak Ada',
+			), 404);
+		}
 	}
 
 	//Menambah data  baru
