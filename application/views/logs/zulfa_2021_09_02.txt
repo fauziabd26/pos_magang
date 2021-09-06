@@ -1,0 +1,2 @@
+Jam 09-12 : memperbaiki error transaksi pada kasir
+Jam 13-16 : memperbaiki error apikey

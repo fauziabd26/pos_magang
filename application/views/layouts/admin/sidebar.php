@@ -20,7 +20,7 @@
 			</li> -->
 			<li class="menu-header">Transaksi POS</li>
 			<li <?= $this->uri->segment(2) == 'transaksi_produk' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('admin/transaksi_produk') ?>">
+				<a class="nav-link" href="<?= base_url('admin/transaksi_barang') ?>">
 					<i class="fas fa-cash-register"></i> <span>Produk</span>
 				</a>
 			</li>

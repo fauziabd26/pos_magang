@@ -1,67 +1,38 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class TransaksiModel extends CI_Model
+class DetailTransaksiModel extends CI_Model
 {
 	private $table = 'detail_trans_produk';
 
-	//validasi form, method ini akan mengembalikan data berupa rules validasi form
-	public function rules()
+	//Menampilkan Data 
+	public function lastId()
 	{
-		return [
-			[
-				'field' => 'nama_toko', //samakan dengan atribut name pada tags input
-				'label' => 'Nama Toko', //label yang akan ditampilkan pada pesan eror
-				'rules' => 'trim|required' //rules validasi
-			],
-			[
-				'field' => 'alamat',
-				'label' => 'Alamat',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'deskripsi_toko',
-				'label' => 'Deskripsi Toko',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'foto_toko',
-				'label' => 'Foto Toko',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'status_toko',
-				'label' => 'Status Toko',
-				'rules' => 'trim|required'
-			],
-		];
+		return $this->db->select('id_transaksi')->order_by('id_transaksi', 'DESC')->limit(1)->get('transaksi')->row();
 	}
 
-	//Menampilkan Data 
 	public function get_barang($id_detail_trans_produk = null)
 	{
 		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
 		$this->db->from('detail_trans_produk');
-        // $this->db->where('jenis_transaksi =','barang');
-		// $this->db->order_by('nama_cust', 'ASC');
+		$this->db->where('jenis_transaksi =', 'barang');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_transaksi', $id_detail_trans_produk);
 			$this->db->select('id_user');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
-    public function get_jasa($id_detail_trans_produk = null)
+	public function get_jasa($id_detail_trans_produk = null)
 	{
 		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
 		$this->db->from('detail_transaksi');
-        // $this->db->where('jenis_transaksi =','jasa');
-		// $this->db->order_by('nama_cust', 'ASC');
+		$this->db->where('jenis_transaksi =','jasa');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
 			$this->db->select('id_user');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 	//Simpan Data 
@@ -74,6 +45,14 @@ class TransaksiModel extends CI_Model
 		} else {
 			return false;
 		}
+	}
+
+	public function saveTransaksi($data)
+	{
+		$this->db->insert('transaksi', $data);
+		$insert_id = $this->db->insert_id();
+
+		return $insert_id;
 	}
 
 	//edit data 
