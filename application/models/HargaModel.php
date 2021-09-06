@@ -60,3 +60,4 @@ class HargaModel extends CI_Model
 		return $this->db->delete($this->table, array("id_harga" => $id_harga));
 	}
 }
+
