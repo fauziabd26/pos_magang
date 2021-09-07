@@ -9,7 +9,7 @@ class Owner extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-
+		$this->load->helper('file');		
 		//validasi jika user belum login
 		check_not_login();
 		check_owner();
@@ -65,28 +65,36 @@ class Owner extends CI_Controller
 	public function proses_tambah_admin()
 	{
 		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
 		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
-		$this->form_validation->set_rules('photo', 'Foto', 'required');
-		
+		//$this->form_validation->set_rules('photo', 'Foto', 'required');
+		$config = array(
+			'upload_path'   => 'uploads',
+			'allowed_types' => 'gif|jpg|png|jpeg',
+			'max_size'      => 2000
+			);
+		$this->load->library('upload', $config);
+		$this->upload->do_upload('file');
+		$data = $this->upload->data();
+		$nmfile = $data['photo'];
 		$data = array(
 			'nama' 		=> ucwords($_POST['nama']),
 			'email' 	=> $_POST['email'],
 			'password' 	=> $_POST['password'],
 			'no_hp' 	=> $_POST['no_hp'],
-			'photo' 	=> $_POST['photo'],
+			'photo' 	=> $nmfile,
 		);
 
 		if ($this->form_validation->run() === false)
         {
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
 		} else{
+			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 
 			redirect('owner/admin');
 		}
-
 	}
 
 	public function admin_edit($id_user)
@@ -97,36 +105,53 @@ class Owner extends CI_Controller
 		foreach ($datas['data'] as $row) {
 			if ($row['id_user'] == $id_user) {
 				$value = array(
-					'id_user' => $row["id_user"],
-					'nama' => $row["nama"],
-					'email' => $row["email"],
-					'no_hp' => $row["no_hp"],
-					'photo' => $row["photo"],
+					'id_user'	=> $row["id_user"],
+					'nama' 		=> $row["nama"],
+					'email'		=> $row["email"],
+					'no_hp'		=> $row["no_hp"],
+					'photo'		=> $row["photo"],
 				);
 			}
 		}
 
 		$data['admin'] = $value;
-
 		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 	}
 
 	public function proses_edit_admin($id_user)
 	{
-		$data = array(
-			'id_user' =>  $id_user,
-			'nama' => $_POST["nama"],
-			'email' => $_POST["email"],
-			'no_hp' => $_POST["no_hp"],
-		);
-		$update = $this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
+		$this->form_validation->set_rules('email', 'Email', 'required|callback_is_email_exist');
+		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
 
-		if ($update) {
-			$this->session->set_flashdata('success-edit', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
-		} else {
-			$this->session->set_flashdata('info', 'Data Gagal diubah');
+		$data = array(
+			'id_user'	=> $id_user,
+			'nama' 		=> $_POST["nama"],
+			'email' 	=> $_POST["email"],
+			'no_hp' 	=> $_POST["no_hp"],
+		);
+		
+		if ($this->form_validation->run() === FALSE){
+			$getAPI = $this->curl->simple_get($this->api . 'admin');
+			$datas = json_decode($getAPI, true);
+
+		foreach ($datas['data'] as $row) {
+			if ($row['id_user'] == $id_user) {
+				$value = array(
+					'id_user'	=> $row["id_user"],
+					'nama' 		=> $row["nama"],
+					'email'		=> $row["email"],
+					'no_hp'		=> $row["no_hp"],
+					'photo'		=> $row["photo"],
+				);
+			}
 		}
-		redirect('owner/admin');
+		$data['admin'] = $value;
+			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
+		}else{
+
+			redirect ('owner/admin');
+		}
 	}
 
 	public function admin_hapus($id_user)
@@ -170,11 +195,11 @@ class Owner extends CI_Controller
 	public function proses_tambah_toko()
 	{
 		$data = array(
-			'nama_toko' =>  ucwords($_POST['nama_toko']),
-			'alamat' =>  ucfirst($_POST['alamat']),
-			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
-			'foto_toko' => $_POST['foto_toko'],
-			'id_user' => $this->session->userdata('id_user')
+			'nama_toko' 		=> ucwords($_POST['nama_toko']),
+			'alamat' 			=> ucfirst($_POST['alamat']),
+			'deskripsi_toko' 	=> ucfirst($_POST['deskripsi_toko']),
+			'foto_toko' 		=> $_POST['foto_toko'],
+			'id_user' 			=> $this->session->userdata('id_user')
 		);
 		$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {

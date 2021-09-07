@@ -5,24 +5,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use chriskacerguis\RestServer\RestController;
 
 class FotoProduk extends RestController{
-    function __construct($config = 'rest'){
+    function __construct($config = 'rest')
+    {
         parent::__construct($config);
         $this->load->database();
         $this->load->model('FotoProdukModel');
     }
 
     //Menampilkan data foto produk
-    function index_get($id_foto_produk = null){
-
+    function index_get($id_foto_produk = null)
+    {
         if(!empty($id_foto_produk)){
-            $foto_produk = $this->FotoProdukModel->get($id_foto_produk);
+            $foto_produk = $this->FotoProdukModel->get($id_foto_produk)->row();
         }else{
-            $foto_produk = $this->FotoProdukModel->get();
+            $foto_produk = $this->FotoProdukModel->get()->result();
         }
         $this->response(array(
             'status'    => true,
             'message'   => 'Data Foto Produk Berhasil Diambil',
-            'data'      => $id_foto_produk
+            'data'      => $foto_produk
         ), 200);
     }
 
@@ -31,10 +32,10 @@ class FotoProduk extends RestController{
         $data = array(
             'id_foto_produk'    => $this->post('id_foto_produk'),
             'nama_foto_produk'  => $this->post('nama_foto_produk'),
-            'id_produk'         => $this->post('id_produk'));
+            'id_produk'         => $this->post('id_produk')
+        );
 
-        $insert = $this->FotoProdukModel->save('foto_produk', $data);
-        if($insert){
+        if($this->FotoProdukModel->save($data)){
             $this->response(array(
                 'status'    => true,
                 'message'   => 'Data Foto Produk Berhasil Diambil',
@@ -49,12 +50,13 @@ class FotoProduk extends RestController{
     }
 
     //Memperbarui data foto produk yang telah ada
-	function index_put() {
+	function index_put() 
+    {
         $id_foto_produk  = $this->put('id_foto_produk');
         $data  = array(
-            'id_foto_produk'    => $this->post('id_foto_produk'),
-            'nama_foto_produk'  => $this->post('nama_foto_produk'),
-            'id_produk'         => $this->post('id_produk')
+            'id_foto_produk'    => $this->put('id_foto_produk'),
+            'nama_foto_produk'  => $this->put('nama_foto_produk'),
+            'id_produk'         => $this->put('id_produk')
         );
                     
         $this->db->where('id_foto_produk', $id_foto_produk);

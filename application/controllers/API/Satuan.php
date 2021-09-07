@@ -6,19 +6,21 @@ use chriskacerguis\RestServer\RestController;
 
 class Satuan extends RestController{
     function __construct($config = 'rest'){
-
         parent::__construct($config);
         $this->load->database();
         $this->load->model('SatuanModel');
+        $this->load->library('form_validation');
+        //$this->load->helper('form');
+
     }
 
     //Menampilkan data satuan
-    function index_get($id_satuan = null){
-        
+    function index_get($id_satuan = null)
+    { 
         if(!empty($id_satuan)){
-            $satuan = $this->SatuanModel->get($id_satuan);
+            $satuan = $this->SatuanModel->get($id_satuan)->row();
         }else{
-            $satuan = $this->SatuanModel->get();
+            $satuan = $this->SatuanModel->get()->result();
         }
         $this->response(array(
             'status'    => true,

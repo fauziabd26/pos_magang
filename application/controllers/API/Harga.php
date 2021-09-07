@@ -14,9 +14,9 @@ class Harga extends RestController{
     //Menampilkan data harga
     function index_get($id_harga = null){
         if(!empty($id_harga)){
-            $harga = $this->HargaModel->get($id_harga);
+            $harga = $this->HargaModel->get($id_harga)->row();
         }else{
-            $harga = $this->HargaModel->get();
+            $harga = $this->HargaModel->get()->result();
         }
         $this->response(array(
             'status'    => true,

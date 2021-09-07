@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-		<?php echo validation_errors(); ?>
+		
 			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
@@ -38,7 +38,7 @@
 						</div>
 						<div class="form-group col-6">
 							<label for="password_confirm" class="d-block">Password Confirmation</label>
-							<?php echo form_error('email'); ?>
+							<?php echo form_error('password'); ?>
 							<input id="password_confirm" type="password" class="form-control" name="password_confirm" placeholder='Masukkan Password Confirmation'>
 						</div>
 					</div>

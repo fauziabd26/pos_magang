@@ -21,15 +21,18 @@
 					</div>
 					<div class="form-group">
 						<label for='nama'>Nama Lengkap</label>
-						<input type="text" id="nama" class="form-control" name="nama" value="<?= $admin["nama"] ?>" autofocus>
+						<?php echo form_error('nama'); ?>
+						<input type="text" id="nama" class="form-control" name="nama" value="<?= set_value('nama', $admin['nama']) ?>" autofocus>
 					</div>
 					<div class="form-group">
 						<label for='email'>Email</label>
-						<input type="email" id="email" class="form-control" name="email" value="<?= $admin["email"] ?>">
+						<?php echo form_error('email'); ?>
+						<input type="email" id="email" class="form-control" name="email" value="<?= set_value('email', $admin['email']) ?>" autofocus>
 					</div>
 					<div class="form-group">
 						<label for='no_hp'>Nomer Handphone</label>
-						<input type="number" id="no_hp" class="form-control" name="no_hp" value="<?= $admin["no_hp"] ?>">
+						<?php echo form_error('no_hp'); ?>
+						<input type="number" id="no_hp" class="form-control" name="no_hp" value="<?= set_value('no_hp', $admin['no_hp']) ?>" autofocus>
 					</div>
 				</div>
 				<div class="card-footer">
