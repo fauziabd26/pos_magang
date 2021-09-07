@@ -869,4 +869,34 @@ class Owner extends CI_Controller
 		$data['customers'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);
 	}
+
+	public function katalog()
+	{
+		$getAPI = $this->curl->simple_get($this->api . 'katalog');
+		$datas = json_decode($getAPI, true);
+
+		$data['katalog'] = $datas['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/index', $data);
+	}
+
+	public function katalog_tambah()
+	{
+		$getAPIproduk = $this->curl->simple_get($this->api . 'produk');
+		$datasproduk = json_decode($getAPIproduk, true);
+
+		$getAPIharga = $this->curl->simple_get($this->api . 'harga');
+		$datasharga = json_decode($getAPIharga, true);
+
+		$getAPIsatuan = $this->curl->simple_get($this->api . 'satuan');
+		$datassatuan = json_decode($getAPIsatuan, true);
+
+		$getAPIkategori = $this->curl->simple_get($this->api . 'kategori');
+		$dataskategori = json_decode($getAPIkategori, true);
+
+		$data['produk'] = $datasproduk['data'];
+		$data['harga'] = $datasharga['data'];
+		$data['satuan'] = $datassatuan['data'];
+		$data['kategori'] = $dataskategori['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/tambah', $data);
+	}
 }

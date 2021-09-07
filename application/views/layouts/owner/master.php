@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="<?= base_url('assets/dist/datatables-bs4/css/dataTables.bootstrap4.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/dist/owl.carousel/owl.carousel.min.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/dist/owl.carousel/owl.theme.default.min.css') ?>">
+	<link rel="stylesheet" href="<?= base_url('assets/dist/select2/select2.min.css') ?>">
+
 	<!-- Template CSS -->
 	<link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('assets/css/components.css') ?>">
@@ -48,6 +50,7 @@
 	<script src="<?= base_url('assets/dist/datatables/jquery.dataTables.js') ?>"></script>
 	<script src="<?= base_url('assets/dist/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
 	<script src="<?= base_url('assets/dist/owl.carousel/owl.carousel.min.js') ?>"></script>
+	<script src="<?= base_url('assets/dist/select2/select2.full.min.js') ?> "></script>
 
 	<!-- Template JS File -->
 	<script src="<?= base_url('assets/js/scripts.js') ?>"></script>

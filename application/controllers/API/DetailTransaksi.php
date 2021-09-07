@@ -11,7 +11,6 @@ class DetailTransaksi extends RestController
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('DetailTransaksiModel');
-		$this->load->model('HargaModel');
 	}
 
 	function lastId_get()
@@ -24,8 +23,36 @@ class DetailTransaksi extends RestController
 		$this->response($this->DetailTransaksiModel->cekTransaksi(), 200);
 	}
 
-	//Menampilkan data
+	function by_id_transaksi_get($id_transaksi)
+	{
+		$this->response($this->DetailTransaksiModel->by_id_transaksi($id_transaksi), 200);
+	}
+
+	//Menampilkan data semua detail transaksi
 	function index_get($id_detail_trans_produk = null)
+	{
+		if (!empty($id_detail_trans_produk)) {
+			$detail_transaksi = $this->DetailTransaksiModel->get($id_detail_trans_produk)->row();
+		} else {
+			$detail_transaksi =  $this->DetailTransaksiModel->get()->result();
+		}
+
+		if ($detail_transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diambil',
+				'data' => $detail_transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Detail Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data semua detail transaksi jenis barang
+	function barang_get($id_detail_trans_produk = null)
 	{
 		if (!empty($id_detail_trans_produk)) {
 			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk)->row();
@@ -47,11 +74,50 @@ class DetailTransaksi extends RestController
 		}
 	}
 
+	//Menampilkan data semua detail transaksi jenis jasa
+	function jasa_get($id_detail_trans_produk = null)
+	{
+		if (!empty($id_detail_trans_produk)) {
+			$detail_transaksi = $this->DetailTransaksiModel->get_jasa($id_detail_trans_produk)->row();
+		} else {
+			$detail_transaksi =  $this->DetailTransaksiModel->get_jasa()->result();
+		}
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Detail Transaksi Berhasil Diambil',
+			'data' => $detail_transaksi
+		), 200);
+	}
+
 	function stok_tambah_put()
 	{
 		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
 		$data       = array(
 			'qty'               => $this->put('qty'),
+		);
+
+		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		$update = $this->db->update('detail_trans_produk', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Detail Transaksi'
+			), 502);
+		}
+	}
+
+	function stok_tambah_update_put()
+	{
+		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
+		$data       = array(
+			'sub_total'               => $this->put('sub_total'),
 		);
 
 		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
@@ -107,35 +173,18 @@ class DetailTransaksi extends RestController
 		}
 	}
 
-	function jasa_get($id_detail_trans_produk = null)
-	{
-		if (!empty($id_detail_trans_produk)) {
-			$detail_transaksi = $this->DetailTransaksiModel->get_jasa($id_detail_trans_produk);
-		} else {
-			$detail_transaksi =  $this->DetailTransaksiModel->get_jasa();
-		}
-
-		$this->response(array(
-			'status' => true,
-			'message' => 'Data Detail Transaksi Berhasil Diambil',
-			'data' => $detail_transaksi
-		), 200);
-	}
-
 	//Menambah data baru barang
 	function index_post()
 	{
-		$data['sub_total'] = $this->DetailTransaksiModel->hitungSubTotal();
-		// $sub_total = $this->ProdukModel->
 		$data = array(
 			'sub_total'         => $this->post('sub_total'),
 			'qty'               => $this->post('qty'),
 			'id_user'           => $this->post('id_user'),
-			'id_harga'         => $this->post('id_harga'),
+			'id_produk'         => $this->post('id_produk'),
 			'id_transaksi'      => $this->post('id_transaksi'),
 		);
 
-		if ($this->DetailTransaksiModel->save($data)) {
+		if ($this->TransaksiModel->save($data)) {
 			$this->response(array(
 				'status' => true,
 				'message' => 'Data Transaksi Berhasil Ditambah',
