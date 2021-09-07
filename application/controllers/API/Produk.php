@@ -157,37 +157,37 @@ class Produk extends RestController
 	}
 
 	//Menghapus salah satu data
-	function barang_delete()
+	function index_delete()
 	{
 		$id_produk = $this->delete('id_produk');
 		$this->db->where('id_produk', $id_produk);
 		if ($this->db->delete('produk')) {
 			$this->response(array(
 				'status' => true,
-				'message' => 'Data Barang Berhasil Dihapus',
+				'message' => 'Data Produk Berhasil Dihapus',
 			), 200);
 		} else {
 			$this->response(array(
 				'status' => false,
-				'message' => 'Gagal Menghapus Data Barang'
+				'message' => 'Gagal Menghapus Data Produk'
 			), 502);
 		}
 	}
 
-	function jasa_delete()
-	{
-		$id_produk = $this->delete('id_produk');
-		$this->db->where('id_produk', $id_produk);
-		if ($this->db->delete('produk')) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Jasa Berhasil Dihapus',
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menghapus Data Jasa'
-			), 502);
-		}
-	}
+	// function jasa_delete()
+	// {
+	// 	$id_produk = $this->delete('id_produk');
+	// 	$this->db->where('id_produk', $id_produk);
+	// 	if ($this->db->delete('produk')) {
+	// 		$this->response(array(
+	// 			'status' => true,
+	// 			'message' => 'Data Jasa Berhasil Dihapus',
+	// 		), 200);
+	// 	} else {
+	// 		$this->response(array(
+	// 			'status' => false,
+	// 			'message' => 'Gagal Menghapus Data Jasa'
+	// 		), 502);
+	// 	}
+	// }
 }
