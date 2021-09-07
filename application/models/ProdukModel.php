@@ -30,9 +30,9 @@ class ProdukModel extends CI_Model
 		// $this->db->order_by('nama_produk', 'ASC');
 		if ($id_produk != null) {
 			$this->db->where('id_produk', $id_produk);
-			$this->db->select('fid_toko');
+			$this->db->select('id_toko');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 	public function get_barang($id_produk = null)
@@ -45,7 +45,7 @@ class ProdukModel extends CI_Model
 			$this->db->where('id_produk', $id_produk);
 			$this->db->select('id_toko');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
     public function get_jasa($id_produk = null)
@@ -58,7 +58,7 @@ class ProdukModel extends CI_Model
 			$this->db->where('id_produk', $id_produk);
 			$this->db->select('id_toko');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 	//Simpan Data 

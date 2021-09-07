@@ -60,6 +60,13 @@ class Admin extends CI_Controller
 			return $value['jenis_transaksi'] == 'barang';
 		});
 
+		$getAPIID = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
+		$datasID = json_decode($getAPIID, true);
+
+		// var_dump($datasTransaksi);
+		$data['transaksi'] = $datasID;
+
+
 		$subtotal = 0;
 		foreach ($datasTransaksi['data'] as $value) {
 			$total = $value['sub_total'] * $value['qty'];
@@ -226,7 +233,7 @@ class Admin extends CI_Controller
 			'id_detail_trans_produk' =>  $id_detail_transaksi,
 			'qty' => $datas['data']['qty'] + 1,
 		);
-		
+
 		// var_dump($data);
 		$this->curl->simple_put($this->api . 'DetailTransaksi/stok_tambah', $data, array(CURLOPT_BUFFERSIZE => 10));
 		redirect('admin/transaksi_barang');
@@ -242,7 +249,26 @@ class Admin extends CI_Controller
 			'qty' => $datas['data']['qty'] - 1,
 		);
 
-		$this->curl->simple_put($this->api . 'DetailTransaksi/stok_kurang', $data, array(CURLOPT_BUFFERSIZE => 10));
+		if ($datas['data']['qty'] <= 1) {
+			echo "<script> alert('Tidak Bisa Minus!'); 
+			window.location.href = '" . base_url('admin/transaksi_barang') . "'; </script>";
+		} else {
+			$this->curl->simple_put($this->api . 'DetailTransaksi/stok_kurang', $data, array(CURLOPT_BUFFERSIZE => 10));
+			redirect('admin/transaksi_barang');
+		}
+	}
+
+	//Konfirmasi
+	public function konfirmasi($id_transaksi)
+	{
+		$data = array(
+			'id_transaksi' 		=>  $id_transaksi,
+			'nama_cust'			=> ucfirst($_POST['nama_cust']),
+			'status'			=> 1,
+		);
+
+		var_dump($data);
+		$this->curl->simple_put($this->api . 'transaksi/konfirmasi', $data, array(CURLOPT_BUFFERSIZE => 10));
 		redirect('admin/transaksi_barang');
 	}
 

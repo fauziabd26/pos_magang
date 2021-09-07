@@ -18,9 +18,9 @@ class Produk extends RestController
 	function index_get($id_produk = null){
 		
 		if (!empty($id_produk)) {
-			$produk = $this->ProdukModel->get_index($id_produk);
+			$produk = $this->ProdukModel->get_index($id_produk)->row();
 		} else {
-			$produk =  $this->ProdukModel->get_index();
+			$produk =  $this->ProdukModel->get_index()->result();
 		}
 
 		$this->response(array(
@@ -33,9 +33,9 @@ class Produk extends RestController
 	function barang_get($id_produk = null)
 	{
 		if (!empty($id_produk)) {
-			$produk = $this->ProdukModel->get_barang($id_produk);
+			$produk = $this->ProdukModel->get_barang($id_produk)->row();
 		} else {
-			$produk =  $this->ProdukModel->get_barang();
+			$produk =  $this->ProdukModel->get_barang()->result();
 		}
 
 		$this->response(array(
@@ -48,9 +48,9 @@ class Produk extends RestController
 	function jasa_get($id_produk = null)
 	{
 		if (!empty($id_produk)) {
-			$produk = $this->ProdukModel->get_jasa($id_produk);
+			$produk = $this->ProdukModel->get_jasa($id_produk)->row();
 		} else {
-			$produk =  $this->ProdukModel->get_jasa();
+			$produk =  $this->ProdukModel->get_jasa()->result();
 		}
 
 		$this->response(array(

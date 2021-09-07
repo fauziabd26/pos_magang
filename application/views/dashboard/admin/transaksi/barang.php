@@ -129,6 +129,7 @@
 											</tr>
 										</thead>
 										<tbody>
+											<?= $transaksi['id_transaksi'] ?>
 											<?php
 											foreach ($detail_transaksi as $row) : ?>
 												<tr>
@@ -157,54 +158,56 @@
 										</tbody>
 									</table>
 									<!-- </div> -->
-									<div class="row mx-1 mt-5">
-										<div class="col-6">
-											<div class="form-group row">
-												<label class="col-5 col-form-label">Nama Customer :</label>
-												<div class="col-7">
-													<input class="form-control bg-white text-right" value="<?= set_value('nama') ?>">
+									<form action="<?= base_url('admin/konfirmasi/' . $transaksi['id_transaksi']) ?>" method="POST">
+										<div class="row mx-1 mt-5">
+											<div class="col-6">
+												<div class="form-group row">
+													<label class="col-5 col-form-label">Nama Customer :</label>
+													<div class="col-7">
+														<input class="form-control bg-white text-right" name="nama_cust" value="<?= set_value('nama') ?>">
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-group row">
+													<label class="col-4 col-form-label">Total :</label>
+													<div class="col-8">
+														<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal) ?>">
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="col-6">
-											<div class="form-group row">
-												<label class="col-4 col-form-label">Total :</label>
-												<div class="col-8">
-													<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal ?? "-")  ?>" disabled>
+										<div class="row mx-1">
+											<div class="col-6">
+												<div class="form-group row">
+													<label class="col-8 col-form-label">Jml Item :</label>
+													<div class="col-4">
+														<!-- SUM QTY -->
+														<input class="form-control bg-white text-right" value="<?= $item ?? "-" ?>" disabled>
+													</div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-group row">
+													<label class="col-4 col-form-label">Diskon :</label>
+													<div class="col-8">
+														<input class="form-control text-right" name="diskon">
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row mx-1">
-										<div class="col-6">
+										<div class="col-12 mx-1">
 											<div class="form-group row">
-												<label class="col-8 col-form-label">Jml Item :</label>
-												<div class="col-4">
-													<!-- SUM QTY -->
-													<input class="form-control bg-white text-right" value="<?= $item ?? "-" ?>" disabled>
+												<label class="col col-form-label">Jumlah Yang Harus Dibayar :</label>
+												<div class="col">
+													<!-- total di tabel transaksi -->
+													<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal ?? '-') ?>" disabled>
 												</div>
 											</div>
 										</div>
-										<div class="col-6">
-											<div class="form-group row">
-												<label class="col-4 col-form-label">Diskon :</label>
-												<div class="col-8">
-													<input class="form-control text-right">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-12 mx-1">
-										<div class="form-group row">
-											<label class="col col-form-label">Jumlah Yang Harus Dibayar :</label>
-											<div class="col">
-												<!-- total di tabel transaksi -->
-												<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal ?? '-') ?>" disabled>
-											</div>
-										</div>
-									</div>
-									<button class="btn btn-primary float-right btn-block">Konfirmasi</button>
-									<!-- <button class="btn btn-outline-secondary float-right mr-2">Reset</button> -->
+										<button class="btn btn-primary float-right btn-block">Konfirmasi</button>
+										<!-- <button class="btn btn-outline-secondary float-right mr-2">Reset</button> -->
+									</form>
 								</div>
 							</div>
 						</div>
