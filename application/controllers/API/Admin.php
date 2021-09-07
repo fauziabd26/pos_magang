@@ -15,6 +15,12 @@ class Admin extends RestController
 	}
 
 	//Menampilkan data 
+
+	function cek_email_get()
+	{
+		$this->response($this->AdminModel->get()->result(), 200);
+	}
+
 	function index_get($id_admin = null)
 	{
 		if (!empty($id_admin)) {

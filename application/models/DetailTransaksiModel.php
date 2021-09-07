@@ -13,24 +13,36 @@ class DetailTransaksiModel extends CI_Model
 
 	public function get_barang($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
-		$this->db->from('detail_trans_produk');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
+			->join('produk', 'harga.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
 		$this->db->where('jenis_transaksi =', 'barang');
 		if ($id_detail_trans_produk != null) {
-			$this->db->where('id_transaksi', $id_detail_trans_produk);
-			$this->db->select('id_user');
+			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
 		}
+		return $this->db->get(); 
+	}
+
+	public function get_where($id_detail_trans_produk)
+	{
+		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		$this->db->select('id_detail_trans_produk');
+		$this->db->from('detail_trans_produk');
 		return $this->db->get();
 	}
 
 	public function get_jasa($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
-		$this->db->from('detail_transaksi');
-		$this->db->where('jenis_transaksi =','jasa');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
+			->join('produk', 'harga.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
+		$this->db->where('jenis_transaksi =', 'jasa');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
-			$this->db->select('id_user');
 		}
 		return $this->db->get();
 	}

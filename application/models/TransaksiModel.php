@@ -17,12 +17,21 @@ class TransaksiModel extends CI_Model
 		return $this->db->get();
 	}
 
+	public function get_last()
+	{
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
+		$this->db->from('transaksi');
+		$this->db->where('status =', '1');
+		$this->db->order_by('tggl_transaksi', 'DESC');
+		return $this->db->get();
+	}
+
 	//Menampilkan Data Transaksi Barang
 	public function get_barang($id_transaksi = null)
 	{
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
 		$this->db->from('transaksi');
-        $this->db->where('jenis_transaksi =','barang');
+		$this->db->where('jenis_transaksi =', 'barang');
 		// $this->db->order_by('nama_cust', 'ASC');
 		if ($id_transaksi != null) {
 			$this->db->where('id_transaksi', $id_transaksi);
@@ -32,11 +41,11 @@ class TransaksiModel extends CI_Model
 	}
 
 	//Menampilkan Data Transaksi Jasa
-    public function get_jasa($id_transaksi = null)
+	public function get_jasa($id_transaksi = null)
 	{
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
 		$this->db->from('transaksi');
-        $this->db->where('jenis_transaksi =','jasa');
+		$this->db->where('jenis_transaksi =', 'jasa');
 		// $this->db->order_by('nama_cust', 'ASC');
 		if ($id_transaksi != null) {
 			$this->db->where('id_transaksi', $id_transaksi);
