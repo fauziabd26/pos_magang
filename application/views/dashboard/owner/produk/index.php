@@ -12,8 +12,8 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col">
-                        <a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
-                            <i class="fas fa-user-plus mr-2"></i> Tambah Data Produk
+                        <a href="<?= base_url('owner/produk_tambah') ?>" class="btn btn-primary">
+                            <i class="fas fa-plus mr-2"></i> Tambah Data Produk Barang
                         </a>
                     </div>
                 </div>
@@ -34,10 +34,11 @@
                                 <td><?= $row["nama_produk"] ?></td>
                                 <td><?= $row["jenis"] ?></td>
                                 <td>
-                                    <a href="#" data-toggle="modal" data-target="#edit-data"
-                                        class="btn btn-warning sm"><i class="fas fa-edit">Ubah</i></a>
-                                    <a href="#" data-toggle="modal" data-target="#hapus-data"
-                                        class="btn btn-danger sm"><i class="fas fa-trash">Hapus</i></a>
+                                    <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>"
+                                        class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
+
+                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>"
+                                        class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -47,84 +48,16 @@
             </div>
         </div>
     </div>
-</section>
-<!-- Modal Tambah -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="tambah-data" class="modal fade">
+</section><!-- Modal Hapus -->
+<?php foreach ($produks as $row) : ?>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+    id="hapus-data<?= $row['id_produk'] ?>" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
             </div>
-            <form class="form-horizontal" action="<?php echo base_url('admin/tambah') ?>" method="post"
-                enctype="multipart/form-data" role="form">
-                <div class="modal-body">
-                    <h4 class="modal-title">Tambah Data</h4>
-                    <div class="form-group">
-                        <label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="nama_produk"
-                                placeholder="Tuliskan Nama Produk">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-5 col-sm-5 control-label">Jenis Produk</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="jenis"
-                                placeholder="Tuliskan Jenis Produk (Barang/Jasa)">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- END Modal Tambah -->
-<!-- Modal Edit -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            </div>
-            <form class="form-horizontal" action="<?php echo base_url('admin/tambah') ?>" method="post"
-                enctype="multipart/form-data" role="form">
-                <div class="modal-body">
-                    <h4 class="modal-title">Edit Data</h4>
-                    <div class="form-group">
-                        <label class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="nama_produk"
-                                value="<?= $row["nama_produk"] ?>">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-5 col-sm-5 control-label">Jenis</label>
-                        <div class="col-lg-10">
-                            <input type="text" class="form-control" name="jenis" value="<?= $row["jenis"] ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- END Modal edit -->
-<!-- Modal Hapus -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="hapus-data" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            </div>
-            <form class="form-horizontal" action="<?php echo base_url('admin/tambah') ?>" method="post"
+            <form class="form-horizontal" action="<?php echo base_url('owner/produk_hapus') ?>" method="delete"
                 enctype="multipart/form-data" role="form">
                 <div class="modal-body">
                     <h4 class="modal-title">Hapus Data</h4>
@@ -133,11 +66,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-info" type="submit"> Ya&nbsp;</button>
+                    <a href="<?= base_url('owner/produk_hapus/' . $row['id_produk']) ?>" class="btn btn-info"> Ya</a>
                     <button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<?php endforeach; ?>
 <!-- END Modal Hapus -->
