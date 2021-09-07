@@ -11,18 +11,21 @@ class DetailTransaksi extends RestController
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('DetailTransaksiModel');
+		$this->load->model('HargaModel');
 	}
 
-	function lastId_get(){
-	    $this->response($this->DetailTransaksiModel->lastId(),200);
+	function lastId_get()
+	{
+		$this->response($this->DetailTransaksiModel->lastId(), 200);
 	}
 
-	function cekTransaksi_get(){
-	    $this->response($this->DetailTransaksiModel->cekTransaksi(),200);
+	function cekTransaksi_get()
+	{
+		$this->response($this->DetailTransaksiModel->cekTransaksi(), 200);
 	}
-	
+
 	//Menampilkan data
-	function barang_get($id_detail_trans_produk = null)
+	function index_get($id_detail_trans_produk = null)
 	{
 		if (!empty($id_detail_trans_produk)) {
 			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk)->row();
@@ -30,11 +33,78 @@ class DetailTransaksi extends RestController
 			$detail_transaksi =  $this->DetailTransaksiModel->get_barang()->result();
 		}
 
-		$this->response(array(
-			'status' => true,
-			'message' => 'Data Detail Transaksi Berhasil Diambil',
-			'data' => $detail_transaksi
-		), 200);
+		if ($detail_transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diambil',
+				'data' => $detail_transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Detail Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	function stok_tambah_put()
+	{
+		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
+		$data       = array(
+			'qty'               => $this->put('qty'),
+		);
+
+		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		$update = $this->db->update('detail_trans_produk', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Detail Transaksi'
+			), 502);
+		}
+	}
+
+	function stok_kurang_put()
+	{
+		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
+		$data       = array(
+			'qty'               => $this->put('qty'),
+		);
+
+		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		$update = $this->db->update('detail_trans_produk', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Detail Transaksi'
+			), 502);
+		}
+	}
+
+	function detail_transaksi_where_get($id_detail_trans_produk = null)
+	{
+		$detail_transaksi = $this->DetailTransaksiModel->get_where($id_detail_trans_produk)->row();
+
+		if ($detail_transaksi) {
+			$this->response($detail_transaksi, 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Detail Transaksi Tidak Ada',
+			), 404);
+		}
 	}
 
 	function jasa_get($id_detail_trans_produk = null)
@@ -55,15 +125,17 @@ class DetailTransaksi extends RestController
 	//Menambah data baru barang
 	function index_post()
 	{
+		$data['sub_total'] = $this->DetailTransaksiModel->hitungSubTotal();
+		// $sub_total = $this->ProdukModel->
 		$data = array(
 			'sub_total'         => $this->post('sub_total'),
 			'qty'               => $this->post('qty'),
 			'id_user'           => $this->post('id_user'),
-			'id_produk'         => $this->post('id_produk'),
+			'id_harga'         => $this->post('id_harga'),
 			'id_transaksi'      => $this->post('id_transaksi'),
 		);
 
-		if ($this->TransaksiModel->save($data)) {
+		if ($this->DetailTransaksiModel->save($data)) {
 			$this->response(array(
 				'status' => true,
 				'message' => 'Data Transaksi Berhasil Ditambah',
