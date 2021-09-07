@@ -36,6 +36,24 @@ class Transaksi extends RestController
 		}
 	}
 
+	function get_last_get()
+	{
+		$transaksi =  $this->TransaksiModel->get_last()->result();
+
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
 	//Menampilkan data Transaksi Barang
 	function barang_get($id_transaksi = null)
 	{

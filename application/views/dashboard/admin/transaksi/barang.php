@@ -101,7 +101,7 @@
 																	<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
 																	<span class="text-capitalize font-weight-bold"><?= $produk['nama_produk'] ?></span><br>
 																	<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
-																	<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?></small>
+																	<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?> / <?= $produk['nama_harga'] ?></small>
 																</div>
 															</button>
 														</form>
@@ -129,21 +129,31 @@
 											</tr>
 										</thead>
 										<tbody>
-											<?php if (!empty($transaksi)) { ?>
-												<?php
-												foreach ($transaksi_details as $row) : ?>
-													<tr>
-														<td><?= $row['nama_produk'] ?? "-" ?></td>
-														<td><?= $row['qty'] ?? "-" ?></td>
-														<td><?= $row['harga_produk'] ?? "-" ?></td>
-														<td><?= $row['subtotal'] ?? "-" ?></td>
-													</tr>
-												<?php endforeach; ?>
-											<?php } else { ?>
+											<?php
+											foreach ($detail_transaksi as $row) : ?>
 												<tr>
-													<td colspan="4" class="text-center">Tidak Ada Barang Yang Dimasukan</td>
+													<td class="text-capitalize"><?= $row['nama_produk'] ?? "-" ?> / <?= $produk['nama_harga'] ?></td>
+													<td>
+														<div class="row align-items-center">
+															<form action="<?= base_url('admin/stok_kurang/' . $row['id_detail_trans_produk']) ?>" method="POST">
+																<?php if ($row['qty'] > 1) { ?>
+																	<button class="btn btn-danger btn-xs mr-3" style="padding : 2px 6px">
+																		<i class="fas fa-minus" style="font-size: 8px"></i>
+																	</button>
+																<?php } ?>
+															</form>
+															<span><?= $row['qty'] ?></span>
+															<form action="<?= base_url('admin/stok_tambah/' . $row['id_detail_trans_produk']) ?>" method="POST">
+																<button class="btn btn-primary btn-xs ml-3" style="padding : 2px 6px">
+																	<i class="fas fa-plus" style="font-size: 8px"></i>
+																</button>
+															</form>
+														</div>
+													</td>
+													<td>Rp <?= number_format($row['nominal'] ?? "-") ?> </td>
+													<td>Rp <?= number_format($row['nominal'] * $row['qty'] ?? "-") ?></td>
 												</tr>
-											<?php } ?>
+											<?php endforeach; ?>
 										</tbody>
 									</table>
 									<!-- </div> -->
@@ -160,7 +170,7 @@
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Total :</label>
 												<div class="col-8">
-													<input class="form-control text-right bg-white" value="<?= $transaksi_details['subtotal'] ?? "-" ?>" disabled>
+													<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal ?? "-")  ?>" disabled>
 												</div>
 											</div>
 										</div>
@@ -171,7 +181,7 @@
 												<label class="col-8 col-form-label">Jml Item :</label>
 												<div class="col-4">
 													<!-- SUM QTY -->
-													<input class="form-control bg-white text-right" value="3" disabled>
+													<input class="form-control bg-white text-right" value="<?= $item ?? "-" ?>" disabled>
 												</div>
 											</div>
 										</div>
@@ -189,12 +199,12 @@
 											<label class="col col-form-label">Jumlah Yang Harus Dibayar :</label>
 											<div class="col">
 												<!-- total di tabel transaksi -->
-												<input class="form-control text-right bg-white" value="<?= $transaksi['total'] ?? '-' ?>" disabled>
+												<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal ?? '-') ?>" disabled>
 											</div>
 										</div>
 									</div>
-									<button class="btn btn-primary float-right">Konfirmasi</button>
-									<button class="btn btn-outline-secondary float-right mr-2">Reset</button>
+									<button class="btn btn-primary float-right btn-block">Konfirmasi</button>
+									<!-- <button class="btn btn-outline-secondary float-right mr-2">Reset</button> -->
 								</div>
 							</div>
 						</div>
