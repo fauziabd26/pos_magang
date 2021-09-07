@@ -65,19 +65,11 @@ class Owner extends CI_Controller
 	public function proses_tambah_admin()
 	{
 		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
+		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
 		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
-		//$this->form_validation->set_rules('photo', 'Foto', 'required');
-		$config = array(
-			'upload_path'   => 'uploads',
-			'allowed_types' => 'gif|jpg|png|jpeg',
-			'max_size'      => 2000
-			);
-		$this->load->library('upload', $config);
-		$this->upload->do_upload('file');
-		$data = $this->upload->data();
-		$nmfile = $data['photo'];
+		$this->form_validation->set_rules('photo', 'Foto', 'required');
+
 		$data = array(
 			'nama' 		=> ucwords($_POST['nama']),
 			'email' 	=> $_POST['email'],
@@ -97,11 +89,7 @@ class Owner extends CI_Controller
 				}
 			}
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
-<<<<<<< HEAD
-		} else{
-=======
 		} else {
->>>>>>> ddf3b7b930318cdab08115d18fc89428aaaf1bb8
 			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 			redirect('owner/admin');
@@ -119,30 +107,16 @@ class Owner extends CI_Controller
 		} else {
 			if ($datas['data']['id_user'] == $id_user) {
 				$value = array(
-<<<<<<< HEAD
-					'id_user'	=> $row["id_user"],
-					'nama' 		=> $row["nama"],
-					'email'		=> $row["email"],
-					'no_hp'		=> $row["no_hp"],
-					'photo'		=> $row["photo"],
-=======
-					'id_user' => $datas['data']["id_user"],
-					'nama' => $datas['data']["nama"],
-					'email' => $datas['data']["email"],
-					'no_hp' => $datas['data']["no_hp"],
-					'photo' => $datas['data']["photo"],
->>>>>>> ddf3b7b930318cdab08115d18fc89428aaaf1bb8
+					'id_user'	=> $datas['data']["id_user"],
+					'nama' 		=> $datas['data']["nama"],
+					'email' 	=> $datas['data']["email"],
+					'no_hp' 	=> $datas['data']["no_hp"],
+					'photo' 	=> $datas['data']["photo"],
 				);
 			}
 			$data['admin'] = $value;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 		}
-<<<<<<< HEAD
-
-		$data['admin'] = $value;
-		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
-=======
->>>>>>> ddf3b7b930318cdab08115d18fc89428aaaf1bb8
 	}
 
 	public function proses_edit_admin($id_user)
@@ -157,16 +131,7 @@ class Owner extends CI_Controller
 			'email' 	=> $_POST["email"],
 			'no_hp' 	=> $_POST["no_hp"],
 		);
-<<<<<<< HEAD
-		
-		if ($this->form_validation->run() === FALSE){
-			$getAPI = $this->curl->simple_get($this->api . 'admin');
-			$datas = json_decode($getAPI, true);
-=======
-
-
 		$update = $this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
->>>>>>> ddf3b7b930318cdab08115d18fc89428aaaf1bb8
 
 		foreach ($datas['data'] as $row) {
 			if ($row['id_user'] == $id_user) {
