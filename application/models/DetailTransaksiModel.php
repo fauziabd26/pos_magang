@@ -5,6 +5,15 @@ class DetailTransaksiModel extends CI_Model
 {
 	private $table = 'detail_trans_produk';
 
+	//SUM QTY di Detail Transaksi
+	public function sum_qty($id_transaksi)
+	{
+		$this->db->select_sum('qty');
+		$this->db->where('id_transaksi' , $id_transaksi);
+		$this->db->from('transaksi');
+		return $this->db->get()->row();
+	}
+
 	//Menampilkan Data Transaksi Terakhir
 	public function lastId()
 	{

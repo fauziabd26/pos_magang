@@ -81,7 +81,7 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
-								<div class="col-lg-7 col-12">
+								<div class="col-lg-6 col-12">
 									<!-- <input type="search" class="form-control mt-3 mb-3" placeholder="Cari produk berdasarkan nama">
 									<div class="row mb-5">
 										<div class="col">
@@ -90,11 +90,11 @@
 											<?php endforeach; ?>
 										</div>
 									</div> -->
-									<div style="height: 470px; overflow-x: hidden; overflow-y: scroll;">
+									<div style="height: 520px; overflow-x: hidden; overflow-y: scroll;">
 										<div class="row">
 											<?php if (!empty($produks)) { ?>
 												<?php foreach ($produks as $produk) : ?>
-													<div class="col-md-6 col-lg-3 col-12">
+													<div class="col-md-6 col-lg-4 col-12">
 														<form action="<?= base_url('admin/proses_tambah_transaksi_barang/' . $produk['id_harga']) ?>" method="POST">
 															<button style="text-decoration: none;" class="card card-primary">
 																<div class="card-body">
@@ -117,7 +117,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-5 col-12">
+								<div class="col-lg-6 col-12">
 									<!-- <div style="height: 200px; "> -->
 									<?php if (!empty($transaksi['total_transaksi'])) { ?>
 										<table class="table scroll">
@@ -127,6 +127,7 @@
 													<th>Qty</th>
 													<th>Harga</th>
 													<th>Sub Total</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -154,6 +155,9 @@
 														</td>
 														<td>Rp <?= number_format($row['nominal'] ?? "-") ?> </td>
 														<td>Rp <?= number_format($row['sub_total'] ?? "-") ?></td>
+														<td>
+															<a href="<?= base_url('/'.$transaksi['id_transaksi']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+														</td>
 													</tr>
 												<?php endforeach; ?>
 											</tbody>
@@ -163,9 +167,10 @@
 											<div class="row mx-1 mt-5">
 												<div class="col-6">
 													<div class="form-group row">
-														<label class="col-5 col-form-label">Nama Customer :</label>
-														<div class="col-7">
-															<input class="form-control bg-white text-right" name="nama_cust" value="<?= set_value('nama') ?>">
+														<label class="col-8 col-form-label">Jml Item :</label>
+														<div class="col-4">
+															<!-- SUM QTY -->
+															<input class="form-control bg-white text-right" value="<?= $sum_qty ?>" disabled>
 														</div>
 													</div>
 												</div>
@@ -181,10 +186,9 @@
 											<div class="row mx-1">
 												<div class="col-6">
 													<div class="form-group row">
-														<label class="col-8 col-form-label">Jml Item :</label>
-														<div class="col-4">
-															<!-- SUM QTY -->
-															<input class="form-control bg-white text-right" disabled>
+														<label class="col-5 col-form-label">Nama Customer :</label>
+														<div class="col-7">
+															<input class="form-control bg-white text-right" name="nama_cust" value="<?= set_value('nama_cust') ?>">
 														</div>
 													</div>
 												</div>
@@ -197,12 +201,21 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-12 mx-1">
-												<div class="form-group row">
-													<label class="col col-form-label">Jumlah Yang Harus Dibayar :</label>
-													<div class="col">
-														<!-- total di tabel transaksi -->
-														<input class="form-control text-right bg-white" value="Rp <?= number_format($transaksi['total_transaksi']) ?>" disabled>
+											<div class="row mx-1">
+												<div class="col-6">
+													<div class="form-group row">
+														<label class="col-5 col-form-label">Jumlah Yang Harus Dibayar :</label>
+														<div class="col-7">
+															<input class="form-control text-right bg-white" value="Rp <?= number_format($transaksi['total_transaksi']) ?>" disabled>
+														</div>
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="form-group row">
+														<label class="col-4 col-form-label">Uang Bayar :</label>
+														<div class="col-8">
+															<input class="form-control text-right bg-white" name="bayar" value="<?= set_value('bayar') ?>">
+														</div>
 													</div>
 												</div>
 											</div>
