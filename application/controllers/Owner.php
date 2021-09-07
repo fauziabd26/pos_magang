@@ -65,7 +65,7 @@ class Owner extends CI_Controller
 	public function proses_tambah_admin()
 	{
 		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
 		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
 		$this->form_validation->set_rules('photo', 'Foto', 'required');
@@ -78,7 +78,16 @@ class Owner extends CI_Controller
 			'photo' 	=> $_POST['photo'],
 		);
 
+		$getAPI = $this->curl->simple_get($this->api . 'admin');
+		$datas = json_decode($getAPI, true);
+
 		if ($this->form_validation->run() === false) {
+			foreach ($datas['data'] as $row) {
+				if ($row['email'] == $data['email']) {
+					echo "<script> alert('Email Sudah Dipakai!'); 
+					window.location.href = '" . base_url('owner/admin/admin_tambah') . "'; </script>";
+				}
+			}
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
 		} else {
 			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
@@ -118,6 +127,8 @@ class Owner extends CI_Controller
 			'email' => $_POST["email"],
 			'no_hp' => $_POST["no_hp"],
 		);
+
+
 		$update = $this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 
 		if ($update) {
@@ -284,7 +295,7 @@ class Owner extends CI_Controller
 		redirect('owner/toko');
 	}
 
-	public function toko_jasa($id_jasa)
+	public function toko_jasa($id_toko)
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'toko');
 		$datas = json_decode($getAPI, true);
@@ -305,7 +316,7 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
 	}
 
-	public function proses_edit_jasa($id_jasa)
+	public function proses_edit_jasa($id_toko)
 	{
 		$data = array(
 			'id_toko' =>  $id_toko,
