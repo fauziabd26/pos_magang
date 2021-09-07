@@ -17,10 +17,28 @@ class Transaksi extends RestController
 	function index_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get($id_transaksi);
+			$transaksi = $this->TransaksiModel->get($id_transaksi)->row();
 		} else {
-			$transaksi =  $this->TransaksiModel->get();
+			$transaksi =  $this->TransaksiModel->get()->result();
 		}
+
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	function get_last_get()
+	{
+		$transaksi =  $this->TransaksiModel->get_last()->result();
 
 		if ($transaksi) {
 			$this->response(array(
@@ -40,9 +58,9 @@ class Transaksi extends RestController
 	function barang_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get_barang($id_transaksi);
+			$transaksi = $this->TransaksiModel->get_barang($id_transaksi)->row();
 		} else {
-			$transaksi =  $this->TransaksiModel->get_barang();
+			$transaksi =  $this->TransaksiModel->get_barang()->result();
 		}
 
 		if ($transaksi) {
@@ -63,9 +81,9 @@ class Transaksi extends RestController
 	function jasa_get($id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get_jasa($id_transaksi);
+			$transaksi = $this->TransaksiModel->get_jasa($id_transaksi)->row();
 		} else {
-			$transaksi =  $this->TransaksiModel->get_jasa();
+			$transaksi =  $this->TransaksiModel->get_jasa()->result();
 		}
 
 		if ($transaksi) {

@@ -83,18 +83,16 @@ class Superadmin extends CI_Controller
 		$datas = json_decode($getAPI, true);
 
 		// $data = array('historis' => $datas["transaksi"]);
-		foreach ($datas['data'] as $row) {
-			if ($row['id_toko'] == $id_toko) {
-				$value = array(
-					'id_toko' => $id_toko,
-					'nama_toko' => $row['nama_toko'],
-					'alamat' => $row['alamat'],
-					'deskripsi_toko' => $row['deskripsi_toko'],
-					'nama_owner' => $row['nama_owner'],
-					'email' => $row['email'],
-					'no_hp' => $row['no_hp'],
-				);
-			}
+		if ($datas['data']['id_toko'] == $id_toko) {
+			$value = array(
+				'id_toko' => $id_toko,
+				'nama_toko' => $datas['data']['nama_toko'],
+				'alamat' => $datas['data']['alamat'],
+				'deskripsi_toko' => $datas['data']['deskripsi_toko'],
+				'nama_owner' => $datas['data']['nama_owner'],
+				'email' => $datas['data']['email'],
+				'no_hp' => $datas['data']['no_hp'],
+			);
 		}
 
 		$data['toko'] = $value;
@@ -121,18 +119,16 @@ class Superadmin extends CI_Controller
 		$datas = json_decode($getAPI, true);
 
 		// $data = array('historis' => $datas["transaksi"]);
-		foreach ($datas['data'] as $row) {
-			if ($row['id_toko'] == $id_toko) {
-				$value = array(
-					'id_toko' => $id_toko,
-					'nama_toko' => $row['nama_toko'],
-					'alamat' => $row['alamat'],
-					'deskripsi_toko' => $row['deskripsi_toko'],
-					'nama_owner' => $row['nama_owner'],
-					'email' => $row['email'],
-					'no_hp' => $row['no_hp'],
-				);
-			}
+		if ($datas['data']['id_toko'] == $id_toko) {
+			$value = array(
+				'id_toko' => $id_toko,
+				'nama_toko' => $datas['data']['nama_toko'],
+				'alamat' => $datas['data']['alamat'],
+				'deskripsi_toko' => $datas['data']['deskripsi_toko'],
+				'nama_owner' => $datas['data']['nama_owner'],
+				'email' => $datas['data']['email'],
+				'no_hp' => $datas['data']['no_hp'],
+			);
 		}
 
 		$data['toko'] = $value;

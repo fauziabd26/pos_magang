@@ -5,38 +5,6 @@ class TransaksiModel extends CI_Model
 {
 	private $table = 'transaksi';
 
-	//validasi form, method ini akan mengembalikan data berupa rules validasi form
-	public function rules()
-	{
-		return [
-			[
-				'field' => 'nama_toko', //samakan dengan atribut name pada tags input
-				'label' => 'Nama Toko', //label yang akan ditampilkan pada pesan eror
-				'rules' => 'trim|required' //rules validasi
-			],
-			[
-				'field' => 'alamat',
-				'label' => 'Alamat',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'deskripsi_toko',
-				'label' => 'Deskripsi Toko',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'foto_toko',
-				'label' => 'Foto Toko',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'status_toko',
-				'label' => 'Status Toko',
-				'rules' => 'trim|required'
-			],
-		];
-	}
-
 	//Menampilkan Data Transaksi
 	public function get($id_transaksi = null)
 	{
@@ -46,7 +14,16 @@ class TransaksiModel extends CI_Model
 			$this->db->where('id_transaksi', $id_transaksi);
 			$this->db->select('id_user');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
+	}
+
+	public function get_last()
+	{
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
+		$this->db->from('transaksi');
+		$this->db->where('status =', '1');
+		$this->db->order_by('tggl_transaksi', 'DESC');
+		return $this->db->get();
 	}
 
 	//Menampilkan Data Transaksi Barang
@@ -54,27 +31,27 @@ class TransaksiModel extends CI_Model
 	{
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
 		$this->db->from('transaksi');
-        $this->db->where('jenis_transaksi =','barang');
+		$this->db->where('jenis_transaksi =', 'barang');
 		// $this->db->order_by('nama_cust', 'ASC');
 		if ($id_transaksi != null) {
 			$this->db->where('id_transaksi', $id_transaksi);
 			$this->db->select('id_user');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 	//Menampilkan Data Transaksi Jasa
-    public function get_jasa($id_transaksi = null)
+	public function get_jasa($id_transaksi = null)
 	{
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
 		$this->db->from('transaksi');
-        $this->db->where('jenis_transaksi =','jasa');
+		$this->db->where('jenis_transaksi =', 'jasa');
 		// $this->db->order_by('nama_cust', 'ASC');
 		if ($id_transaksi != null) {
 			$this->db->where('id_transaksi', $id_transaksi);
 			$this->db->select('id_user');
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 	//Simpan Data 

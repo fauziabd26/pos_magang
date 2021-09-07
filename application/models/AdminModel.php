@@ -46,7 +46,7 @@ class AdminModel extends CI_Model
 		if ($id_user != null) {
 			$this->db->where('id_user', $id_user);
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 	//Simpan Data Admin

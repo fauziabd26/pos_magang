@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-	<title>Transaksi Penjualan Jasa</title>
+	<title>Transaksi Penjualan Barang</title>
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -65,7 +65,7 @@
 			<div class="row justify-content-between mt-3 mr-4">
 				<ul class="ml-1">
 					<a class="btn bg-white text-primary btn-lg">
-						Transaksi Penjualan Jasa
+						Transaksi Penjualan Barang
 					</a>
 				</ul>
 				<ul class="mr-1">
@@ -101,7 +101,7 @@
 																	<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
 																	<span class="text-capitalize font-weight-bold"><?= $produk['nama_produk'] ?></span><br>
 																	<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
-																	<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?></small>
+																	<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?> / <?= $produk['nama_harga'] ?></small>
 																</div>
 															</button>
 														</form>
@@ -110,7 +110,7 @@
 											<?php } else { ?>
 												<div class="col">
 													<div class="card">
-														<p class="text-center">Tidak Ada Produk Dengan Jenis Jasa</p>
+														<p class="text-center">Tidak Ada Produk Dengan Jenis Barang</p>
 													</div>
 												</div>
 											<?php } ?>
@@ -132,10 +132,10 @@
 											<?php
 											foreach ($detail_transaksi as $row) : ?>
 												<tr>
-													<td class="text-capitalize"><?= $row['nama_produk'] ?? "-" ?></td>
+													<td class="text-capitalize"><?= $row['nama_produk'] ?? "-" ?> / <?= $produk['nama_harga'] ?></td>
 													<td>
 														<div class="row align-items-center">
-															<form action="#" method="POST">
+															<form action="<?= base_url('admin/stok_kurang/' . $row['id_detail_trans_produk']) ?>" method="POST">
 																<?php if ($row['qty'] > 1) { ?>
 																	<button class="btn btn-danger btn-xs mr-3" style="padding : 2px 6px">
 																		<i class="fas fa-minus" style="font-size: 8px"></i>
@@ -143,15 +143,15 @@
 																<?php } ?>
 															</form>
 															<span><?= $row['qty'] ?></span>
-															<form action="#" method="POST">
+															<form action="<?= base_url('admin/stok_tambah/' . $row['id_detail_trans_produk']) ?>" method="POST">
 																<button class="btn btn-primary btn-xs ml-3" style="padding : 2px 6px">
 																	<i class="fas fa-plus" style="font-size: 8px"></i>
 																</button>
 															</form>
 														</div>
 													</td>
-													<td>Rp <?= number_format($row['nominal']) ?? '-' ?></td>
-													<td>Rp <?= number_format($row['nominal'] * $row['qty']) ?? '-' ?></td>
+													<td>Rp <?= number_format($row['nominal'] ?? "-") ?> </td>
+													<td>Rp <?= number_format($row['nominal'] * $row['qty'] ?? "-") ?></td>
 												</tr>
 											<?php endforeach; ?>
 										</tbody>
@@ -170,7 +170,7 @@
 											<div class="form-group row">
 												<label class="col-4 col-form-label">Total :</label>
 												<div class="col-8">
-													<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal) ?? '-'  ?>" disabled>
+													<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal ?? "-")  ?>" disabled>
 												</div>
 											</div>
 										</div>
@@ -199,7 +199,7 @@
 											<label class="col col-form-label">Jumlah Yang Harus Dibayar :</label>
 											<div class="col">
 												<!-- total di tabel transaksi -->
-												<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal) ?? '-' ?>" disabled>
+												<input class="form-control text-right bg-white" value="Rp <?= number_format($subtotal ?? '-') ?>" disabled>
 											</div>
 										</div>
 									</div>

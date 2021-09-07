@@ -23,12 +23,12 @@
 					<div class="form-group">
 						<label for='nama'>Nama Lengkap</label>
 						<?php echo form_error('nama'); ?>
-						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' autofocus>
+						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' value="<?= set_value('nama') ?>" autofocus>
 					</div>
 					<div class="form-group">
 						<label for='email'>Email</label>
 						<?php echo form_error('email'); ?>
-						<input type="email" id="email" class="form-control" name="email" placeholder='Masukkan Email'>
+						<input type="email" id="email" class="form-control" name="email" placeholder='Masukkan Email' value="<?= set_value('email') ?>">
 					</div>
 					<div class="row">
 						<div class="form-group col-6">
@@ -45,7 +45,7 @@
 					<div class="form-group">
 						<label for='no_hp'>Nomer Handphone</label>
 						<?php echo form_error('no_hp'); ?>
-						<input type="number" id="no_hp" class="form-control" name="no_hp" placeholder='Masukkan Nomer Handphone'>
+						<input type="number" id="no_hp" class="form-control" name="no_hp" placeholder='Masukkan Nomer Handphone' value="<?= set_value('no_hp') ?>">
 					</div>
 					<div class="form-group">
 						<label for='photo'>Foto Admin</label>

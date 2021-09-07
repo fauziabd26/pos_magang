@@ -4,12 +4,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use chriskacerguis\RestServer\RestController;
 
 class Kategori extends RestController{
-    function __construct($config = 'rest')
-	{
-		parent::__construct($config);
+	private $id_user = 0;
+    public function __construct(){
+        parent::__construct();
 		$this->load->database();
 		$this->load->model('KategoriModel');
-	}
+
+		$header = getallheaders();
+		$apikey = filter_var($header['x-apikey'], FILTER_CALLBACK, ['options' => function($hash) { return preg_replace('/[^a-zA-Z0-9$\/.]/', '', $hash);}]);
+		
+		if(!empty($apikey))
+			{
+			$this->load->database();
+			$this->id_user = intval($this->db->where(array('apikey'=>$apikey,'status'=>'1'))->limit(1)->get('apikeys')->row('id_user'));
+			if($this->id_user > 0)
+				{
+				$this->apicheck($this->id_user,$header);
+				}
+				else response_json(401,"Invalid Key");
+			}
+			else response_json(401,"API Key Required"); 
+    }
+
+    // function __construct($config = 'rest')
+	// {
+	// 	parent::__construct($config);
+	// 	$this->load->database();
+	// 	$this->load->model('KategoriModel');
+	// }
 
 	//Menampilkan data
 	function index_get($id_kategori = null)
@@ -21,9 +43,9 @@ class Kategori extends RestController{
 		}
 
 		$this->response(array(
-			'status' 	=> true,
-			'message' 	=> 'Data Kategori Berhasil Diambil',
-			'data' 		=> $kategori
+			'status' => true,
+			'message' => 'Data Kategori Berhasil Diambil',
+			'data' => $kategori
 		), 200);
 	}
 
@@ -31,7 +53,7 @@ class Kategori extends RestController{
 	function index_post()
 	{
 		$data = array(
-			'nama_kategori'   => $this->post('nama_kategori'),
+			'nama_kategori'      => $this->post('nama_kategori'),
 			'id_toko'         => $this->post('id_toko')
 		);
 
@@ -53,8 +75,8 @@ class Kategori extends RestController{
 	function index_put()
 	{
 		$id_kategori    = $this->put('id_kategori');
-		$data = array(
-			'nama_kategori'      => $this->put('nama_kategori'),
+		$data       = array(
+			'nama_kategori'         => $this->put('nama_kategori'),
 			'id_toko'            => $this->put('id_toko')
 		);
 
@@ -79,7 +101,6 @@ class Kategori extends RestController{
 	{
 		$id_kategori = $this->delete('id_kategori');
 		$this->db->where('id_kategori', $id_kategori);
-		
 		if ($this->db->delete('kategori')) {
 			$this->response(array(
 				'status' => true,

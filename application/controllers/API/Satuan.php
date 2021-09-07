@@ -49,6 +49,9 @@ class Satuan extends RestController{
                 'message'   => 'Gagal Menambahkan Data Satuan'
             ), 502);
         }
+        // $p = $this->input->post();
+		// response_json(200,json_encode($p));
+		
     }
 
     //Memperbarui data satuan yang telah ada
