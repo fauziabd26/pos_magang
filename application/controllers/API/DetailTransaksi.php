@@ -11,6 +11,7 @@ class DetailTransaksi extends RestController
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('DetailTransaksiModel');
+		$this->load->model('HargaModel');
 	}
 
 	function lastId_get()
@@ -24,7 +25,7 @@ class DetailTransaksi extends RestController
 	}
 
 	//Menampilkan data
-	function barang_get($id_detail_trans_produk = null)
+	function index_get($id_detail_trans_produk = null)
 	{
 		if (!empty($id_detail_trans_produk)) {
 			$detail_transaksi = $this->DetailTransaksiModel->get_barang($id_detail_trans_produk)->row();
@@ -124,15 +125,17 @@ class DetailTransaksi extends RestController
 	//Menambah data baru barang
 	function index_post()
 	{
+		$data['sub_total'] = $this->DetailTransaksiModel->hitungSubTotal();
+		// $sub_total = $this->ProdukModel->
 		$data = array(
 			'sub_total'         => $this->post('sub_total'),
 			'qty'               => $this->post('qty'),
 			'id_user'           => $this->post('id_user'),
-			'id_produk'         => $this->post('id_produk'),
+			'id_harga'         => $this->post('id_harga'),
 			'id_transaksi'      => $this->post('id_transaksi'),
 		);
 
-		if ($this->TransaksiModel->save($data)) {
+		if ($this->DetailTransaksiModel->save($data)) {
 			$this->response(array(
 				'status' => true,
 				'message' => 'Data Transaksi Berhasil Ditambah',
