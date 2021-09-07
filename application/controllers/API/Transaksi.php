@@ -193,11 +193,11 @@ class Transaksi extends RestController
 	{
 		$id_transaksi    = $this->put('id_transaksi');
 		$data       = array(
-			'nama_cust'         => $this->post('nama_cust'),
-			// 'diskon'            => $this->post('diskon'),
-			// 'total_transaksi'   => $this->post('total_transaksi'),
-			'status'            => $this->post('status'),
-			// 'bayar'             => $this->post('bayar'),
+			'nama_cust'            	=> $this->put('nama_cust'),
+			// 'diskon'            	=> $this->put('diskon'),
+			// 'total_transaksi'   	=> $this->put('total_transaksi'),
+			'status'               	=> $this->put('status'),
+			'bayar'             	=> $this->put('bayar'),
 		);
 
 		$this->db->where('id_transaksi', $id_transaksi);

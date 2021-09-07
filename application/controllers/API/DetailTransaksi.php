@@ -90,7 +90,7 @@ class DetailTransaksi extends RestController
 		), 200);
 	}
 
-	function stok_tambah_put()
+	function stok_put()
 	{
 		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
 		$data       = array(
@@ -113,7 +113,7 @@ class DetailTransaksi extends RestController
 		}
 	}
 
-	function stok_tambah_update_put()
+	function stok_update_put()
 	{
 		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
 		$data       = array(
@@ -136,25 +136,25 @@ class DetailTransaksi extends RestController
 		}
 	}
 
-	function stok_kurang_put()
+	function transaksi_total_update_put()
 	{
-		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
+		$id_transaksi    = $this->put('id_transaksi');
 		$data       = array(
-			'qty'               => $this->put('qty'),
+			'total_transaksi'	=> $this->put('total_transaksi'),
 		);
 
-		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
-		$update = $this->db->update('detail_trans_produk', $data);
+		$this->db->where('id_transaksi', $id_transaksi);
+		$update = $this->db->update('transaksi', $data);
 		if ($update) {
 			$this->response(array(
 				'status' => true,
-				'message' => 'Data Detail Transaksi Berhasil Diedit',
+				'message' => 'Data Transaksi Berhasil Diedit',
 				'data' => $data
 			), 200);
 		} else {
 			$this->response(array(
 				'status' => false,
-				'message' => 'Gagal Mengedit Data Detail Transaksi'
+				'message' => 'Gagal Mengedit Data Transaksi'
 			), 502);
 		}
 	}
