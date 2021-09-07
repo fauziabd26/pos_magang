@@ -10,9 +10,18 @@
 
 	<div class="section-body">
 		<div class="card">
-		<?php echo validation_errors(); ?>
 			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST">
 				<div class="card-body">
+				<?php if ($this->session->flashdata('error')) { ?>
+					<div class="alert alert-danger alert-dismissible show fade">
+						<div class="alert-body">
+							<button class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+						</div>
+					</div>
+				<?php } ?>
 					<div class="row mb-3">
 						<div class="col">
 							<a href="<?= base_url('owner/admin') ?>" class="btn btn-primary">
@@ -22,37 +31,47 @@
 					</div>
 					<div class="form-group">
 						<label for='nama'>Nama Lengkap</label>
-						<?php echo form_error('nama'); ?>
-						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' autofocus>
+						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' value="<?= set_value('nama') ?>" autofocus>
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('nama'); ?>
+						</small>
 					</div>
 					<div class="form-group">
 						<label for='email'>Email</label>
-						<?php echo form_error('email'); ?>
-						<input type="email" id="email" class="form-control" name="email" placeholder='Masukkan Email'>
+						<input type="email" id="email" class="form-control" name="email" placeholder='Masukkan Email' value="<?= set_value('email') ?>">
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('email'); ?>
+						</small>
 					</div>
 					<div class="row">
 						<div class="form-group col-6">
 							<label for="password" class="d-block">Password</label>
+							<input id="password" type="password" class="form-control" name="password" placeholder='Masukkan Password' value="<?= set_value('password'); ?>">
+							<small class="text-danger font-weight-bold">
 							<?php echo form_error('password'); ?>
-							<input id="password" type="password" class="form-control" name="password" placeholder='Masukkan Password'>
+						</small>
 						</div>
 						<div class="form-group col-6">
 							<label for="password_confirm" class="d-block">Password Confirmation</label>
-							<?php echo form_error('email'); ?>
-							<input id="password_confirm" type="password" class="form-control" name="password_confirm" placeholder='Masukkan Password Confirmation'>
+							<input id="password_confirm" type="password" class="form-control" name="password_confirm" placeholder='Masukkan Password Confirmation' value="<?= set_value('password_confirm'); ?>">
+							<small class="text-danger font-weight-bold">
+							<?php echo form_error('password_confirm'); ?>
+						</small>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for='no_hp'>Nomer Handphone</label>
-						<?php echo form_error('no_hp'); ?>
-						<input type="number" id="no_hp" class="form-control" name="no_hp" placeholder='Masukkan Nomer Handphone'>
+						<input type="number" id="no_hp" class="form-control" name="no_hp" placeholder='Masukkan Nomer Handphone' value="<?= set_value('no_hp'); ?>">
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('no_hp'); ?>
+						</small>
 					</div>
 					<div class="form-group">
 						<label for='photo'>Foto Admin</label>
-						<?php echo form_error('photo'); ?>
 						<input type="file" id="photo" class="form-control" name="photo">
 						<small>*Format File Menggunakan IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
+						
 					</div>
 				</div>
 				<div class="card-footer">

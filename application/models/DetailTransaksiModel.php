@@ -13,24 +13,24 @@ class DetailTransaksiModel extends CI_Model
 
 	public function get_barang($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_harga, id_transaksi');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, id_harga, id_transaksi');
 		$this->db->from('detail_trans_produk');
 		$this->db->where('jenis_transaksi =', 'barang');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_transaksi', $id_detail_trans_produk);
-			$this->db->select('id_user');
+			// $this->db->select('id_user');
 		}
 		return $this->db->get();
 	}
 
 	public function get_jasa($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_user, id_produk, id_transaksi');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, id_produk, id_transaksi');
 		$this->db->from('detail_transaksi');
 		$this->db->where('jenis_transaksi =','jasa');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
-			$this->db->select('id_user');
+			// $this->db->select('id_user');
 		}
 		return $this->db->get();
 	}

@@ -65,7 +65,7 @@
 									<td><?= $admin["nama"] ?></td>
 									<td><?= $admin["email"] ?></td>
 									<td><?= $admin["no_hp"] ?></td>
-									<td><?= $admin["foto"] ?? '-' ?></td>
+									<td><?= $admin["photo"] ?? '-' ?></td>
 									<td>
 										<a href="<?= base_url('owner/admin_edit/' . $admin["id_user"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 										<a href="<?= base_url('owner/admin_hapus/' . $admin["id_user"]) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
