@@ -67,6 +67,7 @@ class Owner extends CI_Controller
 		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
 		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required|min_length[8]');
 		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
 		$this->form_validation->set_rules('photo', 'Foto', 'required');
 
@@ -80,6 +81,13 @@ class Owner extends CI_Controller
 
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
+
+		foreach($datas['data'] as $row){
+			if($row['email'] == $data['email']){
+				$this->session->set_flashdata('error', "Email Sudah Ada !");
+				redirect('owner/admin_tambah');
+			}
+		}
 
 		if ($this->form_validation->run() === false) {
 			foreach ($datas['data'] as $row) {
@@ -114,6 +122,7 @@ class Owner extends CI_Controller
 					'photo' => $datas['data']["photo"],
 				);
 			}
+			
 			$data['admin'] = $value;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 		}
@@ -121,6 +130,8 @@ class Owner extends CI_Controller
 
 	public function proses_edit_admin($id_user)
 	{
+		$this->form_validation->set_rules('email', 'Email', 'is_unique[user.email]');
+
 		$data = array(
 			'id_user' =>  $id_user,
 			'nama' => $_POST["nama"],
@@ -128,6 +139,15 @@ class Owner extends CI_Controller
 			'no_hp' => $_POST["no_hp"],
 		);
 
+		$getAPI = $this->curl->simple_get($this->api . 'admin');
+		$datas = json_decode($getAPI, true);
+
+		foreach($datas['data'] as $row){
+			if($row['email'] == $data['email']){
+				$this->session->set_flashdata('error', "Email Sudah Ada !");
+				redirect('owner/admin_edit/'.$id_user);
+			}
+		}
 
 		$update = $this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 

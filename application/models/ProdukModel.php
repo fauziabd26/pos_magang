@@ -86,6 +86,6 @@ class ProdukModel extends CI_Model
     //hapus data 
     public function delete($id_produk)
     {
-        return $this->db->delete($this->table, array("IdProduk" => $id_produk));
+        return $this->db->delete($this->table, array("id_produk" => $id_produk));
     }
 }
