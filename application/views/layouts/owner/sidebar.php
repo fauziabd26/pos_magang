@@ -23,6 +23,21 @@
 					<i class="fas fa-user"></i> <span>Data Admin</span>
 				</a>
 			</li>
+			<li <?= $this->uri->segment(2) == 'satuan' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/index_satuan') ?>">
+					<i class="fas fa-clipboard-list"></i> <span>Data Satuan</span>
+				</a>
+			</li>
+			<li <?= $this->uri->segment(2) == 'kategori' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/index_kategori') ?>">
+					<i class="fas fa-clipboard-list"></i> <span>Data Kategori</span>
+				</a>
+			</li>
+			<li <?= $this->uri->segment(2) == 'harga' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/index_harga') ?>">
+					<i class="fas fa-coins"></i> <span>Data Harga</span>
+				</a>
+			</li>
 			<li class="nav-item dropdown <?= $this->uri->segment(2) == 'produk' || $this->uri->segment(2) == 'index_jasa' ? 'active' : '' ?>">
 				<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i>
 					<span>Data Produk</span>
@@ -33,19 +48,9 @@
 					<li <?= $this->uri->segment(2) == 'index_jasa' ? 'class=active' : '' ?>><a class="nav-link" href="<?= base_url('owner/index_foto_produk') ?>"><i class="fa fa-images"></i>Foto</a></li>
 				</ul>
 			</li>
-			<li <?= $this->uri->segment(2) == 'harga' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('owner/index_harga') ?>">
-					<i class="fas fa-coins"></i> <span>Data Harga</span>
-				</a>
-			</li>
-			<li <?= $this->uri->segment(2) == 'kategori' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('owner/index_kategori') ?>">
-					<i class="fas fa-clipboard-list"></i> <span>Data Kategori</span>
-				</a>
-			</li>
-			<li <?= $this->uri->segment(2) == 'satuan' ? 'class=active' : '' ?>>
-				<a class="nav-link" href="<?= base_url('owner/index_satuan') ?>">
-					<i class="fas fa-clipboard-list"></i> <span>Data Satuan</span>
+			<li <?= $this->uri->segment(2) == 'katalog' ? 'class=active' : '' ?>>
+				<a class="nav-link" href="<?= base_url('owner/katalog') ?>">
+					<i class="fas fa-clipboard-list"></i> <span>Katalog Produk</span>
 				</a>
 			</li>
 			<li class="menu-header">Laporan</li>

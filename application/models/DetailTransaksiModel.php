@@ -5,32 +5,70 @@ class DetailTransaksiModel extends CI_Model
 {
 	private $table = 'detail_trans_produk';
 
-	//Menampilkan Data 
+	//Menampilkan Data Transaksi Terakhir
 	public function lastId()
 	{
-		return $this->db->select('id_transaksi')->order_by('id_transaksi', 'DESC')->limit(1)->get('transaksi')->row();
+		return $this->db->select('*')->where('status =', '0')->order_by('id_transaksi', 'DESC')->limit(1)->get('transaksi')->row();
+	}
+
+	//Menampilkan Data Detail Transaksi Berdasarkan ID Transaksi
+	public function by_id_transaksi($id_transaksi)
+	{
+		$this->db->where('detail_trans_produk.id_transaksi', $id_transaksi);
+		$this->db->where('transaksi.status =', 0);
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
+			->join('produk', 'harga.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
+		return $this->db->get()->result();
+	}
+
+	public function get($id_detail_trans_produk = null)
+	{
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
+			->join('produk', 'harga.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
+		if ($id_detail_trans_produk != null) {
+			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		}
+		return $this->db->get();
 	}
 
 	public function get_barang($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_harga, id_transaksi');
-		$this->db->from('detail_trans_produk');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
+			->join('produk', 'harga.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
 		$this->db->where('jenis_transaksi =', 'barang');
 		if ($id_detail_trans_produk != null) {
-			$this->db->where('id_transaksi', $id_detail_trans_produk);
-			// $this->db->select('id_user');
+			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
 		}
+		return $this->db->get();
+	}
+
+	public function get_where($id_detail_trans_produk)
+	{
+		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		$this->db->select('id_detail_trans_produk');
+		$this->db->from('detail_trans_produk');
 		return $this->db->get();
 	}
 
 	public function get_jasa($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, id_produk, id_transaksi');
-		$this->db->from('detail_transaksi');
-		$this->db->where('jenis_transaksi =','jasa');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
+			->join('produk', 'harga.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
+		$this->db->where('jenis_transaksi =', 'jasa');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
-			// $this->db->select('id_user');
 		}
 		return $this->db->get();
 	}

@@ -36,6 +36,24 @@ class Transaksi extends RestController
 		}
 	}
 
+	function get_last_get()
+	{
+		$transaksi =  $this->TransaksiModel->get_last()->result();
+
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
 	//Menampilkan data Transaksi Barang
 	function barang_get($id_transaksi = null)
 	{
@@ -142,7 +160,7 @@ class Transaksi extends RestController
 	//Memperbarui data yang telah ada
 	function index_put()
 	{
-		$id_transaksi    = $this->put('id_$id_transaksi');
+		$id_transaksi    = $this->put('id_transaksi');
 		$data       = array(
 			'nama_cust'         => $this->post('nama_cust'),
 			'diskon'            => $this->post('diskon'),
@@ -157,6 +175,33 @@ class Transaksi extends RestController
 
 		$this->db->where('id_toko', $id_transaksi);
 		$update = $this->db->update('toko', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Transaksi'
+			), 502);
+		}
+	}
+
+	function konfirmasi_put()
+	{
+		$id_transaksi    = $this->put('id_transaksi');
+		$data       = array(
+			'nama_cust'         => $this->post('nama_cust'),
+			// 'diskon'            => $this->post('diskon'),
+			// 'total_transaksi'   => $this->post('total_transaksi'),
+			'status'            => $this->post('status'),
+			// 'bayar'             => $this->post('bayar'),
+		);
+
+		$this->db->where('id_transaksi', $id_transaksi);
+		$update = $this->db->update('transaksi', $data);
 		if ($update) {
 			$this->response(array(
 				'status' => true,
