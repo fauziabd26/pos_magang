@@ -80,7 +80,7 @@ class Owner extends CI_Controller
 			'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit')
 		);
 		$this->form_validation->set_rules('photo', 'Foto', 'required', array(
-			'required' => 'Nama Wajib Diisi.')
+			'required' => 'Foto Wajib Diisi.')
 		);
 
 		$data = array(
@@ -620,9 +620,7 @@ class Owner extends CI_Controller
 	{
 		$data = array(
 			'id_harga' =>  $id_harga,
-			'nama_harga' =>  ucwords($_POST['nama_harga']),
-			'nominal' => $_POST['nominal'],
-			'id_produk' => $_POST['id_produk']
+			'nama_harga' =>  ucwords($_POST['nama_harga'])
 		);
 		$update = $this->curl->simple_put($this->api . 'harga', $data, array(CURLOPT_BUFFERSIZE => 10));
 

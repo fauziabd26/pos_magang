@@ -43,9 +43,7 @@
                             <tr>
 
                                 <th>No</th>
-                                <th>Nama Produk</th>
                                 <th>Nama Harga</th>
-                                <th>Nominal</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -53,9 +51,7 @@
                             <?php foreach ($hargas as $no => $harga) : ?>
                             <tr>
                                 <td><?php echo ++$no; ?></td>
-                                <td><?= $harga["nama_produk"] ?></td>
                                 <td><?= $harga["nama_harga"] ?></td>
-                                <td><?= $harga["nominal"] ?></td>
                                 <td>
                                     <a href="<?= base_url('owner/harga_edit/' . $harga["id_harga"]) ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>

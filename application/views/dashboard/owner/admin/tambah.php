@@ -71,7 +71,9 @@
 						<input type="file" id="photo" class="form-control" name="photo">
 						<small>*Format File Menggunakan IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
-						
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('photo'); ?>
+						</small>
 					</div>
 				</div>
 				<div class="card-footer">
