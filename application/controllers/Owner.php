@@ -63,16 +63,29 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_admin()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
-		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.email]');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
-		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required|min_length[8]');
-		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
-		$this->form_validation->set_rules('photo', 'Foto', 'required');
+	$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]', array(
+			'required' => 'Nama Wajib Diisi.'
+		));
+		$this->form_validation->set_rules('email', 'Email', 'required|is_unique[user.email]', array(
+			'required' => 'Email Wajib Diisi.')
+		);
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]', array(
+			'required' => 'Password Wajib Diisi.', 'min_length' => 'Password Minimal 8 Karakter')
+		);
+		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required|min_length[8]', array(
+			'required' => 'Konfirmasi Password Wajib Diisi.', 'min_length' => 'Password Harus Sama')
+		);
+		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|min_length[10]|max_length[15]', array(
+			'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit')
+		);
+		$this->form_validation->set_rules('photo', 'Foto', 'required', array(
+			'required' => 'Nama Wajib Diisi.')
+		);
 		$config['upload_path']          = './assets/img/foto_admin/';
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['overwrite']			= true;
 		$config['max_size']             = 2000; // 1MB
+
 		$data = array(
 			'nama' 		=> ucwords($_POST['nama']),
 			'email' 	=> $_POST['email'],
@@ -107,7 +120,7 @@ class Owner extends CI_Controller
 		} else {
 			$data = array('upload_data' => $this->upload->data());
 			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
-			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+			$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 			redirect('owner/admin');
 
 		} 
@@ -139,8 +152,6 @@ class Owner extends CI_Controller
 
 	public function proses_edit_admin($id_user)
 	{
-		$this->form_validation->set_rules('email', 'Email', 'is_unique[user.email]');
-
 		$data = array(
 			'id_user' =>  $id_user,
 			'nama' => $_POST["nama"],
@@ -148,22 +159,28 @@ class Owner extends CI_Controller
 			'no_hp' => $_POST["no_hp"],
 		);
 
-		$getAPI = $this->curl->simple_get($this->api . 'admin');
+		$getAPI = $this->curl->simple_get($this->api . 'admin/cek_email/'. $id_user);
 		$datas = json_decode($getAPI, true);
 
-		foreach($datas['data'] as $row){
-			if($row['email'] == $data['email']){
-				$this->session->set_flashdata('error', "Email Sudah Ada !");
-				redirect('owner/admin_edit/'.$id_user);
+		$getadmin = $this->curl->simple_get($this->api . 'admin/cek_email');
+		$datasadmin = json_decode($getadmin, true);
+
+			if($datas['email'] == $data['email']){
+				// $this->session->set_flashdata('error', "Email kamu sama !");
+				// redirect('owner/admin_edit/'.$id_user);
+				if($datasadmin['email'] == $data['email']){
+					$this->session->set_flashdata('error', "Email Sudah Ada !");
+					redirect('owner/admin_edit/'.$id_user);
+				}
 			}
-		}
 
 		$update = $this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 
 		if ($update) {
-			$this->session->set_flashdata('success-edit', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
+			$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
 		} else {
-			$this->session->set_flashdata('info', 'Data Gagal diubah');
+			$this->session->set_flashdata('error', 'Gagal, Email Sudah Terdaftar !');
+			redirect('owner/admin/edit/'.$id_user);
 		}
 		redirect('owner/admin');
 	}
@@ -175,7 +192,7 @@ class Owner extends CI_Controller
 		} else {
 			$delete = $this->curl->simple_delete($this->api . 'admin', array('id_user' => $id_user), array(CURLOPT_BUFFERSIZE => 10));
 			if ($delete) {
-				$this->session->set_flashdata('success-delete', "Data Admin Terhapus !");
+				$this->session->set_flashdata('success', "Data Admin Terhapus !");
 			} else {
 				$this->session->set_flashdata('info', 'Data Gagal dihapus');
 			}
@@ -313,18 +330,37 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_produk()
 	{
+		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|max_length[255]', array(
+			'required' => 'Barang Wajib Diisi.'
+		));
+		$this->form_validation->set_rules('jenis', 'Jenis', 'required', array(
+			'required' => 'Jenis Produk Wajib Diisi.')
+		);
+		$this->form_validation->set_rules('id_toko', 'Toko', 'required', array(
+			'required' => 'Toko Wajib Diisi.')
+		);
+
 		$data = array(
 			'nama_produk' =>  ucwords($_POST['nama_produk']),
 			'jenis' =>  ucfirst($_POST['jenis']),
 			'id_toko' => ucfirst($_POST['id_toko'])
 		);
-		$insert = $this->curl->simple_post($this->api . 'produk/barang', $data, array(CURLOPT_BUFFERSIZE => 10));
-		if ($insert) {
-			$this->session->set_flashdata('success-create', "Data Produk <b>" . $_POST['nama_produk'] . "</b> Berhasil Disimpan !");
-		} else {
-			$this->session->set_flashdata('info', 'data gagal disimpan.');
+
+		if ($this->form_validation->run() === false) {
+			$getAPIToko = $this->curl->simple_get($this->api . 'toko');
+			$datasToko = json_decode($getAPIToko, true);
+
+			$data['tokos'] = $datasToko['data'];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/produk/tambah', $data);
+		 } else {
+			$insert = $this->curl->simple_post($this->api . 'produk/barang', $data, array(CURLOPT_BUFFERSIZE => 10));
+			if ($insert) {
+				$this->session->set_flashdata('success', "Data Produk <b>" . $_POST['nama_produk'] . "</b> Berhasil Disimpan !");
+			} else {
+				$this->session->set_flashdata('info', 'data gagal disimpan.');
+			}
+			redirect('owner/produk');
 		}
-		redirect('owner/produk');
 	}
 
 	public function produk_edit($id_produk)
@@ -397,6 +433,7 @@ class Owner extends CI_Controller
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/jasa/index', $data);
 	}
+
 	public function jasa_tambah()
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'produk/jasa');
@@ -412,18 +449,37 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_jasa()
 	{
+		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|max_length[255]', array(
+			'required' => 'Jasa Wajib Diisi.'
+		));
+		$this->form_validation->set_rules('jenis', 'Jenis', 'required', array(
+			'required' => 'Jenis Produk Wajib Diisi.')
+		);
+		$this->form_validation->set_rules('id_toko', 'Toko', 'required', array(
+			'required' => 'Toko Wajib Diisi.')
+		);
+
 		$data = array(
 			'nama_produk' =>  ucwords($_POST['nama_produk']),
 			'jenis' =>  ucfirst($_POST['jenis']),
 			'id_toko' => ucfirst($_POST['id_toko'])
 		);
-		$insert = $this->curl->simple_post($this->api . 'produk/jasa', $data, array(CURLOPT_BUFFERSIZE => 10));
-		if ($insert) {
-			$this->session->set_flashdata('success-create', "Data Produk Jasa <b>" . $_POST['nama_produk'] . "</b> Berhasil Disimpan !");
-		} else {
-			$this->session->set_flashdata('info', 'data gagal disimpan.');
+
+		if ($this->form_validation->run() === false) {
+			$getAPIToko = $this->curl->simple_get($this->api . 'toko');
+			$datasToko = json_decode($getAPIToko, true);
+
+			$data['tokos'] = $datasToko['data'];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/jasa/tambah', $data);
+		 } else {
+			$insert = $this->curl->simple_post($this->api . 'produk/jasa', $data, array(CURLOPT_BUFFERSIZE => 10));
+			if ($insert) {
+				$this->session->set_flashdata('success-create', "Data Produk Jasa <b>" . $_POST['nama_produk'] . "</b> Berhasil Disimpan !");
+			} else {
+				$this->session->set_flashdata('info', 'data gagal disimpan.');
+			}
+			redirect('owner/index_jasa');
 		}
-		redirect('owner/index_jasa');
 	}
 
 	public function jasa_edit($id_produk)
@@ -512,28 +568,36 @@ class Owner extends CI_Controller
 	}
 	public function harga_tambah()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'produk/barang');
+		$getAPI = $this->curl->simple_get($this->api . 'harga');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('produks' => $datas["data"]);
+		$data = array('hargas' => $datas["data"]);
 
 		$this->template->load('layouts/owner/master', 'dashboard/owner/harga/tambah', $data);
 	}
 
 	public function proses_tambah_harga()
 	{
+		$this->form_validation->set_rules('nama_harga', 'Nama Harga', 'required|max_length[255]', array(
+			'required' => 'Nama Harga Wajib Diisi.'
+		));
+
 		$data = array(
 			'nama_harga' =>  ucwords($_POST['nama_harga']),
-			'nominal' =>  ucfirst($_POST['nominal']),
-			'id_produk' => ucfirst($_POST['id_produk'])
 		);
-		$insert = $this->curl->simple_post($this->api . 'Harga', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		if ($this->form_validation->run() === false) {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/harga/tambah', $data);
+		 } else {
+			$insert = $this->curl->simple_post($this->api . 'harga', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {
-			$this->session->set_flashdata('success-create', "Data Toko <b>" . $_POST['nama_harga'] . "</b> Berhasil Disimpan !");
+			$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_harga'] . "</b> Berhasil Disimpan !");
 		} else {
 			$this->session->set_flashdata('info', 'data gagal disimpan.');
 		}
 		redirect('owner/index_harga');
+		}
+		
 	}
 
 	public function harga_edit($id_harga)

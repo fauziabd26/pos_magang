@@ -12,6 +12,16 @@
         <div class="card">
             <form action="<?= base_url('owner/proses_tambah_harga') ?>" method="POST">
                 <div class="card-body">
+                <?php if ($this->session->flashdata('error')) { ?>
+					<div class="alert alert-danger alert-dismissible show fade">
+						<div class="alert-body">
+							<button class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+						</div>
+					</div>
+				<?php } ?>
                     <div class="row mb-3">
                         <div class="col">
                             <a href="<?= base_url('owner/index_harga') ?>" class="btn btn-primary">
@@ -23,22 +33,9 @@
                         <label for='nama_toko'>Nama Harga</label>
                         <input type="text" id="nama_harga" class="form-control" name="nama_harga"
                             placeholder="Masukan Nama Harga" autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for='nominal'>Nominal</label>
-                        <textarea name="nominal" id="nominal" class="form-control"
-                            placeholder="Masukan Nominal"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for='nominal' class="col-lg-5 col-sm-5 control-label">Pilih Produk</label>
-                        <div class="col-lg-10">
-                            <select name="id_produk" class="form-control">
-                                <?php foreach ($produks as $produk) : ?>
-                                <option value="<?= $produk["id_produk"] ?>"><?= $produk['nama_produk'] ?>
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                            <small class="text-danger font-weight-bold">
+							<?php echo form_error('nama_harga'); ?>
+						</small>
                     </div>
 
                     <div class="card-footer">
