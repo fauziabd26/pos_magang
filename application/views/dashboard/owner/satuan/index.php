@@ -6,8 +6,6 @@
 			<div class="breadcrumb-item">Satuan</div>
 		</div>
 	</div>
-
-
 	<div class="section-body">
 		<div class="card">
 			<div class="card-body">

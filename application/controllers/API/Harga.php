@@ -13,34 +13,25 @@ class Harga extends RestController
 		$this->load->model('HargaModel');
 	}
 
-	//Menampilkan data harga
-	function index_get($id_harga = null)
-	{
-		if (!empty($id_harga)) {
-			$data = $this->HargaModel->get($id_harga)->row();
-		} else {
-			$data =  $this->HargaModel->get()->result();
-		}
-
-		if ($data) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Harga Berhasil Diambil',
-				'data' => $data
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Data Harga Tidak Ada',
-			), 404);
-		}
-	}
+    //Menampilkan data harga
+    function index_get($id_harga = null){
+        if(!empty($id_harga)){
+            $harga = $this->HargaModel->get($id_harga)->row();
+        }else{
+            $harga = $this->HargaModel->get()->result();
+        }
+        $this->response(array(
+            'status'    => true,
+            'message'   => 'Data Harga Berhasil Diambil',
+            'data'      => $harga
+        ), 200);
+    }
 
 	//Menambah data harga baru
 	function index_post()
 	{
 		$data = array(
-			'nama_harga'     => $this->post('nama_harga'),
+			'nama_harga'     => $this->post('nama_harga')
 		);
 
 		if ($this->HargaModel->save($data)) {
@@ -63,7 +54,7 @@ class Harga extends RestController
 		$id_harga   = $this->put('id_harga');
 		$data       = array(
 			'id_harga'      => $this->put('id_harga'),
-			'nama_harga'    => $this->put('nama_harga'),
+			'nama_harga'    => $this->put('nama_harga')
 		);
 
 		$this->db->where('id_harga', $id_harga);

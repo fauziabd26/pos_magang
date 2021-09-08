@@ -10,31 +10,22 @@
 	<div class="section-body">
 		<div class="card">
 			<div class="card-body">
-				<?php if ($this->session->flashdata('success-create')) { ?>
+				<?php if ($this->session->flashdata('success')) { ?>
 					<div class="alert alert-success alert-dismissible show fade">
 						<div class="alert-body">
 							<button class="close" data-dismiss="alert">
 								<span>×</span>
 							</button>
-							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success-create') ?>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success') ?>
 						</div>
 					</div>
-				<?php } elseif ($this->session->flashdata('success-delete')) { ?>
-					<div class="alert alert-success alert-dismissible show fade">
+				<?php } elseif ($this->session->flashdata('error')) { ?>
+					<div class="alert alert-danger alert-dismissible show fade">
 						<div class="alert-body">
 							<button class="close" data-dismiss="alert">
 								<span>×</span>
 							</button>
-							<i class="fas fa-trash-alt mr-2"></i> <?= $this->session->flashdata('success-delete') ?>
-						</div>
-					</div>
-				<?php } elseif ($this->session->flashdata('success-edit')) { ?>
-					<div class="alert alert-success alert-dismissible show fade">
-						<div class="alert-body">
-							<button class="close" data-dismiss="alert">
-								<span>×</span>
-							</button>
-							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success-edit') ?>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
 						</div>
 					</div>
 				<?php } ?>

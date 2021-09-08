@@ -27,7 +27,6 @@ class HargaModel extends CI_Model
 			return false;
 		}
 	}
-
 	// //edit data Harga
 	// public function update()
 	// {

@@ -12,6 +12,16 @@
 		<div class="card">
 			<form action="<?= base_url('owner/proses_edit_admin/' . $admin['id_user']) ?>" method="POST">
 				<div class="card-body">
+				<?php if ($this->session->flashdata('error')) { ?>
+					<div class="alert alert-danger alert-dismissible show fade">
+						<div class="alert-body">
+							<button class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+						</div>
+					</div>
+				<?php } ?>
 					<div class="row mb-3">
 						<div class="col">
 							<a href="<?= base_url('owner/admin') ?>" class="btn btn-primary">
@@ -21,15 +31,18 @@
 					</div>
 					<div class="form-group">
 						<label for='nama'>Nama Lengkap</label>
-						<input type="text" id="nama" class="form-control" name="nama" value="<?= $admin["nama"] ?>" autofocus>
+						<?php echo form_error('nama'); ?>
+						<input type="text" id="nama" class="form-control" name="nama" value="<?= set_value('nama', $admin['nama']) ?>" autofocus>
 					</div>
 					<div class="form-group">
 						<label for='email'>Email</label>
-						<input type="email" id="email" class="form-control" name="email" value="<?= $admin["email"] ?>">
+						<?php echo form_error('email'); ?>
+						<input type="email" id="email" class="form-control" name="email" value="<?= set_value('email', $admin['email']) ?>" autofocus>
 					</div>
 					<div class="form-group">
 						<label for='no_hp'>Nomer Handphone</label>
-						<input type="number" id="no_hp" class="form-control" name="no_hp" value="<?= $admin["no_hp"] ?>">
+						<?php echo form_error('no_hp'); ?>
+						<input type="number" id="no_hp" class="form-control" name="no_hp" value="<?= set_value('no_hp', $admin['no_hp']) ?>" autofocus>
 					</div>
 				</div>
 				<div class="card-footer">
