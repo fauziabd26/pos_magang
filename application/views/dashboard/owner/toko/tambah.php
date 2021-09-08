@@ -21,19 +21,31 @@
 					</div>
 					<div class="form-group">
 						<label for='nama_toko'>Nama Toko</label>
-						<input type="text" id="nama_toko" class="form-control" name="nama_toko" placeholder="Masukan Nama Toko" autofocus>
+						<input type="text" id="nama_toko" class="form-control <?= form_error('nama_toko') ? 'is-invalid' : '' ?>" name="nama_toko" value="<?= set_value('nama_toko') ?>" placeholder="Masukan Nama Toko" autofocus>
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('nama_toko'); ?>
+						</small>
 					</div>
 					<div class="form-group">
 						<label for='deskripsi_toko'>Deskripsi Toko</label>
-						<textarea name="deskripsi_toko" id="deskripsi_toko" class="form-control" placeholder="Masukan Deskripsi Toko"></textarea>
+						<textarea name="deskripsi_toko" id="deskripsi_toko" class="form-control <?= form_error('deskripsi_toko') ? 'is-invalid' : '' ?>" placeholder="Masukan Deskripsi Toko"><?= set_value('deskripsi_toko') ?></textarea>
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('deskripsi_toko'); ?>
+						</small>
 					</div>
 					<div class="form-group">
 						<label for='alamat'>Alamat Toko</label>
-						<textarea name="alamat" id="alamat" class="form-control" placeholder="Masukan Alamat Toko"></textarea>
+						<textarea name="alamat" id="alamat" class="form-control <?= form_error('alamat') ? 'is-invalid' : '' ?>" placeholder="Masukan Alamat Toko"><?= set_value('alamat') ?></textarea>
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('alamat'); ?>
+						</small>
 					</div>
 					<div class="form-group">
 						<label for='foto_toko'>Dokumen Toko</label>
-						<input type="file" id="foto_toko" class="form-control" name="foto_toko">
+						<input type="file" id="foto_toko" class="form-control <?= form_error('foto_toko') ? 'is-invalid' : '' ?>" name="foto_toko" value="<?= set_value('foto_toko') ?>">
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('foto_toko'); ?>
+						</small>
 						<small>*Format File Menggunakan PDF, IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
 					</div>
