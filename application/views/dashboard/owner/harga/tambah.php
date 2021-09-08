@@ -1,13 +1,12 @@
 <section class="section">
-    <div class="section-header">
-        <h1>Tambah Data Harga</h1>
-        <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="<?= base_url('owner/index_harga') ?>">Data Harga</a></div>
-            <div class="breadcrumb-item">Tambah Data Harga</div>
-        </div>
-    </div>
-
+	<div class="section-header">
+		<h1>Tambah Data Harga</h1>
+		<div class="section-header-breadcrumb">
+			<div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('owner/index_harga') ?>">Data Harga</a></div>
+			<div class="breadcrumb-item">Tambah Data Harga</div>
+		</div>
+	</div>
     <div class="section-body">
         <div class="card">
             <form action="<?= base_url('owner/proses_tambah_harga') ?>" method="POST">

@@ -52,11 +52,10 @@
 							<?php echo form_error('id_toko'); ?>
 						    </small>
 					</div>
+				</div>
+				<div class="card-footer">
+					<button class="btn btn-primary btn-block">Submit</button>
+				</div>
+			</form>
 		</div>
-		<div class="card-footer">
-			<button class="btn btn-primary btn-block">Submit</button>
-		</div>
-		</form>
-
-	</div>
 </section>

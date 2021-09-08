@@ -13,7 +13,6 @@ class HargaModel extends CI_Model
 		$this->db->from('harga');
 		if ($id_harga != null) {
 			$this->db->where('id_harga', $id_harga);
-			// $this->db->select('harga.id_produk');
 		}
 		return $this->db->get();
 	}
@@ -28,20 +27,17 @@ class HargaModel extends CI_Model
 			return false;
 		}
 	}
+	// //edit data Harga
+	// public function update()
+	// {
+	// 	$data = array(
+	// 		"nama_harga"   => $this->input->post('nama_harga'),
+	// 	);
+	// 	return $this->db->update($this->table, $data, array('id_harga' => $this->input->post('id_harga')));
+	// }
 
-	//edit data Harga
-	public function update()
-	{
-		$data = array(
-			"nama_harga"   => $this->input->post('nama_harga')
-
-		);
-		return $this->db->update($this->table, $data, array('id_harga' => $this->input->post('id_harga')));
-	}
-
-	public function delete($id_harga)
-	{
-		return $this->db->delete($this->table, array("id_harga" => $id_harga));
-	}
+	// public function delete($id_harga)
+	// {
+	// 	return $this->db->delete($this->table, array("id_harga" => $id_harga));
+	// }
 }
-

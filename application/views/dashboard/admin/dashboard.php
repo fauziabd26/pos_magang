@@ -11,16 +11,32 @@
 						<div class="card-stats-title">Data Transaksi</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiProduk ?></div>
+								<?php if (!empty($datas)) { ?>
+									<div class="card-stats-item-count"><?= $totalTransaksiProduk ?></div>
+								<?php } else { ?>
+									<div class="card-stats-item-count">0</div>
+								<?php } ?>
 								<div class="card-stats-item-label">Produk</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiJasa ?></div>
-								<div class="card-stats-item-label">Jasa</div>
+								<div class="card-stats-item">
+									<?php if (!empty($datas)) { ?>
+										<div class="card-stats-item-count"><?= $totalTransaksiJasa ?></div>
+									<?php } else { ?>
+										<div class="card-stats-item-count">0</div>
+									<?php } ?>
+									<div class="card-stats-item-label">Jasa</div>
+								</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiProduk + $totalTransaksiJasa ?></div>
-								<div class="card-stats-item-label">Total Transaksi</div>
+								<div class="card-stats-item">
+									<?php if (!empty($datas)) { ?>
+										<div class="card-stats-item-count"><?= $totalTransaksiProduk + $totalTransaksiJasa ?></div>
+									<?php } else { ?>
+										<div class="card-stats-item-count">0</div>
+									<?php } ?>
+									<div class="card-stats-item-label">Total</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -46,19 +62,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach (array_slice($transaksis, 0, 5) as $transaksi) : ?>
+									<?php if (!empty($transaksis)) { ?>
+										<?php foreach (array_slice($transaksis, 0, 5) as $transaksi) : ?>
+											<tr>
+												<td><?= $transaksi["id_transaksi"] ?></td>
+												<td class="font-weight-600"><?= $transaksi["nama_cust"] ?></td>
+												<td>
+													<div class="badge <?= $transaksi['jenis_transaksi'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis_transaksi"] ?></div>
+												</td>
+												<td><?= format_indo($transaksi["tggl_transaksi"]) ?></td>
+												<td>
+													<a href="<?= base_url('admin/histori_transaksi_detail/' . $transaksi["id_transaksi"]) ?>" class="btn btn-primary">Detail</a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php } else { ?>
 										<tr>
-											<td><?= $transaksi["id_transaksi"] ?></td>
-											<td class="font-weight-600"><?= $transaksi["nama_cust"] ?></td>
-											<td>
-												<div class="badge <?= $transaksi['jenis_transaksi'] == 'produk' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis_transaksi"] ?></div>
-											</td>
-											<td><?= format_indo($transaksi["tggl_transaksi"]) ?></td>
-											<td>
-												<a href="<?= base_url('admin/histori_transaksi_detail/' . $transaksi["id_transaksi"]) ?>" class="btn btn-primary">Detail</a>
-											</td>
+											<td colspan="5" class="text-center">Tidak Ada Data Transaksi Terbaru</td>
 										</tr>
-									<?php endforeach; ?>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>
