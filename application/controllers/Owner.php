@@ -101,12 +101,8 @@ class Owner extends CI_Controller
 				}
 			}
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
-
-		} elseif (! $this->upload->do_upload('photo')) {
-			$error = array('error' => $this->upload->display_errors());
 		} else {
-			$data = array('upload_data' => $this->upload->data());
-			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+			$this->curl->simple_post($this->api . 'admin', array(CURLOPT_BUFFERSIZE => 10));
 			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 			redirect('owner/admin');
 
