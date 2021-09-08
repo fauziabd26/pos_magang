@@ -2,7 +2,7 @@
     <div class="section-header">
         <h1>Harga</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
             <div class="breadcrumb-item">Harga</div>
         </div>
     </div>
@@ -40,9 +40,9 @@
                                 <td>
                                     <a href="<?= base_url('owner/harga_edit/' . $harga["id_harga"]) ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
-										
-                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $harga['id_harga']?>" class="btn btn-danger"><i
-                                            class="fas fa-trash"></i> Hapus</a>
+
+                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $harga['id_harga']?>"
+                                        class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -55,7 +55,8 @@
 </section>
 <!-- Modal Hapus -->
 <?php foreach($hargas as $harga) : ?>
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="hapus-data<?= $harga['id_harga']?>" class="modal fade">
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+    id="hapus-data<?= $harga['id_harga']?>" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -82,8 +82,8 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
 
-		foreach($datas['data'] as $row){
-			if($row['email'] == $data['email']){
+		foreach ($datas['data'] as $row) {
+			if ($row['email'] == $data['email']) {
 				$this->session->set_flashdata('error', "Email Sudah Ada !");
 				redirect('owner/admin_tambah');
 			}
@@ -122,7 +122,7 @@ class Owner extends CI_Controller
 					'photo' => $datas['data']["photo"],
 				);
 			}
-			
+
 			$data['admin'] = $value;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 		}
@@ -142,10 +142,10 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
 
-		foreach($datas['data'] as $row){
-			if($row['email'] == $data['email']){
+		foreach ($datas['data'] as $row) {
+			if ($row['email'] == $data['email']) {
 				$this->session->set_flashdata('error', "Email Sudah Ada !");
-				redirect('owner/admin_edit/'.$id_user);
+				redirect('owner/admin_edit/' . $id_user);
 			}
 		}
 
@@ -327,7 +327,7 @@ class Owner extends CI_Controller
 		$datasToko = json_decode($getAPIToko, true);
 
 		if ($getAPI == false) {
-			echo "<script> alert('Tidak Ada Data Harga!'); 
+			echo "<script> alert('Tidak Ada Data Produk!'); 
 			window.location.href = '" . base_url('owner/produk') . "'; </script>";
 		} else {
 			if ($datas['data']['id_produk'] == $id_produk) {
@@ -426,7 +426,7 @@ class Owner extends CI_Controller
 		$datasToko = json_decode($getAPIToko, true);
 
 		if ($getAPI == false) {
-			echo "<script> alert('Tidak Ada Data Harga!'); 
+			echo "<script> alert('Tidak Ada Data Jasa!'); 
 			window.location.href = '" . base_url('owner/produk') . "'; </script>";
 		} else {
 			if ($datas['data']['id_produk'] == $id_produk) {
@@ -892,7 +892,7 @@ class Owner extends CI_Controller
 
 	public function katalog()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'katalog');
+		$getAPI = $this->curl->simple_get($this->api . 'KatalogProduk');
 		$datas = json_decode($getAPI, true);
 
 		$data['katalog'] = $datas['data'];
@@ -918,5 +918,66 @@ class Owner extends CI_Controller
 		$data['satuan'] = $datassatuan['data'];
 		$data['kategori'] = $dataskategori['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/tambah', $data);
+	}
+
+	public function katalog_edit($id_detail_produk)
+	{
+
+		$getAPI 		= $this->curl->simple_get($this->api . 'KatalogProduk/' . $id_detail_produk);
+		$datas 			= json_decode($getAPI, true);
+
+		$getAPIproduk = $this->curl->simple_get($this->api . 'produk');
+		$datasproduk = json_decode($getAPIproduk, true);
+
+		$getAPIharga = $this->curl->simple_get($this->api . 'harga');
+		$datasharga = json_decode($getAPIharga, true);
+
+		$getAPIsatuan = $this->curl->simple_get($this->api . 'satuan');
+		$datassatuan = json_decode($getAPIsatuan, true);
+
+		$getAPIkategori = $this->curl->simple_get($this->api . 'kategori');
+		$dataskategori = json_decode($getAPIkategori, true);
+
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Katalog Produk!'); 
+			window.location.href = '" . base_url('owner/katalog') . "'; </script>";
+		} else {
+			if ($datas['data']['id_detail_produk'] == $id_detail_produk) {
+				$value = array(
+					'id_detail_produk' 	=> $datas['data']["id_detail_produk"],
+					'id_produk' 		=> $datas['data']["id_produk"],
+					'id_harga' 			=> $datas['data']["id_harga"],
+					'id_satuan' 		=> $datas['data']["id_satuan"],
+					'id_kategori' 		=> $datas['data']["id_kategori"],
+					'nominal' 			=> $datas['data']["nominal"]
+				);
+			}
+		}
+		$data['KatalogProduk'] = $value;
+		$data['produk'] = $datasproduk['data'];
+		$data['harga'] = $datasharga['data'];
+		$data['satuan'] = $datassatuan['data'];
+		$data['kategori'] = $dataskategori['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/edit', $data);
+	}
+
+	public function proses_edit_katalog($id_detail_produk)
+	{
+		$data = array(
+			'id_detail_produk' =>  $id_detail_produk,
+			'id_produk' => $_POST['id_produk'],
+			'id_harga' => $_POST['id_harga'],
+			'id_satuan' => $_POST['id_satuan'],
+			'id_kategori' => $_POST['id_kategori'],
+			'nominal' =>  ucwords($_POST['nominal'])
+		);
+		$update = $this->curl->simple_put($this->api . 'KatalogProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		if ($update) {
+			$this->session->set_flashdata('success-edit', "Data Katalog Produk <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
+		} else {
+			$this->session->set_flashdata('info', 'Data Gagal diubah');
+		}
+		redirect('owner/katalog');
 	}
 }
