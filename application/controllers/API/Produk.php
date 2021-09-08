@@ -18,9 +18,9 @@ class Produk extends RestController
 	function index_get($id_produk = null){
 		
 		if (!empty($id_produk)) {
-			$produk = $this->ProdukModel->get_index($id_produk);
+			$produk = $this->ProdukModel->get_index($id_produk)->row();
 		} else {
-			$produk =  $this->ProdukModel->get_index();
+			$produk =  $this->ProdukModel->get_index()->result();
 		}
 
 		$this->response(array(
@@ -33,9 +33,9 @@ class Produk extends RestController
 	function barang_get($id_produk = null)
 	{
 		if (!empty($id_produk)) {
-			$produk = $this->ProdukModel->get_barang($id_produk);
+			$produk = $this->ProdukModel->get_barang($id_produk)->row();
 		} else {
-			$produk =  $this->ProdukModel->get_barang();
+			$produk =  $this->ProdukModel->get_barang()->result();
 		}
 
 		$this->response(array(
@@ -48,9 +48,9 @@ class Produk extends RestController
 	function jasa_get($id_produk = null)
 	{
 		if (!empty($id_produk)) {
-			$produk = $this->ProdukModel->get_jasa($id_produk);
+			$produk = $this->ProdukModel->get_jasa($id_produk)->row();
 		} else {
-			$produk =  $this->ProdukModel->get_jasa();
+			$produk =  $this->ProdukModel->get_jasa()->result();
 		}
 
 		$this->response(array(
@@ -157,37 +157,37 @@ class Produk extends RestController
 	}
 
 	//Menghapus salah satu data
-	function barang_delete()
+	function index_delete()
 	{
 		$id_produk = $this->delete('id_produk');
 		$this->db->where('id_produk', $id_produk);
 		if ($this->db->delete('produk')) {
 			$this->response(array(
 				'status' => true,
-				'message' => 'Data Barang Berhasil Dihapus',
+				'message' => 'Data Produk Berhasil Dihapus',
 			), 200);
 		} else {
 			$this->response(array(
 				'status' => false,
-				'message' => 'Gagal Menghapus Data Barang'
+				'message' => 'Gagal Menghapus Data Produk'
 			), 502);
 		}
 	}
 
-	function jasa_delete()
-	{
-		$id_produk = $this->delete('id_produk');
-		$this->db->where('id_produk', $id_produk);
-		if ($this->db->delete('produk')) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Jasa Berhasil Dihapus',
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menghapus Data Jasa'
-			), 502);
-		}
-	}
+	// function jasa_delete()
+	// {
+	// 	$id_produk = $this->delete('id_produk');
+	// 	$this->db->where('id_produk', $id_produk);
+	// 	if ($this->db->delete('produk')) {
+	// 		$this->response(array(
+	// 			'status' => true,
+	// 			'message' => 'Data Jasa Berhasil Dihapus',
+	// 		), 200);
+	// 	} else {
+	// 		$this->response(array(
+	// 			'status' => false,
+	// 			'message' => 'Gagal Menghapus Data Jasa'
+	// 		), 502);
+	// 	}
+	// }
 }

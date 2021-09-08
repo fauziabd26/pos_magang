@@ -1,0 +1,1 @@
+jam 09.00 - 16.00 =  Manambahkan uang bayar dan nama customer pada proses transaksi kasir pada bagian admin

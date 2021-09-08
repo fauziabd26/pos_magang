@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label for='nominal' class="col-lg-5 col-sm-5 control-label">Pilih Produk</label>
                         <div class="col-lg-10">
-                            <select name="id_produk" class="form-control">test
+                            <select name="id_produk" class="form-control">
                                 <?php foreach ($produks as $produk) : ?>
                                 <option value="<?= $produk["id_produk"] ?>"><?= $produk['nama_produk'] ?>
                                 </option>
@@ -40,6 +40,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="card-footer">
                         <button class="btn btn-primary btn-block">Submit</button>
                     </div>

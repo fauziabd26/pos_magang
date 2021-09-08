@@ -53,26 +53,26 @@ class Admin extends CI_Controller
 			return $value['jenis'] == 'barang';
 		});
 
-		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang');
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
 		$datasTransaksi = json_decode($getAPITransaksi, true);
 
-		$data['detail_transaksi'] = array_filter($datasTransaksi['data'], function ($value) {
-			return $value['jenis_transaksi'] == 'barang';
-		});
+		// Manggil Id Transaksi
+		$id_transaksi = $datasTransaksi['id_transaksi'];
 
-		$subtotal = 0;
-		foreach ($datasTransaksi['data'] as $value) {
-			$total = $value['sub_total'] * $value['qty'];
-			$subtotal += $total;
+		$getAPIDetailTransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/by_id_transaksi/' . $id_transaksi);
+		$datasDetailTransaksi = json_decode($getAPIDetailTransaksi, true);
+
+		// var_dump($datasDetailTransaksi);
+		if (!empty($datasDetailTransaksi)) {
+			$sum_qty = 0;
+			foreach ($datasDetailTransaksi as $value) {
+				$sum_qty += $value['qty'];
+			}
+			$data['sum_qty'] = $sum_qty;
 		}
 
-		$item = 0;
-		foreach ($datasTransaksi['data'] as $value) {
-			$item += $value['qty'];
-		}
-
-		$data['item'] = $item;
-		$data['subtotal'] = $subtotal;
+		$data['detail_transaksi'] = $datasDetailTransaksi;
+		$data['transaksi'] = $datasTransaksi;
 		$this->load->view('dashboard/admin/transaksi/barang', $data);
 	}
 
@@ -92,24 +92,9 @@ class Admin extends CI_Controller
 			);
 		}
 
-		// $getAPITransaksi = $this->curl->simple_get($this->api . 'transaksi/barang');
-		// $datasTransaksi = json_decode($getAPITransaksi, true);
-		// foreach ($datasTransaksi["data"] as $value) {
-		// 	$value= array(
-		// 		'id_user' 	=> $this->session->userdata('id_user'),
-		// 		'status' 	=> 0,
-		// 	);
-		// }
-
-		// foreach ($datasTransaksi['data'] as $row) {
-		// 	if ($row['id_user'] == $this->session->userdata('id_user') && $row['status'] == 0) {
-		// 		echo 't';
-		// 	}
-		// }
-
 		$dataTransaksi = array(
 			'id_user'			=> $this->session->userdata('id_user'),
-			'total_transaksi'   => 0,
+			'total_transaksi'   => $value['nominal'],
 			'status'   			=> 0,
 			'tggl_transaksi'	=> $now,
 		);
@@ -223,12 +208,27 @@ class Admin extends CI_Controller
 		$datas = json_decode($getAPI, true);
 
 		$data = array(
-			'id_detail_trans_produk' =>  $id_detail_transaksi,
-			'qty' => $datas['data']['qty'] + 1,
+			'id_detail_trans_produk' => $id_detail_transaksi,
+			'qty' 					 => $datas['data']['qty'] + 1,
 		);
-		
-		// var_dump($data);
-		$this->curl->simple_put($this->api . 'DetailTransaksi/stok_tambah', $data, array(CURLOPT_BUFFERSIZE => 10));
+		$this->curl->simple_put($this->api . 'DetailTransaksi/stok', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		$data = array(
+			'id_detail_trans_produk' => $id_detail_transaksi,
+			'sub_total' 			 => $datas['data']['nominal'] * $data['qty'],
+		);
+		$this->curl->simple_put($this->api . 'DetailTransaksi/stok_update', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
+		$dataTransaksi = json_decode($getAPItransaksi, true);
+
+		$data = array(
+			'id_transaksi' 		=> $dataTransaksi['id_transaksi'],
+			'total_transaksi' 	=> $data['sub_total'],
+		);
+
+		$this->curl->simple_put($this->api . 'DetailTransaksi/transaksi_total_update', $data, array(CURLOPT_BUFFERSIZE => 10));
+
 		redirect('admin/transaksi_barang');
 	}
 
@@ -242,8 +242,50 @@ class Admin extends CI_Controller
 			'qty' => $datas['data']['qty'] - 1,
 		);
 
-		$this->curl->simple_put($this->api . 'DetailTransaksi/stok_kurang', $data, array(CURLOPT_BUFFERSIZE => 10));
-		redirect('admin/transaksi_barang');
+
+		if ($datas['data']['qty'] <= 1) {
+			echo "<script> alert('Tidak Bisa Minus!'); 
+			window.location.href = '" . base_url('admin/transaksi_barang') . "'; </script>";
+		} else {
+			$this->curl->simple_put($this->api . 'DetailTransaksi/stok', $data, array(CURLOPT_BUFFERSIZE => 10));
+			$data = array(
+				'id_detail_trans_produk' => $id_detail_transaksi,
+				'sub_total' 			 => $datas['data']['nominal'] * $data['qty'],
+			);
+			$this->curl->simple_put($this->api . 'DetailTransaksi/stok_update', $data, array(CURLOPT_BUFFERSIZE => 10));
+			$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
+			$dataTransaksi = json_decode($getAPItransaksi, true);
+
+			$data = array(
+				'id_transaksi' 		=> $dataTransaksi['id_transaksi'],
+				'total_transaksi' 	=> $data['sub_total'],
+			);
+
+			$this->curl->simple_put($this->api . 'DetailTransaksi/transaksi_total_update', $data, array(CURLOPT_BUFFERSIZE => 10));
+			redirect('admin/transaksi_barang');
+		}
+	}
+
+	//Konfirmasi
+	public function konfirmasi($id_transaksi)
+	{
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
+		$dataTransaksi = json_decode($getAPITransaksi, true);
+
+		$data = array(
+			'id_transaksi' 	=> $id_transaksi,
+			'nama_cust'		=> ucfirst($_POST['nama_cust']),
+			'status'		=> 'lunas',
+			'bayar'			=> $_POST['bayar'],
+		);
+
+		if ($data['bayar'] < $dataTransaksi['total_transaksi']) {
+			echo "<script> alert('Uang Bayar Tidak Boleh Kurang !'); 
+			window.location.href = '" . base_url('admin/transaksi_barang') . "'; </script>";
+		} else {
+			$this->curl->simple_put($this->api . 'transaksi/konfirmasi', $data, array(CURLOPT_BUFFERSIZE => 10));
+			redirect('admin/transaksi_barang');
+		}
 	}
 
 	// Bagian Histori
