@@ -6,29 +6,14 @@ class HargaModel extends CI_Model
 
 	private $table = "harga";
 
-	public function rules()
-	{
-		return [
-			[
-				'field' => 'nama_harga', //samakan dengan atribut name pada tags input
-				'label' => 'Nama Harga', //label yang akan ditampilkan pada pesan eror
-				'rules' => 'trim|required' //rules validasi
-			], [
-				'field' => 'nominal', //samakan dengan atribut name pada tags input
-				'label' => 'Nominal', //label yang akan ditampilkan pada pesan eror
-				'rules' => 'trim|required' //rules validasi
-			],
-		];
-	}
-
 	//Menampilkan Data Harga
 	public function get($id_harga = null)
 	{
-		$this->db->select('id_harga, nama_harga, nominal, harga.id_produk, produk.nama_produk, produk.jenis');
-		$this->db->from('harga')->join('produk', 'harga.id_produk=produk.id_produk');
+		$this->db->select('id_harga, nama_harga');
+		$this->db->from('harga');
 		if ($id_harga != null) {
 			$this->db->where('id_harga', $id_harga);
-			$this->db->select('harga.id_produk');
+			// $this->db->select('harga.id_produk');
 		}
 		return $this->db->get();
 	}
@@ -48,8 +33,7 @@ class HargaModel extends CI_Model
 	public function update()
 	{
 		$data = array(
-			"nama_harga"   => $this->input->post('nama_harga'),
-			"nominal"      => $this->input->post('nominal'),
+			"nama_harga"   => $this->input->post('nama_harga')
 
 		);
 		return $this->db->update($this->table, $data, array('id_harga' => $this->input->post('id_harga')));
