@@ -84,20 +84,20 @@ class KatalogProduk extends RestController
 	}
 
 	//Menghapus salah satu data
-	function index_delete()
-	{
-		$id_detail_produk = $this->delete('id_detail_produk');
-		$this->db->where('id_detail_produk', $id_detail_produk);
-		if ($this->db->delete('detail_produk')) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Katalog Produk Berhasil Dihapus',
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Gagal Menghapus Data Katalog Produk'
-			), 502);
-		}
-	}
+	// function index_delete()
+	// {
+	// 	$id_detail_produk = $this->delete('id_detail_produk');
+	// 	$this->db->where('id_detail_produk', $id_detail_produk);
+	// 	if ($this->db->delete('detail_produk')) {
+	// 		$this->response(array(
+	// 			'status' => true,
+	// 			'message' => 'Data Katalog Produk Berhasil Dihapus',
+	// 		), 200);
+	// 	} else {
+	// 		$this->response(array(
+	// 			'status' => false,
+	// 			'message' => 'Gagal Menghapus Data Katalog Produk'
+	// 		), 502);
+	// 	}
+	// }
 }
