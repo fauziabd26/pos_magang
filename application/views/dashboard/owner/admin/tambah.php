@@ -10,7 +10,7 @@
 
 	<div class="section-body">
 		<div class="card">
-		
+		<?php echo form_open_multipart();?>
 			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
@@ -50,8 +50,9 @@
 					<div class="form-group">
 						<label for='photo'>Foto Admin</label>
 						<?php echo form_error('photo'); ?>
-						<input type="file" id="photo" class="form-control" name="photo">
-						<small>*Format File Menggunakan IMG, PNG</small><br>
+						<input type="file" id="photo" name="photo" class="form-control <?php echo form_error('photo') ? 'is-invalid':'' ?>" />
+						<input type="hidden" id="photo" name="old_image"  />
+						<small>*Format File Menggunakan IMG, PNG, JPG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
 					</div>
 				</div>

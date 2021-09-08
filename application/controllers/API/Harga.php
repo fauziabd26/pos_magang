@@ -13,7 +13,6 @@ class Harga extends RestController
 		$this->load->model('HargaModel');
 	}
 
-<<<<<<< HEAD
     //Menampilkan data harga
     function index_get($id_harga = null){
         if(!empty($id_harga)){
@@ -27,30 +26,6 @@ class Harga extends RestController
             'data'      => $harga
         ), 200);
     }
-=======
-	//Menampilkan data harga
-	function index_get($id_harga = null)
-	{
-		if (!empty($id_harga)) {
-			$data = $this->HargaModel->get($id_harga)->row();
-		} else {
-			$data =  $this->HargaModel->get()->result();
-		}
->>>>>>> ddf3b7b930318cdab08115d18fc89428aaaf1bb8
-
-		if ($data) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Harga Berhasil Diambil',
-				'data' => $data
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Data Harga Tidak Ada',
-			), 404);
-		}
-	}
 
 	//Menambah data harga baru
 	function index_post()

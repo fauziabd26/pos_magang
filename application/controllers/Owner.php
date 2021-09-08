@@ -9,7 +9,8 @@ class Owner extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->helper('file');		
+		$this->load->library('form_validation');
+		$this->load->helper('form', 'url');
 		//validasi jika user belum login
 		check_not_login();
 		check_owner();
@@ -75,7 +76,7 @@ class Owner extends CI_Controller
 			'email' 	=> $_POST['email'],
 			'password' 	=> $_POST['password'],
 			'no_hp' 	=> $_POST['no_hp'],
-			'photo' 	=> $nmfile,
+			'photo' 	=> $_POST['photo'],
 		);
 
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
@@ -107,11 +108,11 @@ class Owner extends CI_Controller
 		} else {
 			if ($datas['data']['id_user'] == $id_user) {
 				$value = array(
-					'id_user'	=> $datas['data']["id_user"],
-					'nama' 		=> $datas['data']["nama"],
-					'email' 	=> $datas['data']["email"],
-					'no_hp' 	=> $datas['data']["no_hp"],
-					'photo' 	=> $datas['data']["photo"],
+					'id_user' => $datas['data']["id_user"],
+					'nama' => $datas['data']["nama"],
+					'email' => $datas['data']["email"],
+					'no_hp' => $datas['data']["no_hp"],
+					'photo' => $datas['data']["photo"],
 				);
 			}
 			$data['admin'] = $value;
@@ -121,35 +122,22 @@ class Owner extends CI_Controller
 
 	public function proses_edit_admin($id_user)
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
-		$this->form_validation->set_rules('email', 'Email', 'required|callback_is_email_exist');
-		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
-
 		$data = array(
-			'id_user'	=> $id_user,
-			'nama' 		=> $_POST["nama"],
-			'email' 	=> $_POST["email"],
-			'no_hp' 	=> $_POST["no_hp"],
+			'id_user' =>  $id_user,
+			'nama' => $_POST["nama"],
+			'email' => $_POST["email"],
+			'no_hp' => $_POST["no_hp"],
 		);
+
+
 		$update = $this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 
-		foreach ($datas['data'] as $row) {
-			if ($row['id_user'] == $id_user) {
-				$value = array(
-					'id_user'	=> $row["id_user"],
-					'nama' 		=> $row["nama"],
-					'email'		=> $row["email"],
-					'no_hp'		=> $row["no_hp"],
-					'photo'		=> $row["photo"],
-				);
-			}
+		if ($update) {
+			$this->session->set_flashdata('success-edit', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
+		} else {
+			$this->session->set_flashdata('info', 'Data Gagal diubah');
 		}
-		$data['admin'] = $value;
-			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
-		}else{
-
-			redirect ('owner/admin');
-		}
+		redirect('owner/admin');
 	}
 
 	public function admin_hapus($id_user)
@@ -193,11 +181,11 @@ class Owner extends CI_Controller
 	public function proses_tambah_toko()
 	{
 		$data = array(
-			'nama_toko' 		=> ucwords($_POST['nama_toko']),
-			'alamat' 			=> ucfirst($_POST['alamat']),
-			'deskripsi_toko' 	=> ucfirst($_POST['deskripsi_toko']),
-			'foto_toko' 		=> $_POST['foto_toko'],
-			'id_user' 			=> $this->session->userdata('id_user')
+			'nama_toko' =>  ucwords($_POST['nama_toko']),
+			'alamat' =>  ucfirst($_POST['alamat']),
+			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
+			'foto_toko' => $_POST['foto_toko'],
+			'id_user' => $this->session->userdata('id_user')
 		);
 		$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {
