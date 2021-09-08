@@ -117,34 +117,33 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Jasa
 	public function transaksi_jasa()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'harga');
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk');
 		$datas = json_decode($getAPI, true);
 
 		$data['produks'] = array_filter($datas['data'], function ($value) {
 			return $value['jenis'] == 'jasa';
 		});
 
-		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang');
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
 		$datasTransaksi = json_decode($getAPITransaksi, true);
 
-		$data['detail_transaksi'] = array_filter($datasTransaksi['data'], function ($value) {
-			return $value['jenis_transaksi'] == 'jasa';
-		});
+		// Manggil Id Transaksi
+		$id_transaksi = $datasTransaksi['id_transaksi'];
 
-		$subtotal = 0;
-		foreach ($datasTransaksi['data'] as $value) {
-			$total = $value['sub_total'] * $value['qty'];
-			$subtotal += $total;
+		$getAPIDetailTransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/by_id_transaksi/' . $id_transaksi);
+		$datasDetailTransaksi = json_decode($getAPIDetailTransaksi, true);
+
+		// var_dump($datasDetailTransaksi);
+		if (!empty($datasDetailTransaksi)) {
+			$sum_qty = 0;
+			foreach ($datasDetailTransaksi as $value) {
+				$sum_qty += $value['qty'];
+			}
+			$data['sum_qty'] = $sum_qty;
 		}
 
-		$item = 0;
-		foreach ($datasTransaksi['data'] as $value) {
-			$item += $value['qty'];
-		}
-
-		$data['item'] = $item;
-		$data['subtotal'] = $subtotal;
-
+		$data['detail_transaksi'] = $datasDetailTransaksi;
+		$data['transaksi'] = $datasTransaksi;
 		$this->load->view('dashboard/admin/transaksi/jasa', $data);
 	}
 
@@ -294,15 +293,14 @@ class Admin extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas');
 		$datas = json_decode($getAPI, true);
 
-		if($datas){
+		if ($datas) {
 			$data['transaksis'] = array_filter($datas['data'], function ($value) {
 				return $value['id_user'] == $this->session->userdata('id_user');
 			});
 			$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
-		}else{
+		} else {
 			$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index');
 		}
-
 	}
 
 	public function histori_transaksi_detail($id)

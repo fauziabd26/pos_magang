@@ -17,22 +17,22 @@ class Owner extends CI_Controller
 
 	public function dashboard()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk');
 		$datas = json_decode($getAPI, true);
 		if (!empty($datas)) {
-			// Count Data Transaksi
-			$totalTransaksiBarang = 0;
-			$totalTransaksiJasa = 0;
+			// Count Data produk
+			$totalProdukBarang = 0;
+			$totalProdukJasa = 0;
 			foreach ($datas["data"] as $value) {
-				if ($value["jenis_transaksi"] == "barang") {
-					$totalTransaksiBarang += 1;
-				} elseif ($value["jenis_transaksi"] == "jasa") {
-					$totalTransaksiJasa += 1;
+				if ($value["jenis"] == "barang") {
+					$totalProdukBarang += 1;
+				} elseif ($value["jenis"] == "jasa") {
+					$totalProdukJasa += 1;
 				}
 			}
 			$data = array('transaksis' => $datas["data"]);
-			$data['totalTransaksiBarang'] = $totalTransaksiBarang;
-			$data['totalTransaksiJasa'] = $totalTransaksiJasa;
+			$data['totalProdukBarang'] = $totalProdukBarang;
+			$data['totalProdukJasa'] = $totalProdukJasa;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
 		} else {
 			$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard');
@@ -258,9 +258,9 @@ class Owner extends CI_Controller
 		$update = $this->curl->simple_put($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 
 		if ($update) {
-			$this->session->set_flashdata('success-edit', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Diedit !");
+			$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Diedit !");
 		} else {
-			$this->session->set_flashdata('info', 'Data Gagal diubah');
+			$this->session->set_flashdata('error', 'Data Gagal diubah');
 		}
 		redirect('owner/toko');
 	}
@@ -771,10 +771,14 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'satuan');
 		$datas = json_decode($getAPI, true);
 
-		$data['satuans'] = $datas['data'];
-
-		$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/index', $data);
+		if(!empty($datas)){
+			$data['satuans'] = $datas['data'];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/index', $data);
+		}else{
+			$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/index');
+		}
 	}
+
 	public function satuan_tambah()
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'produk/barang');

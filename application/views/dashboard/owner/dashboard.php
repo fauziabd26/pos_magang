@@ -8,11 +8,11 @@
 			<div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
 				<div class="card card-statistic-2">
 					<div class="card-stats">
-						<div class="card-stats-title">Data Produk</div>
+						<div class="card-stats-title">Katalog Produk</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
 								<?php if (!empty($datas)) { ?>
-									<div class="card-stats-item-count"><?= $totalTransaksiBarang ?></div>
+									<div class="card-stats-item-count"><?= $totalProdukBarang ?></div>
 								<?php } else { ?>
 									<div class="card-stats-item-count">0</div>
 								<?php } ?>
@@ -20,7 +20,7 @@
 							</div>
 							<div class="card-stats-item">
 								<?php if (!empty($datas)) { ?>
-									<div class="card-stats-item-count"><?= $totalTransaksiJasa ?></div>
+									<div class="card-stats-item-count"><?= $totalProdukJasa ?></div>
 								<?php } else { ?>
 									<div class="card-stats-item-count">0</div>
 								<?php } ?>
@@ -28,7 +28,7 @@
 							</div>
 							<div class="card-stats-item">
 								<?php if (!empty($datas)) { ?>
-									<div class="card-stats-item-count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
+									<div class="card-stats-item-count"><?= $totalProdukBarang + $totalProdukJasa ?></div>
 								<?php } else { ?>
 									<div class="card-stats-item-count">0</div>
 								<?php } ?>
@@ -37,17 +37,17 @@
 						</div>
 					</div>
 					<div class="col mt-3">
-						<a href="#" class="card card-statistic-1" style="text-decoration: none">
+						<a href="<?= base_url('owner/katalog') ?>" class="card card-statistic-1" style="text-decoration: none">
 							<div class="card-icon shadow-primary bg-primary">
 								<i class="fas fa-archive"></i>
 							</div>
 							<div class="card-wrap">
 								<div class="card-header">
-									<h4>Total Produk</h4>
+									<h4>Total Katalog Produk</h4>
 								</div>
 								<div class="card-body">
 									<?php if (!empty($datas)) { ?>
-										<div class="count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
+										<div class="count"><?= $totalProdukBarang + $totalProdukJasa ?></div>
 									<?php } else { ?>
 										<div class="card-stats-item-count">0</div>
 									<?php } ?>
@@ -62,7 +62,7 @@
 				<div class="card card-statistic-2">
 					<div class="row mx-1 mt-4">
 						<div class="col-6">
-							<a href="#" class="card card-statistic-1" style="text-decoration: none">
+							<a href="<?= base_url('owner/index_kategori') ?>" class="card card-statistic-1" style="text-decoration: none">
 								<div class="card-icon bg-primary">
 									<i class="fas fa-clipboard-list"></i>
 								</div>
@@ -78,7 +78,7 @@
 							</a>
 						</div>
 						<div class="col-6">
-							<a href="#" class="card card-statistic-1" style="text-decoration: none">
+							<a href="<?= base_url('owner/index_satuan') ?>" class="card card-statistic-1" style="text-decoration: none">
 								<div class="card-icon bg-primary">
 									<i class="fas fa-clipboard-list"></i>
 								</div>
@@ -94,7 +94,7 @@
 							</a>
 						</div>
 						<div class="col">
-							<a href="#" class="card card-statistic-1" style="text-decoration: none">
+							<a href="<?= base_url('owner/index_harga') ?>" class="card card-statistic-1" style="text-decoration: none">
 								<div class="card-icon bg-primary">
 									<i class="fas fa-coins"></i>
 								</div>

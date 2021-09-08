@@ -7,7 +7,7 @@ class KatalogProdukModel extends CI_Model
 
 	public function get($id_detail_produk = null)
 	{
-		$this->db->select('id_detail_produk,  harga.nama_harga, detail_produk.nominal, produk.nama_produk, kategori.nama_kategori, satuan.nama_satuan');
+		$this->db->select('id_detail_produk,  harga.nama_harga, detail_produk.nominal, produk.nama_produk, produk.jenis, kategori.nama_kategori, satuan.nama_satuan');
 		$this->db->from('detail_produk')
 			->join('harga', 'detail_produk.id_harga = harga.id_harga')
 			->join('produk', 'detail_produk.id_produk = produk.id_produk')
