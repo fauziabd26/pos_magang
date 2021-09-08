@@ -5,17 +5,26 @@ class DetailTransaksiModel extends CI_Model
 {
 	private $table = 'detail_trans_produk';
 
+	//SUM QTY di Detail Transaksi
+	public function sum_qty($id_transaksi)
+	{
+		$this->db->select_sum('qty');
+		$this->db->where('id_transaksi' , $id_transaksi);
+		$this->db->from('transaksi');
+		return $this->db->get()->row();
+	}
+
 	//Menampilkan Data Transaksi Terakhir
 	public function lastId()
 	{
-		return $this->db->select('*')->where('status =', '0')->order_by('id_transaksi', 'DESC')->limit(1)->get('transaksi')->row();
+		return $this->db->select('*')->where('status =', 'belum lunas')->order_by('id_transaksi', 'DESC')->limit(1)->get('transaksi')->row();
 	}
 
 	//Menampilkan Data Detail Transaksi Berdasarkan ID Transaksi
 	public function by_id_transaksi($id_transaksi)
 	{
 		$this->db->where('detail_trans_produk.id_transaksi', $id_transaksi);
-		$this->db->where('transaksi.status =', 0);
+		$this->db->where('transaksi.status =', "belum lunas");
 		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
 		$this->db->from('detail_trans_produk')
 			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')

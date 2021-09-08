@@ -23,17 +23,17 @@
 					<i class="fas fa-user"></i> <span>Data Admin</span>
 				</a>
 			</li>
-			<li <?= $this->uri->segment(2) == 'satuan' ? 'class=active' : '' ?>>
+			<li <?= $this->uri->segment(2) == 'index_satuan' || $this->uri->segment(2) == 'satuan_tambah' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/index_satuan') ?>">
 					<i class="fas fa-clipboard-list"></i> <span>Data Satuan</span>
 				</a>
 			</li>
-			<li <?= $this->uri->segment(2) == 'kategori' ? 'class=active' : '' ?>>
+			<li <?= $this->uri->segment(2) == 'index_kategori' || $this->uri->segment(2) == 'kategori_tambah' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/index_kategori') ?>">
 					<i class="fas fa-clipboard-list"></i> <span>Data Kategori</span>
 				</a>
 			</li>
-			<li <?= $this->uri->segment(2) == 'harga' ? 'class=active' : '' ?>>
+			<li <?= $this->uri->segment(2) == 'index_harga' || $this->uri->segment(2) == 'harga_tambah' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/index_harga') ?>">
 					<i class="fas fa-coins"></i> <span>Data Harga</span>
 				</a>
