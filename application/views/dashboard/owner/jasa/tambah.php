@@ -12,6 +12,16 @@
         <div class="card">
             <form action="<?= base_url('owner/proses_tambah_jasa') ?>" method="POST">
                 <div class="card-body">
+                <?php if ($this->session->flashdata('error')) { ?>
+					<div class="alert alert-danger alert-dismissible show fade">
+						<div class="alert-body">
+							<button class="close" data-dismiss="alert">
+								<span>×</span>
+							</button>
+							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+						</div>
+					</div>
+				<?php } ?>
                     <div class="row mb-3">
                         <div class="col">
                             <a href="<?= base_url('owner/index_jasa') ?>" class="btn btn-primary">
@@ -23,6 +33,9 @@
                         <label for='nama_produk' class="col-lg-5 col-sm-5 control-label">Nama Jasa</label>
                         <input type="text" id="nama_produk" class="form-control" name="nama_produk"
                             placeholder="Masukan Nama Produk" autofocus>
+                            <small class="text-danger font-weight-bold">
+							<?php echo form_error('nama_produk'); ?>
+						    </small>
                     </div>
                     <div class="form-group">
                         <label for='jenis' class="col-lg-5 col-sm-5 control-label">Jenis Produk</label>
@@ -37,6 +50,9 @@
                                 </option>
                                 <?php endforeach; ?>
                             </select>
+                            <small class="text-danger font-weight-bold">
+							<?php echo form_error('id_toko'); ?>
+						    </small>
                         </div>
                     </div>
                     <div class="card-footer">

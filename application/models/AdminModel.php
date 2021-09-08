@@ -5,37 +5,7 @@ class AdminModel extends CI_Model
 {
 	private $table = 'user';
 
-	//validasi form, method ini akan mengembalikan data berupa rules validasi form
-	public function rules()
-	{
-		return [
-			[
-				'field' => 'nama', //samakan dengan atribut name pada tags input
-				'label' => 'Nama', //label yang akan ditampilkan pada pesan eror
-				'rules' => 'trim|required' //rules validasi
-			],
-			[
-				'field' => 'email',
-				'label' => 'Email',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'password',
-				'label' => 'Password',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'no_hp',
-				'label' => 'No HP',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'photo',
-				'label' => 'Foto',
-				'rules' => 'trim|required'
-			],
-		];
-	}
+	
 
 	//Menampilkan Data Admin
 	public function get($id_user = null)
