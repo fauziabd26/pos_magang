@@ -11,15 +11,27 @@
 						<div class="card-stats-title">Data Produk</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiBarang ?></div>
+								<?php if (!empty($datas)) { ?>
+									<div class="card-stats-item-count"><?= $totalTransaksiBarang ?></div>
+								<?php } else { ?>
+									<div class="card-stats-item-count">0</div>
+								<?php } ?>
 								<div class="card-stats-item-label">Barang</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiJasa ?></div>
+								<?php if (!empty($datas)) { ?>
+									<div class="card-stats-item-count"><?= $totalTransaksiJasa ?></div>
+								<?php } else { ?>
+									<div class="card-stats-item-count">0</div>
+								<?php } ?>
 								<div class="card-stats-item-label">Jasa</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
+								<?php if (!empty($datas)) { ?>
+									<div class="card-stats-item-count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
+								<?php } else { ?>
+									<div class="card-stats-item-count">0</div>
+								<?php } ?>
 								<div class="card-stats-item-label">Total</div>
 							</div>
 						</div>
@@ -34,7 +46,11 @@
 									<h4>Total Produk</h4>
 								</div>
 								<div class="card-body">
-									<div class="count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
+									<?php if (!empty($datas)) { ?>
+										<div class="count"><?= $totalTransaksiBarang + $totalTransaksiJasa ?></div>
+									<?php } else { ?>
+										<div class="card-stats-item-count">0</div>
+									<?php } ?>
 								</div>
 							</div>
 						</a>
@@ -116,18 +132,24 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach (array_slice($transaksis, 0, 5) as $no => $transaksi) : ?>
+									<?php if (!empty($transaksis)) { ?>
+										<?php foreach (array_slice($transaksis, 0, 5) as $no => $transaksi) : ?>
+											<tr>
+												<td><?= $transaksi["id_transaksi"] ?></td>
+												<td class="font-weight-600"><?= $transaksi["nama_cust"] ?></td>
+												<td>
+													<div class="badge <?= $transaksi['jenis_transaksi'] == 'barang' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis_transaksi"] ?></div>
+												</td>
+												<td>
+													<a href="#" class="btn btn-primary">Detail</a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php }else{ ?>
 										<tr>
-											<td><?= $transaksi["id_transaksi"] ?></td>
-											<td class="font-weight-600"><?= $transaksi["nama_cust"] ?></td>
-											<td>
-												<div class="badge <?= $transaksi['jenis_transaksi'] == 'barang' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis_transaksi"] ?></div>
-											</td>
-											<td>
-												<a href="#" class="btn btn-primary">Detail</a>
-											</td>
+											<td colspan="4" class="text-center">Tidak Ada Transaksi Terbaru</td>
 										</tr>
-									<?php endforeach; ?>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>

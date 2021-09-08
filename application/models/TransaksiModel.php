@@ -17,11 +17,11 @@ class TransaksiModel extends CI_Model
 		return $this->db->get();
 	}
 
-	public function get_last()
+	public function get_transaksi_lunas()
 	{
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user, id_toko');
 		$this->db->from('transaksi');
-		$this->db->where('status =', '1');
+		$this->db->where('status =', 'lunas');
 		$this->db->order_by('tggl_transaksi', 'DESC');
 		return $this->db->get();
 	}

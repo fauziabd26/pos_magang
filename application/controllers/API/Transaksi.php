@@ -36,9 +36,9 @@ class Transaksi extends RestController
 		}
 	}
 
-	function get_last_get()
+	function get_transaksi_lunas_get()
 	{
-		$transaksi =  $this->TransaksiModel->get_last()->result();
+		$transaksi =  $this->TransaksiModel->get_transaksi_lunas()->result();
 
 		if ($transaksi) {
 			$this->response(array(
@@ -158,23 +158,15 @@ class Transaksi extends RestController
 	}
 
 	//Memperbarui data yang telah ada
-	function index_put()
+	function update_total_transaksi_put()
 	{
 		$id_transaksi    = $this->put('id_transaksi');
 		$data       = array(
-			'nama_cust'         => $this->post('nama_cust'),
-			'diskon'            => $this->post('diskon'),
-			'total_transaksi'   => $this->post('total_transaksi'),
-			'status'            => $this->post('status'),
-			'bayar'             => $this->post('bayar'),
-			'jenis_transaksi'   => $this->post('jenis_transaksi'),
-			'tggl_transaksi'    => $this->post('tggl_transaksi'),
-			'id_user'           => $this->post('id_user'),
-			'id_toko'           => $this->post('id_toko')
+			'total_transaksi'   => $this->put('total_transaksi'),
 		);
 
-		$this->db->where('id_toko', $id_transaksi);
-		$update = $this->db->update('toko', $data);
+		$this->db->where('id_transaksi', $id_transaksi);
+		$update = $this->db->update('transaksi', $data);
 		if ($update) {
 			$this->response(array(
 				'status' => true,
@@ -216,21 +208,21 @@ class Transaksi extends RestController
 		}
 	}
 
-	//Menghapus salah satu data toko
-	// function index_delete()
-	// {
-	// 	$id_toko = $this->delete('id_toko');
-	// 	$this->db->where('id_toko', $id_toko);
-	// 	if ($this->db->delete('toko')) {
-	// 		$this->response(array(
-	// 			'status' => true,
-	// 			'message' => 'Data Toko Berhasil Dihapus',
-	// 		), 200);
-	// 	} else {
-	// 		$this->response(array(
-	// 			'status' => false,
-	// 			'message' => 'Gagal Menghapus Data Toko'
-	// 		), 502);
-	// 	}
-	// }
+	// Menghapus salah satu data detail transaksi
+	function index_delete()
+	{
+		$id_detail_trans_produk = $this->delete('id_detail_trans_produk');
+		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		if ($this->db->delete('detail_trans_produk')) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Dihapus',
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Menghapus Data Detail Transaksi'
+			), 502);
+		}
+	}
 }

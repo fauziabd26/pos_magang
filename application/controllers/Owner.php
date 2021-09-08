@@ -19,25 +19,24 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
 		$datas = json_decode($getAPI, true);
-
-		// Count Data Transaksi
-		$totalTransaksiBarang = 0;
-		$totalTransaksiJasa = 0;
-
-		// var_dump($datas);
-		foreach ($datas["data"] as $value) {
-			if ($value["jenis_transaksi"] == "barang") {
-				$totalTransaksiBarang += 1;
-			} elseif ($value["jenis_transaksi"] == "jasa") {
-				$totalTransaksiJasa += 1;
+		if (!empty($datas)) {
+			// Count Data Transaksi
+			$totalTransaksiBarang = 0;
+			$totalTransaksiJasa = 0;
+			foreach ($datas["data"] as $value) {
+				if ($value["jenis_transaksi"] == "barang") {
+					$totalTransaksiBarang += 1;
+				} elseif ($value["jenis_transaksi"] == "jasa") {
+					$totalTransaksiJasa += 1;
+				}
 			}
+			$data = array('transaksis' => $datas["data"]);
+			$data['totalTransaksiBarang'] = $totalTransaksiBarang;
+			$data['totalTransaksiJasa'] = $totalTransaksiJasa;
+			$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
+		} else {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard');
 		}
-
-		$data = array('transaksis' => $datas["data"]);
-		$data['totalTransaksiBarang'] = $totalTransaksiBarang;
-		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
-
-		$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
 	}
 
 	public function profile()
@@ -82,8 +81,8 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
 
-		foreach($datas['data'] as $row){
-			if($row['email'] == $data['email']){
+		foreach ($datas['data'] as $row) {
+			if ($row['email'] == $data['email']) {
 				$this->session->set_flashdata('error', "Email Sudah Ada !");
 				redirect('owner/admin_tambah');
 			}
@@ -122,7 +121,7 @@ class Owner extends CI_Controller
 					'photo' => $datas['data']["photo"],
 				);
 			}
-			
+
 			$data['admin'] = $value;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 		}
@@ -142,10 +141,10 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
 
-		foreach($datas['data'] as $row){
-			if($row['email'] == $data['email']){
+		foreach ($datas['data'] as $row) {
+			if ($row['email'] == $data['email']) {
 				$this->session->set_flashdata('error', "Email Sudah Ada !");
-				redirect('owner/admin_edit/'.$id_user);
+				redirect('owner/admin_edit/' . $id_user);
 			}
 		}
 
@@ -184,12 +183,15 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'toko');
 		$datas = json_decode($getAPI, true);
+		if (!empty($datas)) {
+			$data['tokos'] = array_filter($datas['data'], function ($value) {
+				return $value['id_user'] == $this->session->userdata('id_user');
+			});
 
-		$data['tokos'] = array_filter($datas['data'], function ($value) {
-			return $value['id_user'] == $this->session->userdata('id_user');
-		});
-
-		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
+			$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index', $data);
+		} else {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/toko/index');
+		}
 	}
 
 	public function toko_tambah()
@@ -208,9 +210,9 @@ class Owner extends CI_Controller
 		);
 		$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {
-			$this->session->set_flashdata('success-create', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Disimpan !");
+			$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Disimpan !");
 		} else {
-			$this->session->set_flashdata('info', 'data gagal disimpan.');
+			$this->session->set_flashdata('error', 'Gagal Menambahkan Data Toko !');
 		}
 		redirect('owner/toko');
 	}
@@ -497,9 +499,12 @@ class Owner extends CI_Controller
 		$getAPI = $this->curl->simple_get($this->api . 'harga');
 		$datas = json_decode($getAPI, true);
 
-		$data = array('hargas' => $datas["data"]);
-
-		$this->template->load('layouts/owner/master', 'dashboard/owner/harga/index', $data);
+		if (!empty($datas)) {
+			$data['hargas'] = $datas["data"];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/harga/index', $data);
+		} else {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/harga/index');
+		}
 	}
 	public function harga_tambah()
 	{

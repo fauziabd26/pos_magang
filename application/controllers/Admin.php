@@ -15,38 +15,38 @@ class Admin extends CI_Controller
 
 	public function dashboard()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_last');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas');
 		$datas = json_decode($getAPI, true);
-
-		// var_dump($datas['data']);
-		// Count TransaksiProduk
-		$totalTransaksiProduk = 0;
-		$totalTransaksiJasa = 0;
-
-		foreach ($datas["data"] as $value) {
-			if ($value['id_user'] == $this->session->userdata('id_user')) {
-				if ($value["jenis_transaksi"] == "barang") {
-					$totalTransaksiProduk += 1;
-				} elseif ($value["jenis_transaksi"] == "jasa") {
-					$totalTransaksiJasa += 1;
+		if (!empty($datas)) {
+			// var_dump($datas['data']);
+			// Count TransaksiProduk
+			$totalTransaksiProduk = 0;
+			$totalTransaksiJasa = 0;
+			foreach ($datas["data"] as $value) {
+				if ($value['id_user'] == $this->session->userdata('id_user')) {
+					if ($value["jenis_transaksi"] == "barang") {
+						$totalTransaksiProduk += 1;
+					} elseif ($value["jenis_transaksi"] == "jasa") {
+						$totalTransaksiJasa += 1;
+					}
 				}
 			}
+			$data['totalTransaksiProduk'] = $totalTransaksiProduk;
+			$data['totalTransaksiJasa'] = $totalTransaksiJasa;
+			$data['transaksis'] = array_filter($datas['data'], function ($value) {
+				return $value['id_user'] == $this->session->userdata('id_user');
+			});
+			$this->template->load('layouts/admin/master', 'dashboard/admin/dashboard', $data);
+		} else {
+			$this->template->load('layouts/admin/master', 'dashboard/admin/dashboard');
 		}
-
-		$data['totalTransaksiProduk'] = $totalTransaksiProduk;
-		$data['totalTransaksiJasa'] = $totalTransaksiJasa;
-		$data['transaksis'] = array_filter($datas['data'], function ($value) {
-			return $value['id_user'] == $this->session->userdata('id_user');
-		});
-
-		$this->template->load('layouts/admin/master', 'dashboard/admin/dashboard', $data);
 	}
 
 	// Bagian Transaksi
 	// Bagian Transaksi Barang
 	public function transaksi_barang()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'harga');
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk');
 		$datas = json_decode($getAPI, true);
 
 		$data['produks'] = array_filter($datas['data'], function ($value) {
@@ -95,7 +95,7 @@ class Admin extends CI_Controller
 		$dataTransaksi = array(
 			'id_user'			=> $this->session->userdata('id_user'),
 			'total_transaksi'   => $value['nominal'],
-			'status'   			=> 0,
+			'status'   			=> "belum lunas",
 			'tggl_transaksi'	=> $now,
 		);
 		$this->curl->simple_post($this->api . 'DetailTransaksi/tambah_transaksi', $dataTransaksi, array(CURLOPT_BUFFERSIZE => 10));
@@ -181,8 +181,8 @@ class Admin extends CI_Controller
 
 		$dataTransaksi = array(
 			'id_user'			=> $this->session->userdata('id_user'),
-			'total_transaksi'   => 0,
-			'status'   			=> 0,
+			'total_transaksi'   => $value['nominal'],
+			'status'   			=> "belum lunas",
 			'tggl_transaksi'	=> $now,
 		);
 		$this->curl->simple_post($this->api . 'DetailTransaksi/tambah_transaksi_jasa', $dataTransaksi, array(CURLOPT_BUFFERSIZE => 10));
@@ -291,14 +291,18 @@ class Admin extends CI_Controller
 	// Bagian Histori
 	public function histori_transaksi()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_last');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas');
 		$datas = json_decode($getAPI, true);
 
-		$data['transaksis'] = array_filter($datas['data'], function ($value) {
-			return $value['id_user'] == $this->session->userdata('id_user');
-		});
+		if($datas){
+			$data['transaksis'] = array_filter($datas['data'], function ($value) {
+				return $value['id_user'] == $this->session->userdata('id_user');
+			});
+			$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
+		}else{
+			$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index');
+		}
 
-		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/index', $data);
 	}
 
 	public function histori_transaksi_detail($id)
@@ -322,5 +326,33 @@ class Admin extends CI_Controller
 		$data['transaksi'] = $value;
 
 		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/detail', $data);
+	}
+
+	public function hapus_detail_transaksi($id_detail_trans_produk)
+	{
+		if (empty($id_detail_trans_produk)) {
+			redirect('admin/transaksi_barang');
+		} else {
+			$getdetail_trans_produk = $this->curl->simple_get($this->api . 'DetailTransaksi/' . $id_detail_trans_produk);
+			$detail_trans_produk = json_decode($getdetail_trans_produk, true);
+
+			$gettransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
+			$transaksi = json_decode($gettransaksi, true);
+
+			$data = array(
+				'id_transaksi' 		=> $transaksi['id_transaksi'],
+				'total_transaksi' 	=> $transaksi['total_transaksi'] - $detail_trans_produk['data']['sub_total'],
+			);
+			// var_dump($data);
+			$this->curl->simple_put($this->api . 'transaksi/update_total_transaksi', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+			$delete = $this->curl->simple_delete($this->api . 'transaksi', array('id_detail_trans_produk' => $id_detail_trans_produk), array(CURLOPT_BUFFERSIZE => 10));
+			if ($delete) {
+				$this->session->set_flashdata('success', "Data Detail Transaksi Terhapus !");
+			} else {
+				$this->session->set_flashdata('error', 'Data Gagal dihapus');
+			}
+			redirect('admin/transaksi_barang');
+		}
 	}
 }
