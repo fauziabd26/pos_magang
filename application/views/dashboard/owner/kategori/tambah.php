@@ -1,15 +1,16 @@
 <section class="section">
 	<div class="section-header">
-		<h1>Tambah Data Harga</h1>
+		<h1>Tambah Data Kategori</h1>
 		<div class="section-header-breadcrumb">
 			<div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
-			<div class="breadcrumb-item active"><a href="<?= base_url('owner/index_harga') ?>">Data Harga</a></div>
-			<div class="breadcrumb-item">Tambah Data Harga</div>
+			<div class="breadcrumb-item active"><a href="<?= base_url('owner/index_kategori') ?>">Data Kategori</a></div>
+			<div class="breadcrumb-item">Tambah Data Kategori</div>
 		</div>
 	</div>
+
 	<div class="section-body">
 		<div class="card">
-			<form action="<?= base_url('owner/proses_tambah_harga') ?>" method="POST">
+			<form action="<?php echo base_url('owner/proses_tambah_kategori') ?>" method="POST">
 				<div class="card-body">
 					<?php if ($this->session->flashdata('error')) { ?>
 						<div class="alert alert-danger alert-dismissible show fade">
@@ -23,16 +24,16 @@
 					<?php } ?>
 					<div class="row mb-3">
 						<div class="col">
-							<a href="<?= base_url('owner/index_harga') ?>" class="btn btn-primary">
-								<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Harga
+							<a href="<?= base_url('owner/index_kategori') ?>" class="btn btn-primary">
+								<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Kategori
 							</a>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for='nama_toko'>Nama Harga</label>
-						<input type="text" id="nama_harga" class="form-control" name="nama_harga" placeholder="Masukan Nama Harga" autofocus>
+						<label for='nama_kategori' class="control-label">Nama Kategori</label>
+						<input type="text" id="nama_kategori" class="form-control" name="nama_kategori" placeholder="Masukan Nama Kategori" autofocus>
 						<small class="text-danger font-weight-bold">
-							<?php echo form_error('nama_harga'); ?>
+							<?php echo form_error('nama_kategori'); ?>
 						</small>
 					</div>
 				</div>
@@ -41,4 +42,5 @@
 				</div>
 			</form>
 		</div>
+	</div>
 </section>
