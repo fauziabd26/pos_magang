@@ -256,6 +256,19 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_toko()
 	{
+		$this->form_validation->set_rules('nama_toko', 'Nama Toko', 'required|max_length[255]', array(
+			'required' => 'Nama Toko Wajib Diisi'
+		));
+		$this->form_validation->set_rules('deskripsi_toko', 'Deskripsi Toko', 'required|max_length[255]', array(
+			'required' => 'Deskripsi Toko Wajib Diisi'
+		));
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[255]', array(
+			'required' => 'Alamat Wajib Diisi'
+		));
+		$this->form_validation->set_rules('foto_toko', 'Dokumen Foto', 'required', array(
+			'required' => 'Dokumen Foto Wajib Diisi'
+		));
+
 		$data = array(
 			'nama_toko' =>  ucwords($_POST['nama_toko']),
 			'alamat' =>  ucfirst($_POST['alamat']),
@@ -263,13 +276,18 @@ class Owner extends CI_Controller
 			'foto_toko' => $_POST['foto_toko'],
 			'id_user' => $this->session->userdata('id_user')
 		);
-		$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
-		if ($insert) {
-			$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Disimpan !");
+
+		if ($this->form_validation->run() === false) {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/toko/tambah');
 		} else {
-			$this->session->set_flashdata('error', 'Gagal Menambahkan Data Toko !');
+			$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
+			if ($insert) {
+				$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Disimpan !");
+			} else {
+				$this->session->set_flashdata('error', 'Gagal Menambahkan Data Toko !');
+			}
+			redirect('owner/toko');
 		}
-		redirect('owner/toko');
 	}
 
 	public function toko_edit($id_toko)
