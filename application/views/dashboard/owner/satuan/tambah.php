@@ -19,7 +19,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for='nama_satuan' class="col-lg-5 col-sm-5 control-label">Nama Satuan</label>
+						<label for='nama_satuan' class="control-label">Nama Satuan</label>
 						<input type="text" id="nama_satuan" class="form-control" name="nama_satuan" placeholder="Masukan Nama Satuan" autofocus>
 					</div>
 				</div>
