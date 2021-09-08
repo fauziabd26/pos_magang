@@ -9,8 +9,7 @@ class Owner extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->library('form_validation');
-		$this->load->helper('form', 'url');
+
 		//validasi jika user belum login
 		check_not_login();
 		check_owner();
@@ -49,7 +48,6 @@ class Owner extends CI_Controller
 	// Bagian Admin
 	public function admin()
 	{
-
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
 
@@ -71,15 +69,20 @@ class Owner extends CI_Controller
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required|min_length[8]');
 		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
 		$this->form_validation->set_rules('photo', 'Foto', 'required');
-
+		$config['upload_path']          = './assets/img/foto_admin/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['overwrite']			= true;
+		$config['max_size']             = 2000; // 1MB
 		$data = array(
 			'nama' 		=> ucwords($_POST['nama']),
 			'email' 	=> $_POST['email'],
 			'password' 	=> $_POST['password'],
 			'no_hp' 	=> $_POST['no_hp'],
-			'photo' 	=> $_POST['photo'],
+			'photo'		=> $_POST['photo'],
 		);
-
+		$this->upload->initialize($config);
+		$this->load->library('upload', $config);
+		
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
 
@@ -98,11 +101,16 @@ class Owner extends CI_Controller
 				}
 			}
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
+
+		} elseif (! $this->upload->do_upload('photo')) {
+			$error = array('error' => $this->upload->display_errors());
 		} else {
+			$data = array('upload_data' => $this->upload->data());
 			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 			redirect('owner/admin');
-		}
+
+		} 
 	}
 
 	public function admin_edit($id_user)
