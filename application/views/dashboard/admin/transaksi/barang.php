@@ -109,9 +109,7 @@
 												<?php endforeach; ?>
 											<?php } else { ?>
 												<div class="col">
-													<div class="card">
-														<p class="text-center">Tidak Ada Produk Dengan Jenis Barang</p>
-													</div>
+													<p class="text-center">Tidak Ada Produk Dengan Jenis Barang</p>
 												</div>
 											<?php } ?>
 										</div>
@@ -156,7 +154,7 @@
 														<td>Rp <?= number_format($row['nominal'] ?? "-") ?> </td>
 														<td>Rp <?= number_format($row['sub_total'] ?? "-") ?></td>
 														<td>
-															<a href="<?= base_url('/'.$transaksi['id_transaksi']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+															<a href="<?= base_url('admin/hapus_detail_transaksi/' . $row['id_detail_trans_produk']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 														</td>
 													</tr>
 												<?php endforeach; ?>
@@ -170,7 +168,7 @@
 														<label class="col-8 col-form-label">Jml Item :</label>
 														<div class="col-4">
 															<!-- SUM QTY -->
-															<input class="form-control bg-white text-right" value="<?= $sum_qty ?>" disabled>
+															<input class="form-control bg-white text-right" value="<?= $sum_qty ?? '' ?>" disabled>
 														</div>
 													</div>
 												</div>

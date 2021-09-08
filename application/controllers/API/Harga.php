@@ -31,10 +31,7 @@ class Harga extends RestController
 	function index_post()
 	{
 		$data = array(
-			'id_harga'       => $this->post('id_harga'),
-			'nama_harga'     => $this->post('nama_harga'),
-			'nominal'        => $this->post('nominal'),
-			'id_produk'      => $this->post('id_produk')
+			'nama_harga'     => $this->post('nama_harga')
 		);
 
 		if ($this->HargaModel->save($data)) {
@@ -57,9 +54,7 @@ class Harga extends RestController
 		$id_harga   = $this->put('id_harga');
 		$data       = array(
 			'id_harga'      => $this->put('id_harga'),
-			'nama_harga'    => $this->put('nama_harga'),
-			'nominal'       => $this->put('nominal'),
-			'id_produk'     => $this->put('id_produk')
+			'nama_harga'    => $this->put('nama_harga')
 		);
 
 		$this->db->where('id_harga', $id_harga);
