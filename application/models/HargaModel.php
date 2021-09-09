@@ -9,12 +9,20 @@ class HargaModel extends CI_Model
 	//Menampilkan Data Harga
 	public function get($id_harga = null)
 	{
-		$this->db->select('id_harga, nama_harga');
+		$this->db->select('id_harga, nama_harga, id_user');
 		$this->db->from('harga');
 		if ($id_harga != null) {
 			$this->db->where('id_harga', $id_harga);
 		}
 		return $this->db->get();
+	}
+
+	public function by_id_user($id_user)
+	{
+		$this->db->where('id_user', $id_user);
+		$this->db->select('id_harga, nama_harga');
+		$this->db->from('harga');
+		return $this->db->get()->result();
 	}
 
 	//Simpan data Harga

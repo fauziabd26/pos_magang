@@ -14,9 +14,46 @@ class Produk extends RestController
 		$this->load->model('ProdukModel');
 	}
 
+	//Menampilkan data produk jenis barang dan jasa berdasarkan owner
+	function by_id_user_get($id_user)
+	{
+		$produk = $this->ProdukModel->by_id_user($id_user);
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Produk dan Jasa Berdasarkan ID User Berhasil Diambil',
+			'data' => $produk
+		), 200);
+	}
+
+	//Menampilkan data produk jenis barang berdasarkan owner
+	function barang_by_id_user_get($id_user)
+	{
+		$produk = $this->ProdukModel->barang_by_id_user($id_user);
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Produk Berdasarkan ID User Berhasil Diambil',
+			'data' => $produk
+		), 200);
+	}
+
+	//Menampilkan data produk jenis jasa berdasarkan owner
+	function jasa_by_id_user_get($id_user)
+	{
+		$produk = $this->ProdukModel->jasa_by_id_user($id_user);
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Produk Berdasarkan ID User Berhasil Diambil',
+			'data' => $produk
+		), 200);
+	}
+
 	//Menampilkan data
-	function index_get($id_produk = null){
-		
+	function index_get($id_produk = null)
+	{
+
 		if (!empty($id_produk)) {
 			$produk = $this->ProdukModel->get_index($id_produk)->row();
 		} else {
