@@ -615,7 +615,7 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function index_foto_produk()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
 		$datas = json_decode($getAPI, true);
 
 		if (!empty($datas)) {
@@ -708,6 +708,19 @@ class Owner extends CI_Controller
 				echo 'gagal upload';
 			}
 		}
+	}
+	public function foto_produk_tambah()
+	{
+		// arahkan ke url atau lokasi gambar berada
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+
+
+		$datas = json_decode($getAPI, true);
+
+		$data = array('foto_produks' => $datas["data"]);
+
+		// $data ini masukan ke json
+		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
 	}
 
 	//Bagian Harga
