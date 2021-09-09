@@ -29,34 +29,35 @@
 						</div>
 					</div>
 				<?php } ?>
-				<div class="row mb-3">
-					<div class="col">
-						<a href="<?= base_url('owner/produk_tambah') ?>" class="btn btn-primary">
-							<i class="fas fa-plus mr-2"></i> Tambah Data Produk Barang
-						</a>
-					</div>
-				</div>
-				<div class="table-responsive">
-					<table id="example1" class="table table-bordered table-hover">
-						<thead class="thead-dark">
-							<tr>
-								<th>No</th>
-								<th>Nama Produk</th>
-								<th>Jenis</th>
-								<th>Aksi</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php if (!empty($produks)) { ?>
-								<?php foreach ($produks as $no => $row) : ?>
-									<tr>
-										<td><?= ++$no ?></td>
-										<td><?= $row["nama_produk"] ?></td>
-										<td class="text-capitalize"><?= $row["jenis"] ?></td>
-										<td>
-											<a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
-
-											<a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
+                <div class="row mb-3">
+                    <div class="col">
+                        <a href="<?= base_url('owner/produk_tambah') ?>" class="btn btn-primary">
+                            <i class="fas fa-plus mr-2"></i> Tambah Data Produk Barang
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Produk</th>
+                                <th>Nama Toko</th>
+                                <th>Jenis</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          	<?php if (!empty($produks)) { ?>
+                            <?php $no=1;foreach ($produks as $no => $row) : ?>
+                            <tr>
+                                <td><?= ++$no ?></td>
+                                <td><?= $row["nama_produk"] ?></td>
+                                <td><?= $row["nama_toko"] ?></td>
+                                <td class="text-capitalize"><?= $row["jenis"] ?></td>
+                                <td>
+                                  <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
+											            <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
 										</td>
 									</tr>
 								<?php endforeach; ?>
