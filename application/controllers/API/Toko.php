@@ -6,27 +6,34 @@ use chriskacerguis\RestServer\RestController;
 
 class Toko extends RestController
 {
-	private $id_user = 0;
-    public function __construct(){
-        parent::__construct();
+	function __construct($config = 'rest')
+	{
+		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('TokoModel');
+	}
 
-		$header = getallheaders();
-		$apikey = filter_var($header['x-apikey'], FILTER_CALLBACK, ['options' => function($hash) { return preg_replace('/[^a-zA-Z0-9$\/.]/', '', $hash);}]);
-		
-		if(!empty($apikey))
-			{
-			$this->load->database();
-			$this->id_user = intval($this->db->where(array('apikey'=>$apikey,'status'=>'1'))->limit(1)->get('apikeys')->row('id_user'));
-			if($this->id_user > 0)
-				{
-				$this->apicheck($this->id_user,$header);
-				}
-				else response_json(401,"Invalid Key");
-			}
-			else response_json(401,"API Key Required"); 
-    }
+	function by_id_user_get($id_user)
+	{
+		$toko = $this->TokoModel->by_id_user($id_user);
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Toko Berdasarkan Id User Berhasil Diambil',
+			'data' => $toko
+		), 200);
+	}
+
+	function by_id_user_valid_get($id_user)
+	{
+		$toko = $this->TokoModel->by_id_user_valid($id_user);
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Toko Valid Berdasarkan Id User Berhasil Diambil',
+			'data' => $toko
+		), 200);
+	}
 
 	//Menampilkan data toko
 	function index_get($id_toko = null)

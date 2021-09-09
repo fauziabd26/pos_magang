@@ -13,25 +13,38 @@ class Harga extends RestController
 		$this->load->model('HargaModel');
 	}
 
-    //Menampilkan data harga
-    function index_get($id_harga = null){
-        if(!empty($id_harga)){
-            $harga = $this->HargaModel->get($id_harga)->row();
-        }else{
-            $harga = $this->HargaModel->get()->result();
-        }
-        $this->response(array(
-            'status'    => true,
-            'message'   => 'Data Harga Berhasil Diambil',
-            'data'      => $harga
-        ), 200);
-    }
+	//Menampilkan data harga
+	function index_get($id_harga = null)
+	{
+		if (!empty($id_harga)) {
+			$harga = $this->HargaModel->get($id_harga)->row();
+		} else {
+			$harga = $this->HargaModel->get()->result();
+		}
+		$this->response(array(
+			'status'    => true,
+			'message'   => 'Data Harga Berhasil Diambil',
+			'data'      => $harga
+		), 200);
+	}
+
+	//Menampilkan data harga sesuai ID user
+	function by_id_user_get($id_harga = null)
+	{
+		$harga = $this->HargaModel->by_id_user($id_harga);
+		$this->response(array(
+			'status'    => true,
+			'message'   => 'Data Harga Berdasarkan ID User Berhasil Diambil',
+			'data'      => $harga
+		), 200);
+	}
 
 	//Menambah data harga baru
 	function index_post()
 	{
 		$data = array(
-			'nama_harga'     => $this->post('nama_harga')
+			'nama_harga'	=> $this->post('nama_harga'),
+			'id_user'     	=> $this->post('id_user')
 		);
 
 		if ($this->HargaModel->save($data)) {
@@ -54,7 +67,8 @@ class Harga extends RestController
 		$id_harga   = $this->put('id_harga');
 		$data       = array(
 			'id_harga'      => $this->put('id_harga'),
-			'nama_harga'    => $this->put('nama_harga')
+			'nama_harga'    => $this->put('nama_harga'),
+			'id_user'     	=> $this->put('id_user')
 		);
 
 		$this->db->where('id_harga', $id_harga);

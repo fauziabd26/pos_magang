@@ -5,36 +5,21 @@ class TokoModel extends CI_Model
 {
 	private $table = 'toko';
 
-	//validasi form, method ini akan mengembalikan data berupa rules validasi form
-	public function rules()
+	public function by_id_user($id_user)
 	{
-		return [
-			[
-				'field' => 'nama_toko', //samakan dengan atribut name pada tags input
-				'label' => 'Nama Toko', //label yang akan ditampilkan pada pesan eror
-				'rules' => 'trim|required' //rules validasi
-			],
-			[
-				'field' => 'alamat',
-				'label' => 'Alamat',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'deskripsi_toko',
-				'label' => 'Deskripsi Toko',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'foto_toko',
-				'label' => 'Foto Toko',
-				'rules' => 'trim|required'
-			],
-			[
-				'field' => 'status_toko',
-				'label' => 'Status Toko',
-				'rules' => 'trim|required'
-			],
-		];
+		$this->db->where('toko.id_user', $id_user);
+		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, toko.id_user, user.nama AS nama_owner');
+		$this->db->from('toko')->join('user', 'user.id_user=toko.id_user');
+		return $this->db->get()->result();
+	}
+
+	public function by_id_user_valid($id_user)
+	{
+		$this->db->where('toko.id_user', $id_user);
+		$this->db->where('status_toko =', 'valid');
+		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, toko.id_user, user.nama AS nama_owner');
+		$this->db->from('toko')->join('user', 'user.id_user=toko.id_user');
+		return $this->db->get()->result();
 	}
 
 	//Menampilkan Data 
@@ -42,7 +27,7 @@ class TokoModel extends CI_Model
 	{
 		$this->db->select('id_toko, nama_toko, deskripsi_toko, alamat, status_toko, toko.id_user, user.nama AS nama_owner');
 		$this->db->from('toko')->join('user', 'user.id_user=toko.id_user');
-		
+
 		if ($id_toko != null) {
 			$this->db->where('id_toko', $id_toko);
 			$this->db->select('foto_toko, nama AS nama_owner, email, no_hp');
