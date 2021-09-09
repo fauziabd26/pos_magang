@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : Memperbaiki error foto produk dan data aadmin
+jam 13.00 - 16.00 : membuat validasi data satuan, harga, kategori
