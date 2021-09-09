@@ -22,20 +22,22 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Foto Produk</th>
+                                <th>Id Produk</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($foto_produk)) { ?>
+                            <?php if (!empty($foto_produks)) { ?>
                             <?php $no = 1;
-								foreach ($foto_produk as $no => $row) : ?>
+								foreach ($foto_produks as $no => $row) : ?>
                             <tr>
                                 <td><?= ++$no; ?></td>
-                                <td><?= $row["nama_satuan"] ?></td>
+                                <td><?= $row["nama_foto_produk"] ?></td>
+                                <td><?= $row["id_produk"] ?></td>
                                 <td>
-                                    <a href="<?= base_url('owner/satuan_edit/' . $row["id_satuan"]) ?>"
+                                    <a href="<?= base_url('owner/foto_produk_edit/' . $row["id_foto_produk"]) ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
-                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_satuan'] ?>"
+                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_foto_produk'] ?>"
                                         class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>

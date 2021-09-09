@@ -13,51 +13,38 @@
         <div class="card">
             <div class="card-body">
 
-                <form action="<?php base_url('admin/product/add') ?>" method="post" enctype="multipart/form-data">
+                <form action="<?php base_url('owner/proses_tambah_fotoProduk') ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="name">Name*</label>
-                        <input class="form-control <?php echo form_error('name') ? 'is-invalid' : '' ?>" type="text"
-                            name="name" placeholder="Product name" />
-                        <div class="invalid-feedback">
-                            <?php echo form_error('name') ?>
+                        <label for='nominal'>Pilih Produk</label>
+                        <div>
+                            <select name="id_produk" class="form-control">test
+                                <?php foreach ($produks as $produk) : ?>
+                                <option value="<?= $produk["id_produk"] ?>"><?= $produk['nama_produk'] ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <small class="text-danger font-weight-bold">
+							<?php echo form_error('id_produk'); ?>
+						    </small>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="price">Price*</label>
-                        <input class="form-control <?php echo form_error('price') ? 'is-invalid' : '' ?>" type="number"
-                            name="price" min="0" placeholder="Product price" />
-                        <div class="invalid-feedback">
-                            <?php echo form_error('price') ?>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="name">Photo</label>
-                        <input class="form-control-file <?php echo form_error('price') ? 'is-invalid' : '' ?>"
-                            type="file" name="image" />
-                        <div class="invalid-feedback">
-                            <?php echo form_error('image') ?>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name">Description*</label>
-                        <textarea class="form-control <?php echo form_error('description') ? 'is-invalid' : '' ?>"
-                            name="description" placeholder="Product description..."></textarea>
-                        <div class="invalid-feedback">
-                            <?php echo form_error('description') ?>
-                        </div>
-                    </div>
-
-                    <input class="btn btn-success" type="submit" name="btn" value="Save" />
-                </form>
-
-            </div>
-        </div>
-        <div class="card-footer">
+						<label for='nama_foto_produk'>Foto Produk</label>
+						<?php echo form_error('nama_foto_produk'); ?>
+						<input type="file" id="nama_foto_produk" class="form-control" name="nama_foto_produk" value="<?= set_value('nama_foto_produk'); ?>" />
+						<!-- <input type="hidden" id="nama_foto_produk" name="old_image"  /> -->
+						<small>*Format File Menggunakan IMG, PNG</small><br>
+						<small>*File Maksimal Berukuran 2Mb</small>
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('nama_foto_produk'); ?>
+						</small>
+					</div>
+                    <div class="card-footer">
             <button class="btn btn-primary btn-block">Submit</button>
+        </div>
+        </form>
+            </div>
         </div>
     </div>
 </section>

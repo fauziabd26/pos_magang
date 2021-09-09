@@ -42,6 +42,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Produk</th>
+                                <th>Nama Toko</th>
                                 <th>Jenis</th>
                                 <th>Aksi</th>
                             </tr>
@@ -51,6 +52,7 @@
                             <tr>
                                 <td><?= ++$no ?></td>
                                 <td><?= $row["nama_produk"] ?></td>
+                                <td><?= $row["nama_toko"] ?></td>
                                 <td><?= $row["jenis"] ?></td>
                                 <td>
                                     <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>"

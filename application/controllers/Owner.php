@@ -62,53 +62,53 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_admin()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]', array(
-			'required' => 'Nama Wajib Diisi.'
-		));
-		$this->form_validation->set_rules(
-			'email',
-			'Email',
-			'required|is_unique[user.email]',
-			array(
-				'required' => 'Email Wajib Diisi.'
-			)
-		);
-		$this->form_validation->set_rules(
-			'password',
-			'Password',
-			'required|min_length[8]',
-			array(
-				'required' => 'Password Wajib Diisi.', 'min_length' => 'Password Minimal 8 Karakter'
-			)
-		);
-		$this->form_validation->set_rules(
-			'password_confirm',
-			'Password Confirmation',
-			'required|min_length[8]',
-			array(
-				'required' => 'Konfirmasi Password Wajib Diisi.', 'min_length' => 'Password Harus Sama'
-			)
-		);
-		$this->form_validation->set_rules(
-			'no_hp',
-			'No Hp',
-			'required|min_length[10]|max_length[15]',
-			array(
-				'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit'
-			)
-		);
-		$this->form_validation->set_rules(
-			'photo',
-			'Foto',
-			'required',
-			array(
-				'required' => 'Nama Wajib Diisi.'
-			)
-		);
-		$config['upload_path']          = './assets/img/foto_admin/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['overwrite']			= true;
-		$config['max_size']             = 2000; // 1MB
+		// $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]', array(
+		// 	'required' => 'Nama Wajib Diisi.'
+		// ));
+		// $this->form_validation->set_rules(
+		// 	'email',
+		// 	'Email',
+		// 	'required|is_unique[user.email]',
+		// 	array(
+		// 		'required' => 'Email Wajib Diisi.'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'password',
+		// 	'Password',
+		// 	'required|min_length[8]',
+		// 	array(
+		// 		'required' => 'Password Wajib Diisi.', 'min_length' => 'Password Minimal 8 Karakter'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'password_confirm',
+		// 	'Password Confirmation',
+		// 	'required|min_length[8]',
+		// 	array(
+		// 		'required' => 'Konfirmasi Password Wajib Diisi.', 'min_length' => 'Password Harus Sama'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'no_hp',
+		// 	'No Hp',
+		// 	'required|min_length[10]|max_length[15]',
+		// 	array(
+		// 		'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'photo',
+		// 	'Foto',
+		// 	'required',
+		// 	array(
+		// 		'required' => 'Nama Wajib Diisi.'
+		// 	)
+		// );
+		// $config['upload_path']          = './assets/img/foto_admin/';
+		// $config['allowed_types']        = 'gif|jpg|png';
+		// $config['overwrite']			= true;
+		// $config['max_size']             = 2000; // 1MB
 
 		$data = array(
 			'nama' 		=> ucwords($_POST['nama']),
@@ -117,35 +117,36 @@ class Owner extends CI_Controller
 			'no_hp' 	=> $_POST['no_hp'],
 			'photo'		=> $_POST['photo'],
 		);
-		$this->upload->initialize($config);
-		$this->load->library('upload', $config);
+		var_dump($data);
+		// $this->upload->initialize($config);
+		// $this->load->library('upload', $config);
 
-		$getAPI = $this->curl->simple_get($this->api . 'admin');
-		$datas = json_decode($getAPI, true);
+		// $getAPI = $this->curl->simple_get($this->api . 'admin');
+		// $datas = json_decode($getAPI, true);
 
-		foreach ($datas['data'] as $row) {
-			if ($row['email'] == $data['email']) {
-				$this->session->set_flashdata('error', "Email Sudah Ada !");
-				redirect('owner/admin_tambah');
-			}
-		}
+		// foreach ($datas['data'] as $row) {
+		// 	if ($row['email'] == $data['email']) {
+		// 		$this->session->set_flashdata('error', "Email Sudah Ada !");
+		// 		redirect('owner/admin_tambah');
+		// 	}
+		// }
 
-		if ($this->form_validation->run() === false) {
-			foreach ($datas['data'] as $row) {
-				if ($row['email'] == $data['email']) {
-					echo "<script> alert('Email Sudah Dipakai!'); 
-					window.location.href = '" . base_url('owner/admin/admin_tambah') . "'; </script>";
-				}
-			}
-			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
-		} elseif (!$this->upload->do_upload('photo')) {
-			$error = array('error' => $this->upload->display_errors());
-		} else {
-			$data = array('upload_data' => $this->upload->data());
-			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
-			$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
-			redirect('owner/admin');
-		}
+		// if ($this->form_validation->run() === false) {
+		// 	foreach ($datas['data'] as $row) {
+		// 		if ($row['email'] == $data['email']) {
+		// 			echo "<script> alert('Email Sudah Dipakai!'); 
+		// 			window.location.href = '" . base_url('owner/admin/admin_tambah') . "'; </script>";
+		// 		}
+		// 	}
+		// 	$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
+		// } elseif (!$this->upload->do_upload('photo')) {
+		// 	$error = array('error' => $this->upload->display_errors());
+		// } else {
+		// 	$data = array('upload_data' => $this->upload->data());
+		// 	$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+		// 	$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+		// 	redirect('owner/admin');
+		// }
 	}
 
 	public function admin_edit($id_user)
@@ -614,16 +615,99 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function index_foto_produk()
 	{
-		// arahkan ke url atau lokasi gambar berada
 		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
-
-
 		$datas = json_decode($getAPI, true);
 
-		$data = array('foto_produks' => $datas["data"]);
+		if (!empty($datas)) {
+			$data['foto_produks'] = $datas["data"];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index', $data);
+		} else {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index');
+		}
+	}
 
-		// $data ini masukan ke json
-		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index', $data);
+	// Bagian Foto Produk
+	public function foto_produk_tambah()
+	{
+		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk');
+		$datas = json_decode($getAPI, true);
+		$getAPIProduk = $this->curl->simple_get($this->api . 'produk');
+		$datasProduk = json_decode($getAPIProduk, true);
+
+		$data = array('foto_produks' => $datas["data"]);
+		$data['produks'] = $datasProduk['data'];
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
+	}
+
+	public function proses_tambah_fotoProduk()
+	{
+		$this->form_validation->set_rules('nama_foto_produk', 'Foto Produk', 'required|max_length[255]', array(
+			'required' => 'Foto Produk Harga Wajib Diisi.'
+		));
+
+		$config['upload_path']          = './img/products';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = 0;
+		$config['max_width']            = 0;
+		$config['max_height']           = 0;
+		$this->load->library('upload', $config);
+		if (!$this->upload->proses_tambah_fotoProduk('nama_foto_produk')){
+				$error = array('error' => $this->upload->display_errors());
+				$this->load->view('upload', $error);
+		}else{
+			$_data = array('upload_data' => $this->upload->data());
+			$data = array(
+				'id_produk' => ucfirst($_POST['id_produk']),
+				'nama_foto_produk' => $_data['upload_data']['file_name']
+				);
+				$insert = $this->curl->simple_post($this->api . 'foto_produk', $data, array(CURLOPT_BUFFERSIZE => 10));
+				if ($insert) {
+					$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
+				} else {
+					$this->session->set_flashdata('info', 'data gagal disimpan.');
+				}
+				redirect('owner/index_foto_produk');
+		}
+
+		// if ($this->form_validation->run() === false) {
+		// 	$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
+		// } else {
+		// 	$insert = $this->curl->simple_post($this->api . 'foto_produk', $data, array(CURLOPT_BUFFERSIZE => 10));
+		// 	if ($insert) {
+		// 		$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
+		// 	} else {
+		// 		$this->session->set_flashdata('info', 'data gagal disimpan.');
+		// 	}
+		// 	redirect('owner/index_foto_produk');
+		// }
+	}
+
+	public function do_upload()
+    {
+		$config['upload_path']          = './img/products';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = 0;
+		$config['max_width']            = 0;
+		$config['max_height']           = 0;
+		$this->load->library('upload', $config);
+		if (!$this->upload->do_upload('userfile')){
+				$error = array('error' => $this->upload->display_errors());
+				$this->load->view('upload', $error);
+		}else{
+			$_data = array('upload_data' => $this->upload->data());
+			$data = array(
+				'id_produk' => ucfirst($_POST['id_produk']),
+				'foto_produk' => $_data['upload_data']['file_name']
+				);
+			$query = $this->db->insert('upload',$data);
+			if($query){
+				echo 'berhasil di upload';
+				redirect('ok');
+			}else{
+				echo 'gagal upload';
+			}
+		}
 	}
 	public function foto_produk_tambah()
 	{
@@ -642,7 +726,7 @@ class Owner extends CI_Controller
 	//Bagian Harga
 	public function index_harga()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'harga');
+		$getAPI = $this->curl->simple_get($this->api . 'harga/by_id_user/'.$this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 
 		if (!empty($datas)) {
@@ -670,6 +754,7 @@ class Owner extends CI_Controller
 
 		$data = array(
 			'nama_harga' =>  ucwords($_POST['nama_harga']),
+			'id_user' =>  $this->session->userdata('id_user')
 		);
 
 		if ($this->form_validation->run() === false) {
@@ -677,7 +762,7 @@ class Owner extends CI_Controller
 		} else {
 			$insert = $this->curl->simple_post($this->api . 'harga', $data, array(CURLOPT_BUFFERSIZE => 10));
 			if ($insert) {
-				$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_harga'] . "</b> Berhasil Disimpan !");
+				$this->session->set_flashdata('success', "Data Harga <b>" . $_POST['nama_harga'] . "</b> Berhasil Disimpan !");
 			} else {
 				$this->session->set_flashdata('info', 'data gagal disimpan.');
 			}
@@ -711,6 +796,7 @@ class Owner extends CI_Controller
 		$data = array(
 			'id_harga' =>  $id_harga,
 			'nama_harga' =>  ucwords($_POST['nama_harga']),
+			'id_user' =>  $this->session->userdata('id_user')
 		);
 		$update = $this->curl->simple_put($this->api . 'harga', $data, array(CURLOPT_BUFFERSIZE => 10));
 
@@ -919,7 +1005,7 @@ class Owner extends CI_Controller
 	//Bagian Satuan
 	public function index_satuan()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'satuan');
+		$getAPI = $this->curl->simple_get($this->api . 'satuan/by_id_user/'.$this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 
 		if (!empty($datas)) {
@@ -945,29 +1031,33 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_satuan()
 	{
+		$this->form_validation->set_rules('nama_satuan', 'Nama Satuan', 'required|max_length[255]', array(
+			'required' => 'Nama Satuan Wajib Diisi.'
+		));
+
 		$data = array(
 			'nama_satuan' =>  ucwords($_POST['nama_satuan']),
-			'id_toko' =>  ucfirst($_POST['id_toko']),
-			'id_produk' => ucfirst($_POST['id_produk'])
+			'id_user' =>  $this->session->userdata('id_user')
 		);
-		$insert = $this->curl->simple_post($this->api . 'satuan', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		if ($this->form_validation->run() === false) {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/tambah', $data);
+		} else {
+			$insert = $this->curl->simple_post($this->api . 'satuan', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {
-			$this->session->set_flashdata('success-create', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Disimpan !");
+			$this->session->set_flashdata('success', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Disimpan !");
 		} else {
 			$this->session->set_flashdata('info', 'data gagal disimpan.');
 		}
 		redirect('owner/index_satuan');
+		}
 	}
 
 	public function satuan_edit($id_satuan)
 	{
 
 		$getAPI 		= $this->curl->simple_get($this->api . 'satuan/' . $id_satuan);
-		$getAPIProduk 	= $this->curl->simple_get($this->api . 'produk/barang');
-		$getAPIToko 	= $this->curl->simple_get($this->api . 'toko');
 		$datas 			= json_decode($getAPI, true);
-		$datasProduk 	= json_decode($getAPIProduk, true);
-		$datasToko 		= json_decode($getAPIToko, true);
 
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Satuan!'); 
@@ -977,13 +1067,10 @@ class Owner extends CI_Controller
 				$value = array(
 					'id_satuan' 	=> $datas['data']["id_satuan"],
 					'nama_satuan' 	=> $datas['data']["nama_satuan"],
-					'id_produk' 	=> $datas['data']["id_produk"],
 				);
 			}
 		}
 		$data['satuan'] = $value;
-		$data['produks'] = $datasProduk['data'];
-		$data['tokos'] = $datasToko['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/edit', $data);
 	}
 
@@ -992,13 +1079,12 @@ class Owner extends CI_Controller
 		$data = array(
 			'id_satuan' =>  $id_satuan,
 			'nama_satuan' =>  ucwords($_POST['nama_satuan']),
-			'id_toko' => $_POST['id_toko'],
-			'id_produk' => $_POST['id_produk']
+			'id_user' => $this->session->userdata('id_user')
 		);
 		$update = $this->curl->simple_put($this->api . 'satuan', $data, array(CURLOPT_BUFFERSIZE => 10));
 
 		if ($update) {
-			$this->session->set_flashdata('success-edit', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Diedit !");
+			$this->session->set_flashdata('success', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Diedit !");
 		} else {
 			$this->session->set_flashdata('info', 'Data Gagal diubah');
 		}
