@@ -615,7 +615,8 @@ class Owner extends CI_Controller
 	public function index_foto_produk()
 	{
 		// arahkan ke url atau lokasi gambar berada
-		$getAPI = file_get_contents('https://api.etoko.xyz/FotoProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+
 
 		$datas = json_decode($getAPI, true);
 
