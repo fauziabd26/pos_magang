@@ -17,8 +17,14 @@ class Owner extends CI_Controller
 
 	public function dashboard()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
+		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
+		$datasKategori = json_decode($getAPIKategori, true);
+		$getAPISatuan = $this->curl->simple_get($this->api . 'satuan/by_id_user/' . $this->session->userdata('id_user'));
+		$datasSatuan = json_decode($getAPISatuan, true);
+		$getAPIHarga = $this->curl->simple_get($this->api . 'harga/by_id_user/' . $this->session->userdata('id_user'));
+		$datasHarga = json_decode($getAPIHarga, true);
 		if (!empty($datas)) {
 			// Count Data produk
 			$totalProdukBarang = 0;
@@ -30,7 +36,7 @@ class Owner extends CI_Controller
 					$totalProdukJasa += 1;
 				}
 			}
-			$data = array('transaksis' => $datas["data"]);
+			$data['transaksis'] = $datas["data"];
 			$data['totalProdukBarang'] = $totalProdukBarang;
 			$data['totalProdukJasa'] = $totalProdukJasa;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
@@ -47,13 +53,14 @@ class Owner extends CI_Controller
 	// Bagian Admin
 	public function admin()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'admin/by_id_user/' . $this->session->userdata('id_user'));
-		echo $this->api . 'admin/by_id_user/' . $this->session->userdata('id_user');
-		// $datas = json_decode($getAPI, true);
-
-		// $data['admins'] = $datas['data'];
-
-		// $this->template->load('layouts/owner/master', 'dashboard/owner/admin/index', $data);
+		$getAPI = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user'));
+		$datas = json_decode($getAPI, true);
+		if (!empty($datas)) {
+			$data['admins'] = $datas['data'];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index', $data);
+		} else {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/index');
+		}
 	}
 
 	public function admin_tambah()
@@ -150,25 +157,28 @@ class Owner extends CI_Controller
 		// }
 	}
 
-	public function admin_edit($id_user)
+	public function admin_edit($id_admin)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'admin/' . $id_user);
+		$getAPI = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user') . '/' . $id_admin);
 		$datas = json_decode($getAPI, true);
-
 		if ($getAPI == false) {
-			echo "<script> alert('Tidak Ada Data Toko!'); 
+			echo "<script> alert('Tidak Ada Data Admin!'); 
 			window.location.href = '" . base_url('owner/admin') . "'; </script>";
 		} else {
-			if ($datas['data']['id_user'] == $id_user) {
-				$value = array(
-					'id_user' => $datas['data']["id_user"],
-					'nama' => $datas['data']["nama"],
-					'email' => $datas['data']["email"],
-					'no_hp' => $datas['data']["no_hp"],
-					'photo' => $datas['data']["photo"],
-				);
+			if ($datas['data']['id_owner'] == $this->session->userdata('id_user')) {
+				if ($datas['data']['id_user'] == $id_admin) {
+					$value = array(
+						'id_user' => $datas['data']["id_user"],
+						'nama' => $datas['data']["nama"],
+						'email' => $datas['data']["email"],
+						'no_hp' => $datas['data']["no_hp"],
+						'photo' => $datas['data']["photo"],
+					);
+				} else {
+					echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
+					window.location.href = '" . base_url('owner/toko') . "'; </script>";
+				}
 			}
-
 			$data['admin'] = $value;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 		}
@@ -655,22 +665,22 @@ class Owner extends CI_Controller
 		$config['max_width']            = 0;
 		$config['max_height']           = 0;
 		$this->load->library('upload', $config);
-		if (!$this->upload->proses_tambah_fotoProduk('nama_foto_produk')){
-				$error = array('error' => $this->upload->display_errors());
-				$this->load->view('upload', $error);
-		}else{
+		if (!$this->upload->proses_tambah_fotoProduk('nama_foto_produk')) {
+			$error = array('error' => $this->upload->display_errors());
+			$this->load->view('upload', $error);
+		} else {
 			$_data = array('upload_data' => $this->upload->data());
 			$data = array(
 				'id_produk' => ucfirst($_POST['id_produk']),
 				'nama_foto_produk' => $_data['upload_data']['file_name']
-				);
-				$insert = $this->curl->simple_post($this->api . 'foto_produk', $data, array(CURLOPT_BUFFERSIZE => 10));
-				if ($insert) {
-					$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
-				} else {
-					$this->session->set_flashdata('info', 'data gagal disimpan.');
-				}
-				redirect('owner/index_foto_produk');
+			);
+			$insert = $this->curl->simple_post($this->api . 'foto_produk', $data, array(CURLOPT_BUFFERSIZE => 10));
+			if ($insert) {
+				$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
+			} else {
+				$this->session->set_flashdata('info', 'data gagal disimpan.');
+			}
+			redirect('owner/index_foto_produk');
 		}
 
 		// if ($this->form_validation->run() === false) {
@@ -687,44 +697,44 @@ class Owner extends CI_Controller
 	}
 
 	public function do_upload()
-    {
+	{
 		$config['upload_path']          = './img/products';
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['max_size']             = 0;
 		$config['max_width']            = 0;
 		$config['max_height']           = 0;
 		$this->load->library('upload', $config);
-		if (!$this->upload->do_upload('userfile')){
-				$error = array('error' => $this->upload->display_errors());
-				$this->load->view('upload', $error);
-		}else{
+		if (!$this->upload->do_upload('userfile')) {
+			$error = array('error' => $this->upload->display_errors());
+			$this->load->view('upload', $error);
+		} else {
 			$_data = array('upload_data' => $this->upload->data());
 			$data = array(
 				'id_produk' => ucfirst($_POST['id_produk']),
 				'foto_produk' => $_data['upload_data']['file_name']
-				);
-			$query = $this->db->insert('upload',$data);
-			if($query){
+			);
+			$query = $this->db->insert('upload', $data);
+			if ($query) {
 				echo 'berhasil di upload';
 				redirect('ok');
-			}else{
+			} else {
 				echo 'gagal upload';
 			}
 		}
 	}
-	public function foto_produk_tambah()
-	{
-		// arahkan ke url atau lokasi gambar berada
-		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+	// public function foto_produk_tambah()
+	// {
+	// 	// arahkan ke url atau lokasi gambar berada
+	// 	$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
 
 
-		$datas = json_decode($getAPI, true);
+	// 	$datas = json_decode($getAPI, true);
 
-		$data = array('foto_produks' => $datas["data"]);
+	// 	$data = array('foto_produks' => $datas["data"]);
 
-		// $data ini masukan ke json
-		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
-	}
+	// 	// $data ini masukan ke json
+	// 	$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
+	// }
 
 	//Bagian Harga
 	public function index_harga()
@@ -910,13 +920,13 @@ class Owner extends CI_Controller
 			CURLOPT_TIMEOUT => 30,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "POST",
-			CURLOPT_HTTPHEADER => array(
-				'x-apikey : $2y$10$kvfxRLwEQOuysqEyzYmcwuVmv/dzqtp4IbSg0QRHkIiSXy65BKsC2',
-				'x-signature : 8c220754d1b7f3dad83f4184da4c58a7e1df9a00'
-			),
+			// CURLOPT_HTTPHEADER => array(
+			// 	'x-apikey : $2y$10$kvfxRLwEQOuysqEyzYmcwuVmv/dzqtp4IbSg0QRHkIiSXy65BKsC2',
+			// 	'x-signature : 8c220754d1b7f3dad83f4184da4c58a7e1df9a00'
+			// ),
 			CURLOPT_POSTFIELDS =>  array(
 				'nama_kategori' =>  ucwords($_POST['nama_kategori']),
-				'id_toko' =>  $_POST['id_toko'],
+				'id_user' 		=>  $this->session->userdata('id_user'),
 			),
 		));
 
@@ -925,10 +935,11 @@ class Owner extends CI_Controller
 
 		curl_close($curl);
 
-		if ($err) {
-			echo "cURL Error #:" . $err;
+		if ($response) {
+			$this->session->set_flashdata('success', "Data kategori <b>" . $_POST['nama_kategori'] . "</b> Berhasil Ditambah !");
+			redirect('owner/index_kategori');
 		} else {
-			echo $response;
+			echo "cURL Error #:" . $err;
 		}
 	}
 
@@ -1047,12 +1058,12 @@ class Owner extends CI_Controller
 			$this->template->load('layouts/owner/master', 'dashboard/owner/satuan/tambah', $data);
 		} else {
 			$insert = $this->curl->simple_post($this->api . 'satuan', $data, array(CURLOPT_BUFFERSIZE => 10));
-		if ($insert) {
-			$this->session->set_flashdata('success', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Disimpan !");
-		} else {
-			$this->session->set_flashdata('error', 'data gagal disimpan.');
-		}
-		redirect('owner/index_satuan');
+			if ($insert) {
+				$this->session->set_flashdata('success', "Data Satuan <b>" . $_POST['nama_satuan'] . "</b> Berhasil Disimpan !");
+			} else {
+				$this->session->set_flashdata('error', 'data gagal disimpan.');
+			}
+			redirect('owner/index_satuan');
 		}
 	}
 
@@ -1141,71 +1152,90 @@ class Owner extends CI_Controller
 
 	public function katalog()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'KatalogProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'KatalogProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
-
-		$data['katalog'] = $datas['data'];
-		$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/index', $data);
+		if (!empty($datas)) {
+			$data['katalog'] = $datas['data'];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/index', $data);
+		} else {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/index');
+		}
 	}
 
 	public function katalog_tambah()
 	{
 		$getAPIproduk = $this->curl->simple_get($this->api . 'produk/by_id_user/' . $this->session->userdata('id_user'));
 		$datasproduk = json_decode($getAPIproduk, true);
-
 		$getAPIharga = $this->curl->simple_get($this->api . 'harga/by_id_user/' . $this->session->userdata('id_user'));
 		$datasharga = json_decode($getAPIharga, true);
-
 		$getAPIsatuan = $this->curl->simple_get($this->api . 'satuan/by_id_user/' . $this->session->userdata('id_user'));
 		$datassatuan = json_decode($getAPIsatuan, true);
-
 		$getAPIkategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
 		$dataskategori = json_decode($getAPIkategori, true);
-
 		$data['produk'] = $datasproduk['data'];
 		$data['harga'] = $datasharga['data'];
 		$data['satuan'] = $datassatuan['data'];
 		$data['kategori'] = $dataskategori['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/tambah', $data);
 	}
+
+	public function proses_tambah_katalog()
+	{
+		$data = array(
+			'id_produk' => $_POST['id_produk'],
+			'id_harga' => $_POST['id_harga'],
+			'id_satuan' => $_POST['id_satuan'],
+			'id_kategori' => $_POST['id_kategori'],
+			'nominal' =>  $_POST['nominal']
+		);
+		$insert = $this->curl->simple_post($this->api . 'KatalogProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+		if ($insert) {
+			$this->session->set_flashdata('success', "Data Katalog Produk Berhasil Ditambah !");
+		} else {
+			$this->session->set_flashdata('error', 'Data Gagal diubah');
+		}
+		redirect('owner/katalog');
+	}
+
 	public function katalog_edit($id_detail_produk)
 	{
-		$getAPI 		= $this->curl->simple_get($this->api . 'KatalogProduk/' . $id_detail_produk);
+		$getAPI 		= $this->curl->simple_get($this->api . 'KatalogProduk/by_id_user/' . $this->session->userdata('id_user') . '/' . $id_detail_produk);
 		$datas 			= json_decode($getAPI, true);
-
-		$getAPIproduk = $this->curl->simple_get($this->api . 'produk');
-		$datasproduk = json_decode($getAPIproduk, true);
-
-		$getAPIharga = $this->curl->simple_get($this->api . 'harga');
-		$datasharga = json_decode($getAPIharga, true);
-
-		$getAPIsatuan = $this->curl->simple_get($this->api . 'satuan');
-		$datassatuan = json_decode($getAPIsatuan, true);
-
-		$getAPIkategori = $this->curl->simple_get($this->api . 'kategori');
-		$dataskategori = json_decode($getAPIkategori, true);
-
+		$getAPIproduk 	= $this->curl->simple_get($this->api . 'produk/by_id_user/' . $this->session->userdata('id_user'));
+		$datasproduk 	= json_decode($getAPIproduk, true);
+		$getAPIharga 	= $this->curl->simple_get($this->api . 'harga/by_id_user/' . $this->session->userdata('id_user'));
+		$datasharga 	= json_decode($getAPIharga, true);
+		$getAPIsatuan 	= $this->curl->simple_get($this->api . 'satuan/by_id_user/' . $this->session->userdata('id_user'));
+		$datassatuan 	= json_decode($getAPIsatuan, true);
+		$getAPIkategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
+		$dataskategori 	= json_decode($getAPIkategori, true);
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Katalog Produk!'); 
 			window.location.href = '" . base_url('owner/katalog') . "'; </script>";
 		} else {
-			if ($datas['data']['id_detail_produk'] == $id_detail_produk) {
-				$value = array(
-					'id_detail_produk' 	=> $datas['data']["id_detail_produk"],
-					'id_produk' 		=> $datas['data']["id_produk"],
-					'id_harga' 			=> $datas['data']["id_harga"],
-					'id_satuan' 		=> $datas['data']["id_satuan"],
-					'id_kategori' 		=> $datas['data']["id_kategori"],
-					'nominal' 			=> $datas['data']["nominal"]
-				);
+			if ($datas['data']['id_user'] == $this->session->userdata('id_user')) {
+				if ($datas['data']['id_detail_produk'] == $id_detail_produk) {
+					$value = array(
+						'id_detail_produk' 	=> $datas['data']["id_detail_produk"],
+						'id_produk' 		=> $datas['data']["id_produk"],
+						'nama_produk' 		=> $datas['data']["nama_produk"],
+						'id_harga' 			=> $datas['data']["id_harga"],
+						'id_satuan' 		=> $datas['data']["id_satuan"],
+						'id_kategori' 		=> $datas['data']["id_kategori"],
+						'nominal' 			=> $datas['data']["nominal"]
+					);
+				} else {
+					echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
+					window.location.href = '" . base_url('owner/toko') . "'; </script>";
+				}
 			}
+			$data['KatalogProduk'] = $value;
+			$data['produk'] = $datasproduk['data'];
+			$data['harga'] = $datasharga['data'];
+			$data['satuan'] = $datassatuan['data'];
+			$data['kategori'] = $dataskategori['data'];
+			$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/edit', $data);
 		}
-		$data['KatalogProduk'] = $value;
-		$data['produk'] = $datasproduk['data'];
-		$data['harga'] = $datasharga['data'];
-		$data['satuan'] = $datassatuan['data'];
-		$data['kategori'] = $dataskategori['data'];
-		$this->template->load('layouts/owner/master', 'dashboard/owner/katalog/edit', $data);
 	}
 
 	public function proses_edit_katalog($id_detail_produk)

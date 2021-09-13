@@ -23,9 +23,42 @@ class DetailTransaksi extends RestController
 		$this->response($this->DetailTransaksiModel->cekTransaksi(), 200);
 	}
 
-	function by_id_transaksi_get($id_transaksi)
+	function get_transaksi_by_id_user_get($id_user, $id_transaksi = null)
 	{
-		$this->response($this->DetailTransaksiModel->by_id_transaksi($id_transaksi), 200);
+		if (!empty($id_transaksi)) {
+			$detail_transaksi = $this->DetailTransaksiModel->get_transaksi_by_id_user($id_user, $id_transaksi)->row();
+		} else {
+			$detail_transaksi = $this->DetailTransaksiModel->get_transaksi_by_id_user($id_user)->result();
+		}
+		if ($detail_transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diambil',
+				'data' => $detail_transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Detail Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	function get_detail_transaksi_by_transaksi_get($id_transaksi)
+	{
+		$detail_transaksi = $this->DetailTransaksiModel->get_detail_transaksi_by_transaksi($id_transaksi);
+		if ($detail_transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diambil',
+				'data' => $detail_transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Detail Transaksi Tidak Ada',
+			), 404);
+		}
 	}
 
 	//Menampilkan data semua detail transaksi
@@ -36,7 +69,6 @@ class DetailTransaksi extends RestController
 		} else {
 			$detail_transaksi =  $this->DetailTransaksiModel->get()->result();
 		}
-
 		if ($detail_transaksi) {
 			$this->response(array(
 				'status' => true,

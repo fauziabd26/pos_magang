@@ -21,7 +21,6 @@ class Transaksi extends RestController
 		} else {
 			$transaksi =  $this->TransaksiModel->get()->result();
 		}
-
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,
@@ -36,10 +35,13 @@ class Transaksi extends RestController
 		}
 	}
 
-	function get_transaksi_lunas_get()
+	function get_transaksi_lunas_by_id_user_get($id_user, $id_transaksi = null)
 	{
-		$transaksi =  $this->TransaksiModel->get_transaksi_lunas()->result();
-
+		if (!empty($id_transaksi)) {
+			$transaksi =  $this->TransaksiModel->get_transaksi_lunas_by_id_user($id_user, $id_transaksi)->row();
+		} else {
+			$transaksi =  $this->TransaksiModel->get_transaksi_lunas_by_id_user($id_user)->result();
+		}
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,

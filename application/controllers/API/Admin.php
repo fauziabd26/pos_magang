@@ -13,6 +13,7 @@ class Admin extends RestController
 		$this->load->model('AdminModel');
 	}
 
+
 	function cek_email_get($id_admin = null)
 	{
 		if (!empty($id_admin)) {
@@ -62,6 +63,30 @@ class Admin extends RestController
 			), 404);
 		}
 	}
+
+	//Menampilkan data berdasrkan toko milik owner
+	public function by_admin_toko_get($id_owner, $id_admin = null)
+	{
+		if (!empty($id_admin)) {
+			$data = $this->AdminModel->by_admin_toko($id_owner, $id_admin)->row();
+		} else {
+			$data = $this->AdminModel->by_admin_toko($id_owner)->result();
+		}
+
+		if ($data) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Admin Berdasarkan Toko Milik Owner Berhasil Diambil',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Admin Tidak Ada',
+			), 404);
+		}
+	}
+
 
 	//Menambah data  baru
 	function index_post()
