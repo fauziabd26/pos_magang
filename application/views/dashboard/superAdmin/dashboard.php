@@ -2,7 +2,6 @@
 	<div class="section-header">
 		<h1>Dashboard Super Admin</h1>
 	</div>
-
 	<div class="section-body">
 		<div class="row">
 			<div class="col-12">
@@ -11,19 +10,19 @@
 						<div class="card-stats-title">Data Toko</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalPending ?> <i class="fas fa-hourglass" style="color: #ffc107;"></i></div>
+								<div class="card-stats-item-count"><?= $totalPending ?? '0' ?> <i class="fas fa-hourglass" style="color: #ffc107;"></i></div>
 								<div class="card-stats-item-label">Pending</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalValid ?> <i class="fas fa-check" style="color: #47c363;"></i></div>
+								<div class="card-stats-item-count"><?= $totalValid ?? '0' ?> <i class="fas fa-check" style="color: #47c363;"></i></div>
 								<div class="card-stats-item-label">Valid</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalTidakValid ?> <i class="fas fa-ban" style="color: #fc544b;"></i></div>
+								<div class="card-stats-item-count"><?= $totalTidakValid ?? '0' ?> <i class="fas fa-ban" style="color: #fc544b;"></i></div>
 								<div class="card-stats-item-label">Tidak Valid</div>
 							</div>
 							<div class="card-stats-item">
-								<div class="card-stats-item-count"><?= $totalPending + $totalValid ?> <i class="fas fa-store" style="color: #6777ef;"></i></div>
+								<div class="card-stats-item-count"><?= $totalPending + $totalValid ?? '0' ?> <i class="fas fa-store" style="color: #6777ef;"></i></div>
 								<div class="card-stats-item-label">Total</div>
 							</div>
 						</div>

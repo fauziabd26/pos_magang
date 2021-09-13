@@ -1,9 +1,9 @@
 <section class="section">
     <div class="section-header">
-        <h1>Edit Data Katalog Produk <?= $KatalogProduk["nama_produk"] ?></h1>
+        <h1>Edit Katalog Produk <?= $KatalogProduk["nama_produk"] ?></h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
-            <div class="breadcrumb-item active"><a href="<?= base_url('owner/katalog') ?>">Data satuan</a></div>
+            <div class="breadcrumb-item active"><a href="<?= base_url('owner/katalog') ?>">Katalog Produk</a></div>
             <div class="breadcrumb-item"><?= $KatalogProduk["nama_produk"] ?></div>
         </div>
     </div>
@@ -16,7 +16,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <a href="<?= base_url('owner/katalog') ?>" class="btn btn-primary">
-                                <i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Satuan
+                                <i class="fas fa-chevron-left mr-2"></i> Kembali Ke Katalog Produk
                             </a>
                         </div>
                     </div>
