@@ -28,15 +28,6 @@ class FotoProdukModel extends CI_Model
 		}
 	}
 
-	//edit data Foto produk
-	public function update()
-	{
-		$data = array(
-			"nama_foto_produk"   => $this->input->post('nama_foto_produk'),
-		);
-		return $this->db->update($this->table, $data, array('id_foto_produk' => $this->input->post('id_foto_produk')));
-	}
-
     //edit data Foto produk
     public function update(){
         $data = array(

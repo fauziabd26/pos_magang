@@ -15,10 +15,10 @@ class Admin extends CI_Controller
 
 	public function dashboard()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
+		// var_dump($datas);
 		if (!empty($datas)) {
-			// var_dump($datas['data']);
 			// Count TransaksiProduk
 			$totalTransaksiProduk = 0;
 			$totalTransaksiJasa = 0;
@@ -46,12 +46,10 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Barang
 	public function transaksi_barang()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/barang');
 		$datas = json_decode($getAPI, true);
 
-		$data['produks'] = array_filter($datas['data'], function ($value) {
-			return $value['jenis'] == 'barang';
-		});
+		$data['produks'] = $datas['data'];
 
 		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/lastId');
 		$datasTransaksi = json_decode($getAPITransaksi, true);
@@ -290,10 +288,10 @@ class Admin extends CI_Controller
 	// Bagian Histori
 	public function histori_transaksi()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 
-		if ($datas) {
+		if (!empty($datas)) {
 			$data['transaksis'] = array_filter($datas['data'], function ($value) {
 				return $value['id_user'] == $this->session->userdata('id_user');
 			});
@@ -303,26 +301,24 @@ class Admin extends CI_Controller
 		}
 	}
 
-	public function histori_transaksi_detail($id)
+	public function histori_transaksi_detail($id_transaksi)
 	{
-		$getAPI = file_get_contents('json/transaksi/transaksi.json');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_id_user/' . $this->session->userdata('id_user') . '/' . $id_transaksi);
 		$datas = json_decode($getAPI, true);
-
-		// $data = array('historis' => $datas["transaksi"]);
-		foreach ($datas['transaksi'] as $row) {
-			if ($row['id_transaksi'] == $id) {
-				$value = array(
-					'id_transaksi' => $row['id_transaksi'],
-					'jenis' => $row['jenis'],
-					'nama_customer' => $row['nama_customer'],
-					'total_transaksi' => $row['total_transaksi'],
-					'tgl_transaksi' => $row['tgl_transaksi'],
-				);
-			}
+		if ($datas['data']['id_transaksi'] == $id_transaksi) {
+			$value = array(
+				'id_transaksi' 		=> $datas['data']['id_transaksi'],
+				'nama_cust' 		=> $datas['data']['nama_cust'],
+				'jenis_transaksi' 	=> $datas['data']['jenis_transaksi'],
+				'total_transaksi' 	=> $datas['data']['total_transaksi'],
+				'tggl_transaksi' 	=> $datas['data']['tggl_transaksi'],
+			);
 		}
 
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'detailTransaksi/get_detail_transaksi_by_transaksi/'.$id_transaksi);
+		$datasTransaksi = json_decode($getAPITransaksi, true);
+		$data['detail_transaksi'] = $datasTransaksi['data'];
 		$data['transaksi'] = $value;
-
 		$this->template->load('layouts/admin/master', 'dashboard/admin/histori_transaksi/detail', $data);
 	}
 

@@ -13,6 +13,7 @@ class Toko extends RestController
 		$this->load->model('TokoModel');
 	}
 
+	//Menampilkan Data Toko Berdasarkan ID User
 	function by_id_user_get($id_user)
 	{
 		$toko = $this->TokoModel->by_id_user($id_user);
@@ -24,6 +25,7 @@ class Toko extends RestController
 		), 200);
 	}
 
+	//Menampilkan Data Toko Valid Berdasarkan ID User
 	function by_id_user_valid_get($id_user)
 	{
 		$toko = $this->TokoModel->by_id_user_valid($id_user);
@@ -42,6 +44,29 @@ class Toko extends RestController
 			$toko = $this->TokoModel->get($id_toko)->row();
 		} else {
 			$toko =  $this->TokoModel->get()->result();
+		}
+
+		if ($toko) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Toko Berhasil Diambil',
+				'data' => $toko
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Toko Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data toko pedning Terbaru
+	function new_pending_get($id_toko = null)
+	{
+		if (!empty($id_toko)) {
+			$toko = $this->TokoModel->get_new_pending($id_toko)->row();
+		} else {
+			$toko =  $this->TokoModel->get_new_pending()->result();
 		}
 
 		if ($toko) {
