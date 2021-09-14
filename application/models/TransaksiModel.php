@@ -5,18 +5,33 @@ class TransaksiModel extends CI_Model
 {
 	private $table = 'transaksi';
 
+	//Menampilkan Data Transaksi Belum Lunas sesuai Admin
+	public function get_transaksi_belum_lunas_by_id_user($id_user)
+	{
+		$this->db->where('user.id_user', $id_user);
+		$this->db->where('status =', 'belum lunas');
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, user.id_user, user.nama, toko.id_toko, toko.nama_toko')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('toko', 'user_toko.id_toko = toko.id_toko')
+			->join('user', 'user_toko.id_user = user.id_user');
+		$this->db->from('transaksi');
+		$this->db->order_by('id_transaksi', 'DESC');
+		$this->db->limit(1);
+		return $this->db->get()->row();
+	}
+
 	//Menampilkan Data Transaksi
 	public function get($id_transaksi = null)
 	{
-		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user');
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user_toko');
 		$this->db->from('transaksi');
 		if ($id_transaksi != null) {
 			$this->db->where('id_transaksi', $id_transaksi);
-			$this->db->select('id_user');
 		}
 		return $this->db->get();
 	}
 
+	//Menampilkan Data Transaksi Lunas sesuai Admin
 	public function get_transaksi_lunas_by_id_user($id_user, $id_transaksi = null)
 	{
 		$this->db->where('user.id_user', $id_user);
@@ -36,13 +51,11 @@ class TransaksiModel extends CI_Model
 	//Menampilkan Data Transaksi Barang
 	public function get_barang($id_transaksi = null)
 	{
-		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user');
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user_toko');
 		$this->db->from('transaksi');
 		$this->db->where('jenis_transaksi =', 'barang');
-		// $this->db->order_by('nama_cust', 'ASC');
 		if ($id_transaksi != null) {
 			$this->db->where('id_transaksi', $id_transaksi);
-			$this->db->select('id_user');
 		}
 		return $this->db->get();
 	}
@@ -50,13 +63,11 @@ class TransaksiModel extends CI_Model
 	//Menampilkan Data Transaksi Jasa
 	public function get_jasa($id_transaksi = null)
 	{
-		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user');
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, id_user_toko');
 		$this->db->from('transaksi');
 		$this->db->where('jenis_transaksi =', 'jasa');
-		// $this->db->order_by('nama_cust', 'ASC');
 		if ($id_transaksi != null) {
 			$this->db->where('id_transaksi', $id_transaksi);
-			$this->db->select('id_user');
 		}
 		return $this->db->get();
 	}

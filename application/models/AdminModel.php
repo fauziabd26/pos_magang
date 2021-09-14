@@ -6,6 +6,15 @@ class AdminModel extends CI_Model
 	private $table = 'user';
 
 	//Menampilkan Data Admin
+	public function get_admin($id_admin)
+	{
+		$this->db->where('user_toko.id_user', $id_admin);
+		$this->db->select('user_toko.id_user_toko, user.id_user, user.nama, user.email');
+		$this->db->from('user_toko')->join('user', 'user_toko.id_user = user.id_user');
+		return $this->db->get()->row();
+	}
+
+	//Menampilkan Data Admin
 	public function get($id_user = null)
 	{
 		$this->db->select('id_user, nama, email, no_hp, photo, role');

@@ -118,14 +118,14 @@ class Owner extends CI_Controller
 		// $config['overwrite']			= true;
 		// $config['max_size']             = 2000; // 1MB
 
-		$data = array(
-			'nama' 		=> ucwords($_POST['nama']),
-			'email' 	=> $_POST['email'],
-			'password' 	=> $_POST['password'],
-			'no_hp' 	=> $_POST['no_hp'],
-			'photo'		=> $_POST['photo'],
-		);
-		var_dump($data);
+		// $data = array(
+		// 	'nama' 		=> ucwords($_POST['nama']),
+		// 	'email' 	=> $_POST['email'],
+		// 	'password' 	=> $_POST['password'],
+		// 	'no_hp' 	=> $_POST['no_hp'],
+		// 	'photo'		=> $_POST['photo'],
+		// );
+		// var_dump($data);
 		// $this->upload->initialize($config);
 		// $this->load->library('upload', $config);
 
@@ -154,6 +154,32 @@ class Owner extends CI_Controller
 		// 	$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 		// 	$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 		// 	redirect('owner/admin');
+		// }
+
+		// $config['upload_path']         = 'assets/img/admin/';  // folder upload 
+		// $config['allowed_types']        = 'gif|jpg|png'; // jenis file
+		// $config['max_size']             = 3000;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		// $this->load->library('upload', $config);
+		// $this->upload->initialize($config);
+		// if ($this->upload->do_upload('photo')) //sesuai dengan name pada form 
+		// {
+		// 	echo 'anda gagal upload';
+		// } else {
+		// $file = $this->upload->data();
+		$file = $_FILES['photo']['tmp_name'];
+		$data = array(
+			'nama' 		=> ucwords($_POST['nama']),
+			'email' 	=> $_POST['email'],
+			'password' 	=> $_POST['password'],
+			'no_hp' 	=> $_POST['no_hp'],
+			'photo'		=> $file,
+		);
+		var_dump($data);
+		// $this->session->set_flashdata('msg', 'data berhasil di upload');
+		// redirect('product');
 		// }
 	}
 
