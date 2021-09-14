@@ -658,29 +658,51 @@ class Owner extends CI_Controller
 			'required' => 'Foto Produk Harga Wajib Diisi.'
 		));
 
-		$config['upload_path']          = './img/products';
+		$config['upload_path']          = 'assets/img/products';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 0;
-		$config['max_width']            = 0;
-		$config['max_height']           = 0;
+		$config['max_size']             = 10000;
+		$config['max_width']            = 10000;
+		$config['max_height']           = 10000;
+		// $config['file_name']            = $this->input->post('nama_foto_produk');
 		$this->load->library('upload', $config);
-		if (!$this->upload->proses_tambah_fotoProduk('nama_foto_produk')) {
-			$error = array('error' => $this->upload->display_errors());
-			$this->load->view('upload', $error);
+		if (!$this->upload->do_upload('nama_foto_produk'))
+		{
+			echo "Gagal Tambah";
 		} else {
-			$_data = array('upload_data' => $this->upload->data());
+			$nama_foto_produk = $this->upload->data();
+			$nama_foto_produk = $nama_foto_produk['file_name'];
+			$id_produk = $this->input->post('id_produk', TRUE);
+
 			$data = array(
-				'id_produk' => ucfirst($_POST['id_produk']),
-				'nama_foto_produk' => $_data['upload_data']['file_name']
+				'id_produk'				=> $id_produk,
+				'nama_foto_produk'		=> $nama_foto_produk,
 			);
-			$insert = $this->curl->simple_post($this->api . 'foto_produk', $data, array(CURLOPT_BUFFERSIZE => 10));
-			if ($insert) {
-				$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
-			} else {
-				$this->session->set_flashdata('info', 'data gagal disimpan.');
-			}
-			redirect('owner/index_foto_produk');
+			$this->db->insert('foto_produk', $data);
+			$this->session->set_flashdata('success', "Data foto <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
+		// 	redirect('owner/index_foto_produk');
 		}
+		
+		// $id_produk			= $this->input->post('id_produk');
+		// $nama_foto_produk	= $_FILES['nama_foto_produk'];
+		
+		// $config['upload_path']		= 'assets/img/products';
+		// $config['allowed_types']	= 'jpg|png|gif';
+		
+		// $this->load->library('upload',$config);
+		// if(!$this->upload->do_upload('nama_foto_produk')){
+		// 	echo "Upload Gagal"; die();
+		// } else{
+		// 	$nama_foto_produk = $this->upload->data('file_name');
+		// }
+		
+		// $data = array(
+		// 	'id_produk'			=> $id_produk,
+		// 	'nama_foto_produk'	=> $nama_foto_produk
+		// );
+		
+
+		// $this->FotoProdekModel->save($data);
+		// redirect('owner/index_foto_produk');
 
 		// if ($this->form_validation->run() === false) {
 		// 	$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
@@ -697,12 +719,12 @@ class Owner extends CI_Controller
 
 	public function do_upload()
 	{
-		$config['upload_path']          = './img/products';
+		$config['upload_path']          = 'assets/img/products';
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['max_size']             = 0;
 		$config['max_width']            = 0;
 		$config['max_height']           = 0;
-		$this->load->library('upload', $config);
+		$this->load->library('Upload', $config);
 		if (!$this->upload->do_upload('userfile')) {
 			$error = array('error' => $this->upload->display_errors());
 			$this->load->view('upload', $error);
