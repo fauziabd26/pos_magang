@@ -6,27 +6,36 @@ use chriskacerguis\RestServer\RestController;
 
 class Toko extends RestController
 {
-	private $id_user = 0;
-    public function __construct(){
-        parent::__construct();
+	function __construct($config = 'rest')
+	{
+		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('TokoModel');
+	}
 
-		$header = getallheaders();
-		$apikey = filter_var($header['x-apikey'], FILTER_CALLBACK, ['options' => function($hash) { return preg_replace('/[^a-zA-Z0-9$\/.]/', '', $hash);}]);
-		
-		if(!empty($apikey))
-			{
-			$this->load->database();
-			$this->id_user = intval($this->db->where(array('apikey'=>$apikey,'status'=>'1'))->limit(1)->get('apikeys')->row('id_user'));
-			if($this->id_user > 0)
-				{
-				$this->apicheck($this->id_user,$header);
-				}
-				else response_json(401,"Invalid Key");
-			}
-			else response_json(401,"API Key Required"); 
-    }
+	//Menampilkan Data Toko Berdasarkan ID User
+	function by_id_user_get($id_user)
+	{
+		$toko = $this->TokoModel->by_id_user($id_user);
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Toko Berdasarkan Id User Berhasil Diambil',
+			'data' => $toko
+		), 200);
+	}
+
+	//Menampilkan Data Toko Valid Berdasarkan ID User
+	function by_id_user_valid_get($id_user)
+	{
+		$toko = $this->TokoModel->by_id_user_valid($id_user);
+
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Toko Valid Berdasarkan Id User Berhasil Diambil',
+			'data' => $toko
+		), 200);
+	}
 
 	//Menampilkan data toko
 	function index_get($id_toko = null)
@@ -35,6 +44,29 @@ class Toko extends RestController
 			$toko = $this->TokoModel->get($id_toko)->row();
 		} else {
 			$toko =  $this->TokoModel->get()->result();
+		}
+
+		if ($toko) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Toko Berhasil Diambil',
+				'data' => $toko
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Toko Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data toko pedning Terbaru
+	function new_pending_get($id_toko = null)
+	{
+		if (!empty($id_toko)) {
+			$toko = $this->TokoModel->get_new_pending($id_toko)->row();
+		} else {
+			$toko =  $this->TokoModel->get_new_pending()->result();
 		}
 
 		if ($toko) {

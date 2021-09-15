@@ -30,7 +30,7 @@
 					</div>
 					<div class="form-group">
 						<label for='nama_toko'>Nama Harga</label>
-						<input type="text" id="nama_harga" class="form-control" name="nama_harga" placeholder="Masukan Nama Harga" autofocus>
+						<input type="text" id="nama_harga" class="form-control <?= form_error('nama_harga') ? 'is-invalid' : '' ?> " name="nama_harga" placeholder="Masukan Nama Harga" autofocus>
 						<small class="text-danger font-weight-bold">
 							<?php echo form_error('nama_harga'); ?>
 						</small>

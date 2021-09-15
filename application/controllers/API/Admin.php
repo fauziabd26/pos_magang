@@ -11,20 +11,35 @@ class Admin extends RestController
 		parent::__construct($config);
 		$this->load->database();
 		$this->load->model('AdminModel');
-		$this->load->library('form_validation');
 	}
 
-	//Menampilkan data 
+	function get_admin_get($id_admin)
+	{
+		$admin = $this->AdminModel->get_admin($id_admin);
+		if ($admin) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Admin Berhasil Diambil',
+				'data' => $admin
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Admin Tidak Ada',
+			), 404);
+		}
+	}
 
 	function cek_email_get($id_admin = null)
 	{
-		if(!empty($id_admin)){
+		if (!empty($id_admin)) {
 			$this->response($this->AdminModel->get($id_admin)->row(), 200);
-		}else{
+		} else {
 			$this->response($this->AdminModel->get()->result(), 200);
 		}
 	}
 
+	//Menampilkan data 
 	function index_get($id_admin = null)
 	{
 		if (!empty($id_admin)) {
@@ -47,15 +62,51 @@ class Admin extends RestController
 		}
 	}
 
+	//Menampilkan data 
+	function by_id_user_get($id_user)
+	{
+		$data = $this->AdminModel->by_id_user($id_user);
+		if ($data) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Admin Berdasarkan ID User Berhasil Diambil',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Admin Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data berdasrkan toko milik owner
+	public function by_admin_toko_get($id_owner, $id_admin = null)
+	{
+		if (!empty($id_admin)) {
+			$data = $this->AdminModel->by_admin_toko($id_owner, $id_admin)->row();
+		} else {
+			$data = $this->AdminModel->by_admin_toko($id_owner)->result();
+		}
+
+		if ($data) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Admin Berdasarkan Toko Milik Owner Berhasil Diambil',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Admin Tidak Ada',
+			), 404);
+		}
+	}
+
+
 	//Menambah data  baru
 	function index_post()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]');
-		$this->form_validation->set_rules('email', 'Email', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
-		$this->form_validation->set_rules('no_hp', 'No Hp', 'required|max_length[15]');
-		$this->form_validation->set_rules('photo', 'Foto', 'required');
-
 		$data = array(
 			'nama'          => $this->post('nama'),
 			'email'         => $this->post('email'),
@@ -65,8 +116,7 @@ class Admin extends RestController
 			'role'          => "admin"
 		);
 
-		if ($this->form_validation->run() === TRUE) {
-			$this->AdminModel->save($data);
+		if ($this->AdminModel->save($data)) {
 			$this->response(array(
 				'status' => true,
 				'message' => 'Data Admin Berhasil Ditambah',

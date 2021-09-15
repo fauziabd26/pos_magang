@@ -13,15 +13,10 @@ class Transaksi extends RestController
 		$this->load->model('TransaksiModel');
 	}
 
-	//Menampilkan data Transaksi
-	function index_get($id_transaksi = null)
+	//Menampilkan data Transaksi belum lunas sesuai Admin
+	function get_transaksi_belum_lunas_by_id_user_get($id_user)
 	{
-		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get($id_transaksi)->row();
-		} else {
-			$transaksi =  $this->TransaksiModel->get()->result();
-		}
-
+		$transaksi = $this->TransaksiModel->get_transaksi_belum_lunas_by_id_user($id_user);
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,
@@ -36,10 +31,57 @@ class Transaksi extends RestController
 		}
 	}
 
-	function get_transaksi_lunas_get()
+	//Menampilkan data Transaksi belum lunas sesuai Owner
+	function get_transaksi_lunas_by_owner_get($id_user, $id_transaksi = null)
 	{
-		$transaksi =  $this->TransaksiModel->get_transaksi_lunas()->result();
+		if (!empty($id_transaksi)) {
+			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user, $id_transaksi)->row();
+		} else {
+			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user)->result();
+		}
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
 
+	//Menampilkan data Transaksi
+	function index_get($id_transaksi = null)
+	{
+		if (!empty($id_transaksi)) {
+			$transaksi = $this->TransaksiModel->get($id_transaksi)->row();
+		} else {
+			$transaksi =  $this->TransaksiModel->get()->result();
+		}
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	function get_transaksi_lunas_by_id_user_get($id_user, $id_transaksi = null)
+	{
+		if (!empty($id_transaksi)) {
+			$transaksi =  $this->TransaksiModel->get_transaksi_lunas_by_id_user($id_user, $id_transaksi)->row();
+		} else {
+			$transaksi =  $this->TransaksiModel->get_transaksi_lunas_by_id_user($id_user)->result();
+		}
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,

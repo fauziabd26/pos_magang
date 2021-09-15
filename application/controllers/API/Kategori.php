@@ -1,18 +1,19 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 //require APPPATH . '/libraries/RestController.php';
 use chriskacerguis\RestServer\RestController;
 
-class Kategori extends RestController{
+class Kategori extends RestController
+{
 	// private $id_user = 0;
-    // public function __construct(){
-    //     parent::__construct();
+	// public function __construct(){
+	//     parent::__construct();
 	// 	$this->load->database();
 	// 	$this->load->model('KategoriModel');
 
 	// 	$header = getallheaders();
 	// 	$apikey = filter_var($header['x-apikey'], FILTER_CALLBACK, ['options' => function($hash) { return preg_replace('/[^a-zA-Z0-9$\/.]/', '', $hash);}]);
-		
+
 	// 	if(!empty($apikey))
 	// 		{
 	// 		$this->load->database();
@@ -24,9 +25,9 @@ class Kategori extends RestController{
 	// 			else response_json(401,"Invalid Key");
 	// 		}
 	// 		else response_json(401,"API Key Required"); 
-    // }
+	// }
 
-    function __construct($config = 'rest')
+	function __construct($config = 'rest')
 	{
 		parent::__construct($config);
 		$this->load->database();
@@ -37,9 +38,9 @@ class Kategori extends RestController{
 	function index_get($id_kategori = null)
 	{
 		if (!empty($id_kategori)) {
-			$kategori = $this->KategoriModel->get($id_kategori);
+			$kategori = $this->KategoriModel->get($id_kategori)->row();
 		} else {
-			$kategori =  $this->KategoriModel->get();
+			$kategori =  $this->KategoriModel->get()->result();
 		}
 
 		$this->response(array(
@@ -49,12 +50,23 @@ class Kategori extends RestController{
 		), 200);
 	}
 
+	//Menampilkan data berdasarkan ID User
+	function by_id_user_get($id_user)
+	{
+		$kategori = $this->KategoriModel->by_id_user($id_user);
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Kategori Berdasarkan ID User Berhasil Diambil',
+			'data' => $kategori
+		), 200);
+	}
+
 	//Menambah data toko baru
 	function index_post()
 	{
 		$data = array(
-			'nama_kategori'      => $this->post('nama_kategori'),
-			'id_toko'         => $this->post('id_toko')
+			'nama_kategori'   => $this->post('nama_kategori'),
+			'id_user'         => $this->post('id_user')
 		);
 
 		if ($this->KategoriModel->save($data)) {
@@ -76,8 +88,8 @@ class Kategori extends RestController{
 	{
 		$id_kategori    = $this->put('id_kategori');
 		$data       = array(
-			'nama_kategori'         => $this->put('nama_kategori'),
-			'id_toko'            => $this->put('id_toko')
+			'nama_kategori'   => $this->put('nama_kategori'),
+			'id_user'         => $this->put('id_user')
 		);
 
 		$this->db->where('id_kategori', $id_kategori);

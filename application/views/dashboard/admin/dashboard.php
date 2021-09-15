@@ -11,30 +11,18 @@
 						<div class="card-stats-title">Data Transaksi</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<?php if (!empty($datas)) { ?>
-									<div class="card-stats-item-count"><?= $totalTransaksiProduk ?></div>
-								<?php } else { ?>
-									<div class="card-stats-item-count">0</div>
-								<?php } ?>
+								<div class="card-stats-item-count"><?= $totalTransaksiProduk ?? '0' ?></div>
 								<div class="card-stats-item-label">Produk</div>
 							</div>
 							<div class="card-stats-item">
 								<div class="card-stats-item">
-									<?php if (!empty($datas)) { ?>
-										<div class="card-stats-item-count"><?= $totalTransaksiJasa ?></div>
-									<?php } else { ?>
-										<div class="card-stats-item-count">0</div>
-									<?php } ?>
+									<div class="card-stats-item-count"><?= $totalTransaksiJasa ?? '0' ?></div>
 									<div class="card-stats-item-label">Jasa</div>
 								</div>
 							</div>
 							<div class="card-stats-item">
 								<div class="card-stats-item">
-									<?php if (!empty($datas)) { ?>
-										<div class="card-stats-item-count"><?= $totalTransaksiProduk + $totalTransaksiJasa ?></div>
-									<?php } else { ?>
-										<div class="card-stats-item-count">0</div>
-									<?php } ?>
+									<div class="card-stats-item-count"><?= $totalTransaksiProduk + $totalTransaksiJasa ?? '0' ?></div>
 									<div class="card-stats-item-label">Total</div>
 								</div>
 							</div>

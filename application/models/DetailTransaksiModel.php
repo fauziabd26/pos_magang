@@ -9,8 +9,20 @@ class DetailTransaksiModel extends CI_Model
 	public function sum_qty($id_transaksi)
 	{
 		$this->db->select_sum('qty');
-		$this->db->where('id_transaksi' , $id_transaksi);
+		$this->db->where('id_transaksi', $id_transaksi);
 		$this->db->from('transaksi');
+		return $this->db->get()->row();
+	}
+
+	//Menampilkan Data Detail Transaksi Sesuai Produk dan Transaksi Yang Dipilih
+	public function cek_transaksi_detail($id_detail_trans_produk, $id_transaksi)
+	{
+		$this->db->where('id_detail_produk', $id_detail_trans_produk);
+		$this->db->where('id_transaksi', $id_transaksi);
+		$this->db->select('id_detail_trans_produk, sub_total, qty, id_detail_produk, id_transaksi');
+		$this->db->from('detail_trans_produk');
+		$this->db->order_by('id_detail_produk', 'DESC');
+		$this->db->limit(1);
 		return $this->db->get()->row();
 	}
 
@@ -21,24 +33,41 @@ class DetailTransaksiModel extends CI_Model
 	}
 
 	//Menampilkan Data Detail Transaksi Berdasarkan ID Transaksi
-	public function by_id_transaksi($id_transaksi)
+	public function get_transaksi_by_id_user($id_user, $id_transaksi = null)
+	{
+		$this->db->where('user.id_user', $id_user);
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_detail_produk, produk.nama_produk, detail_produk.nominal, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('detail_produk', 'detail_trans_produk.id_detail_produk = detail_produk.id_detail_produk')
+			->join('produk', 'detail_produk.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('user', 'user_toko.id_user = user.id_user');
+		if ($id_transaksi != null) {
+			$this->db->where('detail_trans_produk.id_transaksi', $id_transaksi);
+		}
+		return $this->db->get();
+	}
+
+	public function get_detail_transaksi_by_transaksi($id_transaksi)
 	{
 		$this->db->where('detail_trans_produk.id_transaksi', $id_transaksi);
-		$this->db->where('transaksi.status =', "belum lunas");
-		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_detail_produk, produk.nama_produk, detail_produk.nominal, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
 		$this->db->from('detail_trans_produk')
-			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
-			->join('produk', 'harga.id_produk = produk.id_produk')
-			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
+			->join('detail_produk', 'detail_trans_produk.id_detail_produk = detail_produk.id_detail_produk')
+			->join('produk', 'detail_produk.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('user', 'user_toko.id_user = user.id_user');
 		return $this->db->get()->result();
 	}
 
 	public function get($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_detail_produk, detail_produk.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
 		$this->db->from('detail_trans_produk')
-			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
-			->join('produk', 'harga.id_produk = produk.id_produk')
+			->join('detail_produk', 'detail_trans_produk.id_detail_produk = detail_produk.id_detail_produk')
+			->join('produk', 'detail_produk.id_produk = produk.id_produk')
 			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
@@ -48,12 +77,14 @@ class DetailTransaksiModel extends CI_Model
 
 	public function get_barang($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_detail_produk, detail_produk.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
 		$this->db->from('detail_trans_produk')
-			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
-			->join('produk', 'harga.id_produk = produk.id_produk')
-			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
-		$this->db->where('jenis_transaksi =', 'barang');
+			->join('detail_produk', 'detail_trans_produk.id_detail_produk = detail_produk.id_detail_produk')
+			->join('produk', 'detail_produk.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('user', 'user_toko.id_user = user.id_user');
+		$this->db->where('transaksi.jenis_transaksi =', 'barang');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
 		}
@@ -70,11 +101,13 @@ class DetailTransaksiModel extends CI_Model
 
 	public function get_jasa($id_detail_trans_produk = null)
 	{
-		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_harga, harga.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_detail_produk, detail_produk.nominal, produk.nama_produk, detail_trans_produk.id_transaksi, transaksi.jenis_transaksi');
 		$this->db->from('detail_trans_produk')
-			->join('harga', 'detail_trans_produk.id_harga = harga.id_harga')
-			->join('produk', 'harga.id_produk = produk.id_produk')
-			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi');
+			->join('detail_produk', 'detail_trans_produk.id_detail_produk = detail_produk.id_detail_produk')
+			->join('produk', 'detail_produk.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('user', 'user_toko.id_user = user.id_user');
 		$this->db->where('jenis_transaksi =', 'jasa');
 		if ($id_detail_trans_produk != null) {
 			$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);

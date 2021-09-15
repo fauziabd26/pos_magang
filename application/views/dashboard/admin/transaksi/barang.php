@@ -95,11 +95,11 @@
 											<?php if (!empty($produks)) { ?>
 												<?php foreach ($produks as $produk) : ?>
 													<div class="col-md-6 col-lg-4 col-12">
-														<form action="<?= base_url('admin/proses_tambah_transaksi_barang/' . $produk['id_harga']) ?>" method="POST">
+														<form action="<?= base_url('admin/proses_tambah_transaksi_barang/' . $produk['id_detail_produk']) ?>" method="POST">
 															<button style="text-decoration: none;" class="card card-primary">
 																<div class="card-body">
 																	<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
-																	<span class="text-capitalize font-weight-bold"><?= $produk['nama_produk'] ?></span><br>
+																	<span class="text-capitalize font-weight-bold" style="font-size: 12px;"><?= $produk['nama_produk'] ?></span><br>
 																	<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
 																	<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?> / <?= $produk['nama_harga'] ?></small>
 																</div>
@@ -130,34 +130,36 @@
 											</thead>
 											<tbody>
 												<?= $transaksi['id_transaksi'] ?>
-												<?php
-												foreach ($detail_transaksi as $row) : ?>
-													<tr>
-														<td class="text-capitalize"><?= $row['nama_produk'] ?? "-" ?> / <?= $produk['nama_harga'] ?></td>
-														<td>
-															<div class="row align-items-center">
-																<form action="<?= base_url('admin/stok_kurang/' . $row['id_detail_trans_produk']) ?>" method="POST">
-																	<?php if ($row['qty'] > 1) { ?>
-																		<button class="btn btn-danger btn-xs mr-3" style="padding : 2px 6px">
-																			<i class="fas fa-minus" style="font-size: 8px"></i>
+												<?php if (!empty($detail_transaksi)) { ?>
+													<?php
+													foreach ($detail_transaksi as $row) : ?>
+														<tr>
+															<td class="text-capitalize"><?= $row['nama_produk'] ?? "-" ?> / <?= $produk['nama_harga'] ?></td>
+															<td>
+																<div class="row align-items-center">
+																	<form action="<?= base_url('admin/stok_kurang/' . $row['id_detail_trans_produk']) ?>" method="POST">
+																		<?php if ($row['qty'] > 1) { ?>
+																			<button class="btn btn-danger btn-xs mr-3" style="padding : 2px 6px">
+																				<i class="fas fa-minus" style="font-size: 8px"></i>
+																			</button>
+																		<?php } ?>
+																	</form>
+																	<span><?= $row['qty'] ?></span>
+																	<form action="<?= base_url('admin/stok_tambah/' . $row['id_detail_trans_produk']) ?>" method="POST">
+																		<button class="btn btn-primary btn-xs ml-3" style="padding : 2px 6px">
+																			<i class="fas fa-plus" style="font-size: 8px"></i>
 																		</button>
-																	<?php } ?>
-																</form>
-																<span><?= $row['qty'] ?></span>
-																<form action="<?= base_url('admin/stok_tambah/' . $row['id_detail_trans_produk']) ?>" method="POST">
-																	<button class="btn btn-primary btn-xs ml-3" style="padding : 2px 6px">
-																		<i class="fas fa-plus" style="font-size: 8px"></i>
-																	</button>
-																</form>
-															</div>
-														</td>
-														<td>Rp <?= number_format($row['nominal'] ?? "-") ?> </td>
-														<td>Rp <?= number_format($row['sub_total'] ?? "-") ?></td>
-														<td>
-															<a href="<?= base_url('admin/hapus_detail_transaksi/' . $row['id_detail_trans_produk']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-														</td>
-													</tr>
-												<?php endforeach; ?>
+																	</form>
+																</div>
+															</td>
+															<td>Rp <?= number_format($row['nominal']) ?? '-' ?> </td>
+															<td>Rp <?= number_format($row['sub_total'] ?? "-") ?></td>
+															<td>
+																<a href="<?= base_url('admin/hapus_detail_transaksi/' . $row['id_detail_trans_produk']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+															</td>
+														</tr>
+													<?php endforeach; ?>
+												<?php } ?>
 											</tbody>
 										</table>
 										<!-- </div> -->
