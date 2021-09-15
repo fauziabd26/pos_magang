@@ -68,7 +68,6 @@
 					</div>
 					<div class="form-group">
 						<label for='file'>Foto Admin</label>
-						<?php echo form_error('photo'); ?>
 						<input type="file" id="file" class="form-control" name="photo" value="<?= set_value('photo'); ?>" />
 						<!-- <input type="hidden" id="photo" name="old_image"  /> -->
 						<small>*Format File Menggunakan IMG, PNG</small><br>
@@ -79,7 +78,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<button class="btn btn-primary btn-block">Submit</button>
+					<button class="btn btn-primary btn-block" value="upload">Submit</button>
 				</div>
 			</form>
 		</div>
