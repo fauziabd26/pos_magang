@@ -19,13 +19,17 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
 		$datasKategori = json_decode($getAPIKategori, true);
 		$getAPISatuan = $this->curl->simple_get($this->api . 'satuan/by_id_user/' . $this->session->userdata('id_user'));
 		$datasSatuan = json_decode($getAPISatuan, true);
 		$getAPIHarga = $this->curl->simple_get($this->api . 'harga/by_id_user/' . $this->session->userdata('id_user'));
 		$datasHarga = json_decode($getAPIHarga, true);
-		if (!empty($datas)) {
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_owner/' . $this->session->userdata('id_user'));
+		$datasTransaksi = json_decode($getAPITransaksi, true);
+		if (!empty($datas || $datasTransaksi)) {
 			// Count Data produk
 			$totalProdukBarang = 0;
 			$totalProdukJasa = 0;
@@ -36,9 +40,29 @@ class Owner extends CI_Controller
 					$totalProdukJasa += 1;
 				}
 			}
-			$data['transaksis'] = $datas["data"];
+			$totalAdmin = 0;
+			foreach ($datasAdmin['data'] as $value) {
+				$totalAdmin++;
+			}
+			$totalKategori = 0;
+			foreach ($datasKategori['data'] as $value) {
+				$totalKategori++;
+			}
+			$totalSatuan = 0;
+			foreach ($datasSatuan['data'] as $value) {
+				$totalSatuan++;
+			}
+			$totalHarga = 0;
+			foreach ($datasHarga['data'] as $value) {
+				$totalHarga++;
+			}
+			$data['transaksis'] = $datasTransaksi["data"];
 			$data['totalProdukBarang'] = $totalProdukBarang;
 			$data['totalProdukJasa'] = $totalProdukJasa;
+			$data['totalAdmin'] = $totalAdmin;
+			$data['totalKategori'] = $totalKategori;
+			$data['totalSatuan'] = $totalSatuan;
+			$data['totalHarga'] = $totalHarga;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard', $data);
 		} else {
 			$this->template->load('layouts/owner/master', 'dashboard/owner/dashboard');
@@ -47,7 +71,19 @@ class Owner extends CI_Controller
 
 	public function profile()
 	{
-		$this->template->load('layouts/owner/master', 'dashboard/owner/profile');
+		$getAPI = $this->curl->simple_get($this->api . 'profile/' . $this->session->userdata('id_user'));
+		$datas = json_decode($getAPI, true);
+		if ($datas['data']['id_user'] == $this->session->userdata('id_user')) {
+			$value = array(
+				'id_user' => $datas['data']["id_user"],
+				'nama' => $datas['data']["nama"],
+				'email' => $datas['data']["email"],
+				'no_hp' => $datas['data']["no_hp"],
+				'photo' => $datas['data']["photo"],
+			);
+		}
+		$data['data'] = $value;
+		$this->template->load('layouts/owner/master', 'dashboard/owner/profile', $data);
 	}
 
 	// Bagian Admin
@@ -664,8 +700,7 @@ class Owner extends CI_Controller
 		$config['max_height']           = 10000;
 		// $config['file_name']            = $this->input->post('nama_foto_produk');
 		$this->load->library('upload', $config);
-		if (!$this->upload->do_upload('nama_foto_produk'))
-		{
+		if (!$this->upload->do_upload('nama_foto_produk')) {
 			echo "Gagal Tambah";
 		} else {
 			$nama_foto_produk = $this->upload->data();
@@ -678,27 +713,27 @@ class Owner extends CI_Controller
 			);
 			$this->db->insert('foto_produk', $data);
 			$this->session->set_flashdata('success', "Data foto <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
-		// 	redirect('owner/index_foto_produk');
+			// 	redirect('owner/index_foto_produk');
 		}
-		
+
 		// $id_produk			= $this->input->post('id_produk');
 		// $nama_foto_produk	= $_FILES['nama_foto_produk'];
-		
+
 		// $config['upload_path']		= 'assets/img/products';
 		// $config['allowed_types']	= 'jpg|png|gif';
-		
+
 		// $this->load->library('upload',$config);
 		// if(!$this->upload->do_upload('nama_foto_produk')){
 		// 	echo "Upload Gagal"; die();
 		// } else{
 		// 	$nama_foto_produk = $this->upload->data('file_name');
 		// }
-		
+
 		// $data = array(
 		// 	'id_produk'			=> $id_produk,
 		// 	'nama_foto_produk'	=> $nama_foto_produk
 		// );
-		
+
 
 		// $this->FotoProdekModel->save($data);
 		// redirect('owner/index_foto_produk');
