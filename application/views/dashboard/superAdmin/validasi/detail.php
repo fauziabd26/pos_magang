@@ -17,6 +17,15 @@
 							<i class="fas fa-chevron-left mr-2"></i> Kembali Ke Data Toko
 						</a>
 					</div>
+					<div class="col text-right">
+						<?php if ($toko["status_toko"] == "valid") { ?>
+							<span class="btn btn-success text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-check ml-2"></i></span>
+						<?php } elseif ($toko["status_toko"] == "pending") { ?>
+							<span class="btn btn-warning text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-hourglass ml-2"></i></span>
+						<?php } else { ?>
+							<span class="btn btn-danger text-capitalize">Status : <?= $toko["status_toko"] ?> <i class="fas fa-ban ml-2"></i></span>
+						<?php } ?>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-6">

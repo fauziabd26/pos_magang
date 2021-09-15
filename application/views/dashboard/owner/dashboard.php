@@ -11,27 +11,15 @@
 						<div class="card-stats-title">Katalog Produk</div>
 						<div class="card-stats-items">
 							<div class="card-stats-item">
-								<?php if (!empty($datas)) { ?>
-									<div class="card-stats-item-count"><?= $totalProdukBarang ?></div>
-								<?php } else { ?>
-									<div class="card-stats-item-count">0</div>
-								<?php } ?>
+								<div class="card-stats-item-count"><?= $totalProdukBarang ?? '0' ?></div>
 								<div class="card-stats-item-label">Barang</div>
 							</div>
 							<div class="card-stats-item">
-								<?php if (!empty($datas)) { ?>
-									<div class="card-stats-item-count"><?= $totalProdukJasa ?></div>
-								<?php } else { ?>
-									<div class="card-stats-item-count">0</div>
-								<?php } ?>
+								<div class="card-stats-item-count"><?= $totalProdukJasa ?? '0' ?></div>
 								<div class="card-stats-item-label">Jasa</div>
 							</div>
 							<div class="card-stats-item">
-								<?php if (!empty($datas)) { ?>
-									<div class="card-stats-item-count"><?= $totalProdukBarang + $totalProdukJasa ?></div>
-								<?php } else { ?>
-									<div class="card-stats-item-count">0</div>
-								<?php } ?>
+								<div class="card-stats-item-count"><?= $totalProdukBarang + $totalProdukJasa ?? '0' ?></div>
 								<div class="card-stats-item-label">Total</div>
 							</div>
 						</div>
@@ -46,11 +34,7 @@
 									<h4>Total Katalog Produk</h4>
 								</div>
 								<div class="card-body">
-									<?php if (!empty($datas)) { ?>
-										<div class="count"><?= $totalProdukBarang + $totalProdukJasa ?></div>
-									<?php } else { ?>
-										<div class="card-stats-item-count">0</div>
-									<?php } ?>
+									<div class="count"><?= $totalProdukBarang + $totalProdukJasa ?? '0' ?></div>
 								</div>
 							</div>
 						</a>
@@ -88,7 +72,6 @@
 									</div>
 									<div class="card-body">
 										<div class="count">6</div>
-
 									</div>
 								</div>
 							</a>
@@ -145,7 +128,7 @@
 												</td>
 											</tr>
 										<?php endforeach; ?>
-									<?php }else{ ?>
+									<?php } else { ?>
 										<tr>
 											<td colspan="4" class="text-center">Tidak Ada Transaksi Terbaru</td>
 										</tr>

@@ -10,7 +10,6 @@
 
 	<div class="section-body">
 		<div class="card">
-		<?php echo form_open_multipart();?>
 			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST"  enctype="multipart/form-data">
 				<div class="card-body">
 				<?php if ($this->session->flashdata('error')) { ?>
@@ -70,11 +69,13 @@
 					<div class="form-group">
 						<label for='file'>Foto Admin</label>
 						<?php echo form_error('photo'); ?>
-						<input type="file" id="file" class="form-control" name="file" value="<?= set_value('photo'); ?>" />
+						<input type="file" id="file" class="form-control" name="photo" value="<?= set_value('photo'); ?>" />
 						<!-- <input type="hidden" id="photo" name="old_image"  /> -->
 						<small>*Format File Menggunakan IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
-						
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('photo'); ?>
+						</small>
 					</div>
 				</div>
 				<div class="card-footer">

@@ -1,16 +1,16 @@
 <section class="section">
-    <div class="section-header">
-        <h1>Data Produk</h1>
-        <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
-            <div class="breadcrumb-item">Data Produk</div>
-        </div>
-    </div>
+	<div class="section-header">
+		<h1>Data Produk</h1>
+		<div class="section-header-breadcrumb">
+			<div class="breadcrumb-item active"><a href="<?= base_url('owner/dashboard') ?>">Dashboard</a></div>
+			<div class="breadcrumb-item">Data Produk</div>
+		</div>
+	</div>
 
-    <div class="section-body">
-        <div class="card">
-            <div class="card-body">
-            <?php if ($this->session->flashdata('success')) { ?>
+	<div class="section-body">
+		<div class="card">
+			<div class="card-body">
+				<?php if ($this->session->flashdata('success')) { ?>
 					<div class="alert alert-success alert-dismissible show fade">
 						<div class="alert-body">
 							<button class="close" data-dismiss="alert">
@@ -42,17 +42,21 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Produk</th>
+                                <th>Nama Toko</th>
                                 <th>Jenis</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($produks as $no => $row) : ?>
+                          	<?php if (!empty($produks)) { ?>
+                            <?php $no=1;foreach ($produks as $no => $row) : ?>
                             <tr>
                                 <td><?= ++$no ?></td>
                                 <td><?= $row["nama_produk"] ?></td>
-                                <td><?= $row["jenis"] ?></td>
+                                <td><?= $row["nama_toko"] ?></td>
+                                <td class="text-capitalize"><?= $row["jenis"] ?></td>
                                 <td>
+<<<<<<< HEAD
                                     <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i></a>
 
@@ -67,30 +71,44 @@
             </div>
         </div>
     </div>
+=======
+                                  <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
+											            <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
+										</td>
+									</tr>
+								<?php endforeach; ?>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+>>>>>>> 36384acb426a9d6f90438dcd8432bd76767a7043
 </section><!-- Modal Hapus -->
-<?php foreach ($produks as $row) : ?>
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
-    id="hapus-data<?= $row['id_produk'] ?>" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            </div>
-            <form class="form-horizontal" action="<?php echo base_url('owner/produk_hapus') ?>" method="delete"
-                enctype="multipart/form-data" role="form">
-                <div class="modal-body">
-                    <h4 class="modal-title">Hapus Data</h4>
-                    <div class="form-group">
-                        <label class="control-label">Apakah Anda Yaqin ingin hapus???</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="<?= base_url('owner/produk_hapus/' . $row['id_produk']) ?>" class="btn btn-info"> Ya</a>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?>
+<?php if (!empty($produks)) { ?>
+	<?php foreach ($produks as $row) : ?>
+		<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="hapus-data<?= $row['id_produk'] ?>" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+					</div>
+					<form class="form-horizontal" action="<?php echo base_url('owner/produk_hapus') ?>" method="delete" enctype="multipart/form-data" role="form">
+						<div class="modal-body">
+							<h4 class="modal-title">Hapus Data</h4>
+							<div class="form-group">
+								<label class="control-label">Apakah Anda Yaqin ingin hapus???</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a href="<?= base_url('owner/produk_hapus/' . $row['id_produk']) ?>" class="btn btn-info"> Ya</a>
+							<button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	<?php endforeach; ?>
+<?php } ?>
 <!-- END Modal Hapus -->
