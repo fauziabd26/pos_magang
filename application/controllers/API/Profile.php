@@ -31,7 +31,7 @@ class Profile extends RestController
 			'nama'          => $this->put('nama'),
 			'email'         => $this->put('email'),
 			'no_hp'         => $this->put('no_hp'),
-			// 'photo'         => $this->put('photo'),
+			'photo'         => $this->put('photo'),
 		);
 
 		$this->db->where('id_user', $id_user);

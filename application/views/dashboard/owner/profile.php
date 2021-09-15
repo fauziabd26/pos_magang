@@ -9,7 +9,7 @@
 
 	<div class="section-body">
 		<div class="card">
-			<form action="<?= base_url('profile/ubah_profile/' . $this->session->userdata('id_user')) ?>" method="POST">
+			<form action="<?= base_url('profile/ubah_profile/' . $this->session->userdata('id_user')) ?>" method="POST" enctype="multipart/form-data">
 				<div class="card-body">
 					<?php if ($this->session->flashdata('success')) { ?>
 						<div class="alert alert-success alert-dismissible show fade">

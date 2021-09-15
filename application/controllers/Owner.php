@@ -106,62 +106,80 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_admin()
 	{
-		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]', array(
-			'required' => 'Nama Wajib Diisi.'
-		));
-		$this->form_validation->set_rules(
-			'email',
-			'Email',
-			'required|is_unique[user.email]',
-			array(
-				'required' => 'Email Wajib Diisi.'
-			)
-		);
-		$this->form_validation->set_rules(
-			'password',
-			'Password',
-			'required|min_length[8]',
-			array(
-				'required' => 'Password Wajib Diisi.', 'min_length' => 'Password Minimal 8 Karakter'
-			)
-		);
-		$this->form_validation->set_rules(
-			'password_confirm',
-			'Password Confirmation',
-			'required|min_length[8]',
-			array(
-				'required' => 'Konfirmasi Password Wajib Diisi.', 'min_length' => 'Password Harus Sama'
-			)
-		);
-		$this->form_validation->set_rules(
-			'no_hp',
-			'No Hp',
-			'required|min_length[10]|max_length[15]',
-			array(
-				'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit'
-			)
-		);
-		$this->form_validation->set_rules(
-			'photo',
-			'Foto',
-			'required',
-			array(
-				'required' => 'Nama Wajib Diisi.'
-			)
-		);
-		$config['upload_path']          = './assets/img/foto_admin/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['overwrite']			= true;
-		$config['max_size']             = 2000; // 1MB
-		$data = array(
-			'nama' 		=> ucwords($_POST['nama']),
-			'email' 	=> $_POST['email'],
-			'password' 	=> $_POST['password'],
-			'no_hp' 	=> $_POST['no_hp'],
-			'photo'		=> $_POST['photo'],
-		);
+		// $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]', array(
+		// 	'required' => 'Nama Wajib Diisi.'
+		// ));
+		// $this->form_validation->set_rules(
+		// 	'email',
+		// 	'Email',
+		// 	'required|is_unique[user.email]',
+		// 	array(
+		// 		'required' => 'Email Wajib Diisi.'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'password',
+		// 	'Password',
+		// 	'required|min_length[8]',
+		// 	array(
+		// 		'required' => 'Password Wajib Diisi.', 'min_length' => 'Password Minimal 8 Karakter'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'password_confirm',
+		// 	'Password Confirmation',
+		// 	'required|min_length[8]',
+		// 	array(
+		// 		'required' => 'Konfirmasi Password Wajib Diisi.', 'min_length' => 'Password Harus Sama'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'no_hp',
+		// 	'No Hp',
+		// 	'required|min_length[10]|max_length[15]',
+		// 	array(
+		// 		'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit'
+		// 	)
+		// );
+		// $this->form_validation->set_rules(
+		// 	'photo',
+		// 	'Foto',
+		// 	'required',
+		// 	array(
+		// 		'required' => 'Nama Wajib Diisi.'
+		// 	)
+		// );
+		$config['upload_path'] = './assets/img/user';
+		$config['allowed_types'] = 'jpg|png|jpeg|gif';
+		$config['max_size'] = '2048';  //2MB max
+		$config['max_width'] = '4480'; // pixel
+		$config['max_height'] = '4480'; // pixel
+		$config['file_name'] = $_FILES['photo']['name'];
+
 		$this->upload->initialize($config);
-		$this->load->library('upload', $config);
+		if (!empty($_FILES['photo']['name'])) {
+			if ($this->upload->do_upload('photo')) {
+				$foto = $this->upload->data();
+				$data = array(
+					'nama' 		=> ucwords($_POST['nama']),
+					'email' 	=> $_POST['email'],
+					'password' 	=> $_POST['password'],
+					'no_hp' 	=> $_POST['no_hp'],
+					'photo'     => $foto['file_name'],
+				);
+				$update = $this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+				if ($update) {
+					$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+				} else {
+					$this->session->set_flashdata('error', 'Data Gagal diubah');
+				}
+				redirect('owner/admin');
+			} else {
+				die("gagal upload");
+			}
+		} else {
+			echo "tidak masuk";
+		}
 
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
@@ -181,10 +199,7 @@ class Owner extends CI_Controller
 				}
 			}
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
-		} elseif (!$this->upload->do_upload('photo')) {
-			$error = array('error' => $this->upload->display_errors());
 		} else {
-			$data = array('upload_data' => $this->upload->data());
 			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
 			$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 			redirect('owner/admin');
