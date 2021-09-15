@@ -12,7 +12,7 @@
 			<form action="#" method="POST">
 				<div class="card-body">
 					<div class="row">
-						
+
 						<div class="col">
 							<div class="form-divider">
 								<i class="fas fa-user mr-2"></i> Identitas Diri
@@ -20,19 +20,20 @@
 							</div>
 							<div class="form-group">
 								<label for="nama">Nama Lengkap</label>
-								<input id="nama" type="text" class="form-control" name="nama" value="<?= $this->session->userdata('nama') ?>">
+								<input id="nama" type="text" class="form-control" name="nama" value="<?= set_value('nama', $this->session->userdata('nama')) ?>">
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input id="email" type="email" class="form-control" name="email" value="<?= $this->session->userdata('email') ?>">
+								<input id="email" type="email" class="form-control" name="email" value="<?= set_value('email', $this->session->userdata('email')) ?>">
 							</div>
 							<div class="form-group">
 								<label for="no_hp">Nomer Handhphone</label>
-								<input id="no_hp" type="number" class="form-control" name="no_hp" placeholder="Masukan Nomer Handphone">
+								<input id="no_hp" type="number" class="form-control" name="no_hp" value="<?= set_value('no_hp', $this->session->userdata('no_hp')) ?>">
 							</div>
 							<div class="form-group">
-								<label for='foto_ktp'>Foto KTP</label>
+								<label for='photo'>Foto KTP</label>
 								<img src="<?= base_url('assets/ktp/ktp1.jpg') ?>" class="img-fluid">
+								<input id="photo" type="file" class="form-control mt-4" name="photo">
 							</div>
 						</div>
 					</div>

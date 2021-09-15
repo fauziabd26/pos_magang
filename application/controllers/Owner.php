@@ -117,7 +117,6 @@ class Owner extends CI_Controller
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['overwrite']			= true;
 		$config['max_size']             = 2000; // 1MB
-
 		$data = array(
 			'nama' 		=> ucwords($_POST['nama']),
 			'email' 	=> $_POST['email'],

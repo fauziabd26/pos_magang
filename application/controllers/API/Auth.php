@@ -29,6 +29,7 @@ class Auth extends RestController
 					'id_user'    => $row->id_user,
 					'email'      => $row->email,
 					'nama'       => $row->nama,
+					'no_hp'      => $row->no_hp,
 					'role'       => $row->role
 				);
 			}
@@ -72,7 +73,7 @@ class Auth extends RestController
 				'status' => true,
 				'message' => 'Berhasil Logout',
 			), 200);
-		}else{
+		} else {
 			$this->response(array(
 				'status' => false,
 				'message' => 'Gagal Logout',

@@ -13,9 +13,38 @@ class DetailTransaksi extends RestController
 		$this->load->model('DetailTransaksiModel');
 	}
 
+	function cek_transaksi_detail_get($id_detail_trans_produk, $id_transaksi)
+	{
+		$transaksidetail = $this->DetailTransaksiModel->cek_transaksi_detail($id_detail_trans_produk, $id_transaksi);
+		if ($transaksidetail) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Detail Berdasarkan Produk dan Transaksi Berhasil Diambil',
+				'data' => $transaksidetail
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Detail Berdasarkan Produk dan Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
 	function lastId_get()
 	{
-		$this->response($this->DetailTransaksiModel->lastId(), 200);
+		$transaksi = $this->DetailTransaksiModel->lastId();
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Terakhir Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Terakhir Tidak Ada',
+			), 404);
+		}
 	}
 
 	function cekTransaksi_get()
@@ -233,7 +262,7 @@ class DetailTransaksi extends RestController
 	function tambah_transaksi_post()
 	{
 		$dataTransaksi = array(
-			'id_user'   		=> $this->post('id_user'),
+			'id_user_toko'   		=> $this->post('id_user_toko'),
 			'jenis_transaksi'	=> 'barang',
 			'total_transaksi'   => $this->post('total_transaksi'),
 			'status'			=> $this->post('status'),
@@ -256,7 +285,7 @@ class DetailTransaksi extends RestController
 	function tambah_transaksi_jasa_post()
 	{
 		$dataTransaksi = array(
-			'id_user'   		=> $this->post('id_user'),
+			'id_user_toko'   		=> $this->post('id_user_toko'),
 			'jenis_transaksi'	=> 'jasa',
 			'total_transaksi'   => $this->post('total_transaksi'),
 			'status'			=> $this->post('status'),
@@ -280,7 +309,7 @@ class DetailTransaksi extends RestController
 	{
 		$dataDetailTransaksi = array(
 			'id_transaksi'		=> $this->post('id_transaksi'),
-			'id_harga'			=> $this->post('id_harga'),
+			'id_detail_produk'	=> $this->post('id_detail_produk'),
 			'qty'   			=> $this->post('qty'),
 			'sub_total'   		=> $this->post('sub_total'),
 		);
