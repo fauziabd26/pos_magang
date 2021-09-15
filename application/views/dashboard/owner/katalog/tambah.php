@@ -10,7 +10,7 @@
 
     <div class="section-body">
         <div class="card">
-            <form action="<?= base_url('owner/katalog_tambh') ?>" method="POST">
+            <form action="<?= base_url('owner/katalog_tambah') ?>" method="POST">
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col">
@@ -72,10 +72,10 @@
                         <input type="text" id="nominal" class="form-control" name="nominal"
                             placeholder="Masukan Nominal" value="<?= set_value('nominal') ?>">
                     </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary btn-block">Submit</button>
+                </div>
             </form>
         </div>
-        <div class="card-footer">
-            <button class="btn btn-primary btn-block">Submit</button>
-        </div>
-    </div>
 </section>

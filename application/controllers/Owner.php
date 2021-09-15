@@ -1022,10 +1022,9 @@ class Owner extends CI_Controller
 	//Bagian Laporan Transaksi
 	public function index_laporan_trans()
 	{
-		$getAPI = file_get_contents('https://api.etoko.xyz/index.php/transaksi');
-		$datas = json_decode($getAPI, true);
-
-		$data['transaksis'] = $datas['data'];
+		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 			= json_decode($getAPI, true);
+		$data['transaksi'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
 	}
 
@@ -1033,8 +1032,8 @@ class Owner extends CI_Controller
 	//Bagian Laporan katalog produk
 	public function index_laporan_katalog()
 	{
-		$getAPI = file_get_contents('json/owner/laporan/katalog_produk/read.json');
-		$datas = json_decode($getAPI, true);
+		$getAPI 		= $this->curl->simple_get($this->api . 'katalogProduk');
+		$datas 			= json_decode($getAPI, true);
 
 		$data['katalog_produk'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/katalog_produk/index', $data);
@@ -1043,8 +1042,8 @@ class Owner extends CI_Controller
 	//Bagian Laporan Customer
 	public function index_laporan_cust()
 	{
-		$getAPI = file_get_contents('json/owner/laporan/customer/read.json');
-		$datas = json_decode($getAPI, true);
+		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 			= json_decode($getAPI, true);
 
 		$data['customers'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);

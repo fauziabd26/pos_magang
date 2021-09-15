@@ -54,10 +54,10 @@
                                 <td><?= $row["jenis"] ?></td>
                                 <td>
                                     <a href="<?= base_url('owner/jasa_edit/' . $row["id_produk"]) ?>"
-                                        class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
+                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
 
                                     <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>"
-                                        class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
+                                        class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

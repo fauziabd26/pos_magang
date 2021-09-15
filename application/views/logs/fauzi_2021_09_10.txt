@@ -1,0 +1,2 @@
+jam 09.00-12.00 : mencari referensi CRUD Foto Produk sesuai RESTAPI
+jam 13.00-16.00 : mencoba CRUD Foto Produk sesuai RESTAPI

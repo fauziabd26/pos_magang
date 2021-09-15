@@ -33,8 +33,8 @@
 										<td><?= ++$no; ?></td>
 										<td><?= $satuan["nama_satuan"] ?></td>
 										<td>
-											<a href="<?= base_url('owner/satuan_edit/' . $satuan["id_satuan"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
-											<a href="#" data-toggle="modal" data-target="#hapus-data<?= $satuan['id_satuan'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
+											<a href="<?= base_url('owner/satuan_edit/' . $satuan["id_satuan"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+											<a href="#" data-toggle="modal" data-target="#hapus-data<?= $satuan['id_satuan'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 										</td>
 									</tr>
 								<?php endforeach; ?>

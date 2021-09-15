@@ -42,7 +42,7 @@
                                 <td><?= $row["nama_satuan"] ?></td>
                                 <td>
                                     <a href="<?= base_url('owner/katalog_edit/' . $row["id_detail_produk"]) ?>"
-                                        class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
+                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
