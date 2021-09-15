@@ -29,6 +29,46 @@
 						</div>
 					</div>
 				<?php } ?>
+<<<<<<< HEAD
+                <div class="row mb-3">
+                    <div class="col">
+                        <a href="<?= base_url('owner/jasa_tambah') ?>" class="btn btn-primary">
+                            <i class="fas fa-plus mr-2"></i> Tambah Data Produk Jasa
+                        </a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Jasa</th>
+                                <th>Jenis</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($jasas as $no => $row) : ?>
+                            <tr>
+                                <td><?= ++$no ?></td>
+                                <td><?= $row["nama_produk"] ?></td>
+                                <td><?= $row["jenis"] ?></td>
+                                <td>
+                                    <a href="<?= base_url('owner/jasa_edit/' . $row["id_produk"]) ?>"
+                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
+
+                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>"
+                                        class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+=======
 				<div class="row mb-3">
 					<div class="col">
 						<a href="<?= base_url('owner/jasa_tambah') ?>" class="btn btn-primary">
@@ -67,6 +107,7 @@
 			</div>
 		</div>
 	</div>
+>>>>>>> 36384acb426a9d6f90438dcd8432bd76767a7043
 </section><!-- Modal Hapus -->
 <?php if (!empty($jasas)) { ?>
 	<?php foreach ($jasas as $row) : ?>

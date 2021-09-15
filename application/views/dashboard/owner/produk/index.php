@@ -56,6 +56,22 @@
                                 <td><?= $row["nama_toko"] ?></td>
                                 <td class="text-capitalize"><?= $row["jenis"] ?></td>
                                 <td>
+<<<<<<< HEAD
+                                    <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>"
+                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
+
+                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>"
+                                        class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+=======
                                   <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
 											            <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
 										</td>
@@ -68,6 +84,7 @@
 			</div>
 		</div>
 	</div>
+>>>>>>> 36384acb426a9d6f90438dcd8432bd76767a7043
 </section><!-- Modal Hapus -->
 <?php if (!empty($produks)) { ?>
 	<?php foreach ($produks as $row) : ?>
