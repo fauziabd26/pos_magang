@@ -52,8 +52,8 @@
 										<td><?= ++$no ?></td>
 										<td><?= $harga["nama_harga"] ?></td>
 										<td>
-											<a href="<?= base_url('owner/harga_edit/' . $harga["id_harga"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
-											<a href="#" data-toggle="modal" data-target="#hapus-data<?= $harga['id_harga'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i> Hapus</a>
+											<a href="<?= base_url('owner/harga_edit/' . $harga["id_harga"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+											<a href="#" data-toggle="modal" data-target="#hapus-data<?= $harga['id_harga'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 										</td>
 									</tr>
 								<?php endforeach; ?>
