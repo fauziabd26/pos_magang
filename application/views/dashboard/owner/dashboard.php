@@ -46,17 +46,16 @@
 				<div class="card card-statistic-2">
 					<div class="row mx-1 mt-4">
 						<div class="col-6">
-							<a href="<?= base_url('owner/index_kategori') ?>" class="card card-statistic-1" style="text-decoration: none">
+							<a href="<?= base_url('owner/admin') ?>" class="card card-statistic-1" style="text-decoration: none">
 								<div class="card-icon bg-primary">
-									<i class="fas fa-clipboard-list"></i>
+									<i class="fas fa-user"></i>
 								</div>
 								<div class="card-wrap">
 									<div class="card-header">
-										<h4>Data Kategori</h4>
+										<h4>Data Admin</h4>
 									</div>
 									<div class="card-body">
-										<div class="count">6</div>
-
+										<div class="count"><?= $totalAdmin ?></div>
 									</div>
 								</div>
 							</a>
@@ -71,12 +70,28 @@
 										<h4>Data Satuan</h4>
 									</div>
 									<div class="card-body">
-										<div class="count">6</div>
+										<div class="count"><?= $totalSatuan ?></div>
 									</div>
 								</div>
 							</a>
 						</div>
-						<div class="col">
+						<div class="col-6">
+							<a href="<?= base_url('owner/index_kategori') ?>" class="card card-statistic-1" style="text-decoration: none">
+								<div class="card-icon bg-primary">
+									<i class="fas fa-clipboard-list"></i>
+								</div>
+								<div class="card-wrap">
+									<div class="card-header">
+										<h4>Data Kategori</h4>
+									</div>
+									<div class="card-body">
+										<div class="count"><?= $totalKategori ?></div>
+
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-6">
 							<a href="<?= base_url('owner/index_harga') ?>" class="card card-statistic-1" style="text-decoration: none">
 								<div class="card-icon bg-primary">
 									<i class="fas fa-coins"></i>
@@ -86,7 +101,7 @@
 										<h4>Data Harga</h4>
 									</div>
 									<div class="card-body">
-										<div class="count">6</div>
+										<div class="count"><?= $totalHarga ?></div>
 									</div>
 								</div>
 							</a>
@@ -110,6 +125,7 @@
 									<tr>
 										<th>Nomer Transaksi</th>
 										<th>Nama Customer</th>
+										<th>Total Transaksi</th>
 										<th>Jenis Transaksi</th>
 										<th>Action</th>
 									</tr>
@@ -120,6 +136,7 @@
 											<tr>
 												<td><?= $transaksi["id_transaksi"] ?></td>
 												<td class="font-weight-600"><?= $transaksi["nama_cust"] ?></td>
+												<td>Rp <?= number_format($transaksi["total_transaksi"]) ?></td>
 												<td>
 													<div class="badge <?= $transaksi['jenis_transaksi'] == 'barang' ? "badge-primary" : "badge-success" ?> text-capitalize"><?= $transaksi["jenis_transaksi"] ?></div>
 												</td>

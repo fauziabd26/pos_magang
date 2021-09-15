@@ -12,10 +12,6 @@
 			</a>
 			<div class="dropdown-menu dropdown-menu-right">
 				<div class="dropdown-title">Menu List</div>
-				<a href="features-profile.html" class="dropdown-item has-icon">
-					<i class="far fa-user"></i> Profile
-				</a>
-				<div class="dropdown-divider"></div>
 				<a href="<?= base_url('auth/logout') ?>" class="dropdown-item has-icon text-danger">
 					<i class="fas fa-sign-out-alt"></i> Logout
 				</a>

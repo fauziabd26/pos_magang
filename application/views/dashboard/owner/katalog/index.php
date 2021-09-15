@@ -6,8 +6,6 @@
 			<div class="breadcrumb-item">Katalog Produk</div>
 		</div>
 	</div>
-
-
 	<div class="section-body">
 		<div class="card">
 			<div class="card-body">
@@ -63,7 +61,7 @@
 									<td><?= $row["nama_harga"] ?></td>
 									<td>Rp <?= number_format($row["nominal"]) ?></td>
 									<td>
-										<a href="<?= base_url('owner/katalog_edit/' . $row["id_detail_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Ubah</a>
+										<a href="<?= base_url('owner/katalog_edit/' . $row["id_detail_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 									</td>
 								</tr>
 							<?php endforeach; ?>
