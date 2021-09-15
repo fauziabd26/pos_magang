@@ -24,6 +24,7 @@ class Auth extends CI_Controller
 			'id_toko' 	=> $datas['data']['id_toko'],
 			'nama' 		=> $datas['data']['nama'],
 			'email' 	=> $datas['data']['email'],
+			'no_hp' 	=> $datas['data']['no_hp'],
 			'role' 		=> $datas['data']['role'],
 		);
 		if ($datas['data']['role'] == "superadmin") {
