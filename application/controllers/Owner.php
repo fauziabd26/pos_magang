@@ -9,7 +9,7 @@ class Owner extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-
+		$this->load->library('pdfgenerator');
 		//validasi jika user belum login
 		check_not_login();
 		check_owner();
@@ -102,7 +102,7 @@ class Owner extends CI_Controller
 			'Foto',
 			'required',
 			array(
-				'required' => 'Nama Wajib Diisi.'
+				'required' => 'Foto Wajib Diisi.'
 			)
 		);
 		$config['upload_path']          = './assets/img/foto_admin/';
@@ -115,7 +115,7 @@ class Owner extends CI_Controller
 			'email' 	=> $_POST['email'],
 			'password' 	=> $_POST['password'],
 			'no_hp' 	=> $_POST['no_hp'],
-			'photo'		=> $_POST['photo'],
+			//'photo'		=> $_POST['photo'],
 		);
 		$this->upload->initialize($config);
 		$this->load->library('upload', $config);
@@ -139,9 +139,36 @@ class Owner extends CI_Controller
 			}
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/tambah');
 		} else {
-			$this->curl->simple_post($this->api . 'admin', array(CURLOPT_BUFFERSIZE => 10));
-			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+			$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+			$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
 			redirect('owner/admin');
+		}
+	}
+	public function do_upload(){
+		$postData = $this->post();
+		$config = array(
+		'upload_path' => "img/logo",             //path for upload
+		'allowed_types' => "gif|jpg|png|jpeg",   //restrict extension
+		'max_size' => '100',
+		'max_width' => '1024',
+		'max_height' => '768',
+		'file_name' => 'logo_'.date('ymdhis')
+		);
+		$this->load->library('upload',$config);
+		 
+		if($this->upload->do_upload('logo')) 
+		{
+		$data = array('upload_data' => $this->upload->data());
+		$path = $config['upload_path'].'/'.$data['upload_data']['orig_name'];
+				// Write query to store image details of login user { }
+		$returndata = array('status'=>0,'data'=>'user details','message'=>'image uploaded successfully');
+		$this->set_response($returndata, 200); 
+		}
+		else
+		{
+		$error = array('error' => $this->upload->display_errors());
+		$returndata = array('status'=>0,'data'=>$error,'message'=>'image upload failed');
+		$this->set_response($returndata, 200); 
 		}
 	}
 
@@ -253,6 +280,19 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_toko()
 	{
+		$this->form_validation->set_rules('nama_toko', 'Nama Toko', 'required|max_length[255]', array(
+			'required' => 'Nama Toko Wajib Diisi'
+		));
+		$this->form_validation->set_rules('deskripsi_toko', 'Deskripsi Toko', 'required|max_length[255]', array(
+			'required' => 'Deskripsi Toko Wajib Diisi'
+		));
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required|max_length[255]', array(
+			'required' => 'Alamat Wajib Diisi'
+		));
+		$this->form_validation->set_rules('foto_toko', 'Dokumen Foto', 'required', array(
+			'required' => 'Dokumen Foto Wajib Diisi'
+		));
+
 		$data = array(
 			'nama_toko' =>  ucwords($_POST['nama_toko']),
 			'alamat' =>  ucfirst($_POST['alamat']),
@@ -260,13 +300,18 @@ class Owner extends CI_Controller
 			'foto_toko' => $_POST['foto_toko'],
 			'id_user' => $this->session->userdata('id_user')
 		);
-		$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
-		if ($insert) {
-			$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Disimpan !");
+
+		if ($this->form_validation->run() === false) {
+			$this->template->load('layouts/owner/master', 'dashboard/owner/toko/tambah');
 		} else {
-			$this->session->set_flashdata('error', 'Gagal Menambahkan Data Toko !');
+			$insert = $this->curl->simple_post($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
+			if ($insert) {
+				$this->session->set_flashdata('success', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Disimpan !");
+			} else {
+				$this->session->set_flashdata('error', 'Gagal Menambahkan Data Toko !');
+			}
+			redirect('owner/toko');
 		}
-		redirect('owner/toko');
 	}
 
 	public function toko_edit($id_toko)
@@ -594,7 +639,8 @@ class Owner extends CI_Controller
 	public function index_foto_produk()
 	{
 		// arahkan ke url atau lokasi gambar berada
-		$getAPI = file_get_contents('https://api.etoko.xyz/FotoProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+
 
 		$datas = json_decode($getAPI, true);
 
@@ -602,6 +648,19 @@ class Owner extends CI_Controller
 
 		// $data ini masukan ke json
 		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/index', $data);
+	}
+	public function foto_produk_tambah()
+	{
+		// arahkan ke url atau lokasi gambar berada
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+
+
+		$datas = json_decode($getAPI, true);
+
+		$data = array('foto_produks' => $datas["data"]);
+
+		// $data ini masukan ke json
+		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
 	}
 
 	//Bagian Harga
@@ -1014,7 +1073,22 @@ class Owner extends CI_Controller
 		$data['customers'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);
 	}
+	
+	public function pdf_customer(){
 
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
+		$datas = json_decode($getAPI, true);
+
+		$cust['customers'] 			= $datas['data'];
+		$file_pdf 					= 'laporan_customer'; //filename dari pdf ketika didownload
+		$paper 						= 'A4'; //setting paper
+		$orientation				= "potrait"; //orientasi paper potrait / landscape
+		$html						= $this->load->view('dashboard/owner/laporan/customer/index_pdf', $cust, true);
+
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		
+	}
+	
 	public function katalog()
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'KatalogProduk');

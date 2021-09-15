@@ -15,6 +15,10 @@
 						<a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
 							<i class="fas fa-user-plus mr-2"></i> Tambah Laporan
 						</a>
+						<a href="<?php echo base_url(). 'owner/pdf_customer'; ?>" target="_blank" class="btn btn-danger">
+							<i class="far fa-file-pdf"></i> Unduh Laporan
+						</a>
+
 					</div>
 				</div>
 				<div class="table-responsive">
