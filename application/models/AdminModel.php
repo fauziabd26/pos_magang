@@ -32,7 +32,7 @@ class AdminModel extends CI_Model
 		$this->db->where('id_user', $id_user);
 		$this->db->select('id_user, nama, email, no_hp, photo, role');
 		$this->db->from('user');
-		return $this->db->get()->result();
+		return $this->db->get()->row();
 	}
 
 	//Menampilkan Data Admin Berdasarkan Toko Yang Dimiliki Owner

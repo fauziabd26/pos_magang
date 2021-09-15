@@ -31,6 +31,28 @@ class Transaksi extends RestController
 		}
 	}
 
+	//Menampilkan data Transaksi belum lunas sesuai Owner
+	function get_transaksi_lunas_by_owner_get($id_user, $id_transaksi = null)
+	{
+		if (!empty($id_transaksi)) {
+			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user, $id_transaksi)->row();
+		} else {
+			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user)->result();
+		}
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
 	//Menampilkan data Transaksi
 	function index_get($id_transaksi = null)
 	{

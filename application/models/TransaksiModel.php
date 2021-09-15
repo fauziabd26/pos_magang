@@ -5,6 +5,20 @@ class TransaksiModel extends CI_Model
 {
 	private $table = 'transaksi';
 
+
+	//Menampilkan Data Transaksi Lunas sesuai Owner
+	public function get_transaksi_lunas_by_owner($id_user)
+	{
+		$this->db->where('user.id_user', $id_user);
+		$this->db->where('status =', 'lunas');
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, toko.id_toko, toko.nama_toko, user.id_user, user.nama')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('toko', 'user_toko.id_toko = toko.id_toko')
+			->join('user', 'toko.id_user = user.id_user');
+		$this->db->from('transaksi');
+		return $this->db->get();
+	}
+
 	//Menampilkan Data Transaksi Belum Lunas sesuai Admin
 	public function get_transaksi_belum_lunas_by_id_user($id_user)
 	{
