@@ -1,0 +1,1 @@
+jam 09.00 - 16.00 =  Memperbaiki harga pada saat menambahkan lebih dari satu produk pada transaksi kasir

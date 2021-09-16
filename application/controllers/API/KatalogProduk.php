@@ -14,18 +14,47 @@ class KatalogProduk extends RestController
 		$this->load->model('KatalogProdukModel');
 	}
 
-	//Menampilkan data
-	function index_get($id_detail_produk = null){
-		
+	//Menampilkan Semua Data Katalog
+	function index_get($id_detail_produk = null)
+	{
 		if (!empty($id_detail_produk)) {
 			$katalog_produk = $this->KatalogProdukModel->get($id_detail_produk)->row();
 		} else {
 			$katalog_produk =  $this->KatalogProdukModel->get()->result();
 		}
-
 		$this->response(array(
 			'status' => true,
 			'message' => 'Data Katalog Produk Berhasil Diambil',
+			'data' => $katalog_produk
+		), 200);
+	}
+
+	//Menampilkan Semua Data Katalog Berdasarkan Barang
+	function barang_get($id_detail_produk = null)
+	{
+		if (!empty($id_detail_produk)) {
+			$katalog_produk = $this->KatalogProdukModel->get_barang($id_detail_produk)->row();
+		} else {
+			$katalog_produk =  $this->KatalogProdukModel->get_barang()->result();
+		}
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Katalog Produk Jenis Barang Berhasil Diambil',
+			'data' => $katalog_produk
+		), 200);
+	}
+
+	//Menampilkan Semua Data Katalog Produk Sesuai Owner
+	public function by_id_user_get($id_owner, $id_detail_produk = null)
+	{
+		if (!empty($id_detail_produk)) {
+			$katalog_produk = $this->KatalogProdukModel->by_id_user($id_owner, $id_detail_produk)->row();
+		} else {
+			$katalog_produk =  $this->KatalogProdukModel->by_id_user($id_owner)->result();
+		}
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Katalog Produk Berdasarkan Owner Berhasil Diambil',
 			'data' => $katalog_produk
 		), 200);
 	}

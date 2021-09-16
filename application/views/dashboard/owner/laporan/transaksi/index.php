@@ -11,11 +11,6 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row mb-3">
-					<div class="col">
-						<a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
-							<i class="fas fa-user-plus mr-2"></i> Tambah Laporan
-						</a>
-					</div>
 				</div>
 				<div class="table-responsive">
 					<table id="example1" class="table table-bordered table-hover">
@@ -29,11 +24,10 @@
 								<th>Diskon</th>
 								<th>Pembayaran</th>
 								<th>Total Transaksi</th>
-								<th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($transaksis as $no => $row) : ?>
+							<?php foreach ($transaksi as $no => $row) : ?>
 								<tr>
 									<td><?= ++$no ?></td>
 									<td><?= $row["tggl_transaksi"] ?></td>
@@ -43,10 +37,6 @@
 									<td><?= $row["diskon"] ?></td>
 									<td><?= $row["bayar"] ?></td>
 									<td><?= $row["total_transaksi"] ?></td>
-									<td>
-										<a href="#" data-toggle="modal" data-target="#edit-data" class="btn btn-warning btn-sm">Ubah</a>
-										<a href="#" data-toggle="modal" data-target="#hapus-data" class="btn btn-danger btn-sm">Hapus</a>
-									</td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>

@@ -12,7 +12,7 @@
 			</a>
 			<div class="dropdown-menu dropdown-menu-right">
 				<div class="dropdown-title">Menu List</div>
-				<a href="<?= base_url('owner/profile') ?>" class="dropdown-item has-icon">
+				<a href="<?= base_url('owner/profile/'. $this->session->userdata('id_user')) ?>" class="dropdown-item has-icon">
 					<i class="far fa-user"></i> Profile
 				</a>
 				<div class="dropdown-divider"></div>

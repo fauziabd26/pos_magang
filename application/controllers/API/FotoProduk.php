@@ -30,7 +30,7 @@ class FotoProduk extends RestController{
     //Menambah data foto produk baru
     function index_post(){
         $data = array(
-            'id_foto_produk'    => $this->post('id_foto_produk'),
+            // 'id_foto_produk'    => $this->post('id_foto_produk'),
             'nama_foto_produk'  => $this->post('nama_foto_produk'),
             'id_produk'         => $this->post('id_produk')
         );
