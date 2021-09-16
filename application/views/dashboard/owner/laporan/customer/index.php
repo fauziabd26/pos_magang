@@ -11,18 +11,11 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row mb-3">
-<<<<<<< HEAD
-					<div class="col">
-						<a href="#" data-toggle="modal" data-target="#tambah-data" class="btn btn-primary">
-							<i class="fas fa-user-plus mr-2"></i> Tambah Laporan
+					<div class="col">						
+						<a href="<?php echo base_url(). 'owner/pdf_customer'; ?>" target="_blank" class="btn btn-outline-danger">
+							<i class="fas fa-file-pdf"></i> Unduh Laporan
 						</a>
-						<a href="<?php echo base_url(). 'owner/pdf_customer'; ?>" target="_blank" class="btn btn-danger">
-							<i class="far fa-file-pdf"></i> Unduh Laporan
-						</a>
-
 					</div>
-=======
->>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
 				</div>
 				<div class="table-responsive">
 					<table id="example1" class="table table-bordered table-hover">

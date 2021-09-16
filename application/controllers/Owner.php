@@ -688,19 +688,6 @@ class Owner extends CI_Controller
 			// 	redirect('owner/index_foto_produk');
 		}
 	}
-	public function foto_produk_tambah()
-	{
-		// arahkan ke url atau lokasi gambar berada
-		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
-
-
-		$datas = json_decode($getAPI, true);
-
-		$data = array('foto_produks' => $datas["data"]);
-
-		// $data ini masukan ke json
-		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
-	}
 
 	public function do_upload()
 	{
@@ -1115,12 +1102,26 @@ class Owner extends CI_Controller
 	//Bagian Laporan Transaksi
 	public function index_laporan_trans()
 	{
-		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi');
-		$datas 			= json_decode($getAPI, true);
-		$data['transaksi'] = $datas['data'];
+		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 				= json_decode($getAPI, true);
+		$data['transaksi'] 	= $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
 	}
 
+	public function pdf_transaksi(){
+
+		$getAPI 	= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 		= json_decode($getAPI, true);
+
+		$trans['transaksi'] 		= $datas['data'];
+		$file_pdf 					= 'laporan_transaksi'; //filename dari pdf ketika didownload
+		$paper 						= 'A4'; //setting paper
+		$orientation				= "potrait"; //orientasi paper potrait / landscape
+		$html						= $this->load->view('dashboard/owner/laporan/transaksi/index_pdf', $trans, true);
+
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		
+	}
 
 	//Bagian Laporan katalog produk
 	public function index_laporan_katalog()
@@ -1130,6 +1131,21 @@ class Owner extends CI_Controller
 
 		$data['katalog_produk'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/katalog_produk/index', $data);
+	}
+
+	public function pdf_katalog(){
+
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk');
+		$datas = json_decode($getAPI, true);
+
+		$katalog['katalog_produk'] 	= $datas['data'];
+		$file_pdf 					= 'laporan_katalog_produk'; //filename dari pdf ketika didownload
+		$paper 						= 'A4'; //setting paper
+		$orientation				= "potrait"; //orientasi paper potrait / landscape
+		$html						= $this->load->view('dashboard/owner/laporan/katalog_produk/index_pdf', $katalog, true);
+
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		
 	}
 
 	//Bagian Laporan Customer
