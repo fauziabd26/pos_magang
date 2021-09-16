@@ -19,6 +19,8 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'transaksi/by_id_user/' . $this->session->userdata('id_user'));
+		$datasTransaksi = json_decode($getAPI, true);
 		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
 		$datasKategori = json_decode($getAPIKategori, true);
 		$getAPISatuan = $this->curl->simple_get($this->api . 'satuan/by_id_user/' . $this->session->userdata('id_user'));
