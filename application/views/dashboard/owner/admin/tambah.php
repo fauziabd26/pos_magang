@@ -10,7 +10,14 @@
 
 	<div class="section-body">
 		<div class="card">
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST" enctype="multipart/form-data">
+>>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
+=======
+			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST" enctype="multipart/form-data">
+>>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
 				<div class="card-body">
 					<?php if ($this->session->flashdata('error')) { ?>
 						<div class="alert alert-danger alert-dismissible show fade">

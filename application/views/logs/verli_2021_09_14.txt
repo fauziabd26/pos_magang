@@ -1,2 +1,2 @@
 jam 10.00-12.00 : mencari tutorial untuk laporan codeigniter
-jam 13.00-15.00 : mempelajari tutorial lapoean codeigniter
+jam 13.00-15.00 : mempelajari tutorial laporan codeigniter
