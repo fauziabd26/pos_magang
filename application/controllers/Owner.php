@@ -743,60 +743,6 @@ class Owner extends CI_Controller
 
 	}
 
-	public function foto_produk_tambah()
-	{
-		// arahkan ke url atau lokasi gambar berada
-		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
-
-
-		$datas = json_decode($getAPI, true);
-
-		$data = array('foto_produks' => $datas["data"]);
-
-		// $data ini masukan ke json
-		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
-	}
-
-	public function do_upload()
-	{
-		$config['upload_path']          = 'assets/img/products';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 0;
-		$config['max_width']            = 0;
-		$config['max_height']           = 0;
-		$this->load->library('Upload', $config);
-		if (!$this->upload->do_upload('userfile')) {
-			$error = array('error' => $this->upload->display_errors());
-			$this->load->view('upload', $error);
-		} else {
-			$_data = array('upload_data' => $this->upload->data());
-			$data = array(
-				'id_produk' => ucfirst($_POST['id_produk']),
-				'foto_produk' => $_data['upload_data']['file_name']
-			);
-			$query = $this->db->insert('upload', $data);
-			if ($query) {
-				echo 'berhasil di upload';
-				redirect('ok');
-			} else {
-				echo 'gagal upload';
-			}
-		}
-	}
-	// public function foto_produk_tambah()
-	// {
-	// 	// arahkan ke url atau lokasi gambar berada
-	// 	$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
-
-
-	// 	$datas = json_decode($getAPI, true);
-
-	// 	$data = array('foto_produks' => $datas["data"]);
-
-	// 	// $data ini masukan ke json
-	// 	$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
-	// }
-
 	//Bagian Harga
 	public function index_harga()
 	{

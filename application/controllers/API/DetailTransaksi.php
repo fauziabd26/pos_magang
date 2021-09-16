@@ -220,6 +220,30 @@ class DetailTransaksi extends RestController
 		}
 	}
 
+	function last_update_detail_transaksi_put()
+	{
+		$id_detail_trans_produk    = $this->put('id_detail_trans_produk');
+		$data       = array(
+			'qty'               => $this->put('qty'),
+			'sub_total'               => $this->put('sub_total'),
+		);
+
+		$this->db->where('id_detail_trans_produk', $id_detail_trans_produk);
+		$update = $this->db->update('detail_trans_produk', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Detail Transaksi Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Detail Transaksi'
+			), 502);
+		}
+	}
+
 	function detail_transaksi_where_get($id_detail_trans_produk = null)
 	{
 		$detail_transaksi = $this->DetailTransaksiModel->get_where($id_detail_trans_produk)->row();
