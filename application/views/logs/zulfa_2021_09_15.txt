@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : memperbaiki error pada foto produk
+jam 13.00 - 16.00 : membuat create post untuk admin dengan masuk kedalam 2 tabel

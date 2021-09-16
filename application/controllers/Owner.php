@@ -9,6 +9,8 @@ class Owner extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
+		$this->load->library('upload');
+		$this->load->model('FotoProdukModel');
 		$this->load->library('pdfgenerator');
 		//validasi jika user belum login
 		check_not_login();
@@ -106,49 +108,49 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_admin()
 	{
-		// $this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]', array(
-		// 	'required' => 'Nama Wajib Diisi.'
-		// ));
-		// $this->form_validation->set_rules(
-		// 	'email',
-		// 	'Email',
-		// 	'required|is_unique[user.email]',
-		// 	array(
-		// 		'required' => 'Email Wajib Diisi.'
-		// 	)
-		// );
-		// $this->form_validation->set_rules(
-		// 	'password',
-		// 	'Password',
-		// 	'required|min_length[8]',
-		// 	array(
-		// 		'required' => 'Password Wajib Diisi.', 'min_length' => 'Password Minimal 8 Karakter'
-		// 	)
-		// );
-		// $this->form_validation->set_rules(
-		// 	'password_confirm',
-		// 	'Password Confirmation',
-		// 	'required|min_length[8]',
-		// 	array(
-		// 		'required' => 'Konfirmasi Password Wajib Diisi.', 'min_length' => 'Password Harus Sama'
-		// 	)
-		// );
-		// $this->form_validation->set_rules(
-		// 	'no_hp',
-		// 	'No Hp',
-		// 	'required|min_length[10]|max_length[15]',
-		// 	array(
-		// 		'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit'
-		// 	)
-		// );
-		// $this->form_validation->set_rules(
-		// 	'photo',
-		// 	'Foto',
-		// 	'required',
-		// 	array(
-		// 		'required' => 'Nama Wajib Diisi.'
-		// 	)
-		// );
+		$this->form_validation->set_rules('nama', 'Nama', 'required|max_length[255]', array(
+			'required' => 'Nama Wajib Diisi.'
+		));
+		$this->form_validation->set_rules(
+			'email',
+			'Email',
+			'required|is_unique[user.email]',
+			array(
+				'required' => 'Email Wajib Diisi.'
+			)
+		);
+		$this->form_validation->set_rules(
+			'password',
+			'Password',
+			'required|min_length[8]',
+			array(
+				'required' => 'Password Wajib Diisi.', 'min_length' => 'Password Minimal 8 Karakter'
+			)
+		);
+		$this->form_validation->set_rules(
+			'password_confirm',
+			'Password Confirmation',
+			'required|min_length[8]',
+			array(
+				'required' => 'Konfirmasi Password Wajib Diisi.', 'min_length' => 'Password Harus Sama'
+			)
+		);
+		$this->form_validation->set_rules(
+			'no_hp',
+			'No Hp',
+			'required|min_length[10]|max_length[15]',
+			array(
+				'required' => 'Nomor HP Wajib Diisi.', 'min_length' => 'Nomor HP Minimal 10 Digit', 'max_length' => 'Nomor HP Maksimal 15 Digit'
+			)
+		);
+		$this->form_validation->set_rules(
+			'photo',
+			'Foto',
+			'required',
+			array(
+				'required' => 'Nama Wajib Diisi.'
+			)
+		);
 		$config['upload_path'] = './assets/img/user';
 		$config['allowed_types'] = 'jpg|png|jpeg|gif';
 		$config['max_size'] = '2048';  //2MB max
@@ -183,13 +185,15 @@ class Owner extends CI_Controller
 
 		$getAPI = $this->curl->simple_get($this->api . 'admin');
 		$datas = json_decode($getAPI, true);
-
+		
 		foreach ($datas['data'] as $row) {
 			if ($row['email'] == $data['email']) {
 				$this->session->set_flashdata('error', "Email Sudah Ada !");
 				redirect('owner/admin_tambah');
 			}
 		}
+		$this->upload->initialize($config);
+		$this->load->library('upload', $config);
 
 		if ($this->form_validation->run() === false) {
 			foreach ($datas['data'] as $row) {
@@ -707,64 +711,38 @@ class Owner extends CI_Controller
 		$this->form_validation->set_rules('nama_foto_produk', 'Foto Produk', 'required|max_length[255]', array(
 			'required' => 'Foto Produk Harga Wajib Diisi.'
 		));
+		
+		$config['upload_path'] = './assets/img/products';
+		$config['allowed_types'] = 'jpg|png|jpeg|gif';
+		$config['max_size'] = '2048';  //2MB max
+		$config['max_width'] = '4480'; // pixel
+		$config['max_height'] = '4480'; // pixel
+		$config['file_name'] = $_FILES['nama_foto_produk']['name'];
 
-		$config['upload_path']          = 'assets/img/products';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 10000;
-		$config['max_width']            = 10000;
-		$config['max_height']           = 10000;
-		// $config['file_name']            = $this->input->post('nama_foto_produk');
-		$this->load->library('upload', $config);
-		if (!$this->upload->do_upload('nama_foto_produk')) {
-			echo "Gagal Tambah";
+		$this->upload->initialize($config);
+		if (!empty($_FILES['nama_foto_produk']['name'])) {
+			if ($this->upload->do_upload('nama_foto_produk')) {
+				$foto = $this->upload->data();
+				$data = array(
+					'id_produk' 			=> $_POST['id_produk'],
+					'nama_foto_produk'      => $foto['file_name'],
+				);
+				$update = $this->curl->simple_post($this->api . 'FotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+				if ($update) {
+					$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['id_produk'] . "</b> Berhasil Disimpan !");
+				} else {
+					$this->session->set_flashdata('error', 'Data Gagal diubah');
+				}
+				redirect('owner/index_foto_produk');
+			} else {
+				die("gagal upload");
+			}
 		} else {
-			$nama_foto_produk = $this->upload->data();
-			$nama_foto_produk = $nama_foto_produk['file_name'];
-			$id_produk = $this->input->post('id_produk', TRUE);
-
-			$data = array(
-				'id_produk'				=> $id_produk,
-				'nama_foto_produk'		=> $nama_foto_produk,
-			);
-			$this->db->insert('foto_produk', $data);
-			$this->session->set_flashdata('success', "Data foto <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
-			// 	redirect('owner/index_foto_produk');
+			echo "tidak masuk";
 		}
 
-		// $id_produk			= $this->input->post('id_produk');
-		// $nama_foto_produk	= $_FILES['nama_foto_produk'];
-
-		// $config['upload_path']		= 'assets/img/products';
-		// $config['allowed_types']	= 'jpg|png|gif';
-
-		// $this->load->library('upload',$config);
-		// if(!$this->upload->do_upload('nama_foto_produk')){
-		// 	echo "Upload Gagal"; die();
-		// } else{
-		// 	$nama_foto_produk = $this->upload->data('file_name');
-		// }
-
-		// $data = array(
-		// 	'id_produk'			=> $id_produk,
-		// 	'nama_foto_produk'	=> $nama_foto_produk
-		// );
-
-
-		// $this->FotoProdekModel->save($data);
-		// redirect('owner/index_foto_produk');
-
-		// if ($this->form_validation->run() === false) {
-		// 	$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
-		// } else {
-		// 	$insert = $this->curl->simple_post($this->api . 'foto_produk', $data, array(CURLOPT_BUFFERSIZE => 10));
-		// 	if ($insert) {
-		// 		$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
-		// 	} else {
-		// 		$this->session->set_flashdata('info', 'data gagal disimpan.');
-		// 	}
-		// 	redirect('owner/index_foto_produk');
-		// }
 	}
+
 	public function foto_produk_tambah()
 	{
 		// arahkan ke url atau lokasi gambar berada
