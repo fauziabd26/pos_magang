@@ -22,7 +22,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Foto Produk</th>
-                                <th>Id Produk</th>
+                                <th>Nama Produk</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -32,8 +32,9 @@
 								foreach ($foto_produks as $no => $row) : ?>
                             <tr>
                                 <td><?= ++$no; ?></td>
-                                <td><?= $row["nama_foto_produk"] ?></td>
-                                <td><?= $row["id_produk"] ?></td>
+                                <td><img src="<?= base_url('assets/img/products/'.$row['nama_foto_produk']) ?>"
+                                        class="img-fluid" width="100px" height="100px"></td>
+                                <td><?= $row["nama_produk"] ?></td>
                                 <td>
                                     <a href="<?= base_url('owner/foto_produk_edit/' . $row["id_foto_produk"]) ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i></a>

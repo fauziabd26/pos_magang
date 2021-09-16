@@ -6,28 +6,27 @@
             <div class="breadcrumb-item">Data Produk</div>
         </div>
     </div>
-
     <div class="section-body">
         <div class="card">
             <div class="card-body">
                 <?php if ($this->session->flashdata('success')) { ?>
-                <div class="alert alert-success alert-dismissible show fade">
-                    <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                            <span>×</span>
-                        </button>
-                        <i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success') ?>
+                    <div class="alert alert-success alert-dismissible show fade">
+                        <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                                <span>×</span>
+                            </button>
+                            <i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('success') ?>
+                        </div>
                     </div>
-                </div>
                 <?php } elseif ($this->session->flashdata('error')) { ?>
-                <div class="alert alert-danger alert-dismissible show fade">
-                    <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                            <span>×</span>
-                        </button>
-                        <i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                                <span>×</span>
+                            </button>
+                            <i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+                        </div>
                     </div>
-                </div>
                 <?php } ?>
                 <div class="row mb-3">
                     <div class="col">
@@ -38,31 +37,30 @@
                 </div>
                 <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark" align="center">
                             <tr>
-                                <th>No</th>
-                                <th>Nama Produk</th>
-                                <th>Nama Toko</th>
-                                <th>Jenis</th>
-                                <th>Aksi</th>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Produk</th>
+                                <th class="text-center">Nama Toko</th>
+                                <th class="text-center">Jenis</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody align="center">
                             <?php if (!empty($produks)) { ?>
-                            <?php $no=1;foreach ($produks as $no => $row) : ?>
-                            <tr>
-                                <td><?= ++$no ?></td>
-                                <td><?= $row["nama_produk"] ?></td>
-                                <td><?= $row["nama_toko"] ?></td>
-                                <td class="text-capitalize"><?= $row["jenis"] ?></td>
-                                <td>
-                                    <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>"
-                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                    <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>"
-                                        class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                                <?php $no = 1;
+                                foreach ($produks as $no => $row) : ?>
+                                    <tr>
+                                        <td class="text-center"><?= ++$no ?></td>
+                                        <td class="text-center"><?= $row["nama_produk"] ?></td>
+                                        <td class="text-center"><?= $row["nama_toko"] ?>< /td>
+                                        <td class="text-capitalize text-center"><?= $row["jenis"] ?></td>
+                                        <td class="text-center">
+                                            <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                            <a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_produk'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -72,30 +70,28 @@
     </div>
 </section><!-- Modal Hapus -->
 <?php if (!empty($produks)) { ?>
-<?php foreach ($produks as $row) : ?>
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
-    id="hapus-data<?= $row['id_produk'] ?>" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            </div>
-            <form class="form-horizontal" action="<?php echo base_url('owner/produk_hapus') ?>" method="delete"
-                enctype="multipart/form-data" role="form">
-                <div class="modal-body">
-                    <h4 class="modal-title">Hapus Data</h4>
-                    <div class="form-group">
-                        <label class="control-label">Apakah Anda Yaqin ingin hapus???</label>
+    <?php foreach ($produks as $row) : ?>
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="hapus-data<?= $row['id_produk'] ?>" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                     </div>
+                    <form class="form-horizontal" action="<?php echo base_url('owner/produk_hapus') ?>" method="delete" enctype="multipart/form-data" role="form">
+                        <div class="modal-body">
+                            <h4 class="modal-title">Hapus Data</h4>
+                            <div class="form-group">
+                                <label class="control-label">Apakah Anda Yaqin ingin hapus???</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="<?= base_url('owner/produk_hapus/' . $row['id_produk']) ?>" class="btn btn-info"> Ya</a>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <a href="<?= base_url('owner/produk_hapus/' . $row['id_produk']) ?>" class="btn btn-info"> Ya</a>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 <?php } ?>
 <!-- END Modal Hapus -->

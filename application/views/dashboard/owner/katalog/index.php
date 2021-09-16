@@ -1,4 +1,5 @@
 <section class="section">
+
     <div class="section-header">
         <h1>Katalog Produk</h1>
         <div class="section-header-breadcrumb">
@@ -6,8 +7,6 @@
             <div class="breadcrumb-item">Katalog Produk</div>
         </div>
     </div>
-
-
     <div class="section-body">
         <div class="card">
             <div class="card-body">
@@ -39,35 +38,36 @@
                 </div>
                 <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark" align="center">
                             <tr>
-                                <th>No</th>
-                                <th>Nama Toko</th>
-                                <th>Nama Produk</th>
-                                <th>Kategori</th>
-                                <th>Satuan</th>
-                                <th>Nama Harga</th>
-                                <th>Nominal</th>
-                                <th>Aksi</th>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Toko</th>
+                                <th class="text-center">Nama Produk</th>
+                                <th class="text-center">Kategori</th>
+                                <th class="text-center">Satuan</th>
+                                <th class="text-center">Nama Harga</th>
+                                <th class="text-center">Nominal</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php $no = 1;
-							foreach ($katalog as $no => $row) : ?>
+                        <tbody align="center">
+                            <?php if (!empty($katalog)) { ?>
+                            <?php foreach ($katalog as $no => $row) : ?>
                             <tr>
-                                <td><?= ++$no; ?></td>
-                                <td><?= $row["nama_toko"] ?? '-' ?></td>
-                                <td><?= $row["nama_produk"] ?></td>
-                                <td><?= $row["nama_kategori"] ?></td>
-                                <td><?= $row["nama_satuan"] ?></td>
-                                <td><?= $row["nama_harga"] ?></td>
-                                <td>Rp <?= number_format($row["nominal"]) ?></td>
-                                <td>
+                                <td class="text-center"><?= ++$no; ?></td>
+                                <td class="text-center"><?= $row["nama_toko"] ?? '-' ?></td>
+                                <td class="text-center"><?= $row["nama_produk"] ?></td>
+                                <td class="text-center"><?= $row["nama_kategori"] ?></td>
+                                <td class="text-center"><?= $row["nama_satuan"] ?></td>
+                                <td class="text-center"><?= $row["nama_harga"] ?></td>
+                                <td class="text-center">Rp <?= number_format($row["nominal"]) ?></td>
+                                <td class="text-center">
                                     <a href="<?= base_url('owner/katalog_edit/' . $row["id_detail_produk"]) ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

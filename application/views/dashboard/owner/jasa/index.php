@@ -6,7 +6,6 @@
             <div class="breadcrumb-item">Data Produk Jasa</div>
         </div>
     </div>
-
     <div class="section-body">
         <div class="card">
             <div class="card-body">
@@ -38,22 +37,22 @@
                 </div>
                 <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark" align="center">
                             <tr>
-                                <th>No</th>
-                                <th>Nama Jasa</th>
-                                <th>Jenis</th>
-                                <th>Aksi</th>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Jasa</th>
+                                <th class="text-center">Jenis</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody align="center">
                             <?php if (!empty($jasas)) { ?>
                             <?php foreach ($jasas as $no => $row) : ?>
                             <tr>
-                                <td><?= ++$no ?></td>
-                                <td><?= $row["nama_produk"] ?></td>
-                                <td class="text-capitalize"><?= $row["jenis"] ?></td>
-                                <td>
+                                <td class="text-center"><?= ++$no ?></td>
+                                <td class="text-center"><?= $row["nama_produk"] ?></td>
+                                <td class="text-capitalize text-center"><?= $row["jenis"] ?></td>
+                                <td class="text-center">
                                     <a href="<?= base_url('owner/jasa_edit/' . $row["id_produk"]) ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i></a>
 
