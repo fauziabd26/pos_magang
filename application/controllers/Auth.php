@@ -21,7 +21,7 @@ class Auth extends CI_Controller
 		$datas = json_decode($cek, true);
 		$data = array(
 			'id_user' 	=> $datas['data']['id_user'],
-			'id_toko' 	=> $datas['data']['id_toko'],
+			// 'id_toko' 	=> $datas['data']['id_toko'],
 			'nama' 		=> $datas['data']['nama'],
 			'email' 	=> $datas['data']['email'],
 			'no_hp' 	=> $datas['data']['no_hp'],
