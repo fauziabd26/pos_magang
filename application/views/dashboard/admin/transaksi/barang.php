@@ -95,16 +95,14 @@
 											<?php if (!empty($produks)) { ?>
 												<?php foreach ($produks as $produk) : ?>
 													<div class="col-md-6 col-lg-4 col-12">
-														<form action="<?= base_url('admin/proses_tambah_transaksi_barang/' . $produk['id_detail_produk']) ?>" method="POST">
-															<button style="text-decoration: none;" class="card card-primary">
-																<div class="card-body">
-																	<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
-																	<span class="text-capitalize font-weight-bold" style="font-size: 12px;"><?= $produk['nama_produk'] ?></span><br>
-																	<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
-																	<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?> / <?= $produk['nama_harga'] ?></small>
-																</div>
-															</button>
-														</form>
+														<a href="#" data-toggle="modal" data-target="#produk<?= $produk['id_detail_produk'] ?>" class="card card-primary" style="text-decoration: none;">
+															<div class="card-body">
+																<img alt="image" src="<?= base_url('assets/img/example-image.jpg') ?>" class="img-fluid mb-2">
+																<span class="text-capitalize font-weight-bold" style="font-size: 12px;"><?= $produk['nama_produk'] ?></span><br>
+																<small class="text-capitalize"><?= $produk['jenis'] ?></small><br>
+																<small>Rp <?= number_format($produk['nominal'] ?? "-")  ?> / <?= $produk['nama_harga'] ?></small>
+															</div>
+														</a>
 													</div>
 												<?php endforeach; ?>
 											<?php } else { ?>
@@ -236,6 +234,37 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Modal Tambah -->
+	<?php if (!empty($produks)) { ?>
+		<?php foreach ($produks as $produk) : ?>
+			<div class="modal fade" data-keyboard="false" tabindex="-1" role="dialog" id="produk<?= $produk['id_detail_produk'] ?>">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Produk <?= $produk['nama_produk'] ?></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form action="<?= base_url('admin/proses_tambah_transaksi_barang/' . $produk['id_detail_produk']) ?>" method="POST">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for='qty' class="control-label">Masukan Jumlah Qty</label>
+									<input type="number" id="qty" class="form-control" name="qty" placeholder="Masukan Jumlah Qty" required autofocus>
+									<small class="text-danger font-weight-bold">
+										<?= form_error('qty'); ?>
+									</small>
+								</div>
+								<button class="btn btn-primary btn-block">Simpan</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			</div>
+		<?php endforeach; ?>
+	<?php } ?>
 
 	<!-- General JS Scripts -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

@@ -29,6 +29,21 @@
 							</a>
 						</div>
 					</div>
+					<form action="<?= base_url('owner/proses_tambah_admin')?>" method="POST" enctype="multipart/form-data"> 
+					<div class="form-group">
+						<label for='nominal' class=" control-label">Pilih Toko</label>
+						<div>
+							<select name="id_toko" class="form-control">
+								<?php foreach ($tokos as $toko) : ?>
+									<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+							<small class="text-danger font-weight-bold">
+								<?php echo form_error('id_toko'); ?>
+							</small>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for='nama'>Nama Lengkap</label>
 						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' value="<?= set_value('nama') ?>" autofocus>
@@ -77,9 +92,9 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<button class="btn btn-primary btn-block">Submit</button>
+					<button class="btn btn-primary btn-block" value="upload">Submit</button>
 				</div>
-			</form>
+				</form>
 		</div>
 	</div>
 </section>
