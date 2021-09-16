@@ -11,9 +11,13 @@
 	<div class="section-body">
 		<div class="card">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST" enctype="multipart/form-data">
 >>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
+=======
+			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST" enctype="multipart/form-data">
+>>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
 				<div class="card-body">
 					<?php if ($this->session->flashdata('error')) { ?>
 						<div class="alert alert-danger alert-dismissible show fade">
@@ -33,6 +37,20 @@
 						</div>
 					</div>
 					<form action="<?= base_url('owner/proses_tambah_admin')?>" method="POST" enctype="multipart/form-data"> 
+					<div class="form-group">
+						<label for='nominal' class=" control-label">Pilih Toko</label>
+						<div>
+							<select name="id_toko" class="form-control">
+								<?php foreach ($tokos as $toko) : ?>
+									<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+							<small class="text-danger font-weight-bold">
+								<?php echo form_error('id_toko'); ?>
+							</small>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for='nama'>Nama Lengkap</label>
 						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' value="<?= set_value('nama') ?>" autofocus>
@@ -72,9 +90,7 @@
 					</div>
 					<div class="form-group">
 						<label for='file'>Foto Admin</label>
-						<?php echo form_error('photo'); ?>
 						<input type="file" id="file" class="form-control" name="photo" value="<?= set_value('photo'); ?>" />
-						<!-- <input type="hidden" id="photo" name="old_image"  /> -->
 						<small>*Format File Menggunakan IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
 						<small class="text-danger font-weight-bold">
@@ -83,7 +99,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-				<input type='submit' name='submit' value='simpan' class="btn btn-primary" /> 
+					<button class="btn btn-primary btn-block" value="upload">Submit</button>
 				</div>
 				</form>
 		</div>

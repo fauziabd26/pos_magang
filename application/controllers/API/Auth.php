@@ -30,7 +30,8 @@ class Auth extends RestController
 					'email'      => $row->email,
 					'nama'       => $row->nama,
 					'no_hp'      => $row->no_hp,
-					'role'       => $row->role
+					'role'       => $row->role,
+					// 'apikeys'    =>
 				);
 			}
 			$this->response(array(
