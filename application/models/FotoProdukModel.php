@@ -8,9 +8,11 @@ class FotoProdukModel extends CI_Model
 	//Menampilkan Data Foto produk
 	public function get($id_foto_produk = null)
 	{
-		$this->db->select('id_foto_produk, nama_foto_produk, id_produk');
-		$this->db->from('foto_produk');
-		$this->db->order_by('nama_foto_produk', 'ASC');
+		$this->db->select('id_foto_produk, nama_foto_produk, produk.id_produk, produk.nama_produk');
+		$this->db->from('foto_produk')
+		->join('produk', 'foto_produk.id_produk = produk.id_produk');
+
+		// $this->db->order_by('nama_foto_produk', 'ASC');
 		if ($id_foto_produk != null) {
 			$this->db->where('id_foto_produk', $id_foto_produk);
 		}

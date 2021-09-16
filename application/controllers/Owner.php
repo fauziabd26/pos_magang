@@ -708,52 +708,38 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_fotoProduk()
 	{
-		// $this->form_validation->set_rules('nama_foto_produk', 'Foto Produk', 'required|max_length[255]', array(
-		// 	'required' => 'Foto Produk Harga Wajib Diisi.'
-		// ));
+		$this->form_validation->set_rules('nama_foto_produk', 'Foto Produk', 'required|max_length[255]', array(
+			'required' => 'Foto Produk Harga Wajib Diisi.'
+		));
 		
-		
-		$config['upload_path']          = './assets/img/products';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 2048;
-		$config['max_width']            = 10000;
-		$config['max_height']           = 10000;
-		// $config['file_name']            = $this->input->post('nama_foto_produk');
-		$this->load->library('upload', $config);
-		if (!$this->upload->do_upload('nama_foto_produk')) {
-			echo "Gagal Tambah";
+		$config['upload_path'] = './assets/img/products';
+		$config['allowed_types'] = 'jpg|png|jpeg|gif';
+		$config['max_size'] = '2048';  //2MB max
+		$config['max_width'] = '4480'; // pixel
+		$config['max_height'] = '4480'; // pixel
+		$config['file_name'] = $_FILES['nama_foto_produk']['name'];
+
+		$this->upload->initialize($config);
+		if (!empty($_FILES['nama_foto_produk']['name'])) {
+			if ($this->upload->do_upload('nama_foto_produk')) {
+				$foto = $this->upload->data();
+				$data = array(
+					'id_produk' 			=> $_POST['id_produk'],
+					'nama_foto_produk'      => $foto['file_name'],
+				);
+				$update = $this->curl->simple_post($this->api . 'FotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+				if ($update) {
+					$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['id_produk'] . "</b> Berhasil Disimpan !");
+				} else {
+					$this->session->set_flashdata('error', 'Data Gagal diubah');
+				}
+				redirect('owner/index_foto_produk');
+			} else {
+				die("gagal upload");
+			}
 		} else {
-			$nama_foto_produk = $this->upload->data();
-			$nama_foto_produk = $nama_foto_produk['file_name'];
-			$id_produk = $this->input->post('id_produk', TRUE);
-
-			$data = array(
-				'id_produk'				=> $id_produk,
-				'nama_foto_produk'		=> $nama_foto_produk,
-			);
-			$this->db->insert('foto_produk', $data);
-			$this->session->set_flashdata('success', "Data foto <b>" . $_POST['nama_foto_produk'] . "</b> Berhasil Disimpan !");
-			// 	redirect('owner/index_foto_produk');
+			echo "tidak masuk";
 		}
-
-		// $id_produk			= $this->input->post('id_produk');
-		// $nama_foto_produk	= $_FILES['nama_foto_produk'];
-
-		// $config['upload_path']		= 'assets/img/products';
-		// $config['allowed_types']	= 'jpg|png|gif';
-
-		// $this->load->library('upload',$config);
-		// if(!$this->upload->do_upload('nama_foto_produk')){
-		// 	echo "Upload Gagal"; die();
-		// } else{
-		// 	$nama_foto_produk = $this->upload->data('file_name');
-		// }
-
-		// $data = array(
-		// 	'id_produk'			=> $id_produk,
-		// 	'nama_foto_produk'	=> $nama_foto_produk
-		// );
-
 
 	}
 	

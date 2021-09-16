@@ -1,0 +1,2 @@
+  
+jam 10.00-15.00 : melanjutkan perbaikan validasi foto yang error
