@@ -29,6 +29,7 @@
 							</a>
 						</div>
 					</div>
+					<form action="<?= base_url('owner/proses_tambah_admin')?>" method="POST" enctype="multipart/form-data"> 
 					<div class="form-group">
 						<label for='nama'>Nama Lengkap</label>
 						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' value="<?= set_value('nama') ?>" autofocus>
@@ -68,9 +69,7 @@
 					</div>
 					<div class="form-group">
 						<label for='file'>Foto Admin</label>
-						<?php echo form_error('photo'); ?>
 						<input type="file" id="file" class="form-control" name="photo" value="<?= set_value('photo'); ?>" />
-						<!-- <input type="hidden" id="photo" name="old_image"  /> -->
 						<small>*Format File Menggunakan IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
 						<small class="text-danger font-weight-bold">
@@ -79,9 +78,9 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<button class="btn btn-primary btn-block">Submit</button>
+				<input type='submit' name='submit' value='simpan' class="btn btn-primary" /> 
 				</div>
-			</form>
+				</form>
 		</div>
 	</div>
 </section>

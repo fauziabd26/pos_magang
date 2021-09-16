@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class AdminModel extends CI_Model
 {
 	private $table = 'user';
-
+  
 	//Menampilkan Data Admin
 	public function get_admin($id_admin)
 	{
@@ -23,7 +23,7 @@ class AdminModel extends CI_Model
 		if ($id_user != null) {
 			$this->db->where('id_user', $id_user);
 		}
-		return $this->db->get();
+		return $this->db->get()->result();
 	}
 
 	//Menampilkan Data Admin Berdasarkan ID User
@@ -51,14 +51,25 @@ class AdminModel extends CI_Model
 	}
 
 	//Simpan Data Admin
-	public function save($data)
+	public function save($data, $upload)
 	{
-		$save = $this->db->insert($this->table, $data);
+		$data = array(
+			'nama'			=>$this->input->post('nama'),
+			'email'			=>$this->input->post('email'),
+			'password'		=>$this->input->post('password'),
+			'no_hp'			=>$this->input->post('no_hp'),
+			'photo' 		=> $upload['file']['photo'],
+			'ukuran_file'	=> $upload['file']['file_size'],
+			'tipe_file' 	=> $upload['file']['file_type']
+		  );
 
-		if ($save) {
-			return true;
-		} else {
-			return false;
-		}
+			$this->curl->simple_post($this->api . 'admin', array(CURLOPT_BUFFERSIZE => 10));
+			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
+
+		// if ($save) {
+		// 	return true;
+		// } else {
+		// 	return false;
+		// }
 	}
 }
