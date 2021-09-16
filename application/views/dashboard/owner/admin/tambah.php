@@ -29,6 +29,7 @@
 							</a>
 						</div>
 					</div>
+					<form action="<?= base_url('owner/proses_tambah_admin')?>" method="POST" enctype="multipart/form-data"> 
 					<div class="form-group">
 						<label for='nominal' class=" control-label">Pilih Toko</label>
 						<div>
@@ -83,7 +84,6 @@
 					<div class="form-group">
 						<label for='file'>Foto Admin</label>
 						<input type="file" id="file" class="form-control" name="photo" value="<?= set_value('photo'); ?>" />
-						<!-- <input type="hidden" id="photo" name="old_image"  /> -->
 						<small>*Format File Menggunakan IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
 						<small class="text-danger font-weight-bold">
@@ -94,7 +94,7 @@
 				<div class="card-footer">
 					<button class="btn btn-primary btn-block" value="upload">Submit</button>
 				</div>
-			</form>
+				</form>
 		</div>
 	</div>
 </section>

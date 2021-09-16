@@ -11,7 +11,7 @@ class Owner extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->library('upload');
 		$this->load->model('FotoProdukModel');
-
+		$this->load->library('pdfgenerator');
 		//validasi jika user belum login
 		check_not_login();
 		check_owner();
@@ -209,7 +209,7 @@ class Owner extends CI_Controller
 			redirect('owner/admin');
 		}
 	}
-
+	
 	public function admin_edit($id_admin)
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user') . '/' . $id_admin);
@@ -742,7 +742,20 @@ class Owner extends CI_Controller
 		}
 
 	}
-	
+
+	public function foto_produk_tambah()
+	{
+		// arahkan ke url atau lokasi gambar berada
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+
+
+		$datas = json_decode($getAPI, true);
+
+		$data = array('foto_produks' => $datas["data"]);
+
+		// $data ini masukan ke json
+		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
+	}
 
 	public function do_upload()
 	{
@@ -1196,7 +1209,22 @@ class Owner extends CI_Controller
 		$data['customers'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);
 	}
+	
+	public function pdf_customer(){
 
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
+		$datas = json_decode($getAPI, true);
+
+		$cust['customers'] 			= $datas['data'];
+		$file_pdf 					= 'laporan_customer'; //filename dari pdf ketika didownload
+		$paper 						= 'A4'; //setting paper
+		$orientation				= "potrait"; //orientasi paper potrait / landscape
+		$html						= $this->load->view('dashboard/owner/laporan/customer/index_pdf', $cust, true);
+
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		
+	}
+	
 	public function katalog()
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'KatalogProduk/by_id_user/' . $this->session->userdata('id_user'));

@@ -1,3 +1,2 @@
-  
 jam 10.00-12.00 :  mencari referensi validasi foto
 jam 13.00-15.00 : melanjutkan perbaikan validasi foto yang error
