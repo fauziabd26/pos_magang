@@ -37,21 +37,21 @@
 				</div>
 				<div class="table-responsive">
 					<table id="example1" class="table table-bordered table-hover">
-						<thead class="thead-dark">
+						<thead class="thead-dark" align="center">
 							<tr>
-								<th>No</th>
-								<th>Nama Harga</th>
+								<th class="text-center">No</th>
+								<th class="text-center">Nama Harga</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody align="center">
 							<?php if ($hargas) { ?>
 								<?php $no = 1;
 								foreach ($hargas as $no => $harga) : ?>
 									<tr>
-										<td><?= ++$no ?></td>
-										<td><?= $harga["nama_harga"] ?></td>
-										<td>
+										<td class="text-center"><?= ++$no ?></td>
+										<td class="text-center"><?= $harga["nama_harga"] ?></td>
+										<td class="text-center">
 											<a href="<?= base_url('owner/harga_edit/' . $harga["id_harga"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 											<a href="#" data-toggle="modal" data-target="#hapus-data<?= $harga['id_harga'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 										</td>
