@@ -135,7 +135,7 @@
 															<td class="text-capitalize"><?= $row['nama_produk'] ?? "-" ?> / <?= $produk['nama_harga'] ?></td>
 															<td>
 																<div class="row align-items-center">
-																	<form action="<?= base_url('admin/stok_kurang/' . $row['id_detail_trans_produk']) ?>" method="POST">
+																	<form action="<?= base_url('admin/stok_kurang_barang/' . $row['id_detail_trans_produk']) ?>" method="POST">
 																		<?php if ($row['qty'] > 1) { ?>
 																			<button class="btn btn-danger btn-xs mr-3" style="padding : 2px 6px">
 																				<i class="fas fa-minus" style="font-size: 8px"></i>
@@ -143,7 +143,7 @@
 																		<?php } ?>
 																	</form>
 																	<span><?= $row['qty'] ?></span>
-																	<form action="<?= base_url('admin/stok_tambah/' . $row['id_detail_trans_produk']) ?>" method="POST">
+																	<form action="<?= base_url('admin/stok_tambah_barang/' . $row['id_detail_trans_produk']) ?>" method="POST">
 																		<button class="btn btn-primary btn-xs ml-3" style="padding : 2px 6px">
 																			<i class="fas fa-plus" style="font-size: 8px"></i>
 																		</button>
@@ -153,7 +153,7 @@
 															<td>Rp <?= number_format($row['nominal']) ?? '-' ?> </td>
 															<td>Rp <?= number_format($row['sub_total'] ?? "-") ?></td>
 															<td>
-																<a href="<?= base_url('admin/hapus_detail_transaksi/' . $row['id_detail_trans_produk']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+																<a href="<?= base_url('admin/hapus_detail_transaksi_barang/' . $row['id_detail_trans_produk']) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 															</td>
 														</tr>
 													<?php endforeach; ?>
@@ -161,7 +161,7 @@
 											</tbody>
 										</table>
 										<!-- </div> -->
-										<form action="<?= base_url('admin/konfirmasi/' . $transaksi['id_transaksi']) ?>" method="POST">
+										<form action="<?= base_url('admin/konfirmasi_barang/' . $transaksi['id_transaksi']) ?>" method="POST">
 											<div class="row mx-1 mt-5">
 												<div class="col-6">
 													<div class="form-group row">

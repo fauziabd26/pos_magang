@@ -44,6 +44,21 @@ class KatalogProduk extends RestController
 		), 200);
 	}
 
+	//Menampilkan Semua Data Katalog Berdasarkan Jasa
+	function jasa_get($id_detail_produk = null)
+	{
+		if (!empty($id_detail_produk)) {
+			$katalog_produk = $this->KatalogProdukModel->get_jasa($id_detail_produk)->row();
+		} else {
+			$katalog_produk =  $this->KatalogProdukModel->get_jasa()->result();
+		}
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Katalog Produk Jenis Jasa Berhasil Diambil',
+			'data' => $katalog_produk
+		), 200);
+	}
+
 	//Menampilkan Semua Data Katalog Produk Sesuai Owner
 	public function by_id_user_get($id_owner, $id_detail_produk = null)
 	{
