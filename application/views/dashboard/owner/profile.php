@@ -50,7 +50,7 @@
 							</div>
 							<div class="form-group">
 								<label for='photo'>Foto <small>*jika ingin mengganti foto</small></label>
-								<img src="<?= base_url('assets/img/user/'.$data['photo']) ?>" class="img-fluid">
+								<img src="<?= base_url('assets/img/user/' . $data['photo']) ?>" class="img-fluid">
 								<input id="photo" type="file" class="form-control mt-4 mb-2" name="photo">
 								<small>*Format File Menggunakan IMG, PNG</small><br>
 								<small>*File Maksimal Berukuran 2Mb</small>

@@ -26,10 +26,26 @@ class DetailTransaksiModel extends CI_Model
 		return $this->db->get()->row();
 	}
 
-	//Menampilkan Data Transaksi Terakhir
-	public function lastId()
+	//Menampilkan Data Transaksi Jenis Barang Terakhir
+	public function barang_lastId()
 	{
-		return $this->db->select('*')->where('status =', 'belum lunas')->order_by('id_transaksi', 'DESC')->limit(1)->get('transaksi')->row();
+		return $this->db->select('*')
+			->where('jenis_transaksi =', 'barang')
+			->where('status =', 'belum lunas')
+			->order_by('id_transaksi', 'DESC')
+			->limit(1)
+			->get('transaksi')->row();
+	}
+
+	//Menampilkan Data Transaksi Jenis Jasa Terakhir
+	public function jasa_lastId()
+	{
+		return $this->db->select('*')
+			->where('jenis_transaksi =', 'jasa')
+			->where('status =', 'belum lunas')
+			->order_by('id_transaksi', 'DESC')
+			->limit(1)
+			->get('transaksi')->row();
 	}
 
 	//Menampilkan Data Detail Transaksi Berdasarkan ID Transaksi

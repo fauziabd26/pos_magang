@@ -4,7 +4,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class AdminModel extends CI_Model
 {
 	private $table = 'user';
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
+	//Menampilkan Data Admin
+	public function get_admin($id_admin)
+	{
+		$this->db->where('user_toko.id_user', $id_admin);
+		$this->db->select('user_toko.id_user_toko, user.id_user, user.nama, user.email');
+		$this->db->from('user_toko')->join('user', 'user_toko.id_user = user.id_user');
+		return $this->db->get()->row();
+	}
+
+>>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
+=======
   
+>>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
 	//Menampilkan Data Admin
 	public function get($id_user = null)
 	{
@@ -63,4 +79,44 @@ class AdminModel extends CI_Model
 		// 	return false;
 		// }
 	}
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+	//edit data Admin
+	public function update()
+	{
+		$data = array(
+			"nama"         => $this->input->post('nama'),
+			"email"        => $this->input->post('email'),
+			"no_hp"        => $this->input->post('no_hp'),
+			"photo"        => $this->input->post('photo'),
+			"status_Admin"  => $this->input->post('status_Admin'),
+		);
+		return $this->db->update($this->table, $data, array('id_user' => $this->input->post('id_user')));
+	}
+
+	// Fungsi untuk melakukan proses upload file
+	public function upload(){
+		$config['upload_path'] = './images/';
+		$config['allowed_types'] = 'jpg|png|jpeg';
+		$config['max_size']  = '2048';
+		$config['remove_space'] = TRUE;
+	  
+		$this->load->library('upload', $config); // Load konfigurasi uploadnya
+		if($this->upload->do_upload('photo')){ // Lakukan upload dan Cek jika proses upload berhasil
+		  // Jika berhasil :
+		  $return = array('result' => 'success', 'file' => $this->api . 'admin', array(CURLOPT_BUFFERSIZE => 10), 'error' => '');
+		  return $return;
+		}else{
+		  // Jika gagal :
+		  $return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
+		  return $return;
+		}
+	  }
 }
+=======
+}
+>>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
+=======
+}
+>>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
