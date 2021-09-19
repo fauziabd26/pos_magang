@@ -744,6 +744,48 @@ class Owner extends CI_Controller
 
 	}
 
+	public function foto_produk_edit($id_foto_produk)
+	{
+		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/' . $id_foto_produk);
+		$getAPIProduk = $this->curl->simple_get($this->api . 'produk');
+		$datas = json_decode($getAPI, true);
+		$datasProduk = json_decode($getAPIProduk, true);
+
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Foto Produk!'); 
+			window.location.href = '" . base_url('owner/index_foto_produk') . "'; </script>";
+		} else {
+			if ($datas['data']['id_foto_produk'] == $id_foto_produk) {
+				$value = array(
+					'id_foto_produk' 	=> $datas['data']["id_foto_produk"],
+					'nama_foto_produk' 	=> $datas['data']["nama_foto_produk"],
+					'id_produk' 		=> $datas['data']["id_produk"],
+					'nama_produk' 		=> $datas['data']["nama_produk"]
+				);
+			}
+		}
+		$data['foto_produks'] = $value;
+		$data['produks'] = $datasProduk['data'];
+		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/edit', $data);
+	}
+
+	public function proses_edit_fotoProduk($id_foto_produk)
+	{
+		$data = array(
+			'id_foto_produk' =>  $id_foto_produk,
+			'id_produk' =>  $_POST['id_produk']
+		);
+		$update = $this->curl->simple_put($this->api . 'fotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		if ($update) {
+			$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
+		} else {
+			$this->session->set_flashdata('info', 'Data Gagal diubah');
+		}
+		redirect('owner/index_foto_produk');
+		// var_dump($update);
+	}
+	
 	//Bagian Harga
 	public function index_harga()
 	{
