@@ -23,7 +23,7 @@
                         <label for='nama_produk' class="col-lg-5 col-sm-5 control-label">Nama Produk</label>
                         <div class="col-lg-10">
                             <select name="id_produk" class="form-control">
-                                <option value=""><?= $foto_produks["nama_produk"] ?></option>
+                                <option value="<?= $foto_produks["id_produk"] ?>"><?= $foto_produks["nama_produk"] ?></option>
                                 <?php foreach ($produks as $produk) : ?>
                                 <option value="<?= $produk["id_produk"] ?>" ><?= $produk['nama_produk'] ?>
                                 </option>
