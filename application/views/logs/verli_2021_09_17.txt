@@ -1,0 +1,2 @@
+jam 10.00-12.00 : membuat laporan katalog produk
+jam 13.00-16.00 : membuat laporan transaksi

@@ -21,6 +21,7 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
+
 		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user'));
 		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
@@ -746,7 +747,7 @@ class Owner extends CI_Controller
 	public function foto_produk_edit($id_foto_produk)
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/' . $id_foto_produk);
-		$getAPIProduk = $this->curl->simple_get($this->api . 'produk');
+		$getAPIProduk = $this->curl->simple_get($this->api . 'produk/');
 		$datas = json_decode($getAPI, true);
 		$datasProduk = json_decode($getAPIProduk, true);
 
@@ -770,18 +771,48 @@ class Owner extends CI_Controller
 
 	public function proses_edit_fotoProduk($id_foto_produk)
 	{
-		$data = array(
-			'id_foto_produk' =>  $id_foto_produk,
-			'id_produk' =>  $_POST['id_produk']
-		);
-		$update = $this->curl->simple_put($this->api . 'fotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+		$config['upload_path'] = './assets/img/products';
+		$config['allowed_types'] = 'jpg|png|jpeg|gif';
+		$config['max_size'] = '2048';  //2MB max
+		$config['max_width'] = '4480'; // pixel
+		$config['max_height'] = '4480'; // pixel
+		$config['file_name'] = $_FILES['nama_foto_produk']['name'];
 
-		if ($update) {
-			$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
+		$this->upload->initialize($config);
+		if (!empty($_FILES['nama_foto_produk']['name'])) {
+			if ($this->upload->do_upload('nama_foto_produk')) {
+				$foto = $this->upload->data();
+				$data = array(
+					'id_foto_produk'	=> $id_foto_produk,
+					'id_produk'      		=> $_POST['id_produk'],
+					'nama_foto_produk'     => $foto['file_name'],
+				);
+				$update = $this->curl->simple_put($this->api . 'fotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+				if ($update) {
+					$this->session->set_flashdata('success', "Data <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
+				} else {
+					$this->session->set_flashdata('error', 'Data Gagal diubah');
+				}
+				redirect('owner/index_foto_produk');
+			} else {
+				die("gagal upload");
+			}
 		} else {
-			$this->session->set_flashdata('info', 'Data Gagal diubah');
+			echo "tidak masuk";
 		}
-		redirect('owner/index_foto_produk');
+		// $data = array(
+		// 	'id_foto_produk' =>  $id_foto_produk,
+		// 	'nama_foto_produk' =>  $_POST['nama_foto_produk'],
+		// 	'id_produk' =>  $_POST['id_produk']
+		// );
+		// $update = $this->curl->simple_put($this->api . 'fotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+
+		// if ($update) {
+		// 	$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
+		// } else {
+		// 	$this->session->set_flashdata('info', 'Data Gagal diubah');
+		// }
+		// redirect('owner/index_foto_produk');
 		// var_dump($update);
 	}
 	
@@ -992,77 +1023,44 @@ class Owner extends CI_Controller
 		}
 	}
 
-	public function proses_hapus_kategori($id_kategori)
+	public function kategori_edit($id_kategori)
 	{
-		$curl = curl_init();
 
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => "https://api.etoko.xyz/kategori" . $id_kategori,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => "",
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 30,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'DELETE',
-			CURLOPT_HTTPHEADER => array(
-				'x-apikey : $2y$10$kvfxRLwEQOuysqEyzYmcwuVmv/dzqtp4IbSg0QRHkIiSXy65BKsC2',
-				'x-signature : 8c220754d1b7f3dad83f4184da4c58a7e1df9a00'
-			),
-			CURLOPT_POSTFIELDS =>  array(
-				'id_kategori' =>  $id_kategori,
-			),
-		));
+		$getAPI 		= $this->curl->simple_get($this->api . 'kategori/' . $id_kategori);
+		$datas 			= json_decode($getAPI, true);
 
-		$response = curl_exec($curl);
-		$err = curl_error($curl);
-
-		curl_close($curl);
-		if ($response) {
-			$this->session->set_flashdata('success', "Data Kategori Terhapus !");
-			redirect('owner/index_kategori');
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Kategori!'); 
+			window.location.href = '" . base_url('owner/index_kategori') . "'; </script>";
 		} else {
-			echo "cURL Error #:" . $err;
-		}
-	}
-
-	public function kategori_edit($id_toko)
-	{
-		$getAPI = $this->curl->simple_get($this->api . 'toko');
-		$datas = json_decode($getAPI, true);
-
-		foreach ($datas['data'] as $row) {
-			if ($row['id_toko'] == $id_toko) {
+			if ($datas['data']['id_kategori'] == $id_kategori) {
 				$value = array(
-					'id_toko' => $row["id_toko"],
-					'nama_toko' => $row["nama_toko"],
-					'deskripsi_toko' => $row["deskripsi_toko"],
-					'alamat' => $row["alamat"],
-					'status_toko' => $row["status_toko"],
+					'id_kategori' 	=> $datas['data']["id_kategori"],
+					'nama_kategori' 	=> $datas['data']["nama_kategori"],
+					'id_user' 		=>  $this->session->userdata('id_user'),
+
 				);
 			}
 		}
-		$data['toko'] = $value;
-
-		$this->template->load('layouts/owner/master', 'dashboard/owner/toko/edit', $data);
+		$data['kategori'] = $value;
+		$this->template->load('layouts/owner/master', 'dashboard/owner/kategori/edit', $data);
 	}
 
-	public function proses_edit_kategori($id_toko)
+	public function proses_edit_kategori($id_kategori)
 	{
 		$data = array(
-			'id_toko' =>  $id_toko,
-			'nama_toko' =>  ucwords($_POST['nama_toko']),
-			'alamat' =>  ucfirst($_POST['alamat']),
-			'deskripsi_toko' => ucfirst($_POST['deskripsi_toko']),
-			'foto_toko' => $_POST['foto_toko']
+			'id_kategori' =>  $id_kategori,
+			'id_user' 		=>  $this->session->userdata('id_user'),
+			'nama_kategori' =>  ucwords($_POST['nama_kategori']),
 		);
-		$update = $this->curl->simple_put($this->api . 'toko', $data, array(CURLOPT_BUFFERSIZE => 10));
+		$update = $this->curl->simple_put($this->api . 'kategori', $data, array(CURLOPT_BUFFERSIZE => 10));
 
 		if ($update) {
-			$this->session->set_flashdata('success-edit', "Data Toko <b>" . $_POST['nama_toko'] . "</b> Berhasil Diedit !");
+			$this->session->set_flashdata('success-edit', "Data Kategori <b>" . $_POST['nama_kategori'] . "</b> Berhasil Diedit !");
 		} else {
 			$this->session->set_flashdata('info', 'Data Gagal diubah');
 		}
-		redirect('owner/toko');
+		redirect('owner/index_kategori');
 	}
 
 	//Bagian Satuan
@@ -1171,12 +1169,26 @@ class Owner extends CI_Controller
 	//Bagian Laporan Transaksi
 	public function index_laporan_trans()
 	{
-		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi');
-		$datas 			= json_decode($getAPI, true);
-		$data['transaksi'] = $datas['data'];
+		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 				= json_decode($getAPI, true);
+		$data['transaksi'] 	= $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
 	}
 
+	public function pdf_transaksi(){
+
+		$getAPI 	= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 		= json_decode($getAPI, true);
+
+		$trans['transaksi'] 		= $datas['data'];
+		$file_pdf 					= 'laporan_transaksi'; //filename dari pdf ketika didownload
+		$paper 						= 'A4'; //setting paper
+		$orientation				= "potrait"; //orientasi paper potrait / landscape
+		$html						= $this->load->view('dashboard/owner/laporan/transaksi/index_pdf', $trans, true);
+
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		
+	}
 
 	//Bagian Laporan katalog produk
 	public function index_laporan_katalog()
@@ -1186,6 +1198,21 @@ class Owner extends CI_Controller
 
 		$data['katalog_produk'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/katalog_produk/index', $data);
+	}
+
+	public function pdf_katalog(){
+
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk');
+		$datas = json_decode($getAPI, true);
+
+		$katalog['katalog_produk'] 	= $datas['data'];
+		$file_pdf 					= 'laporan_katalog_produk'; //filename dari pdf ketika didownload
+		$paper 						= 'A4'; //setting paper
+		$orientation				= "potrait"; //orientasi paper potrait / landscape
+		$html						= $this->load->view('dashboard/owner/laporan/katalog_produk/index_pdf', $katalog, true);
+
+		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+		
 	}
 
 	//Bagian Laporan Customer

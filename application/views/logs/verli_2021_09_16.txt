@@ -1,0 +1,2 @@
+jam 10.00-16.00 : membuat laporan customer
+
