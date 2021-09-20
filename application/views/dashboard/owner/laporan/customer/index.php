@@ -16,6 +16,9 @@
                             <i class="far fa-file-pdf"></i> Unduh Laporan
                         </a>
 
+                        <a href="" target="_blank" class="btn btn-success">
+                            <i class="far fa-file-excel"></i> Unduh Laporan
+                        </a>
                     </div>
                 </div>
                 <div class="table-responsive">

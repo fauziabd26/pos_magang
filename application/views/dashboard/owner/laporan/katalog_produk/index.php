@@ -15,6 +15,10 @@
 						<a href="<?php echo base_url(). 'owner/pdf_katalog'; ?>" target="_blank" class="btn btn-outline-danger">
 							<i class="fas fa-file-pdf"></i> Unduh Laporan
 						</a>
+						
+						<a href="" target="_blank" class="btn btn-outline-success">
+							<i class="fas fa-file-excel"></i> Unduh Laporan
+						</a>
 					</div>
 				</div>
 				<div class="table-responsive">

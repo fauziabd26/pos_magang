@@ -1118,6 +1118,30 @@ class Owner extends CI_Controller
 		
 	}
 
+	public function excel_transaksi(){
+
+		$getAPI 	= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 		= json_decode($getAPI, true);
+
+		$trans['transaksi'] 		= $datas['data'];
+
+
+		// $data = array( 'title' => 'Laporan Excel | Tutorial Export ke excel CodeIgniter @ https://recodeku.blogspot.com',
+        //         'buku' => $this->model_buku->getAll());
+ 
+        $this->load->view('dashboard/owner/laporan/transaksi/index_excel', $trans);
+	}
+
+	public function excel_transaksi_i(){
+
+		$getAPI 	= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 		= json_decode($getAPI, true);
+
+		$trans['transaksi'] 		= $datas['data'];
+ 
+        $this->load->view('dashboard/owner/laporan/transaksi/export_excel', $trans);
+	}
+
 	//Bagian Laporan katalog produk
 	public function index_laporan_katalog()
 	{
