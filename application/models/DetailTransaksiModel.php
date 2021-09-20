@@ -27,9 +27,10 @@ class DetailTransaksiModel extends CI_Model
 	}
 
 	//Menampilkan Data Transaksi Jenis Barang Terakhir
-	public function barang_lastId()
+	public function barang_lastId($id_admin)
 	{
 		return $this->db->select('*')
+			->where('id_user_toko', $id_admin)
 			->where('jenis_transaksi =', 'barang')
 			->where('status =', 'belum lunas')
 			->order_by('id_transaksi', 'DESC')
@@ -38,9 +39,10 @@ class DetailTransaksiModel extends CI_Model
 	}
 
 	//Menampilkan Data Transaksi Jenis Jasa Terakhir
-	public function jasa_lastId()
+	public function jasa_lastId($id_admin)
 	{
 		return $this->db->select('*')
+			->where('id_user_toko', $id_admin)
 			->where('jenis_transaksi =', 'jasa')
 			->where('status =', 'belum lunas')
 			->order_by('id_transaksi', 'DESC')

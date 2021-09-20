@@ -4,10 +4,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class AdminModel extends CI_Model
 {
 	private $table = 'user';
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
+	//Menampilkan Data Terakhir
+	public function last_admin()
+	{
+		return $this->db->select('*')
+			->where('role =', 'admin')
+			->order_by('id_user', 'DESC')
+			->limit(1)
+			->get('user')->row();
+	}
+
 	//Menampilkan Data Admin
 	public function get_admin($id_admin)
 	{
@@ -17,10 +24,6 @@ class AdminModel extends CI_Model
 		return $this->db->get()->row();
 	}
 
->>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
-=======
-  
->>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
 	//Menampilkan Data Admin
 	public function get($id_user = null)
 	{
@@ -30,7 +33,7 @@ class AdminModel extends CI_Model
 		if ($id_user != null) {
 			$this->db->where('id_user', $id_user);
 		}
-		return $this->db->get()->result();
+		return $this->db->get();
 	}
 
 	//Menampilkan Data Admin Berdasarkan ID User
@@ -39,7 +42,7 @@ class AdminModel extends CI_Model
 		$this->db->where('id_user', $id_user);
 		$this->db->select('id_user, nama, email, no_hp, photo, role');
 		$this->db->from('user');
-		return $this->db->get()->result();
+		return $this->db->get()->row();
 	}
 
 	//Menampilkan Data Admin Berdasarkan Toko Yang Dimiliki Owner
@@ -58,65 +61,14 @@ class AdminModel extends CI_Model
 	}
 
 	//Simpan Data Admin
-	public function save($data, $upload)
+	public function save($data)
 	{
-		$data = array(
-			'nama'			=>$this->input->post('nama'),
-			'email'			=>$this->input->post('email'),
-			'password'		=>$this->input->post('password'),
-			'no_hp'			=>$this->input->post('no_hp'),
-			'photo' 		=> $upload['file']['photo'],
-			'ukuran_file'	=> $upload['file']['file_size'],
-			'tipe_file' 	=> $upload['file']['file_type']
-		  );
+		$save = $this->db->insert($this->table, $data);
 
-			$this->curl->simple_post($this->api . 'admin', array(CURLOPT_BUFFERSIZE => 10));
-			$this->session->set_flashdata('success-create', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Disimpan !");
-
-		// if ($save) {
-		// 	return true;
-		// } else {
-		// 	return false;
-		// }
-	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	//edit data Admin
-	public function update()
-	{
-		$data = array(
-			"nama"         => $this->input->post('nama'),
-			"email"        => $this->input->post('email'),
-			"no_hp"        => $this->input->post('no_hp'),
-			"photo"        => $this->input->post('photo'),
-			"status_Admin"  => $this->input->post('status_Admin'),
-		);
-		return $this->db->update($this->table, $data, array('id_user' => $this->input->post('id_user')));
-	}
-
-	// Fungsi untuk melakukan proses upload file
-	public function upload(){
-		$config['upload_path'] = './images/';
-		$config['allowed_types'] = 'jpg|png|jpeg';
-		$config['max_size']  = '2048';
-		$config['remove_space'] = TRUE;
-	  
-		$this->load->library('upload', $config); // Load konfigurasi uploadnya
-		if($this->upload->do_upload('photo')){ // Lakukan upload dan Cek jika proses upload berhasil
-		  // Jika berhasil :
-		  $return = array('result' => 'success', 'file' => $this->api . 'admin', array(CURLOPT_BUFFERSIZE => 10), 'error' => '');
-		  return $return;
-		}else{
-		  // Jika gagal :
-		  $return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
-		  return $return;
+		if ($save) {
+			return true;
+		} else {
+			return false;
 		}
-	  }
+	}
 }
-=======
-}
->>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
-=======
-}
->>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59

@@ -53,7 +53,7 @@
                                     <tr>
                                         <td class="text-center"><?= ++$no ?></td>
                                         <td class="text-center"><?= $row["nama_produk"] ?></td>
-                                        <td class="text-center"><?= $row["nama_toko"] ?>< /td>
+                                        <td class="text-center"><?= $row["nama_toko"] ?></td>
                                         <td class="text-capitalize text-center"><?= $row["jenis"] ?></td>
                                         <td class="text-center">
                                             <a href="<?= base_url('owner/produk_edit/' . $row["id_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
