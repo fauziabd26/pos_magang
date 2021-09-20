@@ -59,7 +59,7 @@
                                 <td class="text-center"><?= $toko["alamat"] ?></td>
                                 <td class="text-center">
                                     <?php if ($toko["status_toko"] == "valid") { ?>
-                                    <span class="text-center text-capitalize"><?= $toko["status_toko"] ?></span>
+                                    <span class="badge badge-success text-capitalize"><?= $toko["status_toko"] ?></span>
                                     <?php } elseif ($toko["status_toko"] == "pending") { ?>
                                     <span class="badge badge-warning text-capitalize"><?= $toko["status_toko"] ?></span>
                                     <?php } else { ?>

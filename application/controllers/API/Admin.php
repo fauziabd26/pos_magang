@@ -13,6 +13,24 @@ class Admin extends RestController
 		$this->load->model('AdminModel');
 	}
 
+	//Menampilkan Data Admin Terakhir
+	function last_admin_get()
+	{
+		$admin = $this->AdminModel->last_admin();
+		if ($admin) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Admin Terakhir Berhasil Diambil',
+				'data' => $admin
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Admin Terakhir Tidak Ada',
+			), 404);
+		}
+	}
+
 	function get_admin_get($id_admin)
 	{
 		$admin = $this->AdminModel->get_admin($id_admin);
@@ -113,7 +131,7 @@ class Admin extends RestController
 			'password'      => password_hash($this->post('password'), PASSWORD_BCRYPT),
 			'no_hp'         => $this->post('no_hp'),
 			'photo'         => $this->post('photo'),
-			'role'          => "admin"
+			'role'          => "admin",
 		);
 
 		if ($this->AdminModel->save($data)) {

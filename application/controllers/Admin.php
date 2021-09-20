@@ -47,12 +47,12 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Barang
 	public function transaksi_barang()
 	{
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/barang');
 		$datas = json_decode($getAPI, true);
-
 		$data['produks'] = $datas['data'];
-
-		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId');
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId/' . $datasAdmin['data']['id_user_toko']);
 		$datasTransaksi = json_decode($getAPITransaksi, true);
 
 		// Manggil Id Transaksi
@@ -136,6 +136,8 @@ class Admin extends CI_Controller
 	//Stok Tambah barang
 	public function stok_tambah_barang($id_detail_transaksi)
 	{
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPI = $this->curl->simple_get($this->api . 'DetailTransaksi/barang/' . $id_detail_transaksi);
 		$datas = json_decode($getAPI, true);
 		$sub_total_awal = $datas['data']['sub_total'];
@@ -149,7 +151,7 @@ class Admin extends CI_Controller
 			'sub_total' 			 => $datas['data']['nominal'] * $data['qty'],
 		);
 		$this->curl->simple_put($this->api . 'DetailTransaksi/stok_update', $data2, array(CURLOPT_BUFFERSIZE => 10));
-		$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId');
+		$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId/' . $datasAdmin['data']['id_user_toko']);
 		$dataTransaksi = json_decode($getAPItransaksi, true);
 		$total_sebelum = $dataTransaksi['data']['total_transaksi'];
 		$penjumlahan = ($datas['data']['nominal'] * $data['qty']) - ($sub_total_awal);
@@ -164,6 +166,8 @@ class Admin extends CI_Controller
 	//Stok Kurang Barang
 	public function stok_kurang_barang($id_detail_transaksi)
 	{
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPI = $this->curl->simple_get($this->api . 'DetailTransaksi/barang/' . $id_detail_transaksi);
 		$datas = json_decode($getAPI, true);
 		$data = array(
@@ -180,7 +184,7 @@ class Admin extends CI_Controller
 				'sub_total' 			 => $datas['data']['nominal'] * $data['qty'],
 			);
 			$this->curl->simple_put($this->api . 'DetailTransaksi/stok_update', $data, array(CURLOPT_BUFFERSIZE => 10));
-			$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId');
+			$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId/' . $datasAdmin['data']['id_user_toko']);
 			$dataTransaksi = json_decode($getAPItransaksi, true);
 			$data = array(
 				'id_transaksi' 		=> $dataTransaksi['data']['id_transaksi'],
@@ -196,7 +200,9 @@ class Admin extends CI_Controller
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		$now = date('Y-m-d H:i:s');
-		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId');
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId/' . $datasAdmin['data']['id_user_toko']);
 		$dataTransaksi = json_decode($getAPITransaksi, true);
 		$data = array(
 			'id_transaksi' 		=> $id_transaksi,
@@ -229,17 +235,15 @@ class Admin extends CI_Controller
 	// Bagian Transaksi Jasa
 	public function transaksi_jasa()
 	{
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/jasa');
 		$datas = json_decode($getAPI, true);
-
 		$data['produks'] = $datas['data'];
-
-		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId');
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId/' . $datasAdmin['data']['id_user_toko']);
 		$datasTransaksi = json_decode($getAPITransaksi, true);
-
 		// Manggil Id Transaksi
 		$id_transaksi = $datasTransaksi['data']['id_transaksi'];
-
 		$getAPIDetailTransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/get_detail_transaksi_by_transaksi/' . $id_transaksi);
 		$datasDetailTransaksi = json_decode($getAPIDetailTransaksi, true);
 		if (!empty($datasDetailTransaksi)) {
@@ -249,7 +253,6 @@ class Admin extends CI_Controller
 			}
 			$data['sum_qty'] = $sum_qty;
 		}
-
 		$data['detail_transaksi'] = $datasDetailTransaksi['data'];
 		$data['transaksi'] = $datasTransaksi['data'];
 		$this->load->view('dashboard/admin/transaksi/jasa', $data);
@@ -317,6 +320,8 @@ class Admin extends CI_Controller
 	//Stok Tambah jasa
 	public function stok_tambah_jasa($id_detail_transaksi)
 	{
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPI = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa/' . $id_detail_transaksi);
 		$datas = json_decode($getAPI, true);
 		$sub_total_awal = $datas['data']['sub_total'];
@@ -330,7 +335,7 @@ class Admin extends CI_Controller
 			'sub_total' 			 => $datas['data']['nominal'] * $data['qty'],
 		);
 		$this->curl->simple_put($this->api . 'DetailTransaksi/stok_update', $data2, array(CURLOPT_BUFFERSIZE => 10));
-		$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId');
+		$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId/' . $datasAdmin['data']['id_user_toko']);
 		$dataTransaksi = json_decode($getAPItransaksi, true);
 		$total_sebelum = $dataTransaksi['data']['total_transaksi'];
 		$penjumlahan = ($datas['data']['nominal'] * $data['qty']) - ($sub_total_awal);
@@ -345,6 +350,8 @@ class Admin extends CI_Controller
 	//Stok Kurang Jasa
 	public function stok_kurang_jasa($id_detail_transaksi)
 	{
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPI = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa/' . $id_detail_transaksi);
 		$datas = json_decode($getAPI, true);
 		$data = array(
@@ -361,7 +368,7 @@ class Admin extends CI_Controller
 				'sub_total' 			 => $datas['data']['nominal'] * $data['qty'],
 			);
 			$this->curl->simple_put($this->api . 'DetailTransaksi/stok_update', $data, array(CURLOPT_BUFFERSIZE => 10));
-			$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId');
+			$getAPItransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId/' . $datasAdmin['data']['id_user_toko']);
 			$dataTransaksi = json_decode($getAPItransaksi, true);
 			$data = array(
 				'id_transaksi' 		=> $dataTransaksi['data']['id_transaksi'],
@@ -377,7 +384,9 @@ class Admin extends CI_Controller
 	{
 		date_default_timezone_set('Asia/Jakarta');
 		$now = date('Y-m-d H:i:s');
-		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId');
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
+		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId/' . $datasAdmin['data']['id_user_toko']);
 		$dataTransaksi = json_decode($getAPITransaksi, true);
 		$data = array(
 			'id_transaksi' 	=> $id_transaksi,
@@ -452,7 +461,9 @@ class Admin extends CI_Controller
 		} else {
 			$getdetail_trans_produk = $this->curl->simple_get($this->api . 'DetailTransaksi/barang/' . $id_detail_trans_produk);
 			$detail_trans_produk = json_decode($getdetail_trans_produk, true);
-			$gettransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId');
+			$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+			$datasAdmin = json_decode($getAPIAdmin, true);
+			$gettransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId/' . $datasAdmin['data']['id_user_toko']);
 			$transaksi = json_decode($gettransaksi, true);
 			$data = array(
 				'id_transaksi' 		=> $transaksi['data']['id_transaksi'],
@@ -477,7 +488,9 @@ class Admin extends CI_Controller
 		} else {
 			$getdetail_trans_produk = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa/' . $id_detail_trans_produk);
 			$detail_trans_produk = json_decode($getdetail_trans_produk, true);
-			$gettransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId');
+			$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+			$datasAdmin = json_decode($getAPIAdmin, true);
+			$gettransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId/' . $datasAdmin['data']['id_user_toko']);
 			$transaksi = json_decode($gettransaksi, true);
 			$data = array(
 				'id_transaksi' 		=> $transaksi['data']['id_transaksi'],

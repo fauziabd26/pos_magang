@@ -186,7 +186,7 @@
 													<div class="form-group row">
 														<label class="col-5 col-form-label">Nama Customer :</label>
 														<div class="col-7">
-															<input class="form-control bg-white text-right" name="nama_cust" value="<?= set_value('nama_cust') ?>">
+															<input class="form-control bg-white text-right" name="nama_cust" value="<?= set_value('nama_cust') ?>" required>
 														</div>
 													</div>
 												</div>

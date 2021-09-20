@@ -120,7 +120,7 @@
                     <div class="card-header">
                         <h4>Transaksi Terbaru</h4>
                         <div class="card-header-action">
-                            <a href="#" class="btn btn-primary">Lihat Semua <i
+                            <a href="<?= base_url('owner/index_laporan_trans') ?>" class="btn btn-primary">Lihat Semua <i
                                     class="fas fa-chevron-right pl-2"></i></a>
                         </div>
                     </div>
