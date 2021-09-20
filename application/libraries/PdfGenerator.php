@@ -4,6 +4,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 class PdfGenerator {
+    
     public function generate($html, $filename='', $paper = '', $orientation = '', $stream=TRUE)
     {   
         $options = new Options();

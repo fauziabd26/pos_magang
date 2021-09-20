@@ -13,46 +13,6 @@ class Transaksi extends RestController
 		$this->load->model('TransaksiModel');
 	}
 
-	//Menampilkan data Transaksi belum lunas sesuai Admin
-	function get_transaksi_belum_lunas_by_id_user_get($id_user)
-	{
-		$transaksi = $this->TransaksiModel->get_transaksi_belum_lunas_by_id_user($id_user);
-		if ($transaksi) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Transaksi Berhasil Diambil',
-				'data' => $transaksi
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Data Transaksi Tidak Ada',
-			), 404);
-		}
-	}
-
-	//Menampilkan data Transaksi belum lunas sesuai Owner
-	function get_transaksi_lunas_by_owner_get($id_user, $id_transaksi = null)
-	{
-		if (!empty($id_transaksi)) {
-			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user, $id_transaksi)->row();
-		} else {
-			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user)->result();
-		}
-		if ($transaksi) {
-			$this->response(array(
-				'status' => true,
-				'message' => 'Data Transaksi Berhasil Diambil',
-				'data' => $transaksi
-			), 200);
-		} else {
-			$this->response(array(
-				'status' => false,
-				'message' => 'Data Transaksi Tidak Ada',
-			), 404);
-		}
-	}
-
 	//Menampilkan data Transaksi
 	function index_get($id_transaksi = null)
 	{
@@ -75,6 +35,65 @@ class Transaksi extends RestController
 		}
 	}
 
+	//Menampilkan data Transaksi Jenis Barang belum lunas sesuai Admin
+	function get_transaksi_barang_belum_lunas_by_id_user_get($id_user)
+	{
+		$transaksi = $this->TransaksiModel->get_transaksi_barang_belum_lunas_by_id_user($id_user);
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data Transaksi Jenis Jasa belum lunas sesuai Admin
+	function get_transaksi_jasa_belum_lunas_by_id_user_get($id_user)
+	{
+		$transaksi = $this->TransaksiModel->get_transaksi_jasa_belum_lunas_by_id_user($id_user);
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data Transaksi lunas sesuai Owner
+	function get_transaksi_lunas_by_owner_get($id_user, $id_transaksi = null)
+	{
+		if (!empty($id_transaksi)) {
+			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user, $id_transaksi)->row();
+		} else {
+			$transaksi = $this->TransaksiModel->get_transaksi_lunas_by_owner($id_user)->result();
+		}
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan data Transaksi lunas sesuai Admin
 	function get_transaksi_lunas_by_id_user_get($id_user, $id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
@@ -229,9 +248,9 @@ class Transaksi extends RestController
 		$data       = array(
 			'nama_cust'            	=> $this->put('nama_cust'),
 			// 'diskon'            	=> $this->put('diskon'),
-			// 'total_transaksi'   	=> $this->put('total_transaksi'),
 			'status'               	=> $this->put('status'),
 			'bayar'             	=> $this->put('bayar'),
+			'tggl_transaksi'   		=> $this->put('tggl_transaksi'),
 		);
 
 		$this->db->where('id_transaksi', $id_transaksi);
