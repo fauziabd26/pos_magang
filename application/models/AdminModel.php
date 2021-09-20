@@ -4,10 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class AdminModel extends CI_Model
 {
 	private $table = 'user';
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
+
 	//Menampilkan Data Admin
 	public function get_admin($id_admin)
 	{
@@ -17,10 +15,6 @@ class AdminModel extends CI_Model
 		return $this->db->get()->row();
 	}
 
->>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
-=======
-  
->>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
 	//Menampilkan Data Admin
 	public function get($id_user = null)
 	{
@@ -79,8 +73,7 @@ class AdminModel extends CI_Model
 		// 	return false;
 		// }
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 	//edit data Admin
 	public function update()
@@ -114,9 +107,3 @@ class AdminModel extends CI_Model
 		}
 	  }
 }
-=======
-}
->>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
-=======
-}
->>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
