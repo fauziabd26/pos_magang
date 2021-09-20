@@ -34,6 +34,7 @@ class Admin extends CI_Controller
 			}
 			$data['totalTransaksiProduk'] = $totalTransaksiProduk;
 			$data['totalTransaksiJasa'] = $totalTransaksiJasa;
+			$data['totalTransaksi'] = $totalTransaksiProduk + $totalTransaksiJasa;
 			$data['transaksis'] = array_filter($datas['data'], function ($value) {
 				return $value['id_user'] == $this->session->userdata('id_user');
 			});
@@ -49,7 +50,7 @@ class Admin extends CI_Controller
 	{
 		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
 		$datasAdmin = json_decode($getAPIAdmin, true);
-		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/barang');
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_toko/' . $datasAdmin['data']['id_toko']);
 		$datas = json_decode($getAPI, true);
 		$data['produks'] = $datas['data'];
 		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/barang_lastId/' . $datasAdmin['data']['id_user_toko']);
@@ -237,7 +238,7 @@ class Admin extends CI_Controller
 	{
 		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
 		$datasAdmin = json_decode($getAPIAdmin, true);
-		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/jasa');
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_toko/' . $datasAdmin['data']['id_toko']);
 		$datas = json_decode($getAPI, true);
 		$data['produks'] = $datas['data'];
 		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId/' . $datasAdmin['data']['id_user_toko']);

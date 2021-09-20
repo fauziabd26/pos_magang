@@ -16,7 +16,16 @@ class UserTokoModel extends CI_Model
 		return $this->db->get();
 	}
 
-    //Simpan Data 
+	//Menampilkan Data 
+	public function get_toko($id_toko = null)
+	{
+		$this->db->where('id_toko', $id_toko);
+		$this->db->select('id_user_toko, id_toko, id_user');
+		$this->db->from('user_toko');
+		return $this->db->get()->row();
+	}
+
+	//Simpan Data 
 	public function save($data)
 	{
 		$save = $this->db->insert($this->table, $data);
@@ -27,5 +36,4 @@ class UserTokoModel extends CI_Model
 			return false;
 		}
 	}
-
 }
