@@ -34,7 +34,7 @@ class FotoProdukModel extends CI_Model
     public function update(){
         $data = array(
             "nama_foto_produk"   => $this->input->post('nama_foto_produk'),
-            "id_produk"   => $this->input->post('id_produk'),
+            "id_produk"   		 => $this->input->post('id_produk'),
         );
         return $this->db->update($this->table, $data, array('id_foto_produk' => $this->input->post('id_foto_produk')));
     }
