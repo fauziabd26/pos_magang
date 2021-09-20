@@ -19,7 +19,7 @@ class AdminModel extends CI_Model
 	public function get_admin($id_admin)
 	{
 		$this->db->where('user_toko.id_user', $id_admin);
-		$this->db->select('user_toko.id_user_toko, user.id_user, user.nama, user.email');
+		$this->db->select('user_toko.id_user_toko, user.id_user, user.nama, user.email, user_toko.id_toko');
 		$this->db->from('user_toko')->join('user', 'user_toko.id_user = user.id_user');
 		return $this->db->get()->row();
 	}
