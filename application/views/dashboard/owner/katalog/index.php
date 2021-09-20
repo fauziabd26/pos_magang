@@ -1,5 +1,4 @@
 <section class="section">
-
     <div class="section-header">
         <h1>Katalog Produk</h1>
         <div class="section-header-breadcrumb">

@@ -72,10 +72,10 @@
     </div>
 </section>
 <!-- Modal Hapus -->
-<?php if (!empty($satuans)) { ?>
-<?php foreach ($satuans as $satuan) : ?>
+<?php if (!empty($foto_produks)) { ?>
+<?php foreach ($foto_produks as $row) : ?>
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
-    id="hapus-data<?= $satuan['id_satuan'] ?>" class="modal fade">
+    id="hapus-data<?= $row['id_foto_produk'] ?>" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?= base_url('owner/satuan_hapus/' . $satuan['id_satuan']) ?>" class="btn btn-info"> Ya</a>
+                    <a href="<?= base_url('owner/fotoProduk_hapus/' . $row['id_foto_produk']) ?>" class="btn btn-info"> Ya</a>
                     <button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
                 </div>
             </form>

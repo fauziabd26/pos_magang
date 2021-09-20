@@ -12,6 +12,9 @@ class Profile extends CI_Controller
 
 	public function ubah_profile($id_user)
 	{
+		$getAPI = $this->curl->simple_get($this->api . 'owner/' . $this->session->userdata('id_user'));
+		$datas = json_decode($getAPI, true);
+
 		$config['upload_path'] = './assets/img/user';
 		$config['allowed_types'] = 'jpg|png|jpeg|gif';
 		$config['max_size'] = '2048';  //2MB max
@@ -36,12 +39,25 @@ class Profile extends CI_Controller
 				} else {
 					$this->session->set_flashdata('error', 'Data Gagal diubah');
 				}
-				redirect('owner/dashboard');
+				redirect('owner/profile/' . $id_user);
 			} else {
 				die("gagal upload");
 			}
 		} else {
-			echo "tidak masuk";
+			$data = array(
+				'id_user'	=> $id_user,
+				'nama'      => $_POST['nama'],
+				'email'    	=> $_POST['email'],
+				'no_hp'     => $_POST['no_hp'],
+				'photo'     => $datas['data']['photo'],
+			);
+			$update = $this->curl->simple_put($this->api . 'profile', $data, array(CURLOPT_BUFFERSIZE => 10));
+			if ($update) {
+				$this->session->set_flashdata('success', "Data <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
+			} else {
+				$this->session->set_flashdata('error', 'Data Gagal diubah');
+			}
+			redirect('owner/profile/' . $id_user);
 		}
 	}
 }

@@ -7,17 +7,9 @@
 			<div class="breadcrumb-item">Tambah Data Admin</div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST" enctype="multipart/form-data">
->>>>>>> 9f462d286aebf3cc619e439a271a4fef53216d9e
-=======
-			<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST" enctype="multipart/form-data">
->>>>>>> 6fe91f24105be6d8cc81717ca41dc2545c4a9b59
 				<div class="card-body">
 					<?php if ($this->session->flashdata('error')) { ?>
 						<div class="alert alert-danger alert-dismissible show fade">
@@ -36,72 +28,69 @@
 							</a>
 						</div>
 					</div>
-					<form action="<?= base_url('owner/proses_tambah_admin')?>" method="POST" enctype="multipart/form-data"> 
-					<div class="form-group">
-						<label for='nominal' class=" control-label">Pilih Toko</label>
-						<div>
-							<select name="id_toko" class="form-control">
-								<?php foreach ($tokos as $toko) : ?>
-									<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?>
-									</option>
-								<?php endforeach; ?>
-							</select>
+					<form action="<?= base_url('owner/proses_tambah_admin') ?>" method="POST" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for='id_toko' <?= form_error('id_toko') ? 'class=text-danger' : 'control-label' ?>>Pilih Toko</label>
+							<div>
+								<select name="id_toko" class="form-control select2 <?= form_error('id_toko') ? 'is-invalid' : '' ?>">
+									<?php foreach ($tokos as $toko) : ?>
+										<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?></option>
+									<?php endforeach; ?>
+								</select>
+								<small class="text-danger font-weight-bold">
+									<?= form_error('id_toko'); ?>
+								</small>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for='nama' <?= form_error('nama') ? 'class = text-danger' : '' ?>>Nama Lengkap</label>
+							<input type="text" id="nama" class="form-control <?= form_error('nama') ? 'is-invalid' : '' ?>" name="nama" placeholder='Masukkan Nama Lengkap' value="<?= set_value('nama') ?>" autofocus>
 							<small class="text-danger font-weight-bold">
-								<?php echo form_error('id_toko'); ?>
+								<?= form_error('nama'); ?>
 							</small>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for='nama'>Nama Lengkap</label>
-						<input type="text" id="nama" class="form-control" name="nama" placeholder='Masukkan Nama Lengkap' value="<?= set_value('nama') ?>" autofocus>
-						<small class="text-danger font-weight-bold">
-							<?php echo form_error('nama'); ?>
-						</small>
-					</div>
-					<div class="form-group">
-						<label for='email'>Email</label>
-						<input type="email" id="email" class="form-control" name="email" placeholder='Masukkan Email' value="<?= set_value('email') ?>">
-						<small class="text-danger font-weight-bold">
-							<?php echo form_error('email'); ?>
-						</small>
-					</div>
-					<div class="row">
-						<div class="form-group col-6">
-							<label for="password" class="d-block">Password</label>
-							<input id="password" type="password" class="form-control" name="password" placeholder='Masukkan Password' value="<?= set_value('password'); ?>">
+						<div class="form-group">
+							<label for='email' <?= form_error('email') ? 'class = text-danger' : '' ?>>Email</label>
+							<input type="email" id="email" class="form-control <?= form_error('email') ? 'is-invalid' : '' ?>" name="email" placeholder='Masukkan Email' value="<?= set_value('email') ?>">
 							<small class="text-danger font-weight-bold">
-								<?php echo form_error('password'); ?>
+								<?= form_error('email'); ?>
 							</small>
 						</div>
-						<div class="form-group col-6">
-							<label for="password_confirm" class="d-block">Password Confirmation</label>
-							<input id="password_confirm" type="password" class="form-control" name="password_confirm" placeholder='Masukkan Password Confirmation' value="<?= set_value('password_confirm'); ?>">
+						<div class="row">
+							<div class="form-group col-6">
+								<label for="password" class="d-block <?= form_error('password') ? 'text-danger' : '' ?>">Password</label>
+								<input id="password" type="password" class="form-control <?= form_error('password') ? 'is-invalid' : '' ?>" name="password" placeholder='Masukkan Password' value="<?= set_value('password'); ?>">
+								<small class="text-danger font-weight-bold">
+									<?= form_error('password'); ?>
+								</small>
+							</div>
+							<div class="form-group col-6">
+								<label for="password_confirm" class="d-block <?= form_error('password_confirm') ? 'text-danger' : '' ?>">Password Confirmation</label>
+								<input id="password_confirm" type="password" class="form-control <?= form_error('password_confirm') ? 'is-invalid' : '' ?>" name="password_confirm" placeholder='Masukkan Password Confirmation' value="<?= set_value('password_confirm'); ?>">
+								<small class="text-danger font-weight-bold">
+									<?= form_error('password_confirm'); ?>
+								</small>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for='no_hp' <?= form_error('no_hp') ? 'class = text-danger' : '' ?>>Nomer Handphone</label>
+							<input type="number" id="no_hp" class="form-control <?= form_error('no_hp') ? 'is-invalid' : '' ?>" name="no_hp" placeholder='Masukkan Nomer Handphone' value="<?= set_value('no_hp'); ?>">
 							<small class="text-danger font-weight-bold">
-								<?php echo form_error('password_confirm'); ?>
+								<?= form_error('no_hp'); ?>
 							</small>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for='no_hp'>Nomer Handphone</label>
-						<input type="number" id="no_hp" class="form-control" name="no_hp" placeholder='Masukkan Nomer Handphone' value="<?= set_value('no_hp'); ?>">
-						<small class="text-danger font-weight-bold">
-							<?php echo form_error('no_hp'); ?>
-						</small>
-					</div>
-					<div class="form-group">
-						<label for='file'>Foto Admin</label>
-						<input type="file" id="file" class="form-control" name="photo" value="<?= set_value('photo'); ?>" />
-						<small>*Format File Menggunakan IMG, PNG</small><br>
-						<small>*File Maksimal Berukuran 2Mb</small>
-						<small class="text-danger font-weight-bold">
-							<?php echo form_error('photo'); ?>
-						</small>
-					</div>
+						<div class="form-group">
+							<label for='photo' <?= form_error('photo') ? 'class = text-danger' : '' ?>>Foto Admin</label>
+							<input type="file" id="photo" class="form-control <?= form_error('photo') ? 'is-invalid' : '' ?>" name="photo" value="<?= set_value('photo'); ?>" required>
+							<small>*Format File Menggunakan IMG, PNG</small><br>
+							<small>*File Maksimal Berukuran 2Mb</small>
+							<small class="text-danger font-weight-bold">
+								<?= form_error('photo'); ?>
+							</small>
+						</div>
 				</div>
-				<div class="card-footer">
-					<button class="btn btn-primary btn-block" value="upload">Submit</button>
-				</div>
-				</form>
+				<button class="btn btn-primary btn-block">Submit</button>
+			</form>
 		</div>
 	</div>
 </section>

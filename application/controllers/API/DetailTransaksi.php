@@ -31,9 +31,9 @@ class DetailTransaksi extends RestController
 	}
 
 	//Menampilkan Data Transaksi Terakhir Jenis Barang
-	function barang_lastId_get()
+	function barang_lastId_get($id_admin)
 	{
-		$transaksi = $this->DetailTransaksiModel->barang_lastId();
+		$transaksi = $this->DetailTransaksiModel->barang_lastId($id_admin);
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,
@@ -49,9 +49,9 @@ class DetailTransaksi extends RestController
 	}
 
 	//Menampilkan Data Transaksi Terakhir Jenis Jasa
-	function jasa_lastId_get()
+	function jasa_lastId_get($id_admin)
 	{
-		$transaksi = $this->DetailTransaksiModel->jasa_lastId();
+		$transaksi = $this->DetailTransaksiModel->jasa_lastId($id_admin);
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,
