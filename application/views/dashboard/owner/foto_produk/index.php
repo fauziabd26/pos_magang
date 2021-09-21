@@ -40,7 +40,7 @@
 						<thead class="thead-dark">
 							<tr>
 								<th>No</th>
-								<th>Nama Foto Produk</th>
+								<th>Foto Produk</th>
 								<th>Nama Produk</th>
 								<th>Jenis Produk</th>
 								<th>Aksi</th>
