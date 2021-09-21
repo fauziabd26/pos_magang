@@ -7,7 +7,6 @@
 			<div class="breadcrumb-item"><?= $produks["nama_produk"] ?></div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
 			<form action="<?= base_url('owner/proses_edit_produk/' . $produks['id_produk']) ?>" method="POST">
@@ -20,26 +19,21 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for='nama_produk'>Nama produk</label>
+						<label for='nama_produk' class="control-label">Nama produk</label>
 						<input type="text" id="nama_produk" class="form-control" name="nama_produk" value="<?= $produks["nama_produk"] ?>" autofocus>
 					</div>
 					<div class="form-group">
-						<label for='jenis' class="col-lg-5 col-sm-5 control-label">Jenis Produk</label>
+						<label for='jenis' class="control-label">Jenis Produk</label>
 						<input type="text" id="jenis" class="form-control" name="jenis" value="Barang" readonly>
 					</div>
 					<div class="form-group">
-						<label for='nominal' class="col-lg-5 col-sm-5 control-label">Pilih Toko</label>
-						<div class="col-lg-10">
-							<select name="id_toko" class="form-control">test
-								<?php foreach ($tokos as $toko) : ?>
-									<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?>
-									</option>
-								<?php endforeach; ?>
-							</select>
-						</div>
+						<label for='nominal' class="control-label">Pilih Toko</label>
+						<select name="id_toko" class="form-control">test
+							<?php foreach ($tokos as $toko) : ?>
+								<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?></option>
+							<?php endforeach; ?>
+						</select>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Update</button>
 				</div>
 			</form>

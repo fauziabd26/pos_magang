@@ -35,8 +35,6 @@
 							<?php echo form_error('nama_harga'); ?>
 						</small>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Submit</button>
 				</div>
 			</form>
