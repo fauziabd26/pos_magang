@@ -238,7 +238,7 @@ class Admin extends CI_Controller
 	{
 		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
 		$datasAdmin = json_decode($getAPIAdmin, true);
-		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_toko/' . $datasAdmin['data']['id_toko']);
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/jasa_by_toko/' . $datasAdmin['data']['id_toko']);
 		$datas = json_decode($getAPI, true);
 		$data['produks'] = $datas['data'];
 		$getAPITransaksi = $this->curl->simple_get($this->api . 'DetailTransaksi/jasa_lastId/' . $datasAdmin['data']['id_user_toko']);
@@ -261,7 +261,9 @@ class Admin extends CI_Controller
 
 	public function proses_tambah_transaksi_jasa($id_detail_produk)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/jasa/' . $id_detail_produk);
+		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
+		$datasAdmin = json_decode($getAPIAdmin, true);
+		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/jasa_by_toko/' . $datasAdmin['data']['id_toko'] . '/' . $id_detail_produk);
 		$datas = json_decode($getAPI, true);
 		$getAPIUserToko = $this->curl->simple_get($this->api . 'admin/get_admin/' . $this->session->userdata('id_user'));
 		$datasUserToko = json_decode($getAPIUserToko, true);

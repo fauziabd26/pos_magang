@@ -26,6 +26,20 @@ class DetailTransaksiModel extends CI_Model
 		return $this->db->get()->row();
 	}
 
+	//Menampilkan Data Detail Transaksi Sesuai Produk dan Transaksi Yang Dipilih
+	public function get_detail_transaksi_by_customer($id_transaksi)
+	{
+		$this->db->where('detail_trans_produk.id_transaksi', $id_transaksi);
+		$this->db->select('id_detail_trans_produk, sub_total, qty, detail_trans_produk.id_detail_produk, produk.nama_produk, detail_produk.nominal, detail_trans_produk.id_transaksi, transaksi.nama_cust, transaksi.jenis_transaksi, transaksi.tggl_transaksi');
+		$this->db->from('detail_trans_produk')
+			->join('detail_produk', 'detail_trans_produk.id_detail_produk = detail_produk.id_detail_produk')
+			->join('produk', 'detail_produk.id_produk = produk.id_produk')
+			->join('transaksi', 'detail_trans_produk.id_transaksi = transaksi.id_transaksi')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('user', 'user_toko.id_user = user.id_user');
+		return $this->db->get()->result();
+	}
+
 	//Menampilkan Data Transaksi Jenis Barang Terakhir
 	public function barang_lastId($id_admin)
 	{

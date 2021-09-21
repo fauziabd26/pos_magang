@@ -30,6 +30,23 @@ class DetailTransaksi extends RestController
 		}
 	}
 
+	function get_detail_transaksi_by_customer_get($id_transaksi)
+	{
+		$transaksidetail = $this->DetailTransaksiModel->get_detail_transaksi_by_customer($id_transaksi);
+		if ($transaksidetail) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Detail Berdasarkan Nama Customer Berhasil Diambil',
+				'data' => $transaksidetail
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Detail Berdasarkan Nama Customer Tidak Ada',
+			), 404);
+		}
+	}
+
 	//Menampilkan Data Transaksi Terakhir Jenis Barang
 	function barang_lastId_get($id_admin)
 	{

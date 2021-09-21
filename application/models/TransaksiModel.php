@@ -104,10 +104,16 @@ class TransaksiModel extends CI_Model
 	}
 
 	//Menampilkan Data Transaksi Sesuai Nama Customer
-	public function get_customer()
+	public function get_customer_by_owner($id_user)
 	{
-		$this->db->select('nama_cust, SUM(total_transaksi) AS total_transaksi');
+		$this->db->where('user.id_user', $id_user);
+		$this->db->where('status =', 'lunas');
+		$this->db->select('nama_cust, SUM(total_transaksi) AS total_transaksi')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('toko', 'user_toko.id_toko = toko.id_toko')
+			->join('user', 'toko.id_user = user.id_user');
 		$this->db->from('transaksi');
+		$this->db->order_by('tggl_transaksi', 'DESC');
 		$this->db->group_by('nama_cust');
 		return $this->db->get()->result();
 	}
