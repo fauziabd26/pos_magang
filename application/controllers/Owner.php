@@ -1292,10 +1292,27 @@ class Owner extends CI_Controller
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);
 	}
 
+	public function detail_laporan_cust($nama_cust)
+	{
+		$getAPI 		= $this->curl->simple_get($this->api . 'detailTransaksi/get_detail_transaksi_by_customer/' . $nama_cust);
+		$datas 			= json_decode($getAPI, true);
+		$getAPITransaksi 			= $this->curl->simple_get($this->api . 'transaksi');
+		$datasTransaksi 				= json_decode($getAPITransaksi, true);
+		$total = 0;
+		foreach ($datas['data'] as $value) {
+			$total += $value['sub_total'];
+		}
+		$data['total'] 	= $total;
+		$data['transaksi'] 	= $datasTransaksi['data'];
+		$data['customers'] = $datas['data'];
+
+		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/detail', $data);
+	}
+
 	public function pdf_customer()
 	{
 
-		$getAPI = $this->curl->simple_get($this->api . 'transaksi');
+		$getAPI = $this->curl->simple_get($this->api . 'transaksi/get_customer_by_owner/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 
 		$cust['customers'] 			= $datas['data'];
