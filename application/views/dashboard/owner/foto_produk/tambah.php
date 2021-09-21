@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for='nominal'>Pilih Produk</label>
                         <div>
-                            <select name="id_produk" class="form-control">test
+                            <select name="id_produk" class="form-control select2">
                                 <?php foreach ($produks as $produk) : ?>
                                 <option value="<?= $produk["id_produk"] ?>"><?= $produk['nama_produk'] ?>
                                 </option>

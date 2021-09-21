@@ -1264,12 +1264,15 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_katalog()
 	{
+		$getAPIproduk = $this->curl->simple_get($this->api . 'produk/' . $_POST['id_produk']);
+		$datasproduk = json_decode($getAPIproduk, true);
 		$data = array(
-			'id_produk' => $_POST['id_produk'],
-			'id_harga' => $_POST['id_harga'],
-			'id_satuan' => $_POST['id_satuan'],
-			'id_kategori' => $_POST['id_kategori'],
-			'nominal' =>  $_POST['nominal']
+			'id_produk' 	=> $_POST['id_produk'],
+			'id_harga' 		=> $_POST['id_harga'],
+			'id_satuan' 	=> $_POST['id_satuan'],
+			'id_kategori' 	=> $_POST['id_kategori'],
+			'nominal' 		=> $_POST['nominal'],
+			'id_toko' 			=> $datasproduk['data']['id_toko'],
 		);
 		$insert = $this->curl->simple_post($this->api . 'KatalogProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
 		if ($insert) {

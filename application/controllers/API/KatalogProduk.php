@@ -74,6 +74,17 @@ class KatalogProduk extends RestController
 		), 200);
 	}
 
+	//Menampilkan Semua Data Katalog Produk Sesuai Toko
+	public function by_id_toko_get($id_toko)
+	{
+		$katalog_produk =  $this->KatalogProdukModel->by_id_toko($id_toko);
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Katalog Produk Berdasarkan Toko Berhasil Diambil',
+			'data' => $katalog_produk
+		), 200);
+	}
+
 	//Menambah data baru
 	function index_post()
 	{
@@ -82,7 +93,8 @@ class KatalogProduk extends RestController
 			'id_harga' 	     => $this->post('id_harga'),
 			'id_satuan'      => $this->post('id_satuan'),
 			'id_kategori'    => $this->post('id_kategori'),
-			'nominal' 		 => $this->post('nominal')
+			'nominal' 		 => $this->post('nominal'),
+			'id_toko' 		 => $this->post('id_toko')
 		);
 
 		if ($this->KatalogProdukModel->save($data)) {
