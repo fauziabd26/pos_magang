@@ -9,7 +9,7 @@
 	</div>
 	<div class="section-body">
 		<div class="card">
-			<form action="#" method="POST">
+			<form action="<?= base_url('owner/proses_ubah_password/' . $admin['id_user']) ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">
