@@ -12,16 +12,16 @@
 		<div class="card">
 			<form action="<?= base_url('owner/proses_edit_admin/' . $admin['id_user']) ?>" method="POST">
 				<div class="card-body">
-				<?php if ($this->session->flashdata('error')) { ?>
-					<div class="alert alert-danger alert-dismissible show fade">
-						<div class="alert-body">
-							<button class="close" data-dismiss="alert">
-								<span>×</span>
-							</button>
-							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+					<?php if ($this->session->flashdata('error')) { ?>
+						<div class="alert alert-danger alert-dismissible show fade">
+							<div class="alert-body">
+								<button class="close" data-dismiss="alert">
+									<span>×</span>
+								</button>
+								<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+							</div>
 						</div>
-					</div>
-				<?php } ?>
+					<?php } ?>
 					<div class="row mb-3">
 						<div class="col">
 							<a href="<?= base_url('owner/admin') ?>" class="btn btn-primary">
@@ -44,8 +44,6 @@
 						<?php echo form_error('no_hp'); ?>
 						<input type="number" id="no_hp" class="form-control" name="no_hp" value="<?= set_value('no_hp', $admin['no_hp']) ?>" autofocus>
 					</div>
-				</div>
-				<div class="card-footer">
 					<a href="<?= base_url('owner/admin_ubah_password/' . $admin["id_user"]) ?>" class="btn btn-outline-primary btn-block">Ubah Password</a>
 					<button class="btn btn-primary btn-block">Update</button>
 				</div>

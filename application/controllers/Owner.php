@@ -21,7 +21,6 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
-
 		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user'));
 		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
@@ -60,6 +59,7 @@ class Owner extends CI_Controller
 				$totalHarga++;
 			}
 			$data['transaksis'] = $datasTransaksi["data"];
+			$data['produks'] = $datas['data'];
 			$data['totalProdukBarang'] = $totalProdukBarang;
 			$data['totalProdukJasa'] = $totalProdukJasa;
 			$data['totalAdmin'] = $totalAdmin;
@@ -416,9 +416,7 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
-
 		$data['tokos'] = $datas['data'];
-
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/tambah', $data);
 	}
 
@@ -427,29 +425,17 @@ class Owner extends CI_Controller
 		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|max_length[255]', array(
 			'required' => 'Barang Wajib Diisi.'
 		));
-		$this->form_validation->set_rules(
-			'jenis',
-			'Jenis',
-			'required',
-			array(
-				'required' => 'Jenis Produk Wajib Diisi.'
-			)
-		);
-		$this->form_validation->set_rules(
-			'id_toko',
-			'Toko',
-			'required',
-			array(
-				'required' => 'Toko Wajib Diisi.'
-			)
-		);
-
+		$this->form_validation->set_rules('jenis', 'Jenis', 'required', array(
+			'required' => 'Jenis Produk Wajib Diisi.'
+		));
+		$this->form_validation->set_rules('id_toko', 'Toko', 'required', array(
+			'required' => 'Toko Wajib Diisi.'
+		));
 		$data = array(
 			'nama_produk' =>  ucwords($_POST['nama_produk']),
 			'jenis' =>  ucfirst($_POST['jenis']),
 			'id_toko' => ucfirst($_POST['id_toko'])
 		);
-
 		if ($this->form_validation->run() === false) {
 			$getAPIToko = $this->curl->simple_get($this->api . 'toko');
 			$datasToko = json_decode($getAPIToko, true);
@@ -469,12 +455,10 @@ class Owner extends CI_Controller
 
 	public function produk_edit($id_produk)
 	{
-
 		$getAPI = $this->curl->simple_get($this->api . 'produk/barang_by_id_user/' . $this->session->userdata('id_user'));
-		$getAPIToko = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
+		$getAPIToko = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datasToko = json_decode($getAPIToko, true);
-
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Produk!'); 
 			window.location.href = '" . base_url('owner/produk') . "'; </script>";
@@ -547,9 +531,7 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
-
 		$data['tokos'] = $datas['data'];
-
 		$this->template->load('layouts/owner/master', 'dashboard/owner/jasa/tambah', $data);
 	}
 
@@ -558,29 +540,17 @@ class Owner extends CI_Controller
 		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|max_length[255]', array(
 			'required' => 'Jasa Wajib Diisi.'
 		));
-		$this->form_validation->set_rules(
-			'jenis',
-			'Jenis',
-			'required',
-			array(
-				'required' => 'Jenis Produk Wajib Diisi.'
-			)
-		);
-		$this->form_validation->set_rules(
-			'id_toko',
-			'Toko',
-			'required',
-			array(
-				'required' => 'Toko Wajib Diisi.'
-			)
-		);
-
+		$this->form_validation->set_rules('jenis', 'Jenis', 'required', array(
+			'required' => 'Jenis Produk Wajib Diisi.'
+		));
+		$this->form_validation->set_rules('id_toko', 'Toko', 'required', array(
+			'required' => 'Toko Wajib Diisi.'
+		));
 		$data = array(
 			'nama_produk' =>  ucwords($_POST['nama_produk']),
 			'jenis' =>  ucfirst($_POST['jenis']),
 			'id_toko' => ucfirst($_POST['id_toko'])
 		);
-
 		if ($this->form_validation->run() === false) {
 			$getAPIToko = $this->curl->simple_get($this->api . 'toko');
 			$datasToko = json_decode($getAPIToko, true);
@@ -600,12 +570,10 @@ class Owner extends CI_Controller
 
 	public function jasa_edit($id_produk)
 	{
-
-		$getAPI = $this->curl->simple_get($this->api . 'produk/jasa/' . $id_produk);
-		$getAPIToko = $this->curl->simple_get($this->api . 'toko');
+		$getAPI = $this->curl->simple_get($this->api . 'produk/jasa_by_id_user/' . $id_produk);
 		$datas = json_decode($getAPI, true);
+		$getAPIToko = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datasToko = json_decode($getAPIToko, true);
-
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Jasa!'); 
 			window.location.href = '" . base_url('owner/produk') . "'; </script>";
@@ -633,14 +601,12 @@ class Owner extends CI_Controller
 			'id_toko' => $_POST['id_toko']
 		);
 		$update = $this->curl->simple_put($this->api . 'produk/jasa', $data, array(CURLOPT_BUFFERSIZE => 10));
-
 		if ($update) {
 			$this->session->set_flashdata('success-edit', "Data Produk Jasa <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
 		} else {
 			$this->session->set_flashdata('info', 'Data Gagal diubah');
 		}
 		redirect('owner/index_jasa');
-		// var_dump($update);
 	}
 
 	public function jasa_hapus($id_produk)
@@ -661,7 +627,7 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function index_foto_produk()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 
 		if (!empty($datas)) {
@@ -675,14 +641,9 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function foto_produk_tambah()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk');
-		$datas = json_decode($getAPI, true);
-		$getAPIProduk = $this->curl->simple_get($this->api . 'produk');
+		$getAPIProduk = $this->curl->simple_get($this->api . 'produk/by_id_user/' . $this->session->userdata('id_user'));
 		$datasProduk = json_decode($getAPIProduk, true);
-
-		$data = array('foto_produks' => $datas["data"]);
 		$data['produks'] = $datasProduk['data'];
-
 		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
 	}
 
@@ -724,11 +685,10 @@ class Owner extends CI_Controller
 
 	public function foto_produk_edit($id_foto_produk)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/' . $id_foto_produk);
-		$getAPIProduk = $this->curl->simple_get($this->api . 'produk/');
+		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/by_id_user/' . $this->session->userdata('id_user') . '/' . $id_foto_produk);
+		$getAPIProduk = $this->curl->simple_get($this->api . 'produk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 		$datasProduk = json_decode($getAPIProduk, true);
-
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Foto Produk!'); 
 			window.location.href = '" . base_url('owner/index_foto_produk') . "'; </script>";
@@ -1147,7 +1107,7 @@ class Owner extends CI_Controller
 	//Bagian Laporan Transaksi
 	public function index_laporan_trans()
 	{
-		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi');
+		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_owner/'.$this->session->userdata('id_user'));
 		$datas 				= json_decode($getAPI, true);
 		$data['transaksi'] 	= $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
@@ -1196,9 +1156,8 @@ class Owner extends CI_Controller
 	//Bagian Laporan Customer
 	public function index_laporan_cust()
 	{
-		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi');
+		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi/get_customer');
 		$datas 			= json_decode($getAPI, true);
-
 		$data['customers'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);
 	}

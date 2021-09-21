@@ -70,8 +70,6 @@
 						<label for='nominal' class="control-label">Nominal</label>
 						<input type="text" id="nominal" class="form-control" name="nominal" placeholder="Masukan Nominal" value="<?= set_value('nominal') ?>">
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Submit</button>
 				</div>
 			</form>

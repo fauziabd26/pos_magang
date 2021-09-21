@@ -88,8 +88,8 @@
 								<?= form_error('photo'); ?>
 							</small>
 						</div>
+						<button class="btn btn-primary btn-block">Submit</button>
 				</div>
-				<button class="btn btn-primary btn-block">Submit</button>
 			</form>
 		</div>
 	</div>
