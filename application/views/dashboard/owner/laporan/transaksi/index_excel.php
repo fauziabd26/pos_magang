@@ -46,8 +46,9 @@
  </head>
  
  <body>
-      <main>
-           <h1>Laporan Excel </h1>
+     <div style="text-align:center">
+          <h3> Laporan Transaksi </h3>
+     </div> <br>
            <p><a href="<?php echo base_url('owner/excel_transaksi_i') ?>">Export ke Excel</a></p>
            <table border="1" width="100%">
                 <thead>
@@ -76,7 +77,6 @@
 					    </tr>
 				    <?php endforeach; ?>
                 </tbody>
-           </table>
-      </main>
+          </table>
  </body>
  </html>

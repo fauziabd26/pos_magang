@@ -1,5 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+// Load library phpspreadsheet
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+//End load library phpspreadsheet
 
 class Owner extends CI_Controller
 {
