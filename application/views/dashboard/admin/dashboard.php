@@ -2,7 +2,6 @@
 	<div class="section-header">
 		<h1>Dashboard Admin</h1>
 	</div>
-
 	<div class="section-body">
 		<div class="row">
 			<div class="col-12">
@@ -22,7 +21,7 @@
 							</div>
 							<div class="card-stats-item">
 								<div class="card-stats-item">
-									<div class="card-stats-item-count"><?= $totalTransaksiProduk + $totalTransaksiJasa ?? '0' ?></div>
+									<div class="card-stats-item-count"><?= $totalTransaksi ?? '0' ?></div>
 									<div class="card-stats-item-label">Total</div>
 								</div>
 							</div>
@@ -30,7 +29,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header justify-content-between">

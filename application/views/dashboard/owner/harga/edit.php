@@ -7,7 +7,6 @@
 			<div class="breadcrumb-item"><?= $harga["nama_harga"] ?></div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
 			<form action="<?= base_url('owner/proses_edit_harga/' . $harga['id_harga']) ?>" method="POST">
@@ -23,8 +22,6 @@
 						<label for='nama_harga'>Nama Harga</label>
 						<input type="text" id="nama_harga" class="form-control" name="nama_harga" value="<?= $harga["nama_harga"] ?>" autofocus>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Update</button>
 				</div>
 			</form>

@@ -11,8 +11,8 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row mb-3">
-					<div class="col">						
-						<a href="<?php echo base_url(). 'owner/pdf_transaksi'; ?>" target="_blank" class="btn btn-outline-danger">
+					<div class="col">
+						<a href="<?php echo base_url() . 'owner/pdf_transaksi'; ?>" target="_blank" class="btn btn-outline-danger">
 							<i class="fas fa-file-pdf"></i> Unduh Laporan
 						</a>
 						
@@ -36,18 +36,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($transaksi as $no => $row) : ?>
-								<tr>
-									<td><?= ++$no ?></td>
-									<td><?= $row["tggl_transaksi"] ?></td>
-									<td><?= $row["nama_cust"] ?></td>
-									<td><?= $row["jenis_transaksi"] ?></td>
-									<td><?= $row["status"] ?></td>
-									<td><?= $row["diskon"] ?></td>
-									<td><?= $row["bayar"] ?></td>
-									<td><?= $row["total_transaksi"] ?></td>
-								</tr>
-							<?php endforeach; ?>
+							<?php if (!empty($transaksi)) { ?>
+								<?php foreach ($transaksi as $no => $row) : ?>
+									<tr>
+										<td><?= ++$no ?></td>
+										<td><?= format_indo($row["tggl_transaksi"]) ?></td>
+										<td><?= $row["nama_cust"] ?></td>
+										<td class="text-capitalize"><?= $row["jenis_transaksi"] ?></td>
+										<td class="text-capitalize"><?= $row["status"] ?></td>
+										<td><?= $row["diskon"] ?? '-' ?></td>
+										<td>Rp<?= number_format($row["bayar"]) ?></td>
+										<td>Rp <?= number_format($row["total_transaksi"]) ?></td>
+									</tr>
+								<?php endforeach; ?>
+							<?php } ?>
 						</tbody>
 					</table>
 				</div>

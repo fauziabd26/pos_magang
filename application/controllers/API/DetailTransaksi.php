@@ -30,19 +30,55 @@ class DetailTransaksi extends RestController
 		}
 	}
 
-	function lastId_get()
+	function get_detail_transaksi_by_customer_get($id_transaksi)
 	{
-		$transaksi = $this->DetailTransaksiModel->lastId();
+		$transaksidetail = $this->DetailTransaksiModel->get_detail_transaksi_by_customer($id_transaksi);
+		if ($transaksidetail) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Detail Berdasarkan Nama Customer Berhasil Diambil',
+				'data' => $transaksidetail
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Detail Berdasarkan Nama Customer Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan Data Transaksi Terakhir Jenis Barang
+	function barang_lastId_get($id_admin)
+	{
+		$transaksi = $this->DetailTransaksiModel->barang_lastId($id_admin);
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,
-				'message' => 'Data Transaksi Terakhir Berhasil Diambil',
+				'message' => 'Data Transaksi Terakhir Jenis Barang Berhasil Diambil',
 				'data' => $transaksi
 			), 200);
 		} else {
 			$this->response(array(
 				'status' => false,
-				'message' => 'Data Transaksi Terakhir Tidak Ada',
+				'message' => 'Data Transaksi Terakhir Jenis Barang Tidak Ada',
+			), 404);
+		}
+	}
+
+	//Menampilkan Data Transaksi Terakhir Jenis Jasa
+	function jasa_lastId_get($id_admin)
+	{
+		$transaksi = $this->DetailTransaksiModel->jasa_lastId($id_admin);
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Terakhir Jenis Jasa Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Terakhir Jenis Jasa Tidak Ada',
 			), 404);
 		}
 	}
@@ -55,7 +91,7 @@ class DetailTransaksi extends RestController
 	function get_transaksi_by_id_user_get($id_user, $id_transaksi = null)
 	{
 		if (!empty($id_transaksi)) {
-			$detail_transaksi = $this->DetailTransaksiModel->get_transaksi_by_id_user($id_user, $id_transaksi)->row();
+			$detail_transaksi = $this->DetailTransaksiModel->get_transaksi_by_id_user($id_user, $id_transaksi)->result();
 		} else {
 			$detail_transaksi = $this->DetailTransaksiModel->get_transaksi_by_id_user($id_user)->result();
 		}
@@ -286,8 +322,8 @@ class DetailTransaksi extends RestController
 	function tambah_transaksi_post()
 	{
 		$dataTransaksi = array(
-			'id_user_toko'   		=> $this->post('id_user_toko'),
-			'jenis_transaksi'	=> 'barang',
+			'id_user_toko'   	=> $this->post('id_user_toko'),
+			'jenis_transaksi'	=> $this->post('jenis_transaksi'),
 			'total_transaksi'   => $this->post('total_transaksi'),
 			'status'			=> $this->post('status'),
 			'tggl_transaksi'	=> $this->post('tggl_transaksi'),

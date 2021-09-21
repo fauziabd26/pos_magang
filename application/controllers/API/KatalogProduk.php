@@ -30,16 +30,31 @@ class KatalogProduk extends RestController
 	}
 
 	//Menampilkan Semua Data Katalog Berdasarkan Barang
-	function barang_get($id_detail_produk = null)
+	function barang_by_toko_get($id_toko, $id_detail_produk = null)
 	{
 		if (!empty($id_detail_produk)) {
-			$katalog_produk = $this->KatalogProdukModel->get_barang($id_detail_produk)->row();
+			$katalog_produk = $this->KatalogProdukModel->get_barang_by_toko($id_toko, $id_detail_produk)->row();
 		} else {
-			$katalog_produk =  $this->KatalogProdukModel->get_barang()->result();
+			$katalog_produk =  $this->KatalogProdukModel->get_barang_by_toko($id_toko)->result();
 		}
 		$this->response(array(
 			'status' => true,
 			'message' => 'Data Katalog Produk Jenis Barang Berhasil Diambil',
+			'data' => $katalog_produk
+		), 200);
+	}
+
+	//Menampilkan Semua Data Katalog Berdasarkan Jasa
+	function jasa_by_toko_get($id_toko, $id_detail_produk = null)
+	{
+		if (!empty($id_detail_produk)) {
+			$katalog_produk = $this->KatalogProdukModel->get_jasa_by_toko($id_toko, $id_detail_produk)->row();
+		} else {
+			$katalog_produk =  $this->KatalogProdukModel->get_jasa_by_toko($id_toko)->result();
+		}
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Katalog Produk Jenis Jasa Berhasil Diambil',
 			'data' => $katalog_produk
 		), 200);
 	}
@@ -59,6 +74,17 @@ class KatalogProduk extends RestController
 		), 200);
 	}
 
+	//Menampilkan Semua Data Katalog Produk Sesuai Toko
+	public function by_id_toko_get($id_toko)
+	{
+		$katalog_produk =  $this->KatalogProdukModel->by_id_toko($id_toko);
+		$this->response(array(
+			'status' => true,
+			'message' => 'Data Katalog Produk Berdasarkan Toko Berhasil Diambil',
+			'data' => $katalog_produk
+		), 200);
+	}
+
 	//Menambah data baru
 	function index_post()
 	{
@@ -67,7 +93,8 @@ class KatalogProduk extends RestController
 			'id_harga' 	     => $this->post('id_harga'),
 			'id_satuan'      => $this->post('id_satuan'),
 			'id_kategori'    => $this->post('id_kategori'),
-			'nominal' 		 => $this->post('nominal')
+			'nominal' 		 => $this->post('nominal'),
+			'id_toko' 		 => $this->post('id_toko')
 		);
 
 		if ($this->KatalogProdukModel->save($data)) {

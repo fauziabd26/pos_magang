@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -69,5 +69,3 @@ $route['owner/admin/proses_tambah'] = 'owner/proses_tambah_admin';
 $route['owner/admin/edit/(:num)'] = 'owner/admin_edit/$1';
 $route['owner/admin/proses_edit/(:num)'] = 'owner/proses_edit_admin/$1';
 // $route['owner/admin/hapus/(:num)'] = 'owner/admin_hapus/$1';
-
-

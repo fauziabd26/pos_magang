@@ -5,7 +5,6 @@ class TransaksiModel extends CI_Model
 {
 	private $table = 'transaksi';
 
-
 	//Menampilkan Data Transaksi Lunas sesuai Owner
 	public function get_transaksi_lunas_by_owner($id_user)
 	{
@@ -16,13 +15,31 @@ class TransaksiModel extends CI_Model
 			->join('toko', 'user_toko.id_toko = toko.id_toko')
 			->join('user', 'toko.id_user = user.id_user');
 		$this->db->from('transaksi');
+		$this->db->order_by('tggl_transaksi', 'DESC');
 		return $this->db->get();
 	}
 
-	//Menampilkan Data Transaksi Belum Lunas sesuai Admin
-	public function get_transaksi_belum_lunas_by_id_user($id_user)
+	//Menampilkan Data Transaksi Jenis Barang Belum Lunas sesuai Admin
+	public function get_transaksi_barang_belum_lunas_by_id_user($id_user)
 	{
 		$this->db->where('user.id_user', $id_user);
+		$this->db->where('jenis_transaksi =', 'barang');
+		$this->db->where('status =', 'belum lunas');
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, user.id_user, user.nama, toko.id_toko, toko.nama_toko')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('toko', 'user_toko.id_toko = toko.id_toko')
+			->join('user', 'user_toko.id_user = user.id_user');
+		$this->db->from('transaksi');
+		$this->db->order_by('id_transaksi', 'DESC');
+		$this->db->limit(1);
+		return $this->db->get()->row();
+	}
+
+	//Menampilkan Data Transaksi Jenis Jasa Belum Lunas sesuai Admin
+	public function get_transaksi_jasa_belum_lunas_by_id_user($id_user)
+	{
+		$this->db->where('user.id_user', $id_user);
+		$this->db->where('jenis_transaksi =', 'jasa');
 		$this->db->where('status =', 'belum lunas');
 		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, user.id_user, user.nama, toko.id_toko, toko.nama_toko')
 			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
@@ -50,7 +67,7 @@ class TransaksiModel extends CI_Model
 	{
 		$this->db->where('user.id_user', $id_user);
 		$this->db->where('status =', 'lunas');
-		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, user.id_user, user.nama, toko.id_toko, toko.nama_toko')
+		$this->db->select('id_transaksi, nama_cust, diskon, total_transaksi, status, bayar, jenis_transaksi, tggl_transaksi, user.id_user, user.nama, toko.id_toko, toko.nama_toko, toko.alamat')
 			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
 			->join('toko', 'user_toko.id_toko = toko.id_toko')
 			->join('user', 'user_toko.id_user = user.id_user');
@@ -84,6 +101,21 @@ class TransaksiModel extends CI_Model
 			$this->db->where('id_transaksi', $id_transaksi);
 		}
 		return $this->db->get();
+	}
+
+	//Menampilkan Data Transaksi Sesuai Nama Customer
+	public function get_customer_by_owner($id_user)
+	{
+		$this->db->where('user.id_user', $id_user);
+		$this->db->where('status =', 'lunas');
+		$this->db->select('nama_cust, SUM(total_transaksi) AS total_transaksi')
+			->join('user_toko', 'transaksi.id_user_toko = user_toko.id_user_toko')
+			->join('toko', 'user_toko.id_toko = toko.id_toko')
+			->join('user', 'toko.id_user = user.id_user');
+		$this->db->from('transaksi');
+		$this->db->order_by('tggl_transaksi', 'DESC');
+		$this->db->group_by('nama_cust');
+		return $this->db->get()->result();
 	}
 
 	//Simpan Data 
