@@ -35,13 +35,13 @@
 							<?php foreach ($transaksi as $no => $row) : ?>
 								<tr>
 									<td><?= ++$no ?></td>
-									<td><?= $row["tggl_transaksi"] ?></td>
+									<td><?= format_indo($row["tggl_transaksi"]) ?></td>
 									<td><?= $row["nama_cust"] ?></td>
-									<td><?= $row["jenis_transaksi"] ?></td>
-									<td><?= $row["status"] ?></td>
-									<td><?= $row["diskon"] ?></td>
-									<td><?= $row["bayar"] ?></td>
-									<td><?= $row["total_transaksi"] ?></td>
+									<td class="text-capitalize"><?= $row["jenis_transaksi"] ?></td>
+									<td class="text-capitalize"><?= $row["status"] ?></td>
+									<td><?= $row["diskon"] ?? '-' ?></td>
+									<td>Rp<?= number_format($row["bayar"]) ?></td>
+									<td>Rp <?= number_format($row["total_transaksi"]) ?></td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>

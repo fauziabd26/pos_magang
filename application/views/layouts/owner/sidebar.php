@@ -23,12 +23,12 @@
 					<i class="fas fa-user"></i> <span>Data Admin</span>
 				</a>
 			</li>
-			<li <?= $this->uri->segment(2) == 'index_satuan' || $this->uri->segment(2) == 'satuan_tambah' ? 'class=active' : '' ?>>
+			<li <?= $this->uri->segment(2) == 'index_satuan' || $this->uri->segment(2) == 'satuan_tambah' || $this->uri->segment(2) == 'satuan_edit' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/index_satuan') ?>">
 					<i class="fas fa-clipboard-list"></i> <span>Data Satuan</span>
 				</a>
 			</li>
-			<li <?= $this->uri->segment(2) == 'index_kategori' || $this->uri->segment(2) == 'kategori_tambah' ? 'class=active' : '' ?>>
+			<li <?= $this->uri->segment(2) == 'index_kategori' || $this->uri->segment(2) == 'kategori_tambah' || $this->uri->segment(2) == 'kategori_edit' ? 'class=active' : '' ?>>
 				<a class="nav-link" href="<?= base_url('owner/index_kategori') ?>">
 					<i class="fas fa-clipboard-list"></i> <span>Data Kategori</span>
 				</a>

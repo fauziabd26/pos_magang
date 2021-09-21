@@ -148,6 +148,29 @@ class Admin extends RestController
 		}
 	}
 
+	function ubah_password_put()
+	{
+		$id_user    = $this->put('id_user');
+		$data       = array(
+			'password'      => password_hash($this->put('password'), PASSWORD_BCRYPT),
+		);
+
+		$this->db->where('id_user', $id_user);
+		$update = $this->db->update('user', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Password Admin Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Password Admin'
+			), 502);
+		}
+	}
+
 	//Memperbarui data Admin yang telah ada
 	function index_put()
 	{
@@ -156,6 +179,7 @@ class Admin extends RestController
 			'nama'          => $this->put('nama'),
 			'email'         => $this->put('email'),
 			'no_hp'         => $this->put('no_hp'),
+			'photo'         => $this->put('photo'),
 			'role'          => "admin"
 		);
 

@@ -7,10 +7,9 @@
 			<div class="breadcrumb-item">Ubah Password Admin</div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
-			<form action="#" method="POST">
+			<form action="<?= base_url('owner/proses_ubah_password/' . $admin['id_user']) ?>" method="POST">
 				<div class="card-body">
 					<div class="row mb-3">
 						<div class="col">
@@ -29,8 +28,6 @@
 							<input id="password_confirm" type="password" class="form-control" name="password_confirm" placeholder='Masukkan Password Confirmation'>
 						</div>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Update Password</button>
 				</div>
 			</form>

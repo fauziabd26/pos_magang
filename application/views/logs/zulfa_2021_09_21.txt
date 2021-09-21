@@ -1,0 +1,2 @@
+jam 09.00 - 12.00 : memperbaiki semua validasi di controller
+jam 13.00 - 16.00 : memperbaiki error pada edit foto admin dan produk

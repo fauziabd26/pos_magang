@@ -7,7 +7,6 @@
 			<div class="breadcrumb-item">Tambah Data Produk Jasa</div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
 			<form action="<?= base_url('owner/proses_tambah_jasa') ?>" method="POST">
@@ -30,33 +29,30 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for='nama_produk' class="col-lg-5 col-sm-5 control-label">Nama Jasa</label>
+						<label for='nama_produk' class="control-label">Nama Jasa</label>
 						<input type="text" id="nama_produk" class="form-control" name="nama_produk" placeholder="Masukan Nama Produk" autofocus>
 						<small class="text-danger font-weight-bold">
 							<?php echo form_error('nama_produk'); ?>
 						</small>
 					</div>
 					<div class="form-group">
-						<label for='jenis' class="col-lg-5 col-sm-5 control-label">Jenis Produk</label>
+						<label for='jenis' class="control-label">Jenis Produk</label>
 						<input type="text" id="jenis" class="form-control" name="jenis" value="Jasa" readonly>
 					</div>
 					<div class="form-group">
-						<label for='nominal' class="col-lg-5 col-sm-5 control-label">Pilih Toko</label>
-						<div class="col-lg-10">
-							<select name="id_toko" class="form-control">
-								<?php foreach ($tokos as $toko) : ?>
-									<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?>
-									</option>
-								<?php endforeach; ?>
-							</select>
-							<small class="text-danger font-weight-bold">
-								<?php echo form_error('id_toko'); ?>
-							</small>
-						</div>
+						<label for='nominal' class="control-label">Pilih Toko</label>
+						<select name="id_toko" class="form-control">
+							<?php foreach ($tokos as $toko) : ?>
+								<option value="<?= $toko["id_toko"] ?>"><?= $toko['nama_toko'] ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+						<small class="text-danger font-weight-bold">
+							<?php echo form_error('id_toko'); ?>
+						</small>
 					</div>
-					<div class="card-footer">
-						<button class="btn btn-primary btn-block">Submit</button>
-					</div>
+					<button class="btn btn-primary btn-block">Submit</button>
+				</div>
 			</form>
 		</div>
 	</div>

@@ -5,7 +5,6 @@ class TransaksiModel extends CI_Model
 {
 	private $table = 'transaksi';
 
-
 	//Menampilkan Data Transaksi Lunas sesuai Owner
 	public function get_transaksi_lunas_by_owner($id_user)
 	{
@@ -16,6 +15,7 @@ class TransaksiModel extends CI_Model
 			->join('toko', 'user_toko.id_toko = toko.id_toko')
 			->join('user', 'toko.id_user = user.id_user');
 		$this->db->from('transaksi');
+		$this->db->order_by('tggl_transaksi', 'DESC');
 		return $this->db->get();
 	}
 
@@ -101,6 +101,15 @@ class TransaksiModel extends CI_Model
 			$this->db->where('id_transaksi', $id_transaksi);
 		}
 		return $this->db->get();
+	}
+
+	//Menampilkan Data Transaksi Sesuai Nama Customer
+	public function get_customer()
+	{
+		$this->db->select('nama_cust, SUM(total_transaksi) AS total_transaksi');
+		$this->db->from('transaksi');
+		$this->db->group_by('nama_cust');
+		return $this->db->get()->result();
 	}
 
 	//Simpan Data 

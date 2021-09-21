@@ -11,7 +11,7 @@
 		<div class="card">
 			<form action="<?= base_url('owner/proses_tambah_satuan') ?>" method="POST">
 				<div class="card-body">
-				<?php if ($this->session->flashdata('error')) { ?>
+					<?php if ($this->session->flashdata('error')) { ?>
 						<div class="alert alert-danger alert-dismissible show fade">
 							<div class="alert-body">
 								<button class="close" data-dismiss="alert">
@@ -35,8 +35,6 @@
 							<?php echo form_error('nama_satuan'); ?>
 						</small>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Submit</button>
 				</div>
 			</form>

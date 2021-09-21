@@ -21,7 +21,6 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'katalogProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
-
 		$getAPIAdmin = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user'));
 		$datasAdmin = json_decode($getAPIAdmin, true);
 		$getAPIKategori = $this->curl->simple_get($this->api . 'kategori/by_id_user/' . $this->session->userdata('id_user'));
@@ -60,6 +59,7 @@ class Owner extends CI_Controller
 				$totalHarga++;
 			}
 			$data['transaksis'] = $datasTransaksi["data"];
+			$data['produks'] = $datas['data'];
 			$data['totalProdukBarang'] = $totalProdukBarang;
 			$data['totalProdukJasa'] = $totalProdukJasa;
 			$data['totalAdmin'] = $totalAdmin;
@@ -186,6 +186,28 @@ class Owner extends CI_Controller
 				} else {
 					die("gagal upload");
 				}
+			} 
+			else {
+				$data = array(
+					'nama'      		=> $_POST['nama'],
+					'email'      		=> $_POST['email'],
+					'no_hp'      		=> $_POST['no_hp'],
+				);
+				
+				$this->curl->simple_post($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+				$getAPILastAdmin = $this->curl->simple_get($this->api . 'admin/last_admin');
+					$datasLastAdmin = json_decode($getAPILastAdmin, true);
+					$data2 = array(
+						'id_user'     => $datasLastAdmin['data']['id_user'],
+						'id_toko'     => $_POST['id_toko'],
+					);
+				$insert = $this->curl->simple_post($this->api . 'UserToko', $data2, array(CURLOPT_BUFFERSIZE => 10));
+				if ($insert) {
+					$this->session->set_flashdata('success', "Data <b>" . $_POST['nama'] . "</b> Berhasil Ditambah !");
+				} else {
+					$this->session->set_flashdata('error', 'Data Gagal diubah');
+				}
+				redirect('owner/admin/');
 			}
 		}
 	}
@@ -212,6 +234,9 @@ class Owner extends CI_Controller
 					window.location.href = '" . base_url('owner/toko') . "'; </script>";
 				}
 			}
+			$getAPI = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
+			$datas = json_decode($getAPI, true);
+			$data['tokos'] = $datas['data'];
 			$data['admin'] = $value;
 			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/edit', $data);
 		}
@@ -219,43 +244,92 @@ class Owner extends CI_Controller
 
 	public function proses_edit_admin($id_user)
 	{
-		$data = array(
-			'id_user' =>  $id_user,
-			'nama' => $_POST["nama"],
-			'email' => $_POST["email"],
-			'no_hp' => $_POST["no_hp"],
-		);
-
-		$getAPI = $this->curl->simple_get($this->api . 'admin/cek_email/' . $id_user);
+		$getAPI = $this->curl->simple_get($this->api . 'admin/' . $id_user);
 		$datas = json_decode($getAPI, true);
 
-		foreach ($datas['data'] as $row) {
-			if ($row['email'] == $data['email']) {
-				$this->session->set_flashdata('error', "Email Sudah Ada !");
-				redirect('owner/admin_edit/' . $id_user);
+		$path = './assets/img/user/';
+
+		$config['upload_path'] = './assets/img/user';
+		$config['allowed_types'] = 'jpg|png|jpeg|gif';
+		$config['max_size'] = '2048';  //2MB max
+		$config['max_width'] = '4480'; // pixel
+		$config['max_height'] = '4480'; // pixel
+		$config['file_name'] = $_FILES['photo']['name'];
+
+		$this->upload->initialize($config);
+		if (!empty($_FILES['photo']['name'])) {
+			if ($this->upload->do_upload('photo')) {
+				$foto = $this->upload->data();
+				$data = array(
+					'id_user'			=> $id_user,
+					'nama'      		=> $_POST['nama'],
+					'email'      		=> $_POST['email'],
+					'no_hp'      		=> $_POST['no_hp'],
+					'photo'  			=> $foto['file_name'],
+				);
+
+				@unlink($path.$datas['data']['photo']);
+				$this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+				$getAPILastAdmin = $this->curl->simple_get($this->api . 'admin/by_admin_toko/'.$this->session->userdata('id_user').'/'.$id_user);
+				$datasLastAdmin = json_decode($getAPILastAdmin, true);
+				$data2 = array(
+					'id_user'     => $datasLastAdmin['data']['id_user'],
+					'id_toko'     => $_POST['id_toko'],
+				);
+				$update = $this->curl->simple_put($this->api . 'UserToko', $data2, array(CURLOPT_BUFFERSIZE => 10));
+				if ($update) {
+					$this->session->set_flashdata('success', "Data <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
+				} else {
+					$this->session->set_flashdata('error', 'Data Gagal diubah');
+				}
+				redirect('owner/admin/' . $id_user);
+			} else {
+				die("gagal upload");
 			}
-		}
-		$getadmin = $this->curl->simple_get($this->api . 'admin/cek_email');
-		$datasadmin = json_decode($getadmin, true);
-
-		if ($datas['email'] == $data['email']) {
-			// $this->session->set_flashdata('error', "Email kamu sama !");
-			// redirect('owner/admin_edit/'.$id_user);
-			if ($datasadmin['email'] == $data['email']) {
-				$this->session->set_flashdata('error', "Email Sudah Ada !");
-				redirect('owner/admin_edit/' . $id_user);
-			}
-		}
-
-		$update = $this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
-
-		if ($update) {
-			$this->session->set_flashdata('success', "Data Admin <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
 		} else {
-			$this->session->set_flashdata('error', 'Gagal, Email Sudah Terdaftar !');
-			redirect('owner/admin/edit/' . $id_user);
+			$data = array(
+				'id_user'			=> $id_user,
+				'nama'      		=> $_POST['nama'],
+				'email'      		=> $_POST['email'],
+				'no_hp'      		=> $_POST['no_hp'],
+				'photo'  			=> $datas['data']['photo'],
+			);
+
+			$getAPI = $this->curl->simple_get($this->api . 'admin/cek_email/' . $id_user);
+			$datas = json_decode($getAPI, true);
+
+			foreach ($datas['data'] as $row) {
+				if ($row['email'] == $data['email']) {
+					$this->session->set_flashdata('error', "Email Sudah Ada !");
+					redirect('owner/admin_edit/' . $id_user);
+				}
+			}
+			$getadmin = $this->curl->simple_get($this->api . 'admin/cek_email');
+			$datasadmin = json_decode($getadmin, true);
+
+			if ($datas['email'] == $data['email']) {
+				// $this->session->set_flashdata('error', "Email kamu sama !");
+				// redirect('owner/admin_edit/'.$id_user);
+				if ($datasadmin['email'] == $data['email']) {
+					$this->session->set_flashdata('error', "Email Sudah Ada !");
+					redirect('owner/admin_edit/' . $id_user);
+				}
+			}
+			$this->curl->simple_put($this->api . 'admin', $data, array(CURLOPT_BUFFERSIZE => 10));
+			$getAPILastAdmin = $this->curl->simple_get($this->api . 'admin/by_admin_toko/'.$this->session->userdata('id_user').'/'.$id_user);
+			$datasLastAdmin = json_decode($getAPILastAdmin, true);
+			$data2 = array(
+				'id_user'     => $datasLastAdmin['data']['id_user'],
+				'id_toko'     => $_POST['id_toko'],
+			);
+			$update = $this->curl->simple_put($this->api . 'UserToko', $data2, array(CURLOPT_BUFFERSIZE => 10));
+			if ($update) {
+				$this->session->set_flashdata('success', "Data <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
+			} else {
+				$this->session->set_flashdata('error', 'Data Gagal diubah');
+			}
+			redirect('owner/admin/');
 		}
-		redirect('owner/admin');
 	}
 
 	public function admin_hapus($id_user)
@@ -273,9 +347,44 @@ class Owner extends CI_Controller
 		}
 	}
 
-	public function admin_ubah_password($id_user)
+	public function admin_ubah_password($id_admin)
 	{
-		$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password');
+		$getAPI = $this->curl->simple_get($this->api . 'admin/by_admin_toko/' . $this->session->userdata('id_user') . '/' . $id_admin);
+		$datas = json_decode($getAPI, true);
+		if ($getAPI == false) {
+			echo "<script> alert('Tidak Ada Data Admin!'); 
+			window.location.href = '" . base_url('owner/admin') . "'; </script>";
+		} else {
+			if ($datas['data']['id_owner'] == $this->session->userdata('id_user')) {
+				if ($datas['data']['id_user'] == $id_admin) {
+					$value = array(
+						'id_user' => $datas['data']["id_user"],
+						'password' => $datas['data']["password"],
+					);
+				} else {
+					echo "<script> alert('Anda Tidak Memiliki Hak Akses !'); 
+					window.location.href = '" . base_url('owner/toko') . "'; </script>";
+				}
+			}
+			$data['admin'] = $value;
+			$this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password', $data);
+		}
+		// $this->template->load('layouts/owner/master', 'dashboard/owner/admin/ubah_password');
+	}
+
+	public function proses_ubah_password($id_user)
+	{
+		$data = array(
+			'id_user' =>  $id_user,
+			'password' => $_POST['password']
+		);
+		$update = $this->curl->simple_put($this->api . 'admin/ubah_password', $data, array(CURLOPT_BUFFERSIZE => 10));
+		if ($update) {
+			$this->session->set_flashdata('success', "Ubah Password <b>" . $_POST['nama'] . "</b> Berhasil Diedit !");
+		} else {
+			$this->session->set_flashdata('info', 'Ubah Password Gagal diubah');
+		}
+		redirect('owner/admin');
 	}
 
 	// Bagian Toko
@@ -311,7 +420,7 @@ class Owner extends CI_Controller
 			'required' => 'Alamat Wajib Diisi'
 		));
 		$this->form_validation->set_rules('foto_toko', 'Dokumen Foto', 'required', array(
-			'required' => 'Dokumen Foto Wajib Diisi'
+			'required' => 'Dokumen Toko Wajib Diisi'
 		));
 
 		$data = array(
@@ -416,9 +525,7 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
-
 		$data['tokos'] = $datas['data'];
-
 		$this->template->load('layouts/owner/master', 'dashboard/owner/produk/tambah', $data);
 	}
 
@@ -427,29 +534,17 @@ class Owner extends CI_Controller
 		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|max_length[255]', array(
 			'required' => 'Barang Wajib Diisi.'
 		));
-		$this->form_validation->set_rules(
-			'jenis',
-			'Jenis',
-			'required',
-			array(
-				'required' => 'Jenis Produk Wajib Diisi.'
-			)
-		);
-		$this->form_validation->set_rules(
-			'id_toko',
-			'Toko',
-			'required',
-			array(
-				'required' => 'Toko Wajib Diisi.'
-			)
-		);
-
+		$this->form_validation->set_rules('jenis', 'Jenis', 'required', array(
+			'required' => 'Jenis Produk Wajib Diisi.'
+		));
+		$this->form_validation->set_rules('id_toko', 'Toko', 'required', array(
+			'required' => 'Toko Wajib Diisi.'
+		));
 		$data = array(
 			'nama_produk' =>  ucwords($_POST['nama_produk']),
 			'jenis' =>  ucfirst($_POST['jenis']),
 			'id_toko' => ucfirst($_POST['id_toko'])
 		);
-
 		if ($this->form_validation->run() === false) {
 			$getAPIToko = $this->curl->simple_get($this->api . 'toko');
 			$datasToko = json_decode($getAPIToko, true);
@@ -469,12 +564,10 @@ class Owner extends CI_Controller
 
 	public function produk_edit($id_produk)
 	{
-
 		$getAPI = $this->curl->simple_get($this->api . 'produk/barang_by_id_user/' . $this->session->userdata('id_user'));
-		$getAPIToko = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
+		$getAPIToko = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datasToko = json_decode($getAPIToko, true);
-
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Produk!'); 
 			window.location.href = '" . base_url('owner/produk') . "'; </script>";
@@ -547,9 +640,7 @@ class Owner extends CI_Controller
 	{
 		$getAPI = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
-
 		$data['tokos'] = $datas['data'];
-
 		$this->template->load('layouts/owner/master', 'dashboard/owner/jasa/tambah', $data);
 	}
 
@@ -558,29 +649,17 @@ class Owner extends CI_Controller
 		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|max_length[255]', array(
 			'required' => 'Jasa Wajib Diisi.'
 		));
-		$this->form_validation->set_rules(
-			'jenis',
-			'Jenis',
-			'required',
-			array(
-				'required' => 'Jenis Produk Wajib Diisi.'
-			)
-		);
-		$this->form_validation->set_rules(
-			'id_toko',
-			'Toko',
-			'required',
-			array(
-				'required' => 'Toko Wajib Diisi.'
-			)
-		);
-
+		$this->form_validation->set_rules('jenis', 'Jenis', 'required', array(
+			'required' => 'Jenis Produk Wajib Diisi.'
+		));
+		$this->form_validation->set_rules('id_toko', 'Toko', 'required', array(
+			'required' => 'Toko Wajib Diisi.'
+		));
 		$data = array(
 			'nama_produk' =>  ucwords($_POST['nama_produk']),
 			'jenis' =>  ucfirst($_POST['jenis']),
 			'id_toko' => ucfirst($_POST['id_toko'])
 		);
-
 		if ($this->form_validation->run() === false) {
 			$getAPIToko = $this->curl->simple_get($this->api . 'toko');
 			$datasToko = json_decode($getAPIToko, true);
@@ -600,12 +679,10 @@ class Owner extends CI_Controller
 
 	public function jasa_edit($id_produk)
 	{
-
-		$getAPI = $this->curl->simple_get($this->api . 'produk/jasa/' . $id_produk);
-		$getAPIToko = $this->curl->simple_get($this->api . 'toko');
+		$getAPI = $this->curl->simple_get($this->api . 'produk/jasa_by_id_user/' . $id_produk);
 		$datas = json_decode($getAPI, true);
+		$getAPIToko = $this->curl->simple_get($this->api . 'toko/by_id_user_valid/' . $this->session->userdata('id_user'));
 		$datasToko = json_decode($getAPIToko, true);
-
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Jasa!'); 
 			window.location.href = '" . base_url('owner/produk') . "'; </script>";
@@ -633,14 +710,12 @@ class Owner extends CI_Controller
 			'id_toko' => $_POST['id_toko']
 		);
 		$update = $this->curl->simple_put($this->api . 'produk/jasa', $data, array(CURLOPT_BUFFERSIZE => 10));
-
 		if ($update) {
 			$this->session->set_flashdata('success-edit', "Data Produk Jasa <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
 		} else {
 			$this->session->set_flashdata('info', 'Data Gagal diubah');
 		}
 		redirect('owner/index_jasa');
-		// var_dump($update);
 	}
 
 	public function jasa_hapus($id_produk)
@@ -661,7 +736,7 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function index_foto_produk()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk');
+		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 
 		if (!empty($datas)) {
@@ -675,14 +750,9 @@ class Owner extends CI_Controller
 	// Bagian Foto Produk
 	public function foto_produk_tambah()
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk');
-		$datas = json_decode($getAPI, true);
-		$getAPIProduk = $this->curl->simple_get($this->api . 'produk');
+		$getAPIProduk = $this->curl->simple_get($this->api . 'produk/by_id_user/' . $this->session->userdata('id_user'));
 		$datasProduk = json_decode($getAPIProduk, true);
-
-		$data = array('foto_produks' => $datas["data"]);
 		$data['produks'] = $datasProduk['data'];
-
 		$this->template->load('layouts/owner/master', 'dashboard/owner/foto_produk/tambah', $data);
 	}
 
@@ -724,11 +794,10 @@ class Owner extends CI_Controller
 
 	public function foto_produk_edit($id_foto_produk)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/' . $id_foto_produk);
-		$getAPIProduk = $this->curl->simple_get($this->api . 'produk/');
+		$getAPI = $this->curl->simple_get($this->api . 'fotoProduk/by_id_user/' . $this->session->userdata('id_user') . '/' . $id_foto_produk);
+		$getAPIProduk = $this->curl->simple_get($this->api . 'produk/by_id_user/' . $this->session->userdata('id_user'));
 		$datas = json_decode($getAPI, true);
 		$datasProduk = json_decode($getAPIProduk, true);
-
 		if ($getAPI == false) {
 			echo "<script> alert('Tidak Ada Data Foto Produk!'); 
 			window.location.href = '" . base_url('owner/index_foto_produk') . "'; </script>";
@@ -749,8 +818,10 @@ class Owner extends CI_Controller
 
 	public function proses_edit_fotoProduk($id_foto_produk)
 	{
-		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk/' . $this->session->userdata('id_user'));
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk/' . $id_foto_produk);
 		$datas = json_decode($getAPI, true);
+
+		$path = './assets/img/products/';
 
 		$config['upload_path'] = './assets/img/products';
 		$config['allowed_types'] = 'jpg|png|jpeg|gif';
@@ -768,6 +839,8 @@ class Owner extends CI_Controller
 					'id_produk'      	=> $_POST['id_produk'],
 					'nama_foto_produk'  => $foto['file_name'],
 				);
+
+				@unlink($path.$datas['data']['nama_foto_produk']);
 				$update = $this->curl->simple_put($this->api . 'FotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
 				if ($update) {
 					$this->session->set_flashdata('success', "Data <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
@@ -794,11 +867,13 @@ class Owner extends CI_Controller
 		}
 	}
 
-	public function fotoProduk_hapus($id_foto_produk)
+	public function fotoProduk_hapus($id_foto_produk,$foto)
 	{
 		if (empty($id_foto_produk)) {
 			redirect('owner/index_foto_produk');
 		} else {
+			$path = './assets/img/products/';
+			@unlink($path.$foto);
 			$delete = $this->curl->simple_delete($this->api . 'FotoProduk', array('id_foto_produk' => $id_foto_produk), array(CURLOPT_BUFFERSIZE => 10));
 			if ($delete) {
 				$this->session->set_flashdata('success', "Data Terhapus !");
@@ -1162,7 +1237,7 @@ class Owner extends CI_Controller
 	//Bagian Laporan Transaksi
 	public function index_laporan_trans()
 	{
-		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi');
+		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_owner/'.$this->session->userdata('id_user'));
 		$datas 				= json_decode($getAPI, true);
 		$data['transaksi'] 	= $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
@@ -1211,9 +1286,8 @@ class Owner extends CI_Controller
 	//Bagian Laporan Customer
 	public function index_laporan_cust()
 	{
-		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi');
+		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi/get_customer');
 		$datas 			= json_decode($getAPI, true);
-
 		$data['customers'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);
 	}

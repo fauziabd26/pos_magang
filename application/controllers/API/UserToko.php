@@ -51,4 +51,27 @@ class UserToko extends RestController
 			), 502);
 		}
 	}
+
+	function index_put()
+	{
+		$id_user    = $this->put('id_user');
+		$data       = array(
+			'id_toko'          => $this->put('id_toko')
+		);
+
+		$this->db->where('id_user', $id_user);
+		$update = $this->db->update('user', $data);
+		if ($update) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Admin Berhasil Diedit',
+				'data' => $data
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Gagal Mengedit Data Admin'
+			), 502);
+		}
+	}
 }
