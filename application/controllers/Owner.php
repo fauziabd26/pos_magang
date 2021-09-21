@@ -649,9 +649,9 @@ class Owner extends CI_Controller
 
 	public function proses_tambah_fotoProduk()
 	{
-		$this->form_validation->set_rules('nama_foto_produk', 'Foto Produk', 'required|max_length[255]', array(
-			'required' => 'Foto Produk Harga Wajib Diisi.'
-		));
+		// $this->form_validation->set_rules('nama_foto_produk', 'Foto Produk', 'required|max_length[255]', array(
+		// 	'required' => 'Foto Produk Harga Wajib Diisi.'
+		// ));
 
 		$config['upload_path'] = './assets/img/products';
 		$config['allowed_types'] = 'jpg|png|jpeg|gif';
@@ -709,6 +709,9 @@ class Owner extends CI_Controller
 
 	public function proses_edit_fotoProduk($id_foto_produk)
 	{
+		$getAPI = $this->curl->simple_get($this->api . 'FotoProduk/' . $this->session->userdata('id_user'));
+		$datas = json_decode($getAPI, true);
+
 		$config['upload_path'] = './assets/img/products';
 		$config['allowed_types'] = 'jpg|png|jpeg|gif';
 		$config['max_size'] = '2048';  //2MB max
@@ -722,36 +725,48 @@ class Owner extends CI_Controller
 				$foto = $this->upload->data();
 				$data = array(
 					'id_foto_produk'	=> $id_foto_produk,
-					'id_produk'      		=> $_POST['id_produk'],
-					'nama_foto_produk'     => $foto['file_name'],
+					'id_produk'      	=> $_POST['id_produk'],
+					'nama_foto_produk'  => $foto['file_name'],
 				);
-				$update = $this->curl->simple_put($this->api . 'fotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+				$update = $this->curl->simple_put($this->api . 'FotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
 				if ($update) {
 					$this->session->set_flashdata('success', "Data <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
 				} else {
 					$this->session->set_flashdata('error', 'Data Gagal diubah');
 				}
-				redirect('owner/index_foto_produk');
+				redirect('owner/index_foto_produk/' . $id_foto_produk);
 			} else {
 				die("gagal upload");
 			}
 		} else {
-			echo "tidak masuk";
+			$data = array(
+				'id_foto_produk'	=> $id_foto_produk,
+				'id_produk'      	=> $_POST['id_produk'],
+				'nama_foto_produk'  => $datas['data']['nama_foto_produk'],
+			);
+			$update = $this->curl->simple_put($this->api . 'FotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+			if ($update) {
+				$this->session->set_flashdata('success', "Data <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
+			} else {
+				$this->session->set_flashdata('error', 'Data Gagal diubah');
+			}
+			redirect('owner/index_foto_produk/');
 		}
-		// $data = array(
-		// 	'id_foto_produk' =>  $id_foto_produk,
-		// 	'nama_foto_produk' =>  $_POST['nama_foto_produk'],
-		// 	'id_produk' =>  $_POST['id_produk']
-		// );
-		// $update = $this->curl->simple_put($this->api . 'fotoProduk', $data, array(CURLOPT_BUFFERSIZE => 10));
+	}
 
-		// if ($update) {
-		// 	$this->session->set_flashdata('success', "Data Foto Produk <b>" . $_POST['nama_produk'] . "</b> Berhasil Diedit !");
-		// } else {
-		// 	$this->session->set_flashdata('info', 'Data Gagal diubah');
-		// }
-		// redirect('owner/index_foto_produk');
-		// var_dump($update);
+	public function fotoProduk_hapus($id_foto_produk)
+	{
+		if (empty($id_foto_produk)) {
+			redirect('owner/index_foto_produk');
+		} else {
+			$delete = $this->curl->simple_delete($this->api . 'FotoProduk', array('id_foto_produk' => $id_foto_produk), array(CURLOPT_BUFFERSIZE => 10));
+			if ($delete) {
+				$this->session->set_flashdata('success', "Data Terhapus !");
+			} else {
+				$this->session->set_flashdata('info', 'Data Gagal dihapus');
+			}
+			redirect('owner/index_foto_produk');
+		}
 	}
 
 	//Bagian Harga

@@ -46,7 +46,7 @@
 					<div class="form-group">
 						<label for='nama_foto_produk'>Foto Produk</label>
 						<?php echo form_error('nama_foto_produk'); ?>
-						<input type="file" id="nama_foto_produk" class="form-control" name="nama_foto_produk" value="<?= set_value('nama_foto_produk'); ?>" />
+						<input type="file" id="nama_foto_produk" class="form-control" name="nama_foto_produk" value="<?= set_value('nama_foto_produk'); ?>" required/>
 						<small>*Format File Menggunakan IMG, PNG</small><br>
 						<small>*File Maksimal Berukuran 2Mb</small>
 						<small class="text-danger font-weight-bold">

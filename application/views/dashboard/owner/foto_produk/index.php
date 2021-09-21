@@ -70,29 +70,31 @@
 	</div>
 </section>
 <!-- Modal Hapus -->
-<?php if (!empty($satuans)) { ?>
-	<?php foreach ($satuans as $satuan) : ?>
-		<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="hapus-data<?= $satuan['id_satuan'] ?>" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-					</div>
-					<form class="form-horizontal" action="<?php echo base_url('owner/harga_hapus') ?>" method="delete" enctype="multipart/form-data" role="form">
-						<div class="modal-body">
-							<h4 class="modal-title">Hapus Data</h4>
-							<div class="form-group">
-								<label class="control-label">Apakah Anda Yaqin ingin hapus???</label>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<a href="<?= base_url('owner/satuan_hapus/' . $satuan['id_satuan']) ?>" class="btn btn-info"> Ya</a>
-							<button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	<?php endforeach; ?>
+<?php if (!empty($foto_produks)) { ?>
+<?php foreach ($foto_produks as $row) : ?>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+    id="hapus-data<?= $row['id_foto_produk'] ?>" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            </div>
+            <form class="form-horizontal" action="<?php echo base_url('owner/harga_hapus') ?>" method="delete"
+                enctype="multipart/form-data" role="form">
+                <div class="modal-body">
+                    <h4 class="modal-title">Hapus Data</h4>
+                    <div class="form-group">
+                        <label class="control-label">Apakah Anda Yaqin ingin hapus???</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?= base_url('owner/fotoProduk_hapus/' . $row['id_foto_produk']) ?>" class="btn btn-info"> Ya</a>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php endforeach; ?>
 <?php } ?>
 <!-- END Modal Hapus -->
