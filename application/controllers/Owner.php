@@ -1122,7 +1122,7 @@ class Owner extends CI_Controller
 	//Bagian Laporan Transaksi
 	public function index_laporan_trans()
 	{
-		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_owner/'.$this->session->userdata('id_user'));
+		$getAPI 			= $this->curl->simple_get($this->api . 'transaksi/get_transaksi_lunas_by_owner/' . $this->session->userdata('id_user'));
 		$datas 				= json_decode($getAPI, true);
 		$data['transaksi'] 	= $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/transaksi/index', $data);
@@ -1171,7 +1171,7 @@ class Owner extends CI_Controller
 	//Bagian Laporan Customer
 	public function index_laporan_cust()
 	{
-		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi/get_customer');
+		$getAPI 		= $this->curl->simple_get($this->api . 'transaksi/get_customer_by_owner/' . $this->session->userdata('id_user'));
 		$datas 			= json_decode($getAPI, true);
 		$data['customers'] = $datas['data'];
 		$this->template->load('layouts/owner/master', 'dashboard/owner/laporan/customer/index', $data);

@@ -34,7 +34,7 @@
 										<td class="text-center"><?= $row["nama_cust"] ?></td>
 										<td class="text-center">Rp <?= number_format($row["total_transaksi"]) ?></td>
 										<td>
-											<a href="" class="btn btn-info"><i class="fas fa-eye"></i></a>
+											<a href="<?= base_url('/' . $row['nama_cust']) ?>" class="btn btn-info"><i class="fas fa-eye"></i></a>
 										</td>
 									</tr>
 								<?php endforeach; ?>

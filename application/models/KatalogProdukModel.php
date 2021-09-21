@@ -23,8 +23,9 @@ class KatalogProdukModel extends CI_Model
 	}
 
 	//Menampilkan Semua Data Katalog Produk Jenis Barang
-	public function get_barang($id_detail_produk = null)
+	public function get_barang_by_toko($id_toko, $id_detail_produk = null)
 	{
+		$this->db->where('produk.id_toko', $id_toko);
 		$this->db->where('produk.jenis =', 'barang');
 		$this->db->select('id_detail_produk, toko.nama_toko, user.nama AS nama_owner, produk.nama_produk, kategori.nama_kategori, satuan.nama_satuan, harga.nama_harga, detail_produk.nominal, produk.jenis');
 		$this->db->from('detail_produk')
@@ -41,8 +42,9 @@ class KatalogProdukModel extends CI_Model
 	}
 
 	//Menampilkan Semua Data Katalog Produk Jenis Jasa
-	public function get_jasa($id_detail_produk = null)
+	public function get_jasa_by_toko($id_toko, $id_detail_produk = null)
 	{
+		$this->db->where('produk.id_toko', $id_toko);
 		$this->db->where('produk.jenis =', 'jasa');
 		$this->db->select('id_detail_produk, toko.nama_toko, user.nama AS nama_owner, produk.nama_produk, kategori.nama_kategori, satuan.nama_satuan, harga.nama_harga, detail_produk.nominal, produk.jenis');
 		$this->db->from('detail_produk')

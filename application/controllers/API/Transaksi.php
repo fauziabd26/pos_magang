@@ -162,9 +162,9 @@ class Transaksi extends RestController
 	}
 
 	//Menampilkan data Transaksi Sesuai Customer
-	function get_customer_get()
+	function get_customer_by_owner_get($id_user)
 	{
-		$transaksi =  $this->TransaksiModel->get_customer();
+		$transaksi =  $this->TransaksiModel->get_customer_by_owner($id_user);
 		if ($transaksi) {
 			$this->response(array(
 				'status' => true,
