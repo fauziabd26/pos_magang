@@ -1,5 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+// Load library phpspreadsheet
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+//End load library phpspreadsheet
 
 class Owner extends CI_Controller
 {
@@ -1256,6 +1261,30 @@ class Owner extends CI_Controller
 		$html						= $this->load->view('dashboard/owner/laporan/transaksi/index_pdf', $trans, true);
 
 		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+	}
+
+	public function excel_transaksi(){
+
+		$getAPI 	= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 		= json_decode($getAPI, true);
+
+		$trans['transaksi'] 		= $datas['data'];
+
+
+		// $data = array( 'title' => 'Laporan Excel | Tutorial Export ke excel CodeIgniter @ https://recodeku.blogspot.com',
+        //         'buku' => $this->model_buku->getAll());
+ 
+        $this->load->view('dashboard/owner/laporan/transaksi/index_excel', $trans);
+	}
+
+	public function excel_transaksi_i(){
+
+		$getAPI 	= $this->curl->simple_get($this->api . 'transaksi');
+		$datas 		= json_decode($getAPI, true);
+
+		$trans['transaksi'] 		= $datas['data'];
+ 
+        $this->load->view('dashboard/owner/laporan/transaksi/export_excel', $trans);
 	}
 
 	//Bagian Laporan katalog produk
