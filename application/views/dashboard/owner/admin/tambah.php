@@ -81,7 +81,7 @@
 						</div>
 						<div class="form-group">
 							<label for='photo' <?= form_error('photo') ? 'class = text-danger' : '' ?>>Foto Admin</label>
-							<input type="file" id="photo" class="form-control <?= form_error('photo') ? 'is-invalid' : '' ?>" name="photo" value="<?= set_value('photo'); ?>" required>
+							<input type="file" id="photo" class="form-control <?= form_error('photo') ? 'is-invalid' : '' ?>" name="photo" value="<?= set_value('photo'); ?>">
 							<small>*Format File Menggunakan IMG, PNG</small><br>
 							<small>*File Maksimal Berukuran 2Mb</small>
 							<small class="text-danger font-weight-bold">

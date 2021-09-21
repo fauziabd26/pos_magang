@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?= base_url('owner/fotoProduk_hapus/' . $row['id_foto_produk']) ?>" class="btn btn-info"> Ya</a>
+                    <a href="<?= base_url('owner/fotoProduk_hapus/' . $row['id_foto_produk'].'/'.$row['nama_foto_produk']) ?>" class="btn btn-info"> Ya</a>
                     <button type="button" class="btn btn-warning" data-dismiss="modal"> Tidak</button>
                 </div>
             </form>

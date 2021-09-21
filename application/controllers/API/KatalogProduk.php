@@ -30,12 +30,12 @@ class KatalogProduk extends RestController
 	}
 
 	//Menampilkan Semua Data Katalog Berdasarkan Barang
-	function barang_get($id_detail_produk = null)
+	function barang_by_toko_get($id_toko, $id_detail_produk = null)
 	{
 		if (!empty($id_detail_produk)) {
-			$katalog_produk = $this->KatalogProdukModel->get_barang($id_detail_produk)->row();
+			$katalog_produk = $this->KatalogProdukModel->get_barang_by_toko($id_toko, $id_detail_produk)->row();
 		} else {
-			$katalog_produk =  $this->KatalogProdukModel->get_barang()->result();
+			$katalog_produk =  $this->KatalogProdukModel->get_barang_by_toko($id_toko)->result();
 		}
 		$this->response(array(
 			'status' => true,
@@ -45,12 +45,12 @@ class KatalogProduk extends RestController
 	}
 
 	//Menampilkan Semua Data Katalog Berdasarkan Jasa
-	function jasa_get($id_detail_produk = null)
+	function jasa_by_toko_get($id_toko, $id_detail_produk = null)
 	{
 		if (!empty($id_detail_produk)) {
-			$katalog_produk = $this->KatalogProdukModel->get_jasa($id_detail_produk)->row();
+			$katalog_produk = $this->KatalogProdukModel->get_jasa_by_toko($id_toko, $id_detail_produk)->row();
 		} else {
-			$katalog_produk =  $this->KatalogProdukModel->get_jasa()->result();
+			$katalog_produk =  $this->KatalogProdukModel->get_jasa_by_toko($id_toko)->result();
 		}
 		$this->response(array(
 			'status' => true,

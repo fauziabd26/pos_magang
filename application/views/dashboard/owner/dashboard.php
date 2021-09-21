@@ -177,7 +177,7 @@
 										<?php endforeach; ?>
 									<?php } else { ?>
 										<tr>
-											<td colspan="4" class="text-center">Tidak Ada Transaksi Terbaru</td>
+											<td colspan="6" class="text-center">Tidak Ada Transaksi Terbaru</td>
 										</tr>
 									<?php } ?>
 								</tbody>
