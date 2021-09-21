@@ -3,8 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class OwnerModel extends CI_Model
 {
-	private $table = "user";
-
 	//Menampilkan Data 
 	public function get($id_owner = null)
 	{

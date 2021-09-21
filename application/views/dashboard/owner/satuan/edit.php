@@ -7,7 +7,6 @@
 			<div class="breadcrumb-item"><?= $satuan["nama_satuan"] ?></div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
 			<form action="<?= base_url('owner/proses_edit_satuan/' . $satuan['id_satuan']) ?>" method="POST">
@@ -23,11 +22,9 @@
 						<label for='nama_satuan'>Nama Satuan</label>
 						<input type="text" id="nama_satuan" class="form-control" name="nama_satuan" value="<?= $satuan["nama_satuan"] ?>" autofocus>
 					</div>
+					<button class="btn btn-primary btn-block">Update</button>
 				</div>
+			</form>
 		</div>
-		<div class="card-footer">
-			<button class="btn btn-primary btn-block">Update</button>
-		</div>
-		</form>
 	</div>
 </section>

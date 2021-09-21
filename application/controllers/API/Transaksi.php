@@ -161,6 +161,24 @@ class Transaksi extends RestController
 		}
 	}
 
+	//Menampilkan data Transaksi Sesuai Customer
+	function get_customer_get()
+	{
+		$transaksi =  $this->TransaksiModel->get_customer();
+		if ($transaksi) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data Transaksi Sesuai Customer Berhasil Diambil',
+				'data' => $transaksi
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data Transaksi Sesuai Customer Tidak Ada',
+			), 404);
+		}
+	}
+
 	//Menambah data baru barang
 	function barang_post()
 	{

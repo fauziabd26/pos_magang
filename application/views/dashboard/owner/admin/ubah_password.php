@@ -7,7 +7,6 @@
 			<div class="breadcrumb-item">Ubah Password Admin</div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
 			<form action="#" method="POST">
@@ -29,8 +28,6 @@
 							<input id="password_confirm" type="password" class="form-control" name="password_confirm" placeholder='Masukkan Password Confirmation'>
 						</div>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Update Password</button>
 				</div>
 			</form>

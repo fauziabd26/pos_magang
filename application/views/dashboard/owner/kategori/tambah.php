@@ -7,7 +7,6 @@
 			<div class="breadcrumb-item">Tambah Data Kategori</div>
 		</div>
 	</div>
-
 	<div class="section-body">
 		<div class="card">
 			<form action="<?php echo base_url('owner/proses_tambah_kategori') ?>" method="POST">
@@ -36,8 +35,6 @@
 							<?php echo form_error('nama_kategori'); ?>
 						</small>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Submit</button>
 				</div>
 			</form>

@@ -12,16 +12,16 @@
 		<div class="card">
 			<form action="<?= base_url('owner/proses_tambah_produk') ?>" method="POST">
 				<div class="card-body">
-				<?php if ($this->session->flashdata('error')) { ?>
-					<div class="alert alert-danger alert-dismissible show fade">
-						<div class="alert-body">
-							<button class="close" data-dismiss="alert">
-								<span>×</span>
-							</button>
-							<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+					<?php if ($this->session->flashdata('error')) { ?>
+						<div class="alert alert-danger alert-dismissible show fade">
+							<div class="alert-body">
+								<button class="close" data-dismiss="alert">
+									<span>×</span>
+								</button>
+								<i class="fas fa-check mr-2"></i> <?= $this->session->flashdata('error') ?>
+							</div>
 						</div>
-					</div>
-				<?php } ?>
+					<?php } ?>
 					<div class="row mb-3">
 						<div class="col">
 							<a href="<?= base_url('owner/produk') ?>" class="btn btn-primary">
@@ -50,12 +50,11 @@
 						</select>
 						<small class="text-danger font-weight-bold">
 							<?php echo form_error('id_toko'); ?>
-						    </small>
+						</small>
 					</div>
-				</div>
-				<div class="card-footer">
 					<button class="btn btn-primary btn-block">Submit</button>
 				</div>
 			</form>
 		</div>
+	</div>
 </section>

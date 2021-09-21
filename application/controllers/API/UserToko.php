@@ -12,7 +12,24 @@ class UserToko extends RestController
 		$this->load->database();
 		$this->load->model('UserTokoModel');
 	}
-	
+
+	function get_toko_get($id_toko)
+	{
+		$toko = $this->UserTokoModel->get_toko($id_toko);
+		if ($toko) {
+			$this->response(array(
+				'status' => true,
+				'message' => 'Data User Toko Berdasarkan Toko Berhasil Diambil',
+				'data' => $toko
+			), 200);
+		} else {
+			$this->response(array(
+				'status' => false,
+				'message' => 'Data User Toko Berdasarkan Toko Tidak Ada',
+			), 404);
+		}
+	}
+
 	//Menambah data toko baru
 	function index_post()
 	{

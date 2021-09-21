@@ -9,7 +9,7 @@
 	<div class="section-body">
 		<div class="card">
 			<div class="card-body">
-			<?php if ($this->session->flashdata('success')) { ?>
+				<?php if ($this->session->flashdata('success')) { ?>
 					<div class="alert alert-success alert-dismissible show fade">
 						<div class="alert-body">
 							<button class="close" data-dismiss="alert">
@@ -42,6 +42,7 @@
 								<th>No</th>
 								<th>Nama Foto Produk</th>
 								<th>Nama Produk</th>
+								<th>Jenis Produk</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
@@ -49,27 +50,24 @@
 							<?php if (!empty($foto_produks)) { ?>
 								<?php $no = 1;
 								foreach ($foto_produks as $no => $row) : ?>
-                            <tr>
-                                <td><?= ++$no; ?></td>
-                                <td><img src="<?= base_url('assets/img/products/'.$row['nama_foto_produk']) ?>"
-                                        class="img-fluid" width="100px" height="100px"></td>
-                                <td><?= $row["nama_produk"] ?></td>
-                                <td>
-                                    <a href="<?= base_url('owner/foto_produk_edit/' . $row["id_foto_produk"]) ?>"
-                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                    <a href="#" data-toggle="modal"
-                                        data-target="#hapus-data<?= $row['id_foto_produk'] ?>" class="btn btn-danger"><i
-                                            class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+									<tr>
+										<td><?= ++$no; ?></td>
+										<td><img src="<?= base_url('assets/img/products/' . $row['nama_foto_produk']) ?>" class="img-fluid" width="100px" height="100px"></td>
+										<td><?= $row["nama_produk"] ?></td>
+										<td class="text-capitalize"><?= $row["jenis"] ?></td>
+										<td>
+											<a href="<?= base_url('owner/foto_produk_edit/' . $row["id_foto_produk"]) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+											<a href="#" data-toggle="modal" data-target="#hapus-data<?= $row['id_foto_produk'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+										</td>
+									</tr>
+								<?php endforeach; ?>
+							<?php } ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Modal Hapus -->
 <?php if (!empty($foto_produks)) { ?>
